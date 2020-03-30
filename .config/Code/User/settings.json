@@ -1,0 +1,39 @@
+{
+    "bracketPairColorizer.colorMode": "Independent",
+    "bracketPairColorizer.showHorizontalScopeLine": false,
+    "breadcrumbs.enabled": false,
+    "diffEditor.ignoreTrimWhitespace": false,
+    "editor.fontFamily": "'Dank Mono', monospace",
+    "editor.minimap.enabled": false,
+    "explorer.confirmDelete": false,
+    "explorer.confirmDragAndDrop": false,
+    "files.autoSave": "off",
+    "gist.defaultPrivate": true,
+    "git.autofetch": true,
+    "git.confirmSync": false,
+    "git.enableSmartCommit": true,
+    "gitlens.mode.active": "zen",
+    "html-css-class-completion.enableEmmetSupport": true,
+    "html.mirrorCursorOnMatchingTag": false,
+    "javascript.implicitProjectConfig.experimentalDecorators": true,
+    "search.useGlobalIgnoreFiles": true,
+    "sync.gist": "c5c872b555fd440b4d9211784b8096af",
+    "terminal.integrated.shell.linux": "/usr/bin/zsh",
+    "typescript.updateImportsOnFileMove.enabled": "always",
+    "window.menuBarVisibility": "hidden",
+    "workbench.iconTheme": "material-icon-theme",
+    "workbench.startupEditor": "newUntitledFile",
+    "workbench.colorTheme": "Horizon",
+    "sync.syncExtensions": false,
+    "editor.rulers": [
+        {
+            "column": 80,
+            "color": "#21242D"
+        },
+        {
+            "column": 120,
+            "color": "#1c1e26"
+        }
+    ],
+    "window.zoomLevel": 0
+}

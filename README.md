@@ -1,10 +1,10 @@
-# ![horiceon](https://github.com/shiftgeist/modern-angularjs/blob/master/.github/horiceon.png)
+# ![horiceon](https://raw.githubusercontent.com/shiftgeist/horiceon/master/.github/horiceon.png)
 
 Dark rice theme inspired by the [Horizon Theme for VSCode](https://horizontheme.netlify.com/).
 
 | Rofi | Kitty |
 | --- | --- |
-![rofi](https://github.com/shiftgeist/modern-angularjs/blob/master/.github/rofi.png) | ![kitty](https://github.com/shiftgeist/modern-angularjs/blob/master/.github/kitty.png)
+![rofi](https://raw.githubusercontent.com/shiftgeist/horiceon/master/.github/rofi.png) | ![kitty](https://raw.githubusercontent.com/shiftgeist/horiceon/master/.github/kitty.png)
 
 ## Colors
 

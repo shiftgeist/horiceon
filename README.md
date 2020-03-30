@@ -8,21 +8,20 @@ Dark rice theme inspired by the [Horizon Theme for VSCode](https://horizontheme.
 
 ## Colors
 
-<div style="display: flex;">
-<div>
-
-1. **Syntax**
+<details>
+    <summary>Syntax</summary>
+    
 * ![#B877DB](https://placehold.it/15/B877DB/000000?text=+) `#B877DB`
 * ![#25B2BC](https://placehold.it/15/25B2BC/000000?text=+) `#25B2BC`
 * ![#E95678](https://placehold.it/15/E95678/000000?text=+) `#E95678`
 * ![#F09383](https://placehold.it/15/F09383/000000?text=+) `#F09383`
 * ![#FAB795](https://placehold.it/15/FAB795/000000?text=+) `#FAB795`
 * ![#FAC29A](https://placehold.it/15/FAC29A/000000?text=+) `#FAC29A`
+</details>
 
-</div>
-<div>
+<details>
+    <summary>UI</summary>
 
-2. **UI**
 * ![#16161C](https://placehold.it/15/16161C/000000?text=+) `#16161C`
 * ![#1A1C23](https://placehold.it/15/1A1C23/000000?text=+) `#1A1C23`
 * ![#1C1E26](https://placehold.it/15/1C1E26/000000?text=+) `#1C1E26`
@@ -35,11 +34,11 @@ Dark rice theme inspired by the [Horizon Theme for VSCode](https://horizontheme.
 * ![#27D796](https://placehold.it/15/27D796/000000?text=+) `#27D796`
 * ![#21BFC2](https://placehold.it/15/21BFC2/000000?text=+) `#21BFC2`
 * ![#FAB28E](https://placehold.it/15/FAB28E/000000?text=+) `#FAB28E`
+</details>
 
-</div>
-<div>
+<details>
+    <summary>Terminal</summary>
 
-3. **Terminal**
 * ![#16161C](https://placehold.it/15/16161C/000000?text=+) `#16161C`
 * ![#1A1C23](https://placehold.it/15/1A1C23/000000?text=+) `#1A1C23`
 * ![#E95678](https://placehold.it/15/E95678/000000?text=+) `#E95678`
@@ -56,9 +55,7 @@ Dark rice theme inspired by the [Horizon Theme for VSCode](https://horizontheme.
 * ![#6BE6E6](https://placehold.it/15/6BE6E6/000000?text=+) `#6BE6E6`
 * ![#FADAD1](https://placehold.it/15/FADAD1/000000?text=+) `#FADAD1`
 * ![#FDF0ED](https://placehold.it/15/FDF0ED/000000?text=+) `#FDF0ED`
-
-</div>
-</div>
+</details>
 
 ## Themes
 

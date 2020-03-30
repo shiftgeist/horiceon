@@ -1,0 +1,98 @@
+configuration {
+  display-drun: "Apps";
+	show-icons: true;
+	location: 0;
+	yoffset: 0;
+  xoffset: 0;	
+	fake-transparency: false;
+	hide-scrollbar: true;
+	bw: 0;
+  fullscreen: false;
+  show-icons: true;
+	terminal: "kitty";
+	sidebar-mode: false;
+}
+
+// colors
+* {
+  red: #E95678;
+  blue: #26BBD9;
+  green: #29D398;
+  purple: #EE64AE;
+  yellow: #FAB795;
+  white: #E8E8E8;
+  text: #1A1C23;
+}
+
+// black
+* {
+  bg: #00000099;
+  bg-sel: #00000066;
+  fg: #ffffff;
+}
+
+// white
+/* * {
+  bg: #ffffff4d;
+  bg-sel: #ffffff4d;
+  fg: #ffffff;
+} */
+
+* {
+  background-color: #00000000;
+  font: "Iosevka 12";
+}
+
+window {
+  height: 36%;
+  width: 20%;
+  transparency: "real";
+}
+
+mainbox {
+  children: [ inputbar, listview ];
+  padding: 0% 0% 0% 0%;
+  background-color: @bg;
+  border: 0;
+  border-radius: 8;
+  border-color: @bg;
+}
+
+listview {
+  columns: 1;
+  padding: 0;
+  spacing: 2;
+}
+
+element {
+  border: 0;
+  text-color: @fg;
+  orientation: vertical;
+  padding: 12 12 12 12;
+  border-radius: 0;
+}
+
+element selected {
+  background-color: @bg-sel;
+  border-color: @bg;
+  text-color: @fg;
+}
+
+inputbar {
+  children: [entry];
+  padding: 4;
+
+  /* Change this colors to change style*/
+  background-color: @yellow;
+}
+
+prompt {
+  enabled: false;
+}
+
+entry {
+  padding: 8 12;
+
+  /* Text color input */
+  text-color: @text;
+}

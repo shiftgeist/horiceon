@@ -1,15 +1,17 @@
 # ![horiceon](https://raw.githubusercontent.com/shiftgeist/horiceon/master/.github/horiceon.png)
 
-Dark rice theme inspired by the [Horizon Theme for VSCode](https://horizontheme.netlify.com/).
+|  Rofi  | Kitty | Dash to Dock |  Code  |
+| :----: | :---: | :----------: | :----: |
+| ![rofi](https://raw.githubusercontent.com/shiftgeist/horiceon/master/.github/rofi.png) | ![kitty](https://raw.githubusercontent.com/shiftgeist/horiceon/master/.github/kitty.png) | ![dash-to-dock](https://raw.githubusercontent.com/shiftgeist/horiceon/master/.github/dash-to-dock.png) | ![code](https://raw.githubusercontent.com/shiftgeist/horiceon/master/.github/code.png) |
 
-| Rofi | Kitty |
-| --- | --- |
-![rofi](https://raw.githubusercontent.com/shiftgeist/horiceon/master/.github/rofi.png) | ![kitty](https://raw.githubusercontent.com/shiftgeist/horiceon/master/.github/kitty.png)
+Dark rice theme inspired by the [Horizon Theme for VSCode](https://horizontheme.netlify.com/).
 
 ## Colors
 
-Dark Syntax
+<div style="display: flex;">
+<div>
 
+1. **Syntax**
 * ![#B877DB](https://placehold.it/15/B877DB/000000?text=+) `#B877DB`
 * ![#25B2BC](https://placehold.it/15/25B2BC/000000?text=+) `#25B2BC`
 * ![#E95678](https://placehold.it/15/E95678/000000?text=+) `#E95678`
@@ -17,8 +19,10 @@ Dark Syntax
 * ![#FAB795](https://placehold.it/15/FAB795/000000?text=+) `#FAB795`
 * ![#FAC29A](https://placehold.it/15/FAC29A/000000?text=+) `#FAC29A`
 
-Dark UI
+</div>
+<div>
 
+2. **UI**
 * ![#16161C](https://placehold.it/15/16161C/000000?text=+) `#16161C`
 * ![#1A1C23](https://placehold.it/15/1A1C23/000000?text=+) `#1A1C23`
 * ![#1C1E26](https://placehold.it/15/1C1E26/000000?text=+) `#1C1E26`
@@ -32,8 +36,10 @@ Dark UI
 * ![#21BFC2](https://placehold.it/15/21BFC2/000000?text=+) `#21BFC2`
 * ![#FAB28E](https://placehold.it/15/FAB28E/000000?text=+) `#FAB28E`
 
-Terminal Colors
+</div>
+<div>
 
+3. **Terminal**
 * ![#16161C](https://placehold.it/15/16161C/000000?text=+) `#16161C`
 * ![#1A1C23](https://placehold.it/15/1A1C23/000000?text=+) `#1A1C23`
 * ![#E95678](https://placehold.it/15/E95678/000000?text=+) `#E95678`
@@ -51,7 +57,18 @@ Terminal Colors
 * ![#FADAD1](https://placehold.it/15/FADAD1/000000?text=+) `#FADAD1`
 * ![#FDF0ED](https://placehold.it/15/FDF0ED/000000?text=+) `#FDF0ED`
 
-## Installs
+</div>
+</div>
 
-* Zsh Theme: [
-spaceship-prompt](https://github.com/denysdovhan/spaceship-prompt)
+## Themes
+
+* Spaceship (ZSH Prompt) [denysdovhan/spaceship-prompt](https://github.com/denysdovhan/spaceship-prompt)
+* Matcha-dark-azul (Gnome Theme) [vinceliuice/Matcha-gtk-theme](https://github.com/vinceliuice/Matcha-gtk-theme)
+* Papirus (Icon Theme) [PapirusDevelopmentTeam/papirus-icon-theme](https://github.com/PapirusDevelopmentTeam/papirus-icon-theme)
+* Horizon Theme (Code Color Theme) [jolaleye.horizon-theme-vscode](https://marketplace.visualstudio.com/items?itemName=jolaleye.horizon-theme-vscode)
+* Material Icon Theme (Code) [PKief.material-icon-theme](https://marketplace.visualstudio.com/items?itemName=PKief.material-icon-theme)
+
+## Future plans
+
+* [ ] Dunst ([dunst-project/dunst](https://github.com/dunst-project/dunst))
+* [ ] Polybar ([polybar/polybar](https://github.com/polybar/polybar))

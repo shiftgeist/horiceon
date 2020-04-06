@@ -15,10 +15,6 @@ plugins=(
 
 source $ZSH/oh-my-zsh.sh
 
-if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
-    source /etc/profile.d/vte.sh
-fi
-
 # node
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
@@ -26,7 +22,10 @@ export NVM_DIR="$HOME/.nvm"
 # Keymap (setxkbmap -query)
 setxkbmap us altgr-intl
 
-# UTIL
+# System
+SUDO_ASKPASS=~/bin/askpass-rofi
+
+# alias
 alias battery-status="upower -i /org/freedesktop/UPower/devices/battery_BAT0 | grep -E 'state|time\ to\ full|percentage'"
 alias docker-cleanup="yes | docker image prune -a --filter 'until=24h'"
 alias git-whoami="echo -e '\e[96mUsername\e[0m: $(git config user.name)' && echo -e '\e[96mE-Mail\e[0m: ' ' $(git config user.email)'"
@@ -34,3 +33,7 @@ alias git-cleanup="git branch --merged | egrep -v '(^\*|master|dev)' | xargs git
 alias syslog-crit="sudo dmesg -w -l err,warn"
 alias syslog="sudo dmesg -w"
 alias fortune="fortune | cowsay | lolcat"
+
+if [ -f ~/.zshrc_local ]; then
+    source ~/.zshrc_local
+fi

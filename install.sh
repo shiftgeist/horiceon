@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 ln -s $PWD/.config/rofi $HOME/.config/rofi
 ln -s $PWD/.config/kitty $HOME/.config/kitty
+ln -s $PWD/.config/Code/User/snippets $HOME/.config/Code/User/snippets
 ln -s $PWD/.config/Code/User/keybindings.json $HOME/.config/Code/User/keybindings.json
 ln -s $PWD/.config/Code/User/settings.json $HOME/.config/Code/User/settings.json
 ln -s $PWD/.local/share/wallpapers $HOME/.local/share/wallpapers

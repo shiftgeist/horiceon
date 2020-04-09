@@ -16,4 +16,4 @@ Dark themed rice
 
 ## Colors
 
-![colors](https://raw.githubusercontent.com/shiftgeist/horiceon/master/colors.png)
+![colors](https://raw.githubusercontent.com/shiftgeist/horiceon/master/.meta/colors.png)

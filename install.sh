@@ -7,3 +7,4 @@ ln -s $PWD/.config/Code/User/settings.json $HOME/.config/Code/User/settings.json
 ln -s $PWD/.local/share/wallpapers $HOME/.local/share/wallpapers
 ln -s $PWD/bin/utils $HOME/bin/utils
 ln -s $PWD/.zshrc $HOME/.zshrc
+ln -s $PWD/.nvm/default-packages $HOME/.nvm/default-packages

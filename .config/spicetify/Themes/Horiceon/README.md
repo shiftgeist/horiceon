@@ -2,4 +2,4 @@
 
 ## Screenshots
 
-![Preview](spicetify.png)
+![Preview](spicetify-horiceon.png)

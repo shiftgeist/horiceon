@@ -8,3 +8,4 @@ ln -s $PWD/.local/share/wallpapers $HOME/.local/share/wallpapers
 ln -s $PWD/bin/utils $HOME/bin/utils
 ln -s $PWD/.zshrc $HOME/.zshrc
 ln -s $PWD/.nvm/default-packages $HOME/.nvm/default-packages
+ln -s $PWD/.config/spicetify/Themes/Horiceon $HOME/.config/spicetify/Themes/Horiceon

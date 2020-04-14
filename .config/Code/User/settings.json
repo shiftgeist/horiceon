@@ -28,11 +28,11 @@
     "editor.rulers": [
         {
             "column": 80,
-            "color": "#21242D"
+            "color": "#1c1e26"
         },
         {
             "column": 120,
-            "color": "#1c1e26"
+            "color": "#21242D"
         }
     ],
     "window.zoomLevel": 0

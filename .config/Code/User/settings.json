@@ -14,7 +14,6 @@
     "git.enableSmartCommit": true,
     "gitlens.mode.active": "zen",
     "html-css-class-completion.enableEmmetSupport": true,
-    "html.mirrorCursorOnMatchingTag": false,
     "javascript.implicitProjectConfig.experimentalDecorators": true,
     "search.useGlobalIgnoreFiles": true,
     "sync.gist": "c5c872b555fd440b4d9211784b8096af",

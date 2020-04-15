@@ -5,6 +5,16 @@
     "diffEditor.ignoreTrimWhitespace": false,
     "editor.fontFamily": "'Dank Mono', monospace",
     "editor.minimap.enabled": false,
+    "editor.rulers": [
+        {
+            "color": "#1C1E26",
+            "column": 79
+        },
+        {
+            "color": "#232430",
+            "column": 119
+        }
+    ],
     "explorer.confirmDelete": false,
     "explorer.confirmDragAndDrop": false,
     "files.autoSave": "off",
@@ -17,22 +27,12 @@
     "javascript.implicitProjectConfig.experimentalDecorators": true,
     "search.useGlobalIgnoreFiles": true,
     "sync.gist": "c5c872b555fd440b4d9211784b8096af",
+    "sync.syncExtensions": false,
     "terminal.integrated.shell.linux": "/usr/bin/zsh",
     "typescript.updateImportsOnFileMove.enabled": "always",
     "window.menuBarVisibility": "hidden",
-    "workbench.iconTheme": "material-icon-theme",
-    "workbench.startupEditor": "newUntitledFile",
+    "window.zoomLevel": 0,
     "workbench.colorTheme": "Horizon",
-    "sync.syncExtensions": false,
-    "editor.rulers": [
-        {
-            "column": 80,
-            "color": "#1c1e26"
-        },
-        {
-            "column": 120,
-            "color": "#21242D"
-        }
-    ],
-    "window.zoomLevel": 0
+    "workbench.iconTheme": "material-icon-theme",
+    "workbench.startupEditor": "newUntitledFile"
 }

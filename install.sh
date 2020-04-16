@@ -1,4 +1,5 @@
-#!/usr/bin/env bash
+#!/bin/bash
+
 ln -s $PWD/.config/rofi $HOME/.config/rofi
 ln -s $PWD/.config/kitty $HOME/.config/kitty
 ln -s $PWD/.config/Code/User/snippets $HOME/.config/Code/User/snippets

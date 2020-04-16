@@ -17,4 +17,14 @@ Dark themed rice
 
 ## Colors
 
-![Colors](.meta/colors.png)
+**Syntax**
+
+![syntax](.meta/colors-syntax.png)
+
+**UI**
+
+![ui](.meta/colors-ui.png)
+
+**Terminal**
+
+![terminal](.meta/colors-terminal.png)

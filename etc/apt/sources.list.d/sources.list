@@ -1,0 +1,3 @@
+deb [arch=amd64] http://packages.microsoft.com/repos/vscode stable main
+deb http://repository.spotify.com stable non-free
+deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main

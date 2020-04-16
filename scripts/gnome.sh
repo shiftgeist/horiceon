@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 # Inspired by https://gist.github.com/rmrfasterisk/c88fb4e9c1e178424ca1c1bba740066a
 

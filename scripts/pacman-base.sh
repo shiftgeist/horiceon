@@ -1,3 +1,3 @@
 #!/bin/bash
 
-pacman -Syu base-devel kitty vim zsh openssh rofi
+pacman -Syu base-devel kitty vim zsh openssh rofi ttf-dejavu noto-fonts-emoji

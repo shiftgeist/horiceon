@@ -14,6 +14,7 @@ Dark themed rice
 | Terminal Emulator    | [kitty](https://sw.kovidgoyal.net/kitty)                     | [`.config/kitty/`](.config/kitty)                            |
 | Node Version Manager | [nvm](https://github.com/nvm-sh/nvm)                         | [`.nvm/`](.nvm)                                              |
 | Customized Spotify   | [spicetify](https://github.com/khanhas/spicetify-cli)        | [`.config/spicetify/Themes/Horiceon/`](.config/spicetify/Themes/Horiceon) |
+| AUR Helper           | [yay](https://github.com/Jguer/yay)                          | [`aur/yay`](aur/yay)                                         |
 
 ## Colors
 
@@ -28,3 +29,12 @@ Dark themed rice
 **Terminal**
 
 ![terminal](.meta/colors-terminal.png)
+
+## AUR
+
+| Software       | What i use                                     | Command                |
+| -------------- | ---------------------------------------------- | ---------------------- |
+| WYSIWYG Editor | [Typora](https://typora.io/)                   | `yay -S typora`        |
+| Browser        | [Google Chrome](https://www.google.com/chrome) | `yay -S google-chrome` |
+| Music Client   | [Spotify](https://www.spotify.com/)            | `yay -S spotify`       |
+

@@ -22,6 +22,11 @@ export NVM_DIR="$HOME/.nvm"
 # Keymap (setxkbmap -query)
 setxkbmap us altgr-intl
 
+# Autostart X at login
+if systemctl -q is-active graphical.target && [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then
+  exec startx
+fi
+
 # System
 SUDO_ASKPASS=~/bin/askpass-rofi
 

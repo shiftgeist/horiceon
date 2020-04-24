@@ -1,8 +1,6 @@
 {
     "bracketPairColorizer.colorMode": "Independent",
-    "bracketPairColorizer.showHorizontalScopeLine": false,
     "breadcrumbs.enabled": false,
-    "diffEditor.ignoreTrimWhitespace": false,
     "editor.fontFamily": "'Dank Mono', monospace",
     "editor.minimap.enabled": false,
     "editor.rulers": [
@@ -15,22 +13,14 @@
             "column": 119
         }
     ],
-    "explorer.confirmDelete": false,
-    "explorer.confirmDragAndDrop": false,
-    "files.autoSave": "off",
-    "gist.defaultPrivate": true,
+    "explorer.confirmDelete": true,
+    "explorer.confirmDragAndDrop": true,
     "git.autofetch": true,
     "git.confirmSync": false,
     "git.enableSmartCommit": true,
     "gitlens.mode.active": "zen",
-    "html-css-class-completion.enableEmmetSupport": true,
-    "javascript.implicitProjectConfig.experimentalDecorators": true,
-    "search.useGlobalIgnoreFiles": true,
     "terminal.integrated.shell.linux": "/usr/bin/zsh",
-    "typescript.updateImportsOnFileMove.enabled": "always",
     "window.menuBarVisibility": "hidden",
-    "window.zoomLevel": 0,
     "workbench.colorTheme": "Horizon",
-    "workbench.iconTheme": "material-icon-theme",
-    "workbench.startupEditor": "newUntitledFile"
+    "workbench.iconTheme": "material-icon-theme"
 }

@@ -39,8 +39,7 @@ Dark themed rice
 | Music Client         | [Spotify](https://www.spotify.com/)             | `spotify`       |
 | Password Manager     | [Spotify](https://github.com/bitwarden/desktop) | `bitwarden-bin` |
 | Notes                | [Notion](https://www.notion.so/)                | `notion-app`    |
-| Node Version Manager | [NVM](https://github.com/nvm-sh/nvm)            | `nvm`           |
-|
+| Node Version Manager | [nvm](https://github.com/nvm-sh/nvm)            | `nvm`           |
 
 Install all AUR packages:
 

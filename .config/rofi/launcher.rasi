@@ -33,13 +33,6 @@ configuration {
   fg: #ffffff;
 }
 
-// white
-/* * {
-  bg: #ffffff4d;
-  bg-sel: #ffffff4d;
-  fg: #ffffff;
-} */
-
 * {
   background-color: #00000000;
   font: "Iosevka 12";

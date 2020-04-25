@@ -13,6 +13,10 @@ fi
 
 setxkbmap us altgr-intl
 
+# set background and background cursor
+
+xsetroot -solid "#16161C" -cursor_name watch
+
 # start some nice programs
 
 exec i3

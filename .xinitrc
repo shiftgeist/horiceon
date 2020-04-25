@@ -13,9 +13,9 @@ fi
 
 setxkbmap us altgr-intl
 
-# set background and background cursor
+# set background
 
-xsetroot -solid "#16161C" -cursor_name watch
+sh ~/.fehbg
 
 # start some nice programs
 

@@ -6,7 +6,7 @@ Dark themed rice
 
 | Software             | What i use                                                   | dotfiles                                                     |
 | -------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| Editor               | [vscode](https://github.com/microsoft/vscode)                | [`.config/Code/User/`](.config/Code/User)                    |
+| Editor               | [code](https://github.com/microsoft/vscode)                  | [`.config/Code/User/`](.config/Code/User)                    |
 | Launcher             | [rofi](https://github.com/davatorium/rofi)                   | [`.config/rofi/`](.config/rofi)                              |
 | Notification Daemon  | [dunst](https://github.com/dunst-project/dunst)              |                                                              |
 | Shell prompt         | [zsh](https://zsh.org) with [ohmyzsh](https://github.com/ohmyzsh/ohmyzsh) - [spaceship](https://github.com/denysdovhan/spaceship-prompt) | [`.zshrc`](.zshrc)                                           |
@@ -32,9 +32,17 @@ Dark themed rice
 
 ## AUR
 
-| Software       | What i use                                     | Command                |
-| -------------- | ---------------------------------------------- | ---------------------- |
-| WYSIWYG Editor | [Typora](https://typora.io/)                   | `yay -S typora`        |
-| Browser        | [Google Chrome](https://www.google.com/chrome) | `yay -S google-chrome` |
-| Music Client   | [Spotify](https://www.spotify.com/)            | `yay -S spotify`       |
+| Software             | What i use                                      | AUR Nam         |
+| -------------------- | ----------------------------------------------- | --------------- |
+| WYSIWYG Editor       | [Typora](https://typora.io/)                    | `typora`        |
+| Browser              | [Google Chrome](https://www.google.com/chrome)  | `google-chrome` |
+| Music Client         | [Spotify](https://www.spotify.com/)             | `spotify`       |
+| Password Manager     | [Spotify](https://github.com/bitwarden/desktop) | `bitwarden-bin` |
+| Notes                | [Notion](https://www.notion.so/)                | `notion-app`    |
+| Node Version Manager | [NVM](https://github.com/nvm-sh/nvm)            | `nvm`           |
+|
+
+Install all AUR packages:
+
+    yay -S typora google-chrome spotify bitwarden-bin notion-app nvm
 

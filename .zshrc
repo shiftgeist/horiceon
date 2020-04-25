@@ -15,20 +15,13 @@ plugins=(
 
 source $ZSH/oh-my-zsh.sh
 
-# node
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+# source nvm
+source /usr/share/nvm/init-nvm.sh
 
-# Keymap (setxkbmap -query)
-setxkbmap us altgr-intl
-
-# Autostart X at login
+# autostart X at login
 if systemctl -q is-active graphical.target && [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then
   exec startx
 fi
-
-# System
-SUDO_ASKPASS=~/bin/askpass-rofi
 
 # alias
 alias syslog-crit="sudo dmesg -w -l err,warn"

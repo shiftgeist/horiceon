@@ -49,3 +49,7 @@ Dark themed rice
 </details>
 
     yay -S typora brave spotify bitwarden-bin notion-app nvm
+
+## Future plans
+
+- Add compositor (transparency and blur)

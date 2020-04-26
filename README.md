@@ -26,11 +26,16 @@ Dark themed rice
 
 ![ui](.meta/colors-ui.png)
 
-## Requirements
+## Installation
 
-    sudo pacman -Syu git base-devel i3-gaps
+    sudo pacman -Syu i3-gaps git base-devel
 
     cd aur/yay && makepkg -si
+
+    # core packages of horiceon
+    ./helper/packages.sh
+
+    # symlink or copy packages into your home directory
 
 ## AUR
 
@@ -52,4 +57,5 @@ Dark themed rice
 
 ## Future plans
 
-- Add compositor (transparency and blur)
+- Polybar (time, package upgrades available, twitter notification)
+- Add shutdown, reboot, etc panel

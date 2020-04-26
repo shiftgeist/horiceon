@@ -13,10 +13,6 @@ fi
 
 setxkbmap us altgr-intl
 
-# set background
-
-sh ~/.fehbg
-
 # start some nice programs
 
 exec i3

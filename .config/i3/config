@@ -191,3 +191,6 @@ bindsym $mod+r mode "resize"
 bar {
         # status_command i3status
 }
+
+# background image
+exec --no-startup-id sh ~/.fehbg

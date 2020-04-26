@@ -18,7 +18,7 @@ set $mod Mod4
 # gaps outer 5
 
 # set colors
-# class        border  backgr. text    indicator child_border
+# class          border  backgr. text    indicator child_border
 # client.focused #1C1E26 #285577 #ffffff #2e9ef4   #FAC29A
 
 # Font for window titles. Will also be used by the bar unless a different font

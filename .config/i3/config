@@ -13,13 +13,17 @@ set $mod Mod4
 
 # i3-gaps
 # In order to use gaps window titlebars need to be disable
-# for_window [class=".*"] border pixel 1
+for_window [class=".*"] border pixel 0
 # gaps inner 15
 # gaps outer 5
 
-# set colors
-# class          border  backgr. text    indicator child_border
-# client.focused #1C1E26 #285577 #ffffff #2e9ef4   #FAC29A
+# i3 colors
+# class                 border  backgr. text    indicator child_border (disabled in line 16)
+client.focused          #2E303E #16161C #FAC29A #F09383   #ff00ff
+client.focused_inactive #16161C #1A1C23 #ffffff #1C1E26   #2E303E
+client.unfocused        #16161C #16161C #888888 #16161C   #16161C
+client.urgent           #2f343a #2f343a #ffffff #900000   #900000
+client.placeholder      #000000 #000000 #ffffff #000000   #0c0c0c
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -37,7 +41,7 @@ exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 exec --no-startup-id nm-applet
 
 # Use pactl to adjust volume in PulseAudio.
-set $refresh_i3status killall -SIGUSR1 i3status
+# set $refresh_i3status killall -SIGUSR1 i3status
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status

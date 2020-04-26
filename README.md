@@ -40,7 +40,7 @@ Dark themed rice
     | Software             | What i use                                      | AUR Nam         |
     | -------------------- | ----------------------------------------------- | --------------- |
     | WYSIWYG Editor       | [Typora](https://typora.io/)                    | `typora`        |
-    | Browser              | [Google Chrome](https://www.google.com/chrome)  | `google-chrome` |
+    | Browser              | [Brave](https://brave.com/)                     | `brave-bin`     |
     | Music Client         | [Spotify](https://www.spotify.com/)             | `spotify`       |
     | Password Manager     | [Spotify](https://github.com/bitwarden/desktop) | `bitwarden-bin` |
     | Notes                | [Notion](https://www.notion.so/)                | `notion-app`    |
@@ -48,4 +48,4 @@ Dark themed rice
 
 </details>
 
-    yay -S typora google-chrome spotify bitwarden-bin notion-app nvm
+    yay -S typora brave spotify bitwarden-bin notion-app nvm

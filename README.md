@@ -57,5 +57,5 @@ Dark themed rice
 
 ## Future plans
 
-- Polybar (time, package upgrades available, twitter notification)
+- Polybar (time, package upgrades available, twitter notification, volume, play/pause)
 - Add shutdown, reboot, etc panel

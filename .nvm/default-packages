@@ -1,9 +1,8 @@
 # $NVM_DIR/default-packages
 
-tldr
-serve
-npm-check-updates
-vtop
-now
+@vue/cli
 eslint
+npm-check-updates
+serve
 typescript
+vtop

@@ -194,3 +194,6 @@ bar {
 
 # background image
 exec --no-startup-id sh ~/.fehbg
+
+# ip adress assignement
+# exec --no-startup-id dhcpcd

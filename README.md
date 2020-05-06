@@ -29,14 +29,16 @@ Dark themed rice
 
 ## Installation
 
-    sudo pacman -Syu base-devel git
+```bash
+sudo pacman -Syu base-devel git
 
-    cd aur/yay && makepkg -si
+cd aur/yay && makepkg -si
 
-    # core packages of horiceon
-    ./helper/packages.sh
+# core packages of horiceon
+./helper/packages.sh
 
-    # symlink or copy packages into your home directory
+# symlink or copy packages into your home directory
+```
 
 ## AUR
 
@@ -53,7 +55,9 @@ Dark themed rice
 
 </details>
 
-    yay -S typora brave-bin spotify bitwarden-bin notion-app
+```bash
+yay -S typora brave-bin spotify bitwarden-bin notion-app
+```
 
 ## Future plans
 

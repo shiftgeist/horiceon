@@ -43,24 +43,23 @@ Dark themed rice
 <details>
     <summary>AUR packages that i use</summary>
 
-    | Software             | What i use                                      | AUR Nam         |
-    | -------------------- | ----------------------------------------------- | --------------- |
-    | WYSIWYG Editor       | [Typora](https://typora.io/)                    | `typora`        |
-    | Browser              | [Brave](https://brave.com/)                     | `brave-bin`     |
-    | Music Client         | [Spotify](https://www.spotify.com/)             | `spotify`       |
-    | Password Manager     | [Spotify](https://github.com/bitwarden/desktop) | `bitwarden-bin` |
-    | Notes                | [Notion](https://www.notion.so/)                | `notion-app`    |
-    | Node Version Manager | [nvm](https://github.com/nvm-sh/nvm)            | `nvm`           |
+    | Software         | What i use                                        | AUR Nam         |
+    | ---------------- | ------------------------------------------------- | --------------- |
+    | WYSIWYG Editor   | [Typora](https://typora.io/)                      | `typora`        |
+    | Browser          | [Brave](https://brave.com/)                       | `brave-bin`     |
+    | Music Client     | [Spotify](https://www.spotify.com/)               | `spotify`       |
+    | Password Manager | [Bitwarden](https://github.com/bitwarden/desktop) | `bitwarden-bin` |
+    | Notes            | [Notion](https://www.notion.so/)                  | `notion-app`    |
 
 </details>
 
-    yay -S typora brave spotify bitwarden-bin notion-app nvm
+    yay -S typora brave-bin spotify bitwarden-bin notion-app
 
 ## Future plans
 
 - Polybar (twitter notification, volume)
 - Add shutdown, reboot, etc panel/menu
-- Use [`.Xresources`](https://github.com/resloved/dots/blob/master/.Xresources) to manage colors
+- Add $mod+d for `i3lock`
 
 ## Resources
 

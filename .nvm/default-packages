@@ -1,8 +1,0 @@
-# $NVM_DIR/default-packages
-
-@vue/cli
-eslint
-npm-check-updates
-serve
-typescript
-vtop

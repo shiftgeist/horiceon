@@ -61,3 +61,7 @@ Dark themed rice
 - Polybar (twitter notification, volume)
 - Add shutdown, reboot, etc panel/menu
 - Use [`.Xresources`](https://github.com/resloved/dots/blob/master/.Xresources) to manage colors
+
+## Resources
+
+- [i3wm: Jump Start](https://www.youtube.com/watch?v=j1I63wGcvU4)

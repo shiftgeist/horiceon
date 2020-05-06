@@ -15,6 +15,7 @@ Dark themed rice
 | Node Version Manager | [nvm](https://github.com/nvm-sh/nvm)                         | [`.nvm/`](.nvm)                                              |
 | Customized Spotify   | [spicetify](https://github.com/khanhas/spicetify-cli)        | [`.config/spicetify/Themes/Horiceon/`](.config/spicetify/Themes/Horiceon) |
 | AUR Helper           | [yay](https://github.com/Jguer/yay)                          | [`aur/yay`](aur/yay)                                         |
+| X11 Compositor       | [compton](https://github.com/chjj/compton/)                  | -                                                            |
 
 ## Colors
 
@@ -60,4 +61,3 @@ Dark themed rice
 - Polybar (twitter notification, volume)
 - Add shutdown, reboot, etc panel/menu
 - Use [`.Xresources`](https://github.com/resloved/dots/blob/master/.Xresources) to manage colors
-- Add compton ([aur](https://aur.archlinux.org/packages/compton-tryone-git/))

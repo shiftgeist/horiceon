@@ -1,3 +1,3 @@
 #!/bin/bash
 
-npm i -g @vue/cli eslint npm-check-updates serve typescript vtop
+sudo npm i -g npm-check-updates sirv-cli

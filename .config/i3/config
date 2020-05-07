@@ -194,17 +194,20 @@ bindsym $mod+r mode "resize"
 
 ##### Colors #####
 
-# .Xresources
-set $fg #E8E8E8
-set $bg #1C1E26
-set $accent #FAB795
+set $bg-color            #1C1E26
+set $inactive-bg-color   #2f343f
+set $text-color          #E8E8E8
+set $inactive-text-color #676E7D
+set $urgent-bg-color     #E95678
+set $indicator           #FAB795
 
-# Class                 border back text indicator child_border
-client.focused          $bg    $bg  $fg  $bg       $accent
-client.focused_inactive $bg    $bg  $fg  $bg       $accent
-client.unfocused        $bg    $bg  $fg  $bg       $accent
-client.urgent           $bg    $bg  $fg  $bg       $accent
-client.placeholder      $bg    $bg  $fg  $bg       $accent
+# window colors
+#                       border             background         text                 indicator  child_border
+client.focused          $bg-color          $bg-color          $text-color          $indicator $accent
+client.focused_inactive $inactive-bg-color $inactive-bg-color $inactive-text-color $indicator $accent
+client.unfocused        $inactive-bg-color $inactive-bg-color $inactive-text-color $indicator $accent
+client.urgent           $urgent-bg-color   $urgent-bg-color   $text-color          $indicator $accent
+client.placeholder      $bg-color          $bg-color          $text-color          $indicator $accent
 
 ##### Tools #####
 

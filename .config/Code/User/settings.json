@@ -21,6 +21,6 @@
     "gitlens.mode.active": "zen",
     "terminal.integrated.shell.linux": "/usr/bin/zsh",
     "window.menuBarVisibility": "hidden",
-    "workbench.colorTheme": "Horizon",
+    "workbench.colorTheme": "Dark Horizon",
     "workbench.iconTheme": "material-icon-theme"
 }

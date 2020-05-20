@@ -1,0 +1,23 @@
+{
+  "name": "dark-horizon-theme-vscode",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "node src/build",
+    "generate": "vsce package"
+  },
+  "devDependencies": {
+    "mustache": "^4.0.1"
+  },
+  "engines": {
+    "vscode": "^1.45.0"
+  },
+  "contributes": {
+    "themes": [
+      {
+        "label": "Dark Horizon",
+        "uiTheme": "vs-dark",
+        "path": "./theme/dark-horizon.json"
+      }
+    ]
+  }
+}

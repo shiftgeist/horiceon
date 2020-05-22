@@ -36,5 +36,13 @@
         "key": "ctrl+w",
         "command": "workbench.action.terminal.kill",
         "when": "terminalFocus"
+    },
+    {
+        "key": "ctrl+alt+,",
+        "command": "workbench.action.moveEditorToPreviousGroup"
+    },
+    {
+        "key": "ctrl+alt+.",
+        "command": "workbench.action.moveEditorToNextGroup"
     }
 ]

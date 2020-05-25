@@ -233,3 +233,14 @@ exec --no-startup-id sh ~/.fehbg
 
 # Xresources
 # exec_always xrdb -merge ~/.Xresoureces
+
+# GNOME
+
+# screenlock
+bindsym $mod+Ctrl+L exec gnome-screensaver-command -l
+
+# custom settings
+exec --no-startup-id gnome-session         # GNOME session
+exec --no-startup-id gnome-settings-daemon # GNOME desktop settings
+exec --no-startup-id gnome-screensaver     # GNOME screensaver
+exec --no-startup-id xautolock -time 10 -locker 'gnome-screensaver-command -l'

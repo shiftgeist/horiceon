@@ -222,14 +222,11 @@ bindsym $mod+Ctrl+Print exec maim -s $shots/$(date +%s).png
 
 ##### Launch #####
 
-# Bar
-exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+# Polybar
+exec_always --no-startup-id $HOME/bin/rice/launch-polybar.sh
 
 # Background image
 exec --no-startup-id sh ~/.fehbg
 
 # DHCP Client
 # exec --no-startup-id dhcpcd
-
-# Xresources
-# exec_always xrdb -merge ~/.Xresoureces

@@ -10,11 +10,7 @@
     "build": "ncc build index.js -o dist -m"
   },
   "dependencies": {
-    "googleapis": "^51.0.0"
-  },
-  "devDependencies": {
-    "chalk": "^4.0.0",
-    "dotenv": "^8.2.0",
+    "googleapis": "^51.0.0",
     "opn": "^6.0.0"
   }
 }

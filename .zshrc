@@ -29,6 +29,7 @@ alias battery-status="upower -i /org/freedesktop/UPower/devices/battery_BAT0 | g
 alias npm-list="npm list -g --depth=0"
 alias docker-cleanup="yes | docker image prune -a --filter 'until=24h'"
 alias find-broken-symlinks="find ~/ -xtype l -print"
+alias ports="netstat -tlpn"
 
 if [ -f ~/.zshrc_local ]; then
     source ~/.zshrc_local

@@ -3,8 +3,8 @@ const googleauth = require('./googleauth');
 
 // gmail
 function listLabels(auth) {
-  const gmail = gmail({version: 'v1', auth});
-  gmail.users.labels.get({
+  const gmailClient = gmail({version: 'v1', auth});
+  gmailClient.users.labels.get({
     userId: 'me',
     id: 'INBOX'
   }, (err, res) => {

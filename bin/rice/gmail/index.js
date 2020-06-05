@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 const { gmail } = require('googleapis').google;
 const googleauth = require('./googleauth');
 

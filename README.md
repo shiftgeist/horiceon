@@ -64,6 +64,9 @@ yay -S typora brave-bin spotify bitwarden-bin notion-app
 - Polybar (twitter notification, volume)
 - Add shutdown, reboot, etc panel/menu
 - Add $mod+d for `i3lock`
+- Add battery display
+- Check if offline before executing gmail
+- Add polybar network module
 
 ## Resources
 

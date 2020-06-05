@@ -3,10 +3,11 @@ const { google } = require('googleapis');
 const http = require('http');
 const url = require('url');
 const opn = require('opn');
+const { resolve } = require('path');
 
 module.exports = (callback) => {
     // Load client secrets from a local file.
-    fs.readFile('credentials.json', (err, content) => {
+    fs.readFile(resolve(__dirname, 'credentials.json'), (err, content) => {
         if (err) return console.log('Error loading client secret file:', err);
         // Authorize a client with credentials, then call the Gmail API.
         authorize(JSON.parse(content), callback);
@@ -18,7 +19,7 @@ const SCOPES = ['https://www.googleapis.com/auth/gmail.readonly'];
 // The file token.json stores the user's access and refresh tokens, and is
 // created automatically when the authorization flow completes for the first
 // time.
-const TOKEN_PATH = 'token.json';
+const TOKEN_PATH = resolve(__dirname, 'token.json');
 // Url gets called to grab the code with an http node server.
 const callbackURL = new URL('http://localhost:3456')
 

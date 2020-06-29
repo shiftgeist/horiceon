@@ -10,7 +10,7 @@
     "apricot": "#F09483",
     "rosebud": "#FAB795",
     "tacao": "#FAC29A",
-    "gray": "#BBBBBB"
+    "gray": "#CCCCCC"
   },
   "ui": {
     "shadow": "#16161C",
@@ -19,7 +19,7 @@
     "backgroundAlt": "#232530",
     "accent": "#2E303E",
     "accentAlt": "#6C6F93",
-    "secondaryAccent": "#E9436D",
+    "secondaryAccent": "#E9436F",
     "secondaryAccentAlt": "#E95378",
     "tertiaryAccent": "#FAB38E",
     "positive": "#09F7A0",

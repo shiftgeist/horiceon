@@ -2,8 +2,7 @@
   "name": "dark-horizon-theme-vscode",
   "version": "1.0.0",
   "scripts": {
-    "build": "node src/build",
-    "generate": "vsce package"
+    "build": "node src/build"
   },
   "devDependencies": {
     "mustache": "^4.0.1"

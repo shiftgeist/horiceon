@@ -52,6 +52,7 @@
     "tab.border": "{{ ui.background }}{{ alpha.none }}",
     "tab.activeBorder": "{{ ui.secondaryAccentAlt }}",
     "tab.inactiveBackground": "{{ ui.background }}",
+    "editor.foreground": "{{ syntax.gray }}",
     "editor.background": "{{ ui.background }}",
     "editorLineNumber.foreground": "{{ ui.lightText }}{{ alpha.low }}",
     "editorLineNumber.activeForeground": "{{ ui.lightText }}{{ alpha.med }}",
@@ -402,7 +403,7 @@
       "name": "Key/value separators",
       "scope": "punctuation.separator",
       "settings": {
-        "foreground": "{{ syntax.gray }}"
+        "foreground": "{{ syntax.rosebud }}{{ alpha.med }}"
       }
     },
     {

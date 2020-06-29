@@ -1,5 +1,5 @@
 {
-    "bracketPairColorizer.colorMode": "Independent",
+    "bracket-pair-colorizer-2.colorMode": "Independent",
     "breadcrumbs.enabled": false,
     "editor.fontFamily": "'Dank Mono', monospace",
     "editor.minimap.enabled": false,

@@ -20,6 +20,10 @@
     "gitlens.mode.active": "zen",
     "terminal.integrated.shell.linux": "/usr/bin/zsh",
     "window.menuBarVisibility": "hidden",
-    "workbench.colorTheme": "Dark Horizon",
-    "workbench.iconTheme": "material-icon-theme"
+    "workbench.colorTheme": "Horiceon",
+    "workbench.iconTheme": "material-icon-theme",
+    "[html]": {
+        "editor.defaultFormatter": "vscode.html-language-features"
+    },
+    "editor.suggestSelection": "first"
 }

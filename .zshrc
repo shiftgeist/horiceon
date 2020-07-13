@@ -27,7 +27,7 @@ alias git-whoami="~/bin/rice/git-whoami.sh"
 alias git-cleanup="git branch --merged | egrep -v '(^\*|master|dev)' | xargs git branch -d && git pull --prune"
 alias battery-status="upower -i /org/freedesktop/UPower/devices/battery_BAT0 | grep -E 'state|time\ to\ full|percentage'"
 alias npm-list="npm list -g --depth=0"
-alias docker-cleanup="yes | docker image prune -a --filter 'until=24h'"
+alias docker-cleanup="echo 'Cleaning docker images older than 24h' && docker image prune -a --filter 'until=24h'"
 alias find-broken-symlinks="find ~/ -xtype l -print"
 alias ports="netstat -tlpn"
 

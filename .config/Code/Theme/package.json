@@ -1,0 +1,27 @@
+{
+    "name": "horiceon-theme",
+    "displayName": "horiceon-theme",
+    "description": "Horiceon Theme for Code",
+    "version": "0.0.1",
+    "scripts": {
+        "build": "node src/build"
+    },
+    "devDependencies": {
+        "mustache": "^4.0.1"
+    },
+    "engines": {
+        "vscode": "^1.47.0"
+    },
+    "categories": [
+        "Themes"
+    ],
+    "contributes": {
+        "themes": [
+            {
+                "label": "Horiceon",
+                "uiTheme": "vs-dark",
+                "path": "./themes/Horiceon-color-theme.json"
+            }
+        ]
+    }
+}

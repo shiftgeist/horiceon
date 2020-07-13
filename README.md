@@ -71,3 +71,7 @@ yay -S typora brave-bin spotify bitwarden-bin notion-app
 ## Resources
 
 - [i3wm: Jump Start](https://www.youtube.com/watch?v=j1I63wGcvU4)
+
+## Statistics
+
+![time tracker](https://wakatime.com/badge/github/shiftgeist/horiceon.svg) [![github issues](https://img.shields.io/github/issues/shiftgeist/horiceon)](https://github.com/shiftgeist/horiceon/issues) [![github stars](https://img.shields.io/github/stars/shiftgeist/horiceon)](https://github.com/shiftgeist/horiceon/stargazers)

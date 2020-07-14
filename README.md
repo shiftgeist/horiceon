@@ -1,6 +1,23 @@
+![Horiceon](.github/header.png)
+
 # Horiceon
 
-Dark themed rice
+> Dark 🌆 themed 🎨 rice 🍚.
+
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**
+
+- [What modules are included?](#what-modules-are-included)
+- [Colors](#colors)
+- [Installation](#installation)
+- [AUR](#aur)
+- [Future plans](#future-plans)
+- [About](#about)
+  - [Inspiration](#inspiration)
+  - [Statistics](#statistics)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 ## What modules are included?
 
@@ -21,11 +38,23 @@ Dark themed rice
 
 **Syntax**
 
-![syntax](.meta/colors-syntax.png)
+![colors-syntax](.github/colors-syntax.png)
 
 **UI**
 
-![ui](.meta/colors-ui.png)
+![ui-colors-base](.github/ui-colors-base.png)
+
+![ui-colors-accents](.github/ui-colors-accents.png)
+
+![ui-status-colors](.github/ui-status-colors.png)
+
+**ANSI**
+
+![ansi](.github/ansi.png)
+
+**Alpha Variations**
+
+![alpha-variations](.github/alpha-variations.png)
 
 ## Installation
 
@@ -62,17 +91,22 @@ yay -S typora brave-bin spotify bitwarden-bin notion-app
 
 ## Future plans
 
-- Polybar (twitter notification, volume)
-- Add shutdown, reboot, etc panel/menu
-- Add $mod+d for `i3lock`
-- Add battery display
-- Check if offline before executing gmail
-- Add polybar network module
+This project is still in its early phase.
 
-## Resources
+* [ ] Add license
+* [ ] Polybar (twitter notification, volume)
+* [ ] Add shutdown, reboot, etc panel/menu
+* [ ] Add $mod+d for `i3lock`
+* [ ] Add battery display
+* [ ] Check if offline before executing gmail
+* [ ] Add polybar network module
 
-- [i3wm: Jump Start](https://www.youtube.com/watch?v=j1I63wGcvU4)
+## About
 
-## Statistics
+### Inspiration
+
+This project is inspired by the vscode [Horizon Theme](https://marketplace.visualstudio.com/items?itemName=jolaleye.horizon-theme-vscode) by [@jolaleye](https://github.com/jolaleye).
+
+### Statistics
 
 ![time tracker](https://wakatime.com/badge/github/shiftgeist/horiceon.svg) [![github issues](https://img.shields.io/github/issues/shiftgeist/horiceon)](https://github.com/shiftgeist/horiceon/issues) [![github stars](https://img.shields.io/github/stars/shiftgeist/horiceon)](https://github.com/shiftgeist/horiceon/stargazers)

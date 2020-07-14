@@ -45,13 +45,14 @@ cd aur/yay && makepkg -si
 <details>
     <summary>AUR packages that i use</summary>
 
-    | Software         | What i use                                        | AUR Nam         |
-    | ---------------- | ------------------------------------------------- | --------------- |
-    | WYSIWYG Editor   | [Typora](https://typora.io/)                      | `typora`        |
-    | Browser          | [Brave](https://brave.com/)                       | `brave-bin`     |
-    | Music Client     | [Spotify](https://www.spotify.com/)               | `spotify`       |
-    | Password Manager | [Bitwarden](https://github.com/bitwarden/desktop) | `bitwarden-bin` |
-    | Notes            | [Notion](https://www.notion.so/)                  | `notion-app`    |
+    | Software         | What i use                                             | AUR Nam         |
+    | ---------------- | ------------------------------------------------------ | --------------- |
+    | Browser          | [Brave](https://brave.com/)                            | `brave-bin`     |
+    | Music Client     | [Spotify](https://www.spotify.com/)                    | `spotify`       |
+    | Notes            | [Notion](https://www.notion.so/)                       | `notion-app`    |
+    | Password Manager | [Bitwarden](https://github.com/bitwarden/desktop)      | `bitwarden-bin` |
+    | Screenshot       | [Flameshot](https://github.com/lupoDharkael/flameshot) | `flameshot`     |
+    | WYSIWYG Editor   | [Typora](https://typora.io/)                           | `typora`        |
 
 </details>
 

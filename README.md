@@ -93,6 +93,8 @@ yay -S typora brave-bin spotify bitwarden-bin notion-app
 
 This project is still in its early phase.
 
+* [ ] Only show finished tools in [`What modules are included?`](#what-modules-are-included)
+* [ ] Update kitty theme with defined colors
 * [ ] Add license
 * [ ] Polybar (twitter notification, volume)
 * [ ] Add shutdown, reboot, etc panel/menu

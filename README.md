@@ -42,19 +42,24 @@
 
 **UI**
 
-![ui-colors-base](.github/ui-colors-base.png)
-
 ![ui-colors-accents](.github/ui-colors-accents.png)
 
-![ui-status-colors](.github/ui-status-colors.png)
+<details>
+    <summary>More</summary>
 
-**ANSI**
+  ![ui-colors-base](.github/ui-colors-base.png)
 
-![ansi](.github/ansi.png)
+  ![ui-status-colors](.github/ui-status-colors.png)
 
-**Alpha Variations**
+  **ANSI**
 
-![alpha-variations](.github/alpha-variations.png)
+  ![ansi](.github/ansi.png)
+
+  **Alpha Variations**
+
+  ![alpha-variations](.github/alpha-variations.png)
+
+</details>
 
 ## Installation
 

@@ -7,10 +7,10 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 HIST_STAMPS="dd.mm.yyyy"
 
 plugins=(
-    git
-    zsh-better-npm-completion
-    zsh-completions
-    git-flow
+  git
+  npm
+  zsh-completions
+  git-flow
 )
 
 source $ZSH/oh-my-zsh.sh

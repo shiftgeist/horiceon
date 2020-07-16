@@ -23,14 +23,19 @@ fi
 # alias
 alias syslog-crit="sudo dmesg -w -l err,warn"
 alias syslog="sudo dmesg -w"
-alias git-whoami="~/bin/rice/git-whoami.sh"
-alias git-cleanup="git branch --merged | egrep -v '(^\*|master|dev)' | xargs git branch -d && git pull --prune"
+
+alias aglu="apt list --upgradable"
 alias battery-status="upower -i /org/freedesktop/UPower/devices/battery_BAT0 | grep -E 'state|time\ to\ full|percentage'"
-alias nr="npm run"
-alias nlsg0="npm list -g --depth=0"
 alias docker-cleanup="echo 'Cleaning docker images older than 24h' && docker image prune -a --filter 'until=24h'"
 alias find-broken-symlinks="find ~/ -xtype l -print"
 alias ports="netstat -tlpn"
+
+alias git-cleanup="git branch --merged | egrep -v '(^\*|master|dev)' | xargs git branch -d && git pull --prune"
+alias git-whoami="~/bin/rice/git-whoami.sh"
+
+alias nlsg0="npm list -g --depth=0"
+alias nr="npm run"
+
 
 if [ -f ~/.zshrc_local ]; then
     source ~/.zshrc_local

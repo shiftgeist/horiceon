@@ -107,6 +107,7 @@ This project is still in its early phase.
 * [ ] Add battery display
 * [ ] Check if offline before executing gmail
 * [ ] Add polybar network module
+* [ ] Add bracket-pair-colorizer-2.colors setting
 
 ## About
 

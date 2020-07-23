@@ -8,25 +8,14 @@
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 **Table of Contents**
 
-- [What modules are included?](#what-modules-are-included)
+- [What's included?](#whats-included)
 - [Theme](#theme)
 - [Installation](#installation)
-- [Future plans](#future-plans)
 - [About](#about)
-  - [Inspiration](#inspiration)
-  - [Statistics](#statistics)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-<!-- * Code Theme (`.config/Code/Theme`)
-* Code Settings (`.config/Code/User`)
-* Kitty Theme (`.config/kitty/kitty.conf`)
-* Spotify Theme (`.config/spicetify/Themes/Horiceon`)
-* Rofi Theme (`.config/rofi`)
-* ZSH Config (`.zshrc`)
-* i3/Polybar Theme (WIP) -->
-
-## What's included? (`ln -s`)
+## What's included?
 
 🎨 Theme, 📖 Config, ⌨️ Shortcut, 🛰️ Same as source, but in the home directory.
 
@@ -114,29 +103,14 @@ yay -S brave-bin spotify notion-app bitwarden-bin typora
 
 </details>
 
-## Future plans
-
-This project is still in its early phase.
-
-* [ ] Add license
-* [ ] Update kitty theme with defined colors
-* [ ] Polybar (twitter notification, volume)
-* [ ] Add shutdown, reboot, etc panel/menu
-* [ ] Add $mod+d for `i3lock`
-* [ ] Add battery display
-* [ ] Check if offline before executing gmail
-* [ ] Add polybar network module
-* [ ] Add bracket-pair-colorizer-2.colors setting
-* [ ] Add keyboard shortcut: Open `flameshot` with `print`.
-
 ## About
 
 Status: ⚠️ Work in progress.
 
-### Inspiration
+**Inspiration**
 
 This project is inspired by the vscode [Horizon Theme](https://marketplace.visualstudio.com/items?itemName=jolaleye.horizon-theme-vscode) by [@jolaleye](https://github.com/jolaleye).
 
-### Statistics
+**Statistics**
 
 ![time tracker](https://wakatime.com/badge/github/shiftgeist/horiceon.svg) [![github issues](https://img.shields.io/github/issues/shiftgeist/horiceon)](https://github.com/shiftgeist/horiceon/issues) [![github stars](https://img.shields.io/github/stars/shiftgeist/horiceon)](https://github.com/shiftgeist/horiceon/stargazers)

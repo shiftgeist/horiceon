@@ -1,3 +1,3 @@
 #!/bin/bash
 
-sudo npm i -g npm-check-updates sirv-cli live-server
+sudo npm i -g npm-check-updates sirv-cli live-server doctoc

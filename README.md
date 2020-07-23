@@ -32,15 +32,15 @@
 
 | Purpose | Source | Target |
 | ------- | ------ | ------ |
-| Code 🎨 | `.config/Code/Theme` | `~/.vscode/extensions/horiceon-theme` |
-| Code 📖 | `.config/Code/User/settings.json` | 🛰️ |
-| Code ⌨️ | `.config/Code/User/keybindings.json` | 🛰️ |
-| Dunst 📖 | `.config/dunst/dunstrc` | 🛰️ |
-| i3 📖 | `.config/i3` | 🛰️ |
-| Kitty 📖 | `.config/kitty` | 🛰️ |
-| Polybar 📖 | `.config/polybar` | 🛰️ |
-| Rofi 📖 | `.config/rofi` | 🛰️ |
-| Spotify 🎨 | `.config/spicetify/Themes/Horiceon` | 🛰️ |
+| 🎨 Code | `.config/Code/Theme` | `~/.vscode/extensions/horiceon-theme` |
+| 📖 Code | `.config/Code/User/settings.json` | 🛰️ |
+| ⌨️ Code | `.config/Code/User/keybindings.json` | 🛰️ |
+| 📖 Dunst | `.config/dunst/dunstrc` | 🛰️ |
+| 📖 i3 | `.config/i3` | 🛰️ |
+| 📖 Kitty | `.config/kitty` | 🛰️ |
+| 📖 Polybar | `.config/polybar` | 🛰️ |
+| 📖 Rofi | `.config/rofi` | 🛰️ |
+| 🎨 Spotify | `.config/spicetify/Themes/Horiceon` | 🛰️ |
 
 (See [Installation](#installation) for example.)
 

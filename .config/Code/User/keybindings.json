@@ -15,11 +15,11 @@
         "when": "editorTextFocus && !editorReadonly"
     },
     {
-        "key": "ctrl+r ctrl+r",
+        "key": "ctrl+r",
         "command": "workbench.action.openRecent"
     },
     {
-        "key": "ctrl+alt+a",
+        "key": "ctrl+shift+enter",
         "command": "workbench.action.terminal.split",
         "when": "terminalFocus"
     },
@@ -30,10 +30,6 @@
     },
     {
         "key": "ctrl+shift+w",
-        "command": "-workbench.action.closeWindow"
-    },
-    {
-        "key": "ctrl+w",
         "command": "workbench.action.terminal.kill",
         "when": "terminalFocus"
     },

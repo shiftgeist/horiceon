@@ -1,7 +1,9 @@
 {
     "breadcrumbs.enabled": false,
-    "editor.fontFamily": "'Dank Mono', monospace",
     "editor.minimap.enabled": false,
+    "editor.fontFamily": "'Dank Mono', monospace",
+    "editor.fontLigatures": true,
+    "editor.suggestSelection": "first",
     "editor.rulers": [
         {
             "color": "#1A1C23",
@@ -17,13 +19,11 @@
     "git.autofetch": true,
     "git.confirmSync": false,
     "git.enableSmartCommit": true,
-    "gitlens.mode.active": "zen",
     "terminal.integrated.shell.linux": "/usr/bin/zsh",
     "window.menuBarVisibility": "hidden",
     "workbench.colorTheme": "Horiceon",
     "workbench.iconTheme": "material-icon-theme",
     "[html]": {
         "editor.defaultFormatter": "vscode.html-language-features"
-    },
-    "editor.suggestSelection": "first"
+    }
 }

@@ -28,21 +28,21 @@
 
 ## What's included? (`ln -s`)
 
-:art: Theme, :book: Config, :keyboard: Shortcut
+🎨 Theme, 📖 Config, ⌨️ Shortcut, 🛰️ Same as source, but in the home directory.
 
 | Purpose | Source | Target |
 | ------- | ------ | ------ |
-| Code :art: | `.config/Code/Theme` | `~/.vscode/extensions/horiceon-theme` |
-| Code :book: | `.config/Code/User/settings.json` | `=` |
-| Code :keyboard: | `.config/Code/User/keybindings.json` | `=` |
-| Dunst :book: | `.config/dunst/dunstrc` | `=` |
-| i3 :book: | `.config/i3` | `=` |
-| Kitty :book: | `.config/kitty` | `=` |
-| Polybar :book: | `.config/polybar` | `=` |
-| Rofi :book: | `.config/rofi` | `=` |
-| Spotify :art: | `.config/spicetify/Themes/Horiceon` | `=` |
+| Code 🎨 | `.config/Code/Theme` | `~/.vscode/extensions/horiceon-theme` |
+| Code 📖 | `.config/Code/User/settings.json` | 🛰️ |
+| Code ⌨️ | `.config/Code/User/keybindings.json` | 🛰️ |
+| Dunst 📖 | `.config/dunst/dunstrc` | 🛰️ |
+| i3 📖 | `.config/i3` | 🛰️ |
+| Kitty 📖 | `.config/kitty` | 🛰️ |
+| Polybar 📖 | `.config/polybar` | 🛰️ |
+| Rofi 📖 | `.config/rofi` | 🛰️ |
+| Spotify 🎨 | `.config/spicetify/Themes/Horiceon` | 🛰️ |
 
-(`=` -> same as source but in home directory. See [Installation](#installation) for example.)
+(See [Installation](#installation) for example.)
 
 ## Theme
 

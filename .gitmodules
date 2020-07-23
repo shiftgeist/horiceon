@@ -1,3 +1,0 @@
-[submodule "aur/yay"]
-	path = aur/yay
-	url = https://aur.archlinux.org/yay.git

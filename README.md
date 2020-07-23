@@ -9,9 +9,8 @@
 **Table of Contents**
 
 - [What modules are included?](#what-modules-are-included)
-- [Colors](#colors)
+- [Theme](#theme)
 - [Installation](#installation)
-- [AUR](#aur)
 - [Future plans](#future-plans)
 - [About](#about)
   - [Inspiration](#inspiration)
@@ -19,33 +18,49 @@
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-## What modules are included?
+<!-- * Code Theme (`.config/Code/Theme`)
+* Code Settings (`.config/Code/User`)
+* Kitty Theme (`.config/kitty/kitty.conf`)
+* Spotify Theme (`.config/spicetify/Themes/Horiceon`)
+* Rofi Theme (`.config/rofi`)
+* ZSH Config (`.zshrc`)
+* i3/Polybar Theme (WIP) -->
 
-| Software             | What i use                                                   | dotfiles                                                     |
-| -------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| Editor               | [code](https://github.com/microsoft/vscode)                  | [`.config/Code/User/`](.config/Code/User)                    |
-| Launcher             | [rofi](https://github.com/davatorium/rofi)                   | [`.config/rofi/`](.config/rofi)                              |
-| Notification Daemon  | [dunst](https://github.com/dunst-project/dunst)              | [`.config/dunst/`](.config/dunst/) |
-| Shell prompt         | [zsh](https://zsh.org) with [ohmyzsh](https://github.com/ohmyzsh/ohmyzsh) - [spaceship](https://github.com/denysdovhan/spaceship-prompt) | [`.zshrc`](.zshrc)                                           |
-| Status bar           | [polybar](https://github.com/polybar/polybar)                | [`.config/polybar/`](.config/polybar/)                       |
-| Terminal Emulator    | [kitty](https://sw.kovidgoyal.net/kitty)                     | [`.config/kitty/`](.config/kitty)                            |
-| Node Version Manager | [nvm](https://github.com/nvm-sh/nvm)                         | [`.nvm/`](.nvm)                                              |
-| Customized Spotify   | [spicetify](https://github.com/khanhas/spicetify-cli)        | [`.config/spicetify/Themes/Horiceon/`](.config/spicetify/Themes/Horiceon) |
-| AUR Helper           | [yay](https://github.com/Jguer/yay)                          | [`aur/yay`](aur/yay)                                         |
-| X11 Compositor       | [compton](https://github.com/chjj/compton/)                  | -                                                            |
+## What's included? (`ln -s`)
 
-## Colors
+:art: Theme, :book: Config, :keyboard: Shortcut
 
-**Syntax**
+| Purpose | Source | Target |
+| ------- | ------ | ------ |
+| Code :art: | `.config/Code/Theme` | `~/.vscode/extensions/horiceon-theme` |
+| Code :book: | `.config/Code/User/settings.json` | `=` |
+| Code :keyboard: | `.config/Code/User/keybindings.json` | `=` |
+| Dunst :book: | `.config/dunst/dunstrc` | `=` |
+| i3 :book: | `.config/i3` | `=` |
+| Kitty :book: | `.config/kitty` | `=` |
+| Polybar :book: | `.config/polybar` | `=` |
+| Rofi :book: | `.config/rofi` | `=` |
+| Spotify :art: | `.config/spicetify/Themes/Horiceon` | `=` |
+
+(`=` -> same as source but in home directory. See [Installation](#installation) for example.)
+
+## Theme
+
+**Typography**
+
+* Monospace: [Dank Mono](https://dank.sh/)
+* Sans: [Overpass](http://overpassfont.org/)
+
+**Syntax Colors**
 
 ![colors-syntax](.github/colors-syntax.png)
 
-**UI**
+**UI Colors**
 
 ![ui-colors-accents](.github/ui-colors-accents.png)
 
 <details>
-    <summary>More</summary>
+  <summary>More</summary>
 
   ![ui-colors-base](.github/ui-colors-base.png)
 
@@ -55,52 +70,56 @@
 
   ![ansi](.github/ansi.png)
 
-  **Alpha Variations**
-
-  ![alpha-variations](.github/alpha-variations.png)
-
 </details>
 
 ## Installation
 
 ```bash
-sudo pacman -Syu base-devel git
+~/
+➜ sudo pacman -Syu base-devel git
 
-cd aur/yay && makepkg -si
+# install yay
+➜ git clone https://aur.archlinux.org/yay.git
+➜ cd yay
+➜ makepkg -si
+
+git clone git@github.com:shiftgeist/horiceon.git
+cd horiceon
 
 # core packages of horiceon
-./helper/packages.sh
+~/horiceon
+➜ ./helper/yay-core.sh
 
 # symlink or copy packages into your home directory
+# example
+~/horiceon
+➜ ln -s $PWD/.config/rofi ~/.config/rofi
 ```
 
-## AUR
-
-<details>
-    <summary>AUR packages that i use</summary>
-
-    | Software         | What i use                                             | AUR Nam         |
-    | ---------------- | ------------------------------------------------------ | --------------- |
-    | Browser          | [Brave](https://brave.com/)                            | `brave-bin`     |
-    | Music Client     | [Spotify](https://www.spotify.com/)                    | `spotify`       |
-    | Notes            | [Notion](https://www.notion.so/)                       | `notion-app`    |
-    | Password Manager | [Bitwarden](https://github.com/bitwarden/desktop)      | `bitwarden-bin` |
-    | Screenshot       | [Flameshot](https://github.com/lupoDharkael/flameshot) | `flameshot`     |
-    | WYSIWYG Editor   | [Typora](https://typora.io/)                           | `typora`        |
-
-</details>
+Usefull AUR packages besides yay-core
 
 ```bash
-yay -S typora brave-bin spotify bitwarden-bin notion-app
+yay -S brave-bin spotify notion-app bitwarden-bin typora
 ```
+
+<details>
+
+  | Software | What i use | AUR Name |
+  | -------- | ---------- | -------- |
+  | Browser | [Brave](https://brave.com/) | `brave-bin` |
+  | Music Client | [Spotify](https://www.spotify.com/) | `spotify` |
+  | Notes | [Notion](https://www.notion.so/) | `notion-app` |
+  | Password Manager | [Bitwarden](https://github.com/bitwarden/desktop) | `bitwarden-bin` |
+  | WYSIWYG Editor | [Typora](https://typora.io/)  | `typora` |
+
+</details>
 
 ## Future plans
 
 This project is still in its early phase.
 
-* [ ] Only show finished tools in [`What modules are included?`](#what-modules-are-included)
-* [ ] Update kitty theme with defined colors
 * [ ] Add license
+* [ ] Update kitty theme with defined colors
 * [ ] Polybar (twitter notification, volume)
 * [ ] Add shutdown, reboot, etc panel/menu
 * [ ] Add $mod+d for `i3lock`
@@ -108,8 +127,11 @@ This project is still in its early phase.
 * [ ] Check if offline before executing gmail
 * [ ] Add polybar network module
 * [ ] Add bracket-pair-colorizer-2.colors setting
+* [ ] Add keyboard shortcut: Open `flameshot` with `print`.
 
 ## About
+
+Status: ⚠️ Work in progress.
 
 ### Inspiration
 

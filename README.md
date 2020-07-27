@@ -61,6 +61,20 @@
 
 </details>
 
+<details>
+  <summary>Shortcuts</summary>
+
+  | Binding | Function |
+  | --- | --- |
+  | `Super` + `Ctrl` + `L` | Lock screen |
+  | `Super` + `E` | Open files |
+  | `Super` + `Q` | Close Application |
+  | `Super` + `Return` | Launch Terminal |
+  | `Super` + `Space` | Open Application Launcher |
+  | `Super` + Number | Switch to tag number |
+
+</details>
+
 ## Installation
 
 ```bash

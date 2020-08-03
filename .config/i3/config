@@ -217,7 +217,7 @@ bindsym $mod+Ctrl+Print exec maim -s $shots/$(date +%s).png
 ##### Launch #####
 
 # Polybar
-exec_always --no-startup-id $HOME/bin/rice/launch-polybar.sh
+exec_always --no-startup-id launch-polybar
 
 # Background image
 exec --no-startup-id sh ~/.fehbg

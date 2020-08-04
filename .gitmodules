@@ -1,0 +1,3 @@
+[submodule "dot_rice/yay"]
+	path = dot_rice/yay
+	url = git@github.com:Jguer/yay.git

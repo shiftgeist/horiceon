@@ -6,10 +6,7 @@
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
 static char *font = "Dank Mono:pixelsize=14:antialias=true:autohint=true";
-static char *font2[] = {
-    "Dank Mono:pixelsize=14:antialias=true:autohint=true",
-    "monospace:pixelsize=14:antialias=true:autohint=true"
-};
+static char *font2[] = { "monospace:pixelsize=14:antialias=true:autohint=true" };
 
 static int borderpx = 2;
 

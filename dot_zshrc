@@ -42,6 +42,7 @@ alias battery-status="upower -i /org/freedesktop/UPower/devices/battery_BAT0 | g
 alias docker-cleanup="echo 'Cleaning docker images older than 24h' && docker image prune -a --filter 'until=24h'"
 alias find-broken-symlinks="find ~/ -xtype l -print"
 alias ports="netstat -tlpn"
+alias sel="xsel -b <"
 
 alias gbc="git branch --merged | egrep -v '(^\*|master|dev)' | xargs git branch -d && git pull --prune"
 

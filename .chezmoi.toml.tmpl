@@ -5,3 +5,5 @@
   [data.git]
     name = "{{ $name }}"
     email = "{{ $email }}"
+  [data.api]
+    tinypng = "{{ (bitwarden "item" "tinypng").login.password }}"

@@ -19,14 +19,9 @@
 
 🎨 Theme, 📖 Config, ⌨️ Shortcut
 
-- Code 🎨 📖 ⌨️
-- Dunst 📖
-- i3 📖
-- Kitty 📖
+- code 🎨 📖 ⌨️
 - st 📖
-- Polybar
-- Rofi 📖
-- Spotify (spicetify) 🎨
+- git 📖
 
 (See [Installation](#installation) for example.)
 

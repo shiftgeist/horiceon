@@ -11,7 +11,6 @@ OPTIONAL=(
     bierner.markdown-preview-github-styles
     naumovs.color-highlight
     pkief.material-icon-theme
-    usernamehw.errorlens
 )
 
 echo "Install optional plugins? [Yn]"

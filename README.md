@@ -22,6 +22,10 @@
 - code 🎨 📖 ⌨️
 - st 📖
 - git 📖
+- spotify 🎨 (spicetify)
+- dunst 🎨
+- polybar 🎨
+- rofi 🎨
 
 (See [Installation](#installation) for example.)
 

@@ -1,0 +1,26 @@
+{
+    "breadcrumbs.enabled": false,
+    "editor.minimap.enabled": false,
+    "editor.fontFamily": "'Dank Mono', monospace",
+    "editor.fontLigatures": true,
+    "editor.suggestSelection": "first",
+    "editor.rulers": [
+        {
+            "color": "#1A1C23",
+            "column": 79
+        },
+        {
+            "color": "#232430",
+            "column": 119
+        }
+    ],
+    "explorer.confirmDelete": true,
+    "explorer.confirmDragAndDrop": true,
+    "git.autofetch": true,
+    "git.confirmSync": false,
+    "git.enableSmartCommit": true,
+    "terminal.integrated.shell.linux": "/usr/bin/zsh",
+    "window.menuBarVisibility": "hidden",
+    "workbench.colorTheme": "Horiceon",
+    "workbench.iconTheme": "material-icon-theme"
+}

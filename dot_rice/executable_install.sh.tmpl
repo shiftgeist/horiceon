@@ -1,0 +1,7 @@
+#!/bin/sh
+
+{{ if eq .chezmoi.osRelease.id "arch" }}
+yay -Syu st tmux zsh vim xsel neofetch openssh htop rsync i3-gaps ttf-dejavu noto-fonts-emoji otf-overpass rofi dunst htop feh code compton nodejs npm flameshot
+{{ else if eq .chezmoi.osRelease.id "debian" -}}
+sudo apt install vim xsel
+{{ end -}}

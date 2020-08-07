@@ -1,5 +1,0 @@
- #!/usr/bin/bash
-
-# st launcher
-
-st -f 'Dank Mono, monospace' -e tmux

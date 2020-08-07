@@ -2,11 +2,11 @@
 
 # Horiceon
 
-> Dark 🌆 themed 🎨 rice 🍚.
+> [Managed](https://github.com/twpayne/chezmoi) dark 🌆 themed 🎨 rice 🍚.
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-**Table of Contents**
+**TOC**
 
 - [What's included?](#whats-included)
 - [Theme](#theme)
@@ -17,19 +17,15 @@
 
 ## What's included?
 
-🎨 Theme, 📖 Config, ⌨️ Shortcut, 🛰️ Same as source, but in the home directory.
+🎨 Theme, 📖 Config, ⌨️ Shortcut
 
-| Purpose | Source | Target |
-| ------- | ------ | ------ |
-| 🎨 Code | `.config/Code/Theme` | `~/.vscode/extensions/horiceon-theme` |
-| 📖 Code | `.config/Code/User/settings.json` | 🛰️ |
-| ⌨️ Code | `.config/Code/User/keybindings.json` | 🛰️ |
-| 📖 Dunst | `.config/dunst/dunstrc` | 🛰️ |
-| 📖 i3 | `.config/i3` | 🛰️ |
-| 📖 Kitty | `.config/kitty` | 🛰️ |
-| 📖 Polybar | `.config/polybar` | 🛰️ |
-| 📖 Rofi | `.config/rofi` | 🛰️ |
-| 🎨 Spotify | `.config/spicetify/Themes/Horiceon` | 🛰️ |
+- code 🎨 📖 ⌨️
+- st 📖
+- git 📖
+- spotify 🎨 (spicetify)
+- dunst 🎨
+- polybar 🎨
+- rofi 🎨
 
 (See [Installation](#installation) for example.)
 
@@ -62,7 +58,7 @@
 </details>
 
 <details>
-  <summary>Shortcuts</summary>
+  <summary>Shortcuts Concept</summary>
 
   | Binding | Function |
   | --- | --- |
@@ -77,26 +73,10 @@
 
 ## Installation
 
+**Required** on Arch: `base-devil` `git` `chezmoi`
+
 ```bash
-~/
-➜ sudo pacman -Syu base-devel git
-
-# install yay
-➜ git clone https://aur.archlinux.org/yay.git
-➜ cd yay
-➜ makepkg -si
-
-git clone git@github.com:shiftgeist/horiceon.git
-cd horiceon
-
-# core packages of horiceon
-~/horiceon
-➜ ./helper/yay-core.sh
-
-# symlink or copy packages into your home directory
-# example
-~/horiceon
-➜ ln -s $PWD/.config/rofi ~/.config/rofi
+chezmoi init git@github.com:shiftgeist/horiceon.git
 ```
 
 Usefull AUR packages besides yay-core
@@ -104,18 +84,6 @@ Usefull AUR packages besides yay-core
 ```bash
 yay -S brave-bin spotify notion-app bitwarden-bin typora
 ```
-
-<details>
-
-  | Software | What i use | AUR Name |
-  | -------- | ---------- | -------- |
-  | Browser | [Brave](https://brave.com/) | `brave-bin` |
-  | Music Client | [Spotify](https://www.spotify.com/) | `spotify` |
-  | Notes | [Notion](https://www.notion.so/) | `notion-app` |
-  | Password Manager | [Bitwarden](https://github.com/bitwarden/desktop) | `bitwarden-bin` |
-  | WYSIWYG Editor | [Typora](https://typora.io/)  | `typora` |
-
-</details>
 
 ## About
 
@@ -128,3 +96,7 @@ This project is inspired by the vscode [Horizon Theme](https://marketplace.visua
 **Statistics**
 
 ![time tracker](https://wakatime.com/badge/github/shiftgeist/horiceon.svg) [![github issues](https://img.shields.io/github/issues/shiftgeist/horiceon)](https://github.com/shiftgeist/horiceon/issues) [![github stars](https://img.shields.io/github/stars/shiftgeist/horiceon)](https://github.com/shiftgeist/horiceon/stargazers)
+
+**License**
+
+![GitHub](https://img.shields.io/github/license/shiftgeist/horiceon)

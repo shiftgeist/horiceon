@@ -6,6 +6,7 @@
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
 **TOC**
 
 - [What's included?](#whats-included)
@@ -17,15 +18,14 @@
 
 ## What's included?
 
-🎨 Theme, 📖 Config, ⌨️ Shortcut
-
-- code 🎨 📖 ⌨️
-- st 📖
-- git 📖
-- spotify 🎨 (spicetify)
-- dunst 🎨
-- polybar 🎨
-- rofi 🎨
+- code
+- st
+- git
+- spotify (spicetify)
+- dunst
+- polybar
+- rofi
+- tmux (+ tpm)
 
 (See [Installation](#installation) for example.)
 
@@ -33,8 +33,8 @@
 
 **Typography**
 
-* Monospace: [Dank Mono](https://dank.sh/)
-* Sans: [Overpass](http://overpassfont.org/)
+- Monospace: [Dank Mono](https://dank.sh/)
+- Sans: [Overpass](http://overpassfont.org/)
 
 **Syntax Colors**
 
@@ -47,27 +47,27 @@
 <details>
   <summary>More</summary>
 
-  ![ui-colors-base](.github/ui-colors-base.png)
+![ui-colors-base](.github/ui-colors-base.png)
 
-  ![ui-status-colors](.github/ui-status-colors.png)
+![ui-status-colors](.github/ui-status-colors.png)
 
-  **ANSI**
+**ANSI**
 
-  ![ansi](.github/ansi.png)
+![ansi](.github/ansi.png)
 
 </details>
 
 <details>
   <summary>Shortcuts Concept</summary>
 
-  | Binding | Function |
-  | --- | --- |
-  | `Super` + `Ctrl` + `L` | Lock screen |
-  | `Super` + `E` | Open files |
-  | `Super` + `Q` | Close Application |
-  | `Super` + `Return` | Launch Terminal |
-  | `Super` + `Space` | Open Application Launcher |
-  | `Super` + Number | Switch to tag number |
+| Binding                | Function                  |
+| ---------------------- | ------------------------- |
+| `Super` + `Ctrl` + `L` | Lock screen               |
+| `Super` + `E`          | Open files                |
+| `Super` + `Q`          | Close Application         |
+| `Super` + `Return`     | Launch Terminal           |
+| `Super` + `Space`      | Open Application Launcher |
+| `Super` + Number       | Switch to tag number      |
 
 </details>
 
@@ -77,12 +77,6 @@
 
 ```bash
 chezmoi init git@github.com:shiftgeist/horiceon.git
-```
-
-Usefull AUR packages besides yay-core
-
-```bash
-yay -S brave-bin spotify notion-app bitwarden-bin typora
 ```
 
 ## About

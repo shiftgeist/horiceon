@@ -9,7 +9,7 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 HIST_STAMPS="dd.mm.yyyy"
 ZSH_TMUX_AUTOSTART="true"
 
-EDITOR=code
+EDITOR=vim
 
 plugins=(
   git
@@ -20,7 +20,7 @@ plugins=(
 )
 
 source $ZSH/oh-my-zsh.sh
-export PATH=$PATH:$HOME/bin/diff-so-fancy
+export PATH=$PATH:~/bin/diff-so-fancy
 
 # autostart X at login
 if systemctl -q is-active graphical.target && [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then

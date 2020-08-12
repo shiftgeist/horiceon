@@ -9,7 +9,7 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 HIST_STAMPS="dd.mm.yyyy"
 ZSH_TMUX_AUTOSTART="true"
 
-EDITOR=vim
+export EDITOR=vim
 
 plugins=(
   git

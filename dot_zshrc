@@ -20,7 +20,7 @@ plugins=(
 )
 
 source $ZSH/oh-my-zsh.sh
-export PATH=$PATH:~/bin/diff-so-fancy
+export PATH="${PATH}:$HOME/bin:$HOME/bin/diff-so-fancy"
 
 # autostart X at login
 if systemctl -q is-active graphical.target && [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then

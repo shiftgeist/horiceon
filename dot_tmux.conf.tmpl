@@ -1,0 +1,4 @@
+bind '"' split-window -c "#{pane_current_path}"
+bind % split-window -h -c "#{pane_current_path}"
+set -g status-right-length 60
+set-option -ag status-right " | {{ .chezmoi.osRelease.id }} | up#(uptime | cut -f 4-5 -d ' ' | cut -f 1 -d ',') "

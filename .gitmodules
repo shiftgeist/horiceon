@@ -1,6 +1,3 @@
 [submodule "dot_rice/yay"]
 	path = dot_rice/yay
 	url = git@github.com:Jguer/yay.git
-[submodule "dot_tmux/plugins/tpm"]
-	path = dot_tmux/plugins/tpm
-	url = https://github.com/tmux-plugins/tpm

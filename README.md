@@ -77,6 +77,12 @@
 
 ```bash
 chezmoi init git@github.com:shiftgeist/horiceon.git
+
+cd ~/.local/share/chezmoi
+
+git submodule update --init
+
+chezmoi apply
 ```
 
 ## About

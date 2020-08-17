@@ -9,8 +9,6 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 HIST_STAMPS="dd.mm.yyyy"
 ZSH_TMUX_AUTOSTART="true"
 
-export EDITOR=vim
-
 plugins=(
   git
   git-flow

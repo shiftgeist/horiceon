@@ -1,6 +1,6 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-# Original source: https://github.com/iambibhas/tmux-status-scripts
+# Modified source from: https://github.com/iambibhas/tmux-status-scripts
 
 if [ -d /sys/class/power_supply/BAT0 ];
 then

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Original source: https://github.com/xamut/tmux-network-bandwidth
+# Modified source from: https://github.com/xamut/tmux-network-bandwidth
 
 get_bandwidth() {
   netstat -ie | awk '

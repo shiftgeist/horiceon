@@ -1,11 +1,6 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
-# git-whoami
-# Author: Peter Eisentraut <peter@eisentraut.org>
-# Created: 2011-10-27
-# License: WTFPL; see http://sam.zoy.org/wtfpl/
-
-# exact logic in ident.c in git source tree
+# Modified source from: https://github.com/petere/git-whoami
 
 set -e
 

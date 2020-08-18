@@ -1,5 +1,5 @@
 [data]
-  server = "{{ not (promptString "install graphical interface?") }}"
+  desktop = {{ eq (promptString "install for graphical interface [Y/n]") "Y" }}
   [data.git]
     name = "{{ promptString "git name" }}"
     email = "{{ promptString "git email" }}"

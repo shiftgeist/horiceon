@@ -10,15 +10,22 @@ HIST_STAMPS="dd.mm.yyyy"
 ZSH_TMUX_AUTOSTART="true"
 
 plugins=(
+  alias-tips # part-time bloat !watch and see if remove
+  autojump
   git
   git-flow
   tmux
-  zsh-better-npm-completion # https://github.com/lukechilds/zsh-better-npm-completion
-  zsh-completions # https://github.com/zsh-users/zsh-completions
+  zsh-better-npm-completion
+  zsh-completions
 )
 
 source $ZSH/oh-my-zsh.sh
 export PATH="${PATH}:$HOME/bin:$HOME/bin/diff-so-fancy"
+
+{{ if eq .chezmoi.osRelease.id "debian" }}
+[[ -s /home/fhungenberg/.autojump/etc/profile.d/autojump.sh ]] && source /home/fhungenberg/.autojump/etc/profile.d/autojump.sh
+autoload -U compinit && compinit -u
+{{ end }}
 
 # autostart X at login
 if systemctl -q is-active graphical.target && [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then
@@ -29,25 +36,26 @@ fi
 alias syslog-crit="sudo dmesg -w -l err,warn"
 alias syslog="sudo dmesg -w"
 
-{{- if or (eq .chezmoi.osRelease.id "debian") (eq .chezmoi.osRelease.id "ubuntu") -}}
-alias aglu="apt list --upgradable"
+{{ if or (eq .chezmoi.osRelease.id "debian") (eq .chezmoi.osRelease.id "ubuntu") }}
+alias acp="apt-cache policy"
+alias agi="sudo apt install"
 alias agli="apt list --installed"
+alias aglu="apt list --upgradable"
+alias ags="apt search"
 alias agu="sudo apt update"
 alias agug="sudo apt upgrade"
-alias acp="apt-cache policy"
-alias acs="apt-cache search"
-{{- end -}}
+{{ end }}
 
 alias battery-status="upower -i /org/freedesktop/UPower/devices/battery_BAT0 | grep -E 'state|time\ to\ full|percentage'"
 alias docker-cleanup="echo 'Cleaning docker images older than 24h' && docker image prune -a --filter 'until=24h'"
 alias find-broken-symlinks="find ~/ -xtype l -print"
-alias ports="netstat -tlpn"
 alias select-file="xsel -b <"
 
 alias gbc="git branch --merged | egrep -v '(^\*|master|dev)' | xargs git branch -d && git pull --prune"
-
 alias nlsg0="npm list -g --depth=0"
 alias nv="npm version --no-git-tag-version"
+alias ports="netstat -tlpn"
+alias v=nvim
 
 if [ -f ~/.zshrc_local ]; then
     source ~/.zshrc_local

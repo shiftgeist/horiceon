@@ -10,7 +10,6 @@ HIST_STAMPS="dd.mm.yyyy"
 ZSH_TMUX_AUTOSTART="true"
 
 plugins=(
-  alias-tips # part-time bloat !watch and see if remove
   autojump
   git
   git-flow
@@ -21,6 +20,9 @@ plugins=(
 
 source $ZSH/oh-my-zsh.sh
 export PATH="${PATH}:$HOME/bin:$HOME/bin/diff-so-fancy"
+{{ with .api.bitwarden }}
+export BW_SESSION="{{ . }}"
+{{ end }}
 
 {{ if eq .chezmoi.osRelease.id "debian" }}
 [[ -s /home/fhungenberg/.autojump/etc/profile.d/autojump.sh ]] && source /home/fhungenberg/.autojump/etc/profile.d/autojump.sh

@@ -1,9 +1,6 @@
 [submodule "dot_rice/yay"]
 	path = dot_rice/yay
 	url = git@github.com:Jguer/yay.git
-[submodule "dot_rice/st"]
-	path = dot_rice/st
-	url = git@github.com:instantOS/st-instantos.git
 [submodule "dot_oh-my-zsh/custom/themes/spaceship-prompt"]
 	path = dot_oh-my-zsh/custom/themes/spaceship-prompt
 	url = git@github.com:shiftgeist/spaceship-prompt.git

@@ -14,14 +14,18 @@ OPTIONAL=(
 )
 
 echo "Install optional plugins? [Yn]"
-read ans
+read -r ans
 case $ans in
-    Y  ) echo "yes"; PLUGINS+=(${OPTIONAL[@]}); break;;
-    N  ) echo "no"; break;;
-    "" ) echo "yes"; PLUGINS+=(${OPTIONAL[@]}); break;;
+    Y|"")
+        echo "yes"
+        PLUGINS+=("${OPTIONAL[@]}")
+        ;;
+    N)
+        echo "no"
+        ;;
 esac
 
-for i in ${PLUGINS[@]}
+for i in "${PLUGINS[@]}"
 do
-    code --install-extension $i
+    code --install-extension "$i"
 done

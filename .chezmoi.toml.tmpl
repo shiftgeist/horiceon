@@ -4,6 +4,7 @@
     name = "{{ promptString "git name" }}"
     email = "{{ promptString "git email" }}"
   [data.api]
+    bitwarden = ""
     tinypng = "{{ (bitwarden "item" "tinypng").login.password }}"
     [data.api.gmail]
       clientid = "{{ promptString "gmail client id (https://console.cloud.google.com/apis/credentials)" }}"

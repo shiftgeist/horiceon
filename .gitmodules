@@ -4,3 +4,18 @@
 [submodule "dot_rice/st"]
 	path = dot_rice/st
 	url = git@github.com:instantOS/st-instantos.git
+[submodule "dot_oh-my-zsh/custom/themes/spaceship-prompt"]
+	path = dot_oh-my-zsh/custom/themes/spaceship-prompt
+	url = git@github.com:shiftgeist/spaceship-prompt.git
+[submodule "dot_oh-my-zsh/custom/plugins/zsh-better-npm-completion"]
+	path = dot_oh-my-zsh/custom/plugins/zsh-better-npm-completion
+	url = git@github.com:lukechilds/zsh-better-npm-completion.git
+[submodule "dot_oh-my-zsh/custom/plugins/zsh-completions"]
+	path = dot_oh-my-zsh/custom/plugins/zsh-completions
+	url = git@github.com:zsh-users/zsh-completions.git
+[submodule "dot_oh-my-zsh/custom/plugins/alias-tips"]
+	path = dot_oh-my-zsh/custom/plugins/alias-tips
+	url = git@github.com:djui/alias-tips.git
+[submodule "dot_rice/autojump"]
+	path = dot_rice/autojump
+	url = git@github.com:wting/autojump.git

@@ -41,6 +41,7 @@ alias syslog="sudo dmesg -w"
 {{ if or (eq .chezmoi.osRelease.id "debian") (eq .chezmoi.osRelease.id "ubuntu") }}
 alias acp="apt-cache policy"
 alias agi="sudo apt install"
+alias agibp="sudo apt-get -t buster-backports install"
 alias agli="apt list --installed"
 alias aglu="apt list --upgradable"
 alias ags="apt search"

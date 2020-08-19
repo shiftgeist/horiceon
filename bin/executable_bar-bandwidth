@@ -11,19 +11,19 @@ get_bandwidth() {
 }
 
 format_speed() {
-    numfmt --to=iec-i --suffix "B/s" --format "%f" $1
+    numfmt --to=iec-i --suffix "B/s" --format "%f" "$1"
 }
 
 main() {
     local sleep_time=1
 
-    local first_measure=( $(get_bandwidth) )
+    local first_measure=( "$(get_bandwidth)" )
     sleep $sleep_time
-    local second_measure=( $(get_bandwidth) )
-    local download_speed=$(((${second_measure[0]} - ${first_measure[0]}) / $sleep_time))
-    local upload_speed=$(((${second_measure[1]} - ${first_measure[1]}) / $sleep_time))
+    local second_measure=( "$(get_bandwidth)" )
+    local download_speed=$((("${second_measure[0]}" - "${first_measure[0]}") / "$sleep_time"))
+    local upload_speed=$((("${second_measure[1]}" - "${first_measure[1]}") / "$sleep_time"))
 
-    printf "↓$(format_speed $download_speed) ↑$(format_speed $upload_speed)"
+    printf "..%s.." "↓$(format_speed $download_speed) ↑$(format_speed $upload_speed)"
 }
 
 main

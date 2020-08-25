@@ -4,8 +4,8 @@
 *.foreground: #D5D8DA
 
 !black
-*color0: #232530
-*color8: #2E303E
+*color0: #2F3240
+*color8: #404557
 
 !red
 *color1: #E95678

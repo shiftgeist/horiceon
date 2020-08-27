@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/zsh
 
 export ZSH="$HOME/.oh-my-zsh"
 
@@ -10,6 +10,9 @@ HIST_STAMPS="dd.mm.yyyy"
 ZSH_TMUX_AUTOSTART="true"
 
 plugins=(
+  {{ if eq .chezmoi.osRelease.id "arch" }}archlinux{{ end }}
+  {{ if eq .chezmoi.osRelease.id "debian" }}debian{{ end }}
+  {{ if eq .chezmoi.osRelease.id "ubuntu" }}ubuntu{{ end }}
   git
   git-flow
   tmux
@@ -18,33 +21,9 @@ plugins=(
 )
 
 source $ZSH/oh-my-zsh.sh
-export PATH="${PATH}:$HOME/bin:$HOME/bin/diff-so-fancy"
-{{ with .api.bitwarden }}
-export BW_SESSION="{{ . }}"
-{{ end }}
 
-# autostart X at login
-if systemctl -q is-active graphical.target && [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then
-  exec startx
-fi
-
-xset r rate 300 50
-
-# alias
 alias syslog-crit="sudo dmesg -w -l err,warn"
 alias syslog="sudo dmesg -w"
-
-{{ if or (eq .chezmoi.osRelease.id "debian") (eq .chezmoi.osRelease.id "ubuntu") }}
-alias acp="apt-cache policy"
-alias agi="sudo apt install"
-alias agibp="sudo apt-get -t buster-backports install"
-alias agli="apt list --installed"
-alias aglu="apt list --upgradable"
-alias ags="apt search"
-alias agu="sudo apt update"
-alias agug="sudo apt upgrade"
-alias agr="sudo apt remove"
-{{ end }}
 
 alias battery-status="upower -i /org/freedesktop/UPower/devices/battery_BAT0 | grep -E 'state|time\ to\ full|percentage'"
 alias docker-cleanup="echo 'Cleaning docker images older than 24h' && docker image prune -a --filter 'until=24h'"

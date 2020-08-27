@@ -10,6 +10,3 @@
 [submodule "dot_oh-my-zsh/custom/plugins/zsh-completions"]
 	path = dot_oh-my-zsh/custom/plugins/zsh-completions
 	url = git@github.com:zsh-users/zsh-completions.git
-[submodule "dot_rice/autojump"]
-	path = dot_rice/autojump
-	url = git@github.com:wting/autojump.git

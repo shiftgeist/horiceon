@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 {{ if eq .chezmoi.osRelease.id "arch" }}
 yay -Syu tmux zsh neovim xsel neofetch openssh htop rsync code nodejs-lts-erbium npm{{ if .desktop }} flameshot brave-bin spotify notion-app i3-gaps ttf-dejavu noto-fonts-emoji otf-overpass rofi dunst feh compton{{ end }}

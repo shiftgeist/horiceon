@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 PLUGINS=(
     coenraads.bracket-pair-colorizer-2

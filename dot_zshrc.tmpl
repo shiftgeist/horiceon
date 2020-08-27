@@ -10,7 +10,6 @@ HIST_STAMPS="dd.mm.yyyy"
 ZSH_TMUX_AUTOSTART="true"
 
 plugins=(
-  autojump
   git
   git-flow
   tmux
@@ -22,11 +21,6 @@ source $ZSH/oh-my-zsh.sh
 export PATH="${PATH}:$HOME/bin:$HOME/bin/diff-so-fancy"
 {{ with .api.bitwarden }}
 export BW_SESSION="{{ . }}"
-{{ end }}
-
-{{ if eq .chezmoi.osRelease.id "debian" }}
-[[ -s /home/fhungenberg/.autojump/etc/profile.d/autojump.sh ]] && source /home/fhungenberg/.autojump/etc/profile.d/autojump.sh
-autoload -U compinit && compinit -u
 {{ end }}
 
 # autostart X at login

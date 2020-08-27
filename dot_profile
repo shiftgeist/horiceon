@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 # Profile file. Runs on login. Environmental variables are set here.
 

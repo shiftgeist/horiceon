@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 # This script is called on startup to remap keys.
 # Increase key speed via a rate change

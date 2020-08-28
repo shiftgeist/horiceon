@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 
 export ZSH="$HOME/.oh-my-zsh"
 
@@ -33,9 +33,10 @@ alias fonts="fc-list"
 alias fonts-rebuild="fc-cache -f -v"
 alias x-refresh-db="xrdb ~/.Xresources"
 alias select-file="xsel -b <"
-alias untar="tar -xvf"
-alias untargz="tar -zxvf"
-alias untarxz="tar -xf"
+alias untar="tar xvf"
+alias untargz="tar zxvf"
+alias untarxz="tar xf"
+alias untarbz2="tar xjf"
 
 alias gbc="git branch --merged | egrep -v '(^\*|master|dev)' | xargs git branch -d && git pull --prune"
 alias nlsg0="npm list -g --depth=0"

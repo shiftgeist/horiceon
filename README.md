@@ -16,19 +16,6 @@
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-## What's included?
-
-- code
-- st
-- git
-- spotify (spicetify)
-- dunst
-- polybar
-- rofi
-- tmux (+ tpm)
-
-(See [Installation](#installation) for example.)
-
 ## Theme
 
 **Typography**
@@ -84,6 +71,10 @@ git submodule update --init
 
 chezmoi apply
 ```
+
+## Goals
+
+- [ ] Replace `oh-my-zsh` with vanilla zsh.
 
 ## About
 

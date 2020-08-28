@@ -1,0 +1,7 @@
+#!/bin/sh
+
+# xinitrc runs automatically when you run startx.
+
+. ~/.xprofile
+
+ssh-agent dwm

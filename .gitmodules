@@ -11,5 +11,5 @@
 	path = dot_oh-my-zsh/custom/plugins/zsh-completions
 	url = git@github.com:zsh-users/zsh-completions.git
 [submodule "dot_local/share/horiceon/instantWM"]
-	path = dot_local/share/horiceon/instantWM
+	path = dot_local/src/instantWM
 	url = git@github.com:instantOS/instantWM.git

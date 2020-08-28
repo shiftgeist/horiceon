@@ -1,6 +1,3 @@
-[submodule "dot_rice/yay"]
-	path = dot_rice/yay
-	url = git@github.com:Jguer/yay.git
 [submodule "dot_oh-my-zsh/custom/themes/spaceship-prompt"]
 	path = dot_oh-my-zsh/custom/themes/spaceship-prompt
 	url = git@github.com:shiftgeist/spaceship-prompt.git
@@ -10,9 +7,9 @@
 [submodule "dot_oh-my-zsh/custom/plugins/zsh-completions"]
 	path = dot_oh-my-zsh/custom/plugins/zsh-completions
 	url = git@github.com:zsh-users/zsh-completions.git
-[submodule "dot_local/share/horiceon/instantWM"]
-	path = dot_local/src/instantWM
-	url = git@github.com:instantOS/instantWM.git
 [submodule "dot_local/src/st-instantos"]
 	path = dot_local/src/st-instantos
 	url = git@github.com:instantOS/st-instantos.git
+[submodule "dot_rice/src/yay"]
+	path = dot_rice/src/yay
+	url = git@github.com:Jguer/yay.git

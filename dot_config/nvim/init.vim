@@ -17,7 +17,7 @@ Plug 'lukesmithxyz/vimling'
 Plug 'tpope/vim-commentary'
 Plug 'kovetskiy/sxhkd-vim'
 Plug 'ap/vim-css-color'
-call plug#end()1
+call plug#end()
 
 set bg=dark
 set go=a

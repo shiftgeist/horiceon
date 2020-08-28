@@ -4,3 +4,4 @@ setxkbmap us altgr-intl
 
 remaps &                # run the remaps script, switching caps/esc and more; check it for more info
 xrdb "${XDG_CONFIG_HOME:-$HOME/.config}"/Xresources & # Use Xresources colors/settings on startup
+dunst &			# dunst for notifications

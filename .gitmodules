@@ -13,3 +13,6 @@
 [submodule "dot_local/share/horiceon/instantWM"]
 	path = dot_local/src/instantWM
 	url = git@github.com:instantOS/instantWM.git
+[submodule "dot_local/src/st-instantos"]
+	path = dot_local/src/st-instantos
+	url = git@github.com:instantOS/st-instantos.git

@@ -13,3 +13,6 @@
 [submodule "dot_rice/src/yay"]
 	path = dot_rice/src/yay
 	url = git@github.com:Jguer/yay.git
+[submodule "dot_local/src/dwm"]
+	path = dot_local/src/dwm
+	url = https://git.suckless.org/dwm

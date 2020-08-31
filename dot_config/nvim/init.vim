@@ -17,6 +17,7 @@ Plug 'lukesmithxyz/vimling'
 Plug 'tpope/vim-commentary'
 Plug 'kovetskiy/sxhkd-vim'
 Plug 'ap/vim-css-color'
+Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 call plug#end()
 
 set bg=dark

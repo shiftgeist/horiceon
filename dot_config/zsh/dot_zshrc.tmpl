@@ -7,7 +7,6 @@ ZSH_THEME="spaceship"
 HYPHEN_INSENSITIVE="true"
 DISABLE_UNTRACKED_FILES_DIRTY="true"
 HIST_STAMPS="dd.mm.yyyy"
-ZSH_TMUX_AUTOSTART="true"
 
 plugins=(
   {{ if eq .chezmoi.osRelease.id "arch" }}archlinux{{ end }}
@@ -15,7 +14,6 @@ plugins=(
   {{ if eq .chezmoi.osRelease.id "ubuntu" }}ubuntu{{ end }}
   git
   git-flow
-  tmux
   zsh-better-npm-completion
   zsh-completions
 )

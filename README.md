@@ -47,15 +47,14 @@
 <details>
   <summary>Shortcuts Concept</summary>
 
-| Binding                 | Function                         |
-| ----------------------- | -------------------------------- |
-| `Super + CTRL + S`      | Lock screen                      |
-| `Super + E`             | Open files manager               |
-| `Super + Q`             | Close Application                |
-| `Super + CTRL + Return` | Launch Terminal                  |
-| `Super + Return`        | Launch Terminal with multiplexer |
-| `Super + Space`         | Open Application Launcher        |
-| `Super + Number`        | Switch to tag number             |
+| Binding                 | Description               | Function                       |
+| ----------------------- | ------------------------- | ------------------------------ |
+| `Super + CTRL + S`      | Lock screen               | `i3lock`                       |
+| `Super + E`             | Open files manager        | `nautilus`                     |
+| `Super + Q`             | Close Application         | -                              |
+| `Super + Return`        | Launch Terminal           | `lxterminal -e "dvtm"` or `st` |
+| `Super + Space`         | Open Application Launcher | `dmenu` or `rofi`              |
+| `Super + Number`        | Switch to tag number      | -                              |
 
 </details>
 
@@ -79,11 +78,11 @@ chezmoi apply
 
 ## About
 
-Status: ⚠️ Work in progress.
+This is more a concept to build ontop of the suckless philosophy than a finished product.
 
 **Inspiration**
 
-This project is inspired by the vscode [Horizon Theme](https://marketplace.visualstudio.com/items?itemName=jolaleye.horizon-theme-vscode) by [@jolaleye](https://github.com/jolaleye).
+This project is inspired by the vscode [Horizon Theme](https://marketp\lace.visualstudio.com/items?itemName=jolaleye.horizon-theme-vscode) by [@jolaleye](https://github.com/jolaleye).
 
 **Statistics**
 

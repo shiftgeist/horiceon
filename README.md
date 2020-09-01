@@ -47,14 +47,15 @@
 <details>
   <summary>Shortcuts Concept</summary>
 
-| Binding                | Function                  |
-| ---------------------- | ------------------------- |
-| `Super` + `Ctrl` + `L` | Lock screen               |
-| `Super` + `E`          | Open files                |
-| `Super` + `Q`          | Close Application         |
-| `Super` + `Return`     | Launch Terminal           |
-| `Super` + `Space`      | Open Application Launcher |
-| `Super` + Number       | Switch to tag number      |
+| Binding                 | Function                         |
+| ----------------------- | -------------------------------- |
+| `Super + CTRL + S`      | Lock screen                      |
+| `Super + E`             | Open files manager               |
+| `Super + Q`             | Close Application                |
+| `Super + CTRL + Return` | Launch Terminal                  |
+| `Super + Return`        | Launch Terminal with multiplexer |
+| `Super + Space`         | Open Application Launcher        |
+| `Super + Number`        | Switch to tag number             |
 
 </details>
 

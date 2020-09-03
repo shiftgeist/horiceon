@@ -55,6 +55,8 @@
 | `Super + Return`        | Launch Terminal           | `lxterminal -e "dvtm"` or `st` |
 | `Super + Space`         | Open Application Launcher | `dmenu` or `rofi`              |
 | `Super + Number`        | Switch to tag number      | -                              |
+| `Ctrl + W`              | Kill Word (terminal)      | -                              |
+| `Ctrl + U`              | Kill Line (terminal)      | -                              |
 
 </details>
 

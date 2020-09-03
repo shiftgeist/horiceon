@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/sh
 
 # Modified source from: https://github.com/petere/git-whoami
 

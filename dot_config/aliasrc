@@ -1,5 +1,9 @@
-#!/usr/bin/env zsh
+#!/bin/sh
 
+# Rice
+alias horiceon="cd ~/.local/share/horiceon"
+
+# Helper
 alias syslog-crit="sudo dmesg -w -l err,warn"
 alias syslog="sudo dmesg -w"
 
@@ -20,7 +24,6 @@ alias gbc="git branch --merged | egrep -v '(^\*|master|dev)' | xargs git branch 
 alias nlsg0="npm list -g --depth=0"
 alias nv="npm version --no-git-tag-version"
 alias ports="netstat -tlpn"
-alias v=nvim
 
 # Git
 
@@ -160,3 +163,7 @@ alias gpf='git push --force-with-lease'
 # alias gsr='git svn rebase'
 # alias gss='git status -s'
 alias gst='git status'
+
+# directory navigation
+
+alias la="ls -la"

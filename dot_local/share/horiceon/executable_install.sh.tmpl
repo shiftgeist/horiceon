@@ -1,7 +1,7 @@
 #!/bin/sh
 
 {{ if eq .chezmoi.osRelease.id "arch" }}
-yay -Syu tmux zsh neovim xsel neofetch openssh htop rsync code nodejs-lts-erbium npm xcape{{ if .desktop }} flameshot brave-bin spotify notion-app i3-gaps ttf-dejavu noto-fonts-emoji otf-overpass rofi dunst feh compton{{ end }}
+yay -Syu tmux zsh neovim xsel neofetch openssh htop rsync code nodejs-lts-erbium npm xcape suckless-tools {{ if .desktop }}compton lightdm flameshot dunst brave-bin spotify notion-app ttf-dejavu noto-fonts-emoji otf-overpass rofi feh{{ end }}
 {{ else if eq .chezmoi.osRelease.id "debian" -}}
-sudo apt install neovim xsel neofetch autojump xcape
+sudo apt install neovim xsel neofetch autojump xcape suckless-tools {{ if .desktop }}compton lightdm flameshot dunst feh{{ end }}
 {{ end -}}

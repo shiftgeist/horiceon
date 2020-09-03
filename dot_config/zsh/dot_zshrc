@@ -43,6 +43,7 @@ source "$ZSHPATH/zsh-autosuggestions/zsh-autosuggestions.zsh" 2> /dev/null
 source "$ZSHPATH/zsh-completions/zsh-completions.plugin.zsh" 2> /dev/null
 source "$ZSHPATH/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" 2> /dev/null
 source "$ZSHPATH/zsh-you-should-use/you-should-use.plugin.zsh" 2> /dev/null
+source "/usr/share/zsh/vendor-completions/_fzf" 2> /dev/null
 
 # Load aliases
 [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/aliasrc" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/aliasrc"

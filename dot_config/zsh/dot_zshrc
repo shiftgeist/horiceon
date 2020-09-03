@@ -52,6 +52,9 @@ if [ -f ~/.zshrc_local ]; then
     source ~/.zshrc_local
 fi
 
+# Key mode
+bindkey -e
+
 # Init prompt
 autoload -U promptinit; promptinit
 prompt spaceship

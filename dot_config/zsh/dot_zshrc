@@ -1,12 +1,14 @@
 #!/usr/bin/env zsh
 
+ZSHPATH="${XDG_DATA_HOME:-$HOME/.local/share}/zsh"
+
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
 # Include custom dir to fpath
 fpath=(
-    "${XDG_DATA_HOME:-$HOME/.local/share}/zsh"
-    "${XDG_DATA_HOME:-$HOME/.local/share}/zsh/zsh-completions/src"
+    "$ZSHPATH"
+    "$ZSHPATH/zsh-completions/src"
     $fpath
 )
 
@@ -37,11 +39,10 @@ zstyle ':completion:*' matcher-list 'm:{a-zA-Z-_}={A-Za-z_-}' 'r:|=*' 'l:|=* r:|
 autoload -U +X bashcompinit && bashcompinit
 
 # Plugins
-source "${XDG_DATA_HOME:-$HOME/.local/share}/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh" 2> /dev/null
-source "${XDG_DATA_HOME:-$HOME/.local/share}/zsh/zsh-better-npm-completion/zsh-better-npm-completion.plugin.zsh" 2> /dev/null
-source "${XDG_DATA_HOME:-$HOME/.local/share}/zsh/zsh-completions/zsh-completions.plugin.zsh" 2> /dev/null
-source "${XDG_DATA_HOME:-$HOME/.local/share}/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" 2> /dev/null
-source "${XDG_DATA_HOME:-$HOME/.local/share}/zsh/zsh-you-should-use/you-should-use.plugin.zsh" 2> /dev/null
+source "$ZSHPATH/zsh-autosuggestions/zsh-autosuggestions.zsh" 2> /dev/null
+source "$ZSHPATH/zsh-completions/zsh-completions.plugin.zsh" 2> /dev/null
+source "$ZSHPATH/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" 2> /dev/null
+source "$ZSHPATH/zsh-you-should-use/you-should-use.plugin.zsh" 2> /dev/null
 
 # Load aliases
 [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/aliasrc" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/aliasrc"

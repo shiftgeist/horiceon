@@ -14,9 +14,8 @@ clonePlugins () {
 
 # Install plugins
 clonePlugins \
-    "git@github.com:lukechilds/zsh-better-npm-completion.git" \
-    "git@github.com:zsh-users/zsh-completions.git" \
+    "git@github.com:denysdovhan/spaceship-prompt.git" \
     "git@github.com:MichaelAquilina/zsh-you-should-use.git" \
-    "git@github.com:zsh-users/zsh-syntax-highlighting.git" \
     "git@github.com:zsh-users/zsh-autosuggestions.git" \
-    "git@github.com:denysdovhan/spaceship-prompt.git"
+    "git@github.com:zsh-users/zsh-completions.git" \
+    "git@github.com:zsh-users/zsh-syntax-highlighting.git"

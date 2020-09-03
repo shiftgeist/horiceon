@@ -67,7 +67,7 @@ alias ports="netstat -tlpn"
 # alias gpristine='git reset --hard && git clean -dffx'
 # alias gcm='git checkout $(git_main_branch)'
 # alias gcd='git checkout develop'
-# alias gcmsg='git commit -m'
+alias gcmsg='git commit -m'
 alias gco='git checkout'
 # alias gcount='git shortlog -sn'
 # alias gcp='git cherry-pick'
@@ -164,6 +164,22 @@ alias gpf='git push --force-with-lease'
 # alias gss='git status -s'
 alias gst='git status'
 
-# directory navigation
+# directories
 
-alias la="ls -la"
+alias la='ls -lAh'
+
+# npm
+
+alias npmg="npm i -g "
+alias npmS="npm i -S "
+alias npmD="npm i -D "
+alias npmE='PATH="$(npm bin)":"$PATH"'
+alias npmO="npm outdated"
+alias npmV="npm -v"
+alias npmL="npm list"
+alias npmL0="npm ls --depth=0"
+alias npmst="npm start"
+alias npmt="npm test"
+alias npmR="npm run"
+alias npmP="npm publish"
+alias npmI="npm init"

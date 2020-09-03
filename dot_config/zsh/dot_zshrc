@@ -5,9 +5,9 @@
 
 # Include custom dir to fpath
 fpath=(
-    "$HOME/.local/share/zsh"
-    "$HOME/.local/share/zsh/**/*~*/(CVS)#(/N)"
-    "${fpath[@]}"
+    "${XDG_DATA_HOME:-$HOME/.local/share}/zsh"
+    "${XDG_DATA_HOME:-$HOME/.local/share}/zsh/zsh-completions/src"
+    $fpath
 )
 
 # Enable colors and change prompt:
@@ -31,26 +31,26 @@ zmodload zsh/complist
 compinit
 _comp_options+=(globdots) # Include hidden files.
 
-# Auto complete with case insenstivity
-zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+# Auto complete
+zstyle ':completion:*:*:*:*:*' menu select
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z-_}={A-Za-z_-}' 'r:|=*' 'l:|=* r:|=*' # with case insenstivity
+autoload -U +X bashcompinit && bashcompinit
 
 # Plugins
-source ~/.local/share/zsh/plugins/zsh-better-npm-completion/zsh-better-npm-completion.plugin.zsh
-source ~/.local/share/zsh/plugins/zsh-completions/zsh-completions.plugin.zsh
-
-# Suggest aliases for commands
-source ~/.local/share/zsh/plugins/zsh-you-should-use/you-should-use.plugin.zsh
-
-# Load zsh-syntax-highlighting
-source ~/.local/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source "${XDG_DATA_HOME:-$HOME/.local/share}/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh" 2> /dev/null
+source "${XDG_DATA_HOME:-$HOME/.local/share}/zsh/zsh-better-npm-completion/zsh-better-npm-completion.plugin.zsh" 2> /dev/null
+source "${XDG_DATA_HOME:-$HOME/.local/share}/zsh/zsh-completions/zsh-completions.plugin.zsh" 2> /dev/null
+source "${XDG_DATA_HOME:-$HOME/.local/share}/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" 2> /dev/null
+source "${XDG_DATA_HOME:-$HOME/.local/share}/zsh/zsh-you-should-use/you-should-use.plugin.zsh" 2> /dev/null
 
 # Load aliases
 [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/aliasrc" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/aliasrc"
 
+# Load untracked zshrc
 if [ -f ~/.zshrc_local ]; then
     source ~/.zshrc_local
 fi
 
-# Spaceship Prompt
+# Init prompt
 autoload -U promptinit; promptinit
 prompt spaceship

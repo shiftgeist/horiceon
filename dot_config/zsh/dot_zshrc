@@ -1,0 +1,56 @@
+#!/usr/bin/env zsh
+
+# If not running interactively, don't do anything
+[[ $- != *i* ]] && return
+
+# Include custom dir to fpath
+fpath=(
+    "$HOME/.local/share/zsh"
+    "$HOME/.local/share/zsh/**/*~*/(CVS)#(/N)"
+    "${fpath[@]}"
+)
+
+# Enable colors and change prompt:
+autoload -U colors && colors
+
+# Automatically cd into typed directory.
+setopt autocd
+
+# Disable ctrl-s to freeze terminal.
+stty stop undef
+
+# History in cache directory:
+HISTSIZE=10000
+SAVEHIST=10000
+HISTFILE=~/.cache/zsh/history
+
+# Basic auto/tab complete:
+autoload -U compinit
+zstyle ':completion:*' menu select
+zmodload zsh/complist
+compinit
+_comp_options+=(globdots) # Include hidden files.
+
+# Auto complete with case insenstivity
+zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+
+# Plugins
+source ~/.local/share/zsh/plugins/zsh-better-npm-completion/zsh-better-npm-completion.plugin.zsh
+source ~/.local/share/zsh/plugins/zsh-completions/zsh-completions.plugin.zsh
+
+# Suggest aliases for commands
+source ~/.local/share/zsh/plugins/zsh-you-should-use/you-should-use.plugin.zsh
+
+# Load zsh-syntax-highlighting
+source ~/.local/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# Load aliases
+[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/aliasrc" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/aliasrc"
+
+if [ -f ~/.zshrc_local ]; then
+    source ~/.zshrc_local
+fi
+
+# Spaceship Prompt
+autoload -U promptinit; promptinit
+prompt spaceship

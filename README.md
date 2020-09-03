@@ -74,7 +74,7 @@ chezmoi apply
 
 ## Goals
 
-- [ ] Replace `oh-my-zsh` with vanilla zsh.
+- [x] Replace `oh-my-zsh` with vanilla zsh.
 
 ## About
 

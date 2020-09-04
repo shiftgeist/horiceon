@@ -1,0 +1,8 @@
+#!/bin/sh
+
+# what does it do?
+set -e
+
+HORICEON="${XDG_DATA_HOME:-$HOME/.local/share}/horiceon"
+
+la "$HORICEON"

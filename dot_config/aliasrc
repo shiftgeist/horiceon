@@ -3,9 +3,7 @@
 # Rice
 alias horiceon="cd ~/.local/share/horiceon"
 
-# Helper
-alias syslog-crit="sudo dmesg -w -l err,warn"
-alias syslog="sudo dmesg -w"
+# helper
 
 alias battery-status="upower -i /org/freedesktop/UPower/devices/battery_BAT0 | grep -E 'state|time\ to\ full|percentage'"
 alias docker-cleanup="echo 'Cleaning docker images older than 24h' && docker image prune -a --filter 'until=24h'"
@@ -20,10 +18,6 @@ alias untargz="tar zxvf"
 alias untarxz="tar xf"
 alias untarbz2="tar xjf"
 
-alias gbc="git branch --merged | egrep -v '(^\*|master|dev)' | xargs git branch -d && git pull --prune"
-alias nlsg0="npm list -g --depth=0"
-alias nv="npm version --no-git-tag-version"
-alias ports="netstat -tulpen"
 alias zsh-debug="zsh -xv"
 
 # git
@@ -68,7 +62,9 @@ alias gd='git diff'
 alias gt='git tag | sort -h'
 alias gdesc='git describe --tags $(git_current_commit)'
 
-# directories
+alias gbc="git branch --merged | egrep -v '(^\*|master|dev)' | xargs git branch -d && git pull --prune"
+
+# navigation
 
 alias la='ls -lAh'
 alias ...='cd ../..'
@@ -90,3 +86,22 @@ alias npmt='npm test'
 alias npmR='npm run'
 alias npmP='npm publish'
 alias npmI='npm init'
+
+alias nv='npm version --no-git-tag-version'
+alias nlsg0='npm list -g --depth=0'
+
+# system
+
+# fkill - kill processes - list only the ones you can kill. Modified the earlier script.
+fkill() {
+    pid=$(ps -f -u "$(id -u)" | sed 1d | fzf -m | awk '{print $2}')
+
+    if [ -n "$pid" ]
+    then
+        echo "$pid" | xargs kill -"${1:-9}"
+    fi
+}
+
+alias syslog-crit="sudo dmesg -w -l err,warn"
+alias syslog="sudo dmesg -w"
+alias ports="netstat -tulpen"

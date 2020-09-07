@@ -61,6 +61,9 @@ alias gd="git diff"
 # directories
 
 alias la='ls -lAh'
+alias ...="cd ../.."
+alias ....="cd ../../.."
+alias .....="cd ../../../.."
 
 # npm
 

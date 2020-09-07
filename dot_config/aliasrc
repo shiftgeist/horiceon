@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh
+#!/bin/sh
 
 # Rice
 alias horiceon="cd ~/.local/share/horiceon"
@@ -28,19 +28,27 @@ alias zsh-debug="zsh -xv"
 
 # git
 
+# We wrap in a local function instead of exporting the variable directly in
+# order to avoid interfering with manually-run git commands by the user.
+__git_prompt_git() {
+  GIT_OPTIONAL_LOCKS=0 command git "$@"
+}
+
 # Outputs the name of the current branch
-# Usage example: git pull origin $(git_current_branch)
-# Using '--quiet' with 'symbolic-ref' will not cause a fatal error (128) if
-# it's not a symbolic ref, but in a Git repo.
-function git_current_branch() {
-  local ref
+git_current_branch() {
   ref=$(__git_prompt_git symbolic-ref --quiet HEAD 2> /dev/null)
-  local ret=$?
-  if [[ $ret != 0 ]]; then
-    [[ $ret == 128 ]] && return  # no git repo.
+  ret=$?
+  if [ $ret -ne 0 ]; then
+    [ $ret -eq 128 ] && return  # no git repo.
     ref=$(__git_prompt_git rev-parse --short HEAD 2> /dev/null) || return
   fi
-  echo ${ref#refs/heads/}
+  echo "${ref#refs/heads/}"
+}
+
+# Outputs the id of the current commit
+git_current_commit() {
+  ref=$(git rev-list --tags --max-count=1)
+  echo "$ref"
 }
 
 alias gcmsg='git commit -m'
@@ -56,29 +64,29 @@ alias gl='git pull'
 alias glog='git log --oneline --decorate --graph'
 alias gloga='git log --oneline --decorate --graph --all'
 alias gst='git status'
-alias gd="git diff"
-alias gt="git tag | sort -h"
-alias gdesc="git describe --tags $(git rev-list --tags --max-count=1)"
+alias gd='git diff'
+alias gt='git tag | sort -h'
+alias gdesc='git describe --tags $(git_current_commit)'
 
 # directories
 
 alias la='ls -lAh'
-alias ...="cd ../.."
-alias ....="cd ../../.."
-alias .....="cd ../../../.."
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias .....='cd ../../../..'
 
 # npm
 
-alias npmg="npm i -g "
-alias npmS="npm i -S "
-alias npmD="npm i -D "
+alias npmg='npm i -g '
+alias npmS='npm i -S '
+alias npmD='npm i -D '
 alias npmE='PATH="$(npm bin)":"$PATH"'
-alias npmO="npm outdated"
-alias npmV="npm -v"
-alias npmL="npm list"
-alias npmL0="npm ls --depth=0"
-alias npmst="npm start"
-alias npmt="npm test"
-alias npmR="npm run"
-alias npmP="npm publish"
-alias npmI="npm init"
+alias npmO='npm outdated'
+alias npmV='npm -v'
+alias npmL='npm list'
+alias npmL0='npm ls --depth=0'
+alias npmst='npm start'
+alias npmt='npm test'
+alias npmR='npm run'
+alias npmP='npm publish'
+alias npmI='npm init'

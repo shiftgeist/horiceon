@@ -19,6 +19,7 @@
     "git.autofetch": true,
     "git.confirmSync": false,
     "git.enableSmartCommit": true,
+    "git.allowForcePush": true,
     "terminal.integrated.shell.linux": "/usr/bin/zsh",
     "window.menuBarVisibility": "hidden",
     "workbench.colorTheme": "Horiceon",

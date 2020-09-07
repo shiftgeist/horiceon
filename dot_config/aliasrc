@@ -57,6 +57,8 @@ alias glog='git log --oneline --decorate --graph'
 alias gloga='git log --oneline --decorate --graph --all'
 alias gst='git status'
 alias gd="git diff"
+alias gt="git tag | sort -h"
+alias gdesc="git describe --tags $(git rev-list --tags --max-count=1)"
 
 # directories
 

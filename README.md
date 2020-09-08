@@ -7,11 +7,10 @@
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-**TOC**
 
-- [What's included?](#whats-included)
 - [Theme](#theme)
 - [Installation](#installation)
+- [Goals](#goals)
 - [About](#about)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->

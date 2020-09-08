@@ -47,16 +47,15 @@
 <details>
   <summary>Shortcuts Concept</summary>
 
-| Binding                 | Description               | Function                       |
+| Binding                 | Description               | Function/Script                |
 | ----------------------- | ------------------------- | ------------------------------ |
-| `Super + CTRL + S`      | Lock screen               | `i3lock`                       |
+| `Super + Ctrl + S`      | Lock screen               | `dm-tool switch-to-greeter`    |
+| `Super + Ctrl + Space`  | Open emoji picker         | -                              |
 | `Super + E`             | Open files manager        | `nautilus`                     |
+| `Super + Number`        | Switch to tag number      | -                              |
 | `Super + Q`             | Close Application         | -                              |
 | `Super + Return`        | Launch Terminal           | `lxterminal -e "dvtm"` or `st` |
 | `Super + Space`         | Open Application Launcher | `dmenu` or `rofi`              |
-| `Super + Number`        | Switch to tag number      | -                              |
-| `Ctrl + W`              | Kill Word (terminal)      | -                              |
-| `Ctrl + U`              | Kill Line (terminal)      | -                              |
 
 </details>
 

@@ -3,6 +3,8 @@
     "editor.minimap.enabled": false,
     "editor.fontFamily": "'Dank Mono', monospace",
     "editor.fontLigatures": true,
+    "editor.formatOnSave": true,
+    "editor.formatOnSaveMode": "modifications",
     "editor.suggestSelection": "first",
     "editor.rulers": [
         {

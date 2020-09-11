@@ -48,6 +48,9 @@ alias gcmsg='git commit -m'
 alias gco='git checkout'
 alias gcos="git for-each-ref --format='%(refname:short)' refs/heads | fzf | xargs git checkout"
 
+alias gaa="git add ."
+alias gcmsg="git commit -m"
+
 alias gp='git push'
 alias gpf='git push --force-with-lease'
 alias gpsup='git push --set-upstream origin $(git_current_branch)'
@@ -56,6 +59,7 @@ alias gl='git pull'
 
 alias glog='git log --oneline --decorate --graph'
 alias gloga='git log --oneline --decorate --graph --all'
+alias glol="git log --graph --pretty='%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'"
 alias gst='git status'
 alias gd='git diff'
 alias gt='git tag | sort -h'
@@ -66,9 +70,6 @@ alias gbc="git branch --merged | egrep -v '(^\*|master|dev)' | xargs git branch 
 # navigation
 
 alias la='ls -lAh'
-alias ...='cd ../..'
-alias ....='cd ../../..'
-alias .....='cd ../../../..'
 
 # npm
 

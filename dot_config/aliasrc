@@ -17,7 +17,7 @@ alias untargz="tar zxvf"
 alias untarxz="tar xf"
 alias untarbz2="tar xjf"
 
-alias zsh-debug="zsh -xv"
+alias zsh-debug="zprof > zprof-out.txt && less zprof-out.txt && rm zprof-out.txt"
 
 # git
 

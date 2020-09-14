@@ -92,17 +92,6 @@ alias nlsg0='npm list -g --depth=0'
 
 # system
 
-# fkill - kill processes - list only the ones you can kill. Modified the earlier script.
-fkill() {
-  pid=$(ps -f -u "$(id -u)" | sed 1d | fzf -m | awk '{print $2}')
-
-  # Exit if none chosen.
-  if [ -z "$pid" ]
-  then
-      echo "$pid" | xargs kill -"${1:-9}"
-  fi
-}
-
 alias syslog-crit="sudo dmesg -w -l err,warn"
 alias syslog="sudo dmesg -w"
 alias ports="netstat -tulpen"

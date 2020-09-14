@@ -20,9 +20,3 @@ export ZDOTDIR="${XDG_CONFIG_HOME:-$HOME/.config}/zsh"
 
 # Switch escape and caps if tty and no passwd required:
 sudo -n loadkeys "${XDG_DATA_HOME:-$HOME/.local/share}/horiceon/ttymaps.kmap" 2>/dev/null
-
-# Unlock ssh keys on login
-if [ -z "$SSH_AUTH_SOCK" ] ; then
-  eval "$(ssh-agent -s)"
-  ssh-add
-fi

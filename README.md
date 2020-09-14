@@ -54,7 +54,7 @@
 | `Super + Number`        | Switch to tag number      | -                              |
 | `Super + Q`             | Close Application         | -                              |
 | `Super + Return`        | Launch Terminal           | `lxterminal -e "dvtm"` or `st` |
-| `Super + Space`         | Open Application Launcher | `dmenu` or `rofi`              |
+| `Super + P`             | Open Application Launcher | `dmenu` or `rofi`              |
 
 </details>
 

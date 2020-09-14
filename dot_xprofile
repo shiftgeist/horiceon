@@ -5,10 +5,9 @@ setxkbmap us altgr-intl
 remaps &                # run the remaps script, switching caps/esc and more; check it for more info
 xrdb "${XDG_CONFIG_HOME:-$HOME/.config}"/Xresources & # Use Xresources colors/settings on startup
 dunst &			# dunst for notifications
-# gnome-screensaver &
-# gnome-settings-daemon &
+gnome-screensaver &
+gnome-settings-daemon &
 
-# export $(/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh,gpg)
+export "$(/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh,gpg)"
 
-# xrdb -cpp /usr/bin/cpp-4.7 -merge ~/.Xresources
 # xrandr --output HDMI2 --right-of HDMI1

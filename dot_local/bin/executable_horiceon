@@ -1,8 +1,59 @@
 #!/bin/sh
 
-# what does it do?
-set -e
+yayAddons() {
+    yay -Syu xterm zsh dvtm fzf neovim neofetch openssh htop rsync \
+        compton suckless-tools flameshot dunst brave-bin spotify notion-app \
+        code nodejs-lts-erbium npm \
+        ttf-dejavu noto-fonts-emoji otf-overpass \
+        feh xsel xcape
+}
 
-HORICEON="${XDG_DATA_HOME:-$HOME/.local/share}/horiceon"
+zshAddons() {
+    mkdir -p "${XDG_DATA_HOME:-$HOME/.local/share}/zsh/"
 
-la "$HORICEON"
+    clonePlugins () {
+        cd "${XDG_DATA_HOME:-$HOME/.local/share}/zsh/" || exit
+        for n in "$@"; do
+            git clone "$n" 2> /dev/null
+        done
+    }
+
+    # Install theme
+    [ ! -d  "/usr/local/bin/starship" ] && curl -fsSL https://starship.rs/install.sh | bash || echo "Skipping starship install."
+
+    # Install plugins
+    clonePlugins \
+        "git@github.com:MichaelAquilina/zsh-you-should-use.git" \
+        "git@github.com:zsh-users/zsh-syntax-highlighting.git"
+}
+
+diffSoFancy() {
+    file="$HOME/.local/bin/diff-so-fancy"
+    curl -o "$file" -z "$file" \
+        -fsSL https://github.com/so-fancy/diff-so-fancy/blob/master/diff-so-fancy &&
+        chmod +x "$file"
+}
+
+codeAddons() {
+    code --install-extension "coenraads.bracket-pair-colorizer-2"
+    code --install-extension "editorconfig.editorconfig"
+    code --install-extension "ow.vscode-subword-navigation"
+    code --install-extension "wakatime.vscode-wakatime"
+    code --install-extension "bierner.markdown-preview-github-styles"
+    code --install-extension "naumovs.color-highlight"
+    code --install-extension "pkief.material-icon-theme"
+}
+
+npmAddons() {
+    npm i -g npm-check-updates sirv-cli live-server doctoc @bitwarden/cli tinypng-cli firebase-tools markdownlint-cli
+}
+
+main() {
+    yayAddons
+    zshAddons
+    diffSoFancy
+    codeAddons
+    npmAddons
+}
+
+main

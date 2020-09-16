@@ -1,51 +1,54 @@
-#!/bin/sh
-# assist: emoji picker
+#!/usr/bin/env node
 
-cd || exit
+const { writeFile, readFile } = require('fs');
+const { homedir } = require('os');
+const { resolve } = require('path');
+const { get } = require('https')
 
-# exit and remove leftover files
-fail() {
-    [ -e ~/.cache/emoji/list.txt ] && rm ~/.cache/emoji/list.txt
-    if [ -n "$1" ]; then
-        notify-send "error: $1"
-    else
-        notify-send 'emoji download failed'
-    fi
-    exit 1
+const emojiList = resolve(homedir(), '.cache/emoji/list.txt');
+const upstream = 'https://api.github.com/emojis';
+
+async function main(data) {
+
+    data || readFile(emojiList, (err, data) => {
+        if (err) await getEmojiList();
+    });
+
 }
 
-# fetch list of emojis from unicode.org
-if ! [ -e .cache/emoji/list.txt ]; then
-    notify-send "downloading emoji list"
-    mkdir -p .cache/emoji
-    cd .cache/emoji || exit
+function getEmojiList() {
+    return new Promise((resolve, reject) => {
+        get({
+            href: upstream,
+            headers: {
+                'User-Agent': 'https://github.com/shiftgeist/horiceon'
+            }
+        }, (res) => {
+            res.on('data', (d) => {
 
-    if ! ping -c 1 google.com; then
-        fail "no internet"
-    fi
+                writeFile(emojiList, d, {}, err => {
+                    if (err) throw err;
+                    resolve(d);
+                });
 
-    if ! curl -s 'https://unicode.org/Public/emoji/13.0/emoji-test.txt' |
-        grep 'E[0-9]' | grep '#' | grep -o '#.*' |
-        sed 's/# \(.*\)E[0-9]*\.[0-9]* \(.*\)/\2 \1/g' >list.txt; then
-        fail "unknown error"
-    fi
+            });
+        }).on('error', (err) => {
+            reject(err);
+        });
+    })
+}
 
-    if ! [ "$(wc -l list.txt | grep -o '^[0-9]*')" -gt 1000 ]; then
-        fail "list too short"
-    fi
+main();
 
-fi
+// check cache
 
-# pick emojis using
-cd || exit
+// if cache doesn't exist
+// send notification - download started
+// prevent if no internet (ping)
+// get emoji list from github
+// convert to emoji/list.txt
+// https://api.github.com/emojis
 
-EMOJI="$(cat .cache/emoji/list.txt | dmenu -i -l 30)"
-
-echo $EMOJI
-
-if [ -z "$EMOJI" ]; then
-    exit
-fi
-
-
-# xdotool type "$EMOJI"
+// pick emoji with bash exec and fzf
+// EMOJI="$(echo -e "$(cat $CACHE/emoji/list.txt)" | fzf)"
+// copy to clipboard if selected (xsel)

@@ -7,7 +7,7 @@ export PATH="$PATH:$HOME/.local/bin/"
 
 # Default programs:
 export EDITOR="nvim"
-export TERMINAL="st"
+export TERMINAL="xterm"
 export BROWSER="brave-browser"
 
 # ~/ Clean-up:

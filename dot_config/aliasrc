@@ -64,6 +64,9 @@ alias gdesc='git describe --tags $(git_current_commit)'
 
 alias gbc="git branch --merged | egrep -v '(^\*|master|dev)' | xargs git branch -d && git pull --prune"
 
+alias gsta="git stash save"
+alias gstp="git stash pop"
+
 # navigation
 
 alias la='ls -lAh'

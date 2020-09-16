@@ -50,10 +50,12 @@ if [ -f ~/.zshrc_local ]; then
     source ~/.zshrc_local
 fi
 
+# Keybinds
+bindkey "$terminfo[kcuu1]" history-search-backward
+bindkey "$terminfo[kcud1]" history-search-forward
+
 # Emacs key mode
 bindkey -e
-
-zmodload zsh/zprof
 
 # Init prompt
 eval "$(starship init zsh)"

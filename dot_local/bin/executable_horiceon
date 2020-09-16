@@ -9,10 +9,10 @@ yayAddons() {
 }
 
 zshAddons() {
-    mkdir -p "${XDG_DATA_HOME:-$HOME/.local/share}/zsh/"
+    mkdir -p "${ZSHPATH:-$HOME/.local/share/zsh}"
 
     clonePlugins () {
-        cd "${XDG_DATA_HOME:-$HOME/.local/share}/zsh/" || exit
+        cd "${ZSHPATH:-$HOME/.local/share/zsh}" || exit
         for n in "$@"; do
             git clone "$n" 2> /dev/null
         done

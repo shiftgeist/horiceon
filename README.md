@@ -1,93 +1,57 @@
-![Horiceon](.github/header.png)
+![Horiceon](.github/horiceon.png)
 
-# Horiceon
+[![github issues](https://img.shields.io/github/issues/shiftgeist/horiceon)](https://github.com/shiftgeist/horiceon/issues) [![github stars](https://img.shields.io/github/stars/shiftgeist/horiceon)](https://github.com/shiftgeist/horiceon/stargazers)
 
-> [Managed](https://github.com/twpayne/chezmoi) dark 🌆 themed 🎨 rice 🍚.
+```markdown
+Dark 🌆 themed 🎨 rice 🍚.
+```
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of content**
 
-
-- [Theme](#theme)
-- [Installation](#installation)
-- [Goals](#goals)
 - [About](#about)
+- [Screenshots](#screenshots)
+- [Shortcuts](#shortcuts)
+- [Installation](#installation)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-## Theme
+## About
 
-**Typography**
+Horiceon includs [dwm](https://github.com/shiftgeist/horiceon/tree/master/dot_local/src/dwm), xterm, [neovim config](https://github.com/shiftgeist/horiceon/blob/master/dot_config/nvim/init.vim) dvtm, dmenu, [dunst](https://github.com/shiftgeist/horiceon/blob/master/dot_config/dunst/dunstrc), [custom zsh config](https://github.com/shiftgeist/horiceon/blob/master/dot_config/zsh/dot_zshrc) with [starship](https://starship.rs/), [code theme](https://github.com/shiftgeist/horiceon/tree/master/dot_vscode/extensions/horiceon-theme), [spotify theme](https://github.com/shiftgeist/horiceon/tree/master/dot_config/spicetify/Themes/Horiceon), [Overpass font](http://overpassfont.org), [Dank Mono font](https://dank.sh) and [diff-so-fancy](https://github.com/so-fancy/diff-so-fancy).
 
-- Monospace: [Dank Mono](https://dank.sh/)
-- Sans: [Overpass](http://overpassfont.org/)
+Managed with [chezmoi](https://github.com/twpayne/chezmoi) and inspired by [Horizon Theme](https://marketplace.visualstudio.com/items?itemName=jolaleye.horizon-theme-vscode) made by [@jolaleye](https://github.com/jolaleye).
 
-**Syntax Colors**
+## Screenshots
 
-![colors-syntax](.github/colors-syntax.png)
+**Code**
+![](.github/horiceon-code.png)
 
-**UI Colors**
+**Spotify Theme**
+![](.github/horiceon-spicetify.png)
 
-![ui-colors-accents](.github/ui-colors-accents.png)
+## Shortcuts
 
-<details>
-  <summary>More</summary>
-
-![ui-colors-base](.github/ui-colors-base.png)
-
-![ui-status-colors](.github/ui-status-colors.png)
-
-**ANSI**
-
-![ansi](.github/ansi.png)
-
-</details>
-
-<details>
-  <summary>Shortcuts Concept</summary>
-
-| Binding                 | Description               | Function/Script                |
-| ----------------------- | ------------------------- | ------------------------------ |
-| `Super + Ctrl + S`      | Lock screen               | `dm-tool switch-to-greeter`    |
-| `Super + Ctrl + Space`  | Open emoji picker         | -                              |
-| `Super + E`             | Open files manager        | `nautilus`                     |
-| `Super + Number`        | Switch to tag number      | -                              |
-| `Super + Q`             | Close Application         | -                              |
-| `Super + Return`        | Launch Terminal           | `lxterminal -e "dvtm"` or `st` |
-| `Super + P`             | Open Application Launcher | `dmenu` or `rofi`              |
-
-</details>
+| Binding                 | Description               | Exec        |
+| ----------------------- | ------------------------- | ----------- |
+| `Super + S`             | Lock screen               | TBD         |
+| `Super + Ctrl + Space`  | Open emoji picker         | -           |
+| `Super + E`             | Open files manager        | `nautilus`  |
+| `Super + Number`        | Switch to tag number      | -           |
+| `Super + Q`             | Close Application         | -           |
+| `Super + Return`        | Launch Terminal           | `xterm`     |
+| `Super + P`             | Open Application Launcher | `dmenu`     |
+| `Print`                 | Screenshot                | `flameshot` |
 
 ## Installation
 
-**Required** on Arch: `base-devil` `git` `chezmoi`
-
 ```bash
+pacman -S base-devil git chezmoi
+
+git clone https://aur.archlinux.org/yay.git
+cd yay
+makepkg -si
+
 chezmoi init git@github.com:shiftgeist/horiceon.git
-
-cd ~/.local/share/chezmoi
-
-git submodule update --init
-
-chezmoi apply
 ```
-
-## Goals
-
-- [x] Replace `oh-my-zsh` with vanilla zsh.
-
-## About
-
-This is more a concept to build ontop of the suckless philosophy than a finished product.
-
-**Inspiration**
-
-This project is inspired by the vscode [Horizon Theme](https://marketp\lace.visualstudio.com/items?itemName=jolaleye.horizon-theme-vscode) by [@jolaleye](https://github.com/jolaleye).
-
-**Statistics**
-
-![time tracker](https://wakatime.com/badge/github/shiftgeist/horiceon.svg) [![github issues](https://img.shields.io/github/issues/shiftgeist/horiceon)](https://github.com/shiftgeist/horiceon/issues) [![github stars](https://img.shields.io/github/stars/shiftgeist/horiceon)](https://github.com/shiftgeist/horiceon/stargazers)
-
-**License**
-
-![GitHub](https://img.shields.io/github/license/shiftgeist/horiceon)

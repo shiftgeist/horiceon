@@ -8,7 +8,6 @@ ZSHPATH="${XDG_DATA_HOME:-$HOME/.local/share}/zsh"
 # Include custom dir to fpath
 fpath=(
     "$ZSHPATH"
-    # "$ZSHPATH/zsh-completions/src"
     $fpath
 )
 
@@ -39,8 +38,6 @@ zstyle ':completion:*' matcher-list 'm:{a-zA-Z-_}={A-Za-z_-}' 'r:|=*' 'l:|=* r:|
 autoload -U +X bashcompinit && bashcompinit
 
 # Plugins
-source "$ZSHPATH/zsh-autosuggestions/zsh-autosuggestions.zsh"
-# source "$ZSHPATH/zsh-completions/zsh-completions.plugin.zsh"
 source "$ZSHPATH/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 source "$ZSHPATH/zsh-you-should-use/you-should-use.plugin.zsh"
 source "/usr/share/zsh/vendor-completions/_fzf"

@@ -35,4 +35,17 @@
 *color7: #CCCCCC
 *color15: #FFFFFF
 
-st.font: Dank Mono:pixelsize=15:antialias=true:autohint=true
+! xterm config
+xterm*faceName: Dank Mono
+xterm*faceSize: 11
+
+! double-click to select whole URLs
+xterm*charClass: 33:48,36-47:48,58-59:48,61:48,63-64:48,95:48,126:48
+
+! stop output to terminal from jumping down to bottom of scroll again
+xterm*scrollTtyOutput: false
+
+! copy and pasting
+XTerm*vt100.translations: #override \
+    Shift Ctrl <Key> C: copy-selection(CLIPBOARD) \n\
+    Shift Ctrl <Key> V: insert-selection(CLIPBOARD)

@@ -50,5 +50,10 @@
         "key": "shift+alt+DownArrow",
         "command": "editor.action.insertCursorBelow",
         "when": "editorTextFocus"
+    },
+    {
+        "key": "ctrl+shift+a",
+        "command": "editor.emmet.action.balanceOut",
+        "when": "editorTextFocus"
     }
 ]

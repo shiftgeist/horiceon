@@ -1,9 +1,0 @@
-[submodule "dot_local/src/st-instantos"]
-	path = dot_local/src/st-instantos
-	url = git@github.com:instantOS/st-instantos.git
-[submodule "dot_local/src/dwm"]
-	path = dot_local/src/dwm
-	url = https://git.suckless.org/dwm
-[submodule "dot_local/src/yay"]
-	path = dot_local/src/yay
-	url = git@github.com:Jguer/yay.git

@@ -35,14 +35,20 @@ Managed with [chezmoi](https://github.com/twpayne/chezmoi) and inspired by [Hori
 
 | Binding                 | Description               | Exec        |
 | ----------------------- | ------------------------- | ----------- |
-| `Super + S`             | Lock screen               | TBD         |
+| `Caps`                  | Switched with `Esc`       | -           |
+| `Esc`                   | Switched with `Caps`      | -           |
+| `Print`                 | Screenshot                | `flameshot` |
 | `Super + Ctrl + Space`  | Open emoji picker         | -           |
 | `Super + E`             | Open files manager        | `nautilus`  |
 | `Super + Number`        | Switch to tag number      | -           |
+| `Super + P`             | Open Application Launcher | `dmenu`     |
 | `Super + Q`             | Close Application         | -           |
 | `Super + Return`        | Launch Terminal           | `xterm`     |
-| `Super + P`             | Open Application Launcher | `dmenu`     |
-| `Print`                 | Screenshot                | `flameshot` |
+| `Super + S`             | Lock screen               | TBD         |
+
+```
+xkb-options ['lv3:ralt_switch', 'eurosign:e', 'caps:swapescape']
+```
 
 ## Installation
 

@@ -33,10 +33,10 @@ Managed with [chezmoi](https://github.com/twpayne/chezmoi) and inspired by [Hori
 
 ## Shortcuts
 
-| Binding                 | Description               | Exec        |
+| Binding                 | Description               | Role        |
 | ----------------------- | ------------------------- | ----------- |
-| `Caps`                  | Switched with `Esc`       | -           |
-| `Esc`                   | Switched with `Caps`      | -           |
+| `Caps`                  | Remapped                  | `Esc`       |
+| `Insert`                | Remapped                  | `Caps`      |
 | `Print`                 | Screenshot                | `flameshot` |
 | `Super + Ctrl + Space`  | Open emoji picker         | -           |
 | `Super + E`             | Open files manager        | `nautilus`  |
@@ -45,10 +45,6 @@ Managed with [chezmoi](https://github.com/twpayne/chezmoi) and inspired by [Hori
 | `Super + Q`             | Close Application         | -           |
 | `Super + Return`        | Launch Terminal           | `xterm`     |
 | `Super + S`             | Lock screen               | TBD         |
-
-```
-xkb-options ['lv3:ralt_switch', 'eurosign:e', 'caps:swapescape']
-```
 
 ## Installation
 

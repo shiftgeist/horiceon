@@ -1,0 +1,5 @@
+! insert = caps
+keycode 118 = Caps_Lock
+
+! caps = escape
+keycode 66 = Escape

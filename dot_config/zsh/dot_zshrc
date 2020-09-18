@@ -50,6 +50,14 @@ if [ -f ~/.zshrc_local ]; then
     source ~/.zshrc_local
 fi
 
+# Set emulator title
+# https://tldp.org/HOWTO/Xterm-Title-4.html
+case $TERM in
+    xterm*)
+        precmd () {print -Pn "\e]0;%n@%m: %~\a"}
+        ;;
+esac
+
 # Keybinds
 bindkey "$terminfo[kcuu1]" history-search-backward
 bindkey "$terminfo[kcud1]" history-search-forward

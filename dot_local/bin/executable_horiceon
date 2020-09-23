@@ -42,6 +42,7 @@ codeAddons() {
     code --install-extension "bierner.markdown-preview-github-styles"
     code --install-extension "naumovs.color-highlight"
     code --install-extension "pkief.material-icon-theme"
+    code --install-extension "esbenp.prettier-vscode"
 }
 
 npmAddons() {

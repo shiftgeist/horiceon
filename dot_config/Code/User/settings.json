@@ -1,29 +1,32 @@
 {
-    "breadcrumbs.enabled": false,
-    "editor.minimap.enabled": false,
-    "editor.fontFamily": "'Dank Mono', monospace",
-    "editor.fontLigatures": true,
-    "editor.formatOnSave": true,
-    "editor.formatOnSaveMode": "modifications",
-    "editor.suggestSelection": "first",
-    "editor.rulers": [
-        {
-            "color": "#232430",
-            "column": 79
-        },
-        {
-            "color": "#1A1C23",
-            "column": 119
-        }
-    ],
-    "explorer.confirmDelete": true,
-    "explorer.confirmDragAndDrop": true,
-    "git.autofetch": true,
-    "git.confirmSync": false,
-    "git.enableSmartCommit": true,
-    "git.allowForcePush": true,
-    "terminal.integrated.shell.linux": "/usr/bin/zsh",
-    "window.menuBarVisibility": "hidden",
-    "workbench.colorTheme": "Horiceon",
-    "workbench.iconTheme": "material-icon-theme"
+  "breadcrumbs.enabled": false,
+  "editor.minimap.enabled": false,
+  "editor.fontFamily": "'Dank Mono', monospace",
+  "editor.fontLigatures": true,
+  "editor.formatOnSave": true,
+  "editor.suggestSelection": "first",
+  "editor.rulers": [
+    {
+      "color": "#232430",
+      "column": 79
+    },
+    {
+      "color": "#1A1C23",
+      "column": 119
+    }
+  ],
+  "explorer.confirmDelete": true,
+  "explorer.confirmDragAndDrop": true,
+  "git.autofetch": true,
+  "git.confirmSync": false,
+  "git.enableSmartCommit": true,
+  "git.allowForcePush": true,
+  "terminal.integrated.shell.linux": "/usr/bin/zsh",
+  "window.menuBarVisibility": "hidden",
+  "workbench.colorTheme": "Horiceon",
+  "workbench.iconTheme": "material-icon-theme",
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
 }

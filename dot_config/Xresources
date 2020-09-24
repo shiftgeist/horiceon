@@ -3,37 +3,40 @@
 *.background: #1C1E26
 *.foreground: #D5D8DA
 
-!black
+! black
 *color0: #2F3240
 *color8: #404557
 
-!red
+! red
 *color1: #E95678
 *color9: #FBC3A7
 
-!green
+! green
 *color2: #29D398
 *color10: #3FDAA4
 
-!yellow
+! yellow
 *color3: #D8D782
 *color11: #CFCD63
 
-!blue
+! blue
 *color4: #1AA1E5
 *color12: #47B4EB
 
-!magenta
+! magenta
 *color5: #EE64AE
 *color13: #F075B7
 
-!cyan
+! cyan
 *color6: #59E3E3
 *color14: #6BE6E6
 
-!white
+! white
 *color7: #CCCCCC
 *color15: #FFFFFF
+
+! cursor size
+Xcursor.size: 24
 
 ! xterm config
 xterm*faceName: Dank Mono

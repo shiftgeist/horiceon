@@ -1,11 +1,15 @@
 #!/bin/sh
 
 yayAddons() {
-    yay -Syu xterm zsh dvtm fzf neovim neofetch openssh htop rsync \
-        compton suckless-tools flameshot dunst brave-bin spotify notion-app \
-        code nodejs-lts-erbium npm \
-        ttf-dejavu noto-fonts-emoji otf-overpass \
-        feh xsel xcape
+    yay -Syu suckless-tools brave-bin spotify notion-app \
+        zsh \ # shells
+        fzf neofetch htop \ # utils
+        neovim code \ # editors
+        rsync rclone openssh \ # network
+        nodejs-lts-erbium npm \ # language
+        ttf-dejavu noto-fonts-emoji otf-overpass \ # fonts
+        feh flameshot \ # graphics
+        xterm xsel xcape dunst compton # X11
 }
 
 zshAddons() {

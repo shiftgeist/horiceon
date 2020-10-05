@@ -7,11 +7,11 @@
   "editor.suggestSelection": "first",
   "editor.rulers": [
     {
-      "color": "#232430",
+      "color": "#242526",
       "column": 79
     },
     {
-      "color": "#1A1C23",
+      "color": "#242526",
       "column": 119
     }
   ],
@@ -23,7 +23,7 @@
   "git.allowForcePush": true,
   "terminal.integrated.shell.linux": "/usr/bin/zsh",
   "window.menuBarVisibility": "hidden",
-  "workbench.colorTheme": "Horiceon",
+  "workbench.colorTheme": "Panda Syntax",
   "workbench.iconTheme": "material-icon-theme",
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "[javascript]": {

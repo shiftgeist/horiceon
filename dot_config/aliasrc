@@ -91,6 +91,10 @@ alias npmin='npm init'
 alias nv='npm version --no-git-tag-version'
 alias nlsg0='npm list -g --depth=0'
 
+# nvm
+
+alias nvmin='nvm install node --reinstall-packages-from=node'
+
 # system
 
 alias syslog-crit="sudo dmesg -w -l err,warn"

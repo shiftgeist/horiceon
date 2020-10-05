@@ -45,6 +45,7 @@ codeAddons() {
     code --install-extension "wakatime.vscode-wakatime"
     code --install-extension "bierner.markdown-preview-github-styles"
     code --install-extension "naumovs.color-highlight"
+    code --install-extension "tinkertrain.theme-panda"
     code --install-extension "pkief.material-icon-theme"
     code --install-extension "esbenp.prettier-vscode"
     code --install-extension "wix.vscode-import-cost"

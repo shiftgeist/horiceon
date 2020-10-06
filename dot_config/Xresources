@@ -33,7 +33,7 @@
 
 ! white
 *.color7:       #f3f3f3
-*.color15:      #f3f3f0
+*.color15:      #f3f3f3
 
 ! cursor size
 Xcursor.size: 24

@@ -1,39 +1,39 @@
 ! special
-*.foreground:   #E6E6E6
-*.background:   #292a2b
+*.foreground:   #f3f3f3
+*.background:   #292A2B
 *.cursorColor:  #FFFFFF
 
 ! black
-*.color0:       #222223
-*.color8:       #222223
+*.color0:       #1f1f1f
+*.color8:       #1f1f1f
 
 ! red
-*.color1:       #FF4B82
-*.color9:       #FF4B82
+*.color1:       #FF506D
+*.color9:       #FF506D
 
 ! green
-*.color2:       #4AFF86
-*.color10:      #4AFF86
+*.color2:       #19F9D8
+*.color10:      #19F9D8
 
 ! yellow
 *.color3:       #FFCC95
 *.color11:      #FFCC95
 
 ! blue
-*.color4:       #6cb1ff
-*.color12:      #6cb1ff
+*.color4:       #6CB1FF
+*.color12:      #6CB1FF
 
 ! magenta
 *.color5:       #BCAAFE
 *.color13:      #BCAAFE
 
 ! cyan
-*.color6:       #19f9d8
-*.color14:      #19f9d8
+*.color6:       #43D5EC
+*.color14:      #43D5EC
 
 ! white
-*.color7:       #f3f3f3
-*.color15:      #f3f3f3
+*.color7:       #F3F3F3
+*.color15:      #FFFFFF
 
 ! cursor size
 Xcursor.size: 24

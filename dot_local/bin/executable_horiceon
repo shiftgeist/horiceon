@@ -9,6 +9,7 @@ yayAddons() {
         nodejs-lts-erbium npm \ # language
         ttf-dejavu noto-fonts-emoji otf-overpass \ # fonts
         feh flameshot \ # graphics
+        typora \ # markdown
         xterm xsel xcape dunst compton # X11
 }
 

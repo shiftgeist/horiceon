@@ -11,7 +11,6 @@ Dark 🌆 themed 🎨 rice 🍚.
 **Table of content**
 
 - [About](#about)
-- [Screenshots](#screenshots)
 - [Shortcuts](#shortcuts)
 - [Installation](#installation)
 
@@ -22,14 +21,6 @@ Dark 🌆 themed 🎨 rice 🍚.
 Horiceon includs [dwm](https://github.com/shiftgeist/horiceon/tree/master/dot_local/src/dwm), xterm, [neovim config](https://github.com/shiftgeist/horiceon/blob/master/dot_config/nvim/init.vim) dvtm, dmenu, [dunst](https://github.com/shiftgeist/horiceon/blob/master/dot_config/dunst/dunstrc), [custom zsh config](https://github.com/shiftgeist/horiceon/blob/master/dot_config/zsh/dot_zshrc) with [starship](https://starship.rs/), [code theme](https://github.com/shiftgeist/horiceon/tree/master/dot_vscode/extensions/horiceon-theme), [spotify theme](https://github.com/shiftgeist/horiceon/tree/master/dot_config/spicetify/Themes/Horiceon), [Overpass font](http://overpassfont.org), [Dank Mono font](https://dank.sh) and [diff-so-fancy](https://github.com/so-fancy/diff-so-fancy).
 
 Managed with [chezmoi](https://github.com/twpayne/chezmoi) and inspired by [Horizon Theme](https://marketplace.visualstudio.com/items?itemName=jolaleye.horizon-theme-vscode) made by [@jolaleye](https://github.com/jolaleye).
-
-## Screenshots
-
-**Code**
-![](.github/horiceon-code.png)
-
-**Spotify Theme**
-![](.github/horiceon-spicetify.png)
 
 ## Shortcuts
 

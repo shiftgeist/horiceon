@@ -50,6 +50,8 @@ codeAddons() {
     code --install-extension "pkief.material-icon-theme"
     code --install-extension "esbenp.prettier-vscode"
     code --install-extension "wix.vscode-import-cost"
+    code --install-extension "meganrogge.template-string-converter"
+    code --install-extension "pflannery.vscode-versionlens"
 }
 
 npmAddons() {

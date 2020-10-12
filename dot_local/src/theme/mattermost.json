@@ -20,7 +20,7 @@
   "buttonBg": "#43D5EC",
   "buttonColor": "#000000",
   "errorTextColor": "#FF506D",
-  "mentionHighlightBg": "#000000",
+  "mentionHighlightBg": "#525252",
   "mentionHighlightLink": "#19F9D8",
   "codeTheme": "monokai"
 }

@@ -8,7 +8,7 @@ yayAddons() {
         rsync rclone openssh \ # network
         nodejs-lts-erbium npm \ # language
         ttf-dejavu noto-fonts-emoji otf-overpass \ # fonts
-        feh flameshot \ # graphics
+        feh flameshot gpick \ # graphics
         typora \ # markdown
         xterm xsel xcape dunst compton # X11
 }

@@ -17,6 +17,7 @@ alias untarbz2="tar xjf"
 alias zsh-debug="zprof > zprof-out.txt && less zprof-out.txt && rm zprof-out.txt"
 
 # git
+# Source: https://github.com/ohmyzsh/ohmyzsh/blob/master/plugins/git/git.plugin.zsh
 
 # We wrap in a local function instead of exporting the variable directly in
 # order to avoid interfering with manually-run git commands by the user.
@@ -62,6 +63,7 @@ alias gd='git diff'
 alias gt='git tag | sort -h'
 alias gdesc='git describe --tags $(git_current_commit)'
 
+alias gb='git branch'
 alias gbc="git branch --merged | egrep -v '(^\*|master|dev)' | xargs git branch -d && git pull --prune"
 
 alias gsta="git stash save --include-untracked"

@@ -66,6 +66,8 @@ alias gdesc='git describe --tags $(git_current_commit)'
 alias gb='git branch'
 alias gbc="git branch --merged | egrep -v '(^\*|master|dev)' | xargs git branch -d && git pull --prune"
 
+alias grv="git remote -v"
+
 alias gsta="git stash save --include-untracked"
 alias gstp="git stash pop"
 
@@ -90,7 +92,7 @@ alias npmr='npm run'
 alias npmrs='npm run start'
 alias npmp='npm publish'
 alias npmi='npm install'
-alias npmin='npm init'
+alias npmin='npm init -y'
 
 alias nv='npm version --no-git-tag-version'
 alias nlsg0='npm list -g --depth=0'

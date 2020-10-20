@@ -91,7 +91,6 @@ alias npmt='npm test'
 alias npmr='npm run'
 alias npmrs='npm run start'
 alias npmp='npm publish'
-alias npmi='npm install'
 alias npmin='npm init -y'
 
 alias nv='npm version --no-git-tag-version'

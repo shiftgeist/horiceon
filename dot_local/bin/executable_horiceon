@@ -40,17 +40,15 @@ diffSoFancy() {
 }
 
 codeAddons() {
-    code --install-extension "editorconfig.editorconfig"
-    code --install-extension "ow.vscode-subword-navigation"
-    code --install-extension "wakatime.vscode-wakatime"
     code --install-extension "bierner.markdown-preview-github-styles"
-    code --install-extension "naumovs.color-highlight"
-    code --install-extension "tinkertrain.theme-panda"
-    code --install-extension "pkief.material-icon-theme"
+    code --install-extension "editorconfig.editorconfig"
     code --install-extension "esbenp.prettier-vscode"
-    code --install-extension "wix.vscode-import-cost"
-    code --install-extension "meganrogge.template-string-converter"
+    code --install-extension "ionutvmi.path-autocomplete"
+    code --install-extension "naumovs.color-highlight"
+    code --install-extension "ow.vscode-subword-navigation"
     code --install-extension "pflannery.vscode-versionlens"
+    code --install-extension "tinkertrain.theme-panda"
+    code --install-extension "wakatime.vscode-wakatime"
 }
 
 npmAddons() {

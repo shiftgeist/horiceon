@@ -1,5 +1,4 @@
 {
-  "breadcrumbs.enabled": false,
   "editor.minimap.enabled": false,
   "editor.fontFamily": "'Dank Mono', monospace",
   "editor.fontLigatures": true,
@@ -24,9 +23,10 @@
   "terminal.integrated.shell.linux": "/usr/bin/zsh",
   "window.menuBarVisibility": "hidden",
   "workbench.colorTheme": "Panda Syntax",
-  "workbench.iconTheme": "material-icon-theme",
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
-  }
+  },
+  "gitlens.mode.active": "zen",
+  "path-autocomplete.extensionOnImport": true
 }

@@ -21,8 +21,8 @@ setopt autocd
 stty stop undef
 
 # History in cache directory:
-HISTSIZE=5000
-SAVEHIST=5000
+HISTSIZE=60000
+SAVEHIST=100000
 HISTFILE=~/.cache/zsh/history
 
 # Basic auto/tab complete:

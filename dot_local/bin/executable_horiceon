@@ -10,13 +10,14 @@ yayAddons() {
         ttf-dejavu noto-fonts-emoji otf-overpass \ # fonts
         feh flameshot gpick \ # graphics
         typora \ # markdown
-        xterm xsel xcape dunst compton # X11
+        xterm xsel xcape dunst compton \ # X11
+        bat exa tmux
 }
 
 zshAddons() {
     mkdir -p "${ZSHPATH:-$HOME/.local/share/zsh}"
 
-    clonePlugins () {
+    createZshModules() {
         cd "${ZSHPATH:-$HOME/.local/share/zsh}" || exit
         for n in "$@"; do
             git clone "$n" 2> /dev/null
@@ -27,7 +28,7 @@ zshAddons() {
     [ ! -d  "/usr/local/bin/starship" ] && curl -fsSL https://starship.rs/install.sh | bash || echo "Skipping starship install."
 
     # Install plugins
-    clonePlugins \
+    createZshModules \
         "git@github.com:MichaelAquilina/zsh-you-should-use.git" \
         "git@github.com:zsh-users/zsh-syntax-highlighting.git"
 }

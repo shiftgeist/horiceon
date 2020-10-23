@@ -11,38 +11,32 @@ fpath=(
     $fpath
 )
 
-# Enable colors and change prompt:
-autoload -U colors && colors
+autoload -U promptinit; promptinit;
 
-# Automatically cd into typed directory.
-setopt autocd
-
-# Disable ctrl-s to freeze terminal.
-stty stop undef
-
-# History in cache directory:
-HISTSIZE=60000
-SAVEHIST=100000
-HISTFILE=~/.cache/zsh/history
-
-# Basic auto/tab complete:
 autoload -U compinit
-zstyle ':completion:*' menu select
-zmodload zsh/complist
 compinit
+zstyle ':completion:*' menu yes select
+zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}'
 _comp_options+=(globdots) # Include hidden files.
 
-# Auto complete
-zstyle ':completion:*:*:*:*:*' menu select
-zstyle ':completion:*' matcher-list 'm:{a-zA-Z-_}={A-Za-z_-}' 'r:|=*' 'l:|=* r:|=*' # with case insenstivity
-autoload -U +X bashcompinit && bashcompinit
+autoload -U select-word-style
+select-word-style bash
+stty stop undef
+
+setopt auto_cd
+
+HISTSIZE=10000000
+SAVEHIST=10000000
+HISTFILE=~/.cache/zsh/history
+setopt inc_append_history
+setopt share_history
 
 # Plugins
-source "$ZSHPATH/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
-source "$ZSHPATH/zsh-you-should-use/you-should-use.plugin.zsh"
-source "/usr/share/zsh/vendor-completions/_fzf"
+source $ZSHPATH/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source $ZSHPATH/zsh-you-should-use/you-should-use.plugin.zsh
+source /usr/share/zsh/vendor-completions/_fzf
 
-# Load aliases
+# Load additional zsh alias/plugins
 [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/aliasrc" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/aliasrc"
 
 # Load untracked zshrc

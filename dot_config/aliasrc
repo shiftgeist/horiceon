@@ -109,6 +109,7 @@ alias npmo='npm outdated'
 alias npmv='npm -v'
 alias npml='npm list'
 alias npml0='npm ls --depth=0'
+alias npmlg0='npm list -g --depth=0'
 alias npmst='npm start'
 alias npmt='npm test'
 alias npmr='npm run'
@@ -117,7 +118,6 @@ alias npmp='npm publish'
 alias npmin='npm init -y'
 
 alias nv='npm version --no-git-tag-version'
-alias nlsg0='npm list -g --depth=0'
 
 # nvm
 

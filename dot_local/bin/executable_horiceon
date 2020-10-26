@@ -53,7 +53,13 @@ codeAddons() {
 }
 
 npmAddons() {
-    npm i -g npm-check-updates sirv-cli live-server doctoc @bitwarden/cli tinypng-cli firebase-tools markdownlint-cli js-beautify
+    npm i -g @bitwarden/cli \
+        sirv-cli live-server firebase-tools \ # development
+        doctoc markdownlint-cli \ #markdown
+        npm-check-updates \ # dependencies
+        tinypng-cli \ # images
+        js-beautify \ # convert text
+        commitizen # git
 }
 
 main() {

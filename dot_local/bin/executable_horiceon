@@ -53,8 +53,7 @@ codeAddons() {
 }
 
 npmAddons() {
-    npm i -g @bitwarden/cli \
-        sirv-cli live-server firebase-tools \ # development
+    npm i -g sirv-cli live-server firebase-tools \ # development
         doctoc markdownlint-cli \ #markdown
         npm-check-updates \ # dependencies
         tinypng-cli \ # images

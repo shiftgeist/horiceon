@@ -1,0 +1,6 @@
+#!/usr/bin/env zsh
+
+source ${PROFILE:-$HOME/.config/zsh/.zshrc}
+source ${XDG_CONFIG_HOME:-$HOME/.config}/aliasrc
+xmodmap "${XDG_CONFIG_HOME:-$HOME/.config}"/.Xmodmap
+xrdb ${XDG_CONFIG_HOME:-$HOME/.config}/Xresources

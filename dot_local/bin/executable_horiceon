@@ -58,7 +58,7 @@ npmAddons() {
         npm-check-updates \ # dependencies
         tinypng-cli \ # images
         js-beautify \ # convert text
-        commitizen # git
+        commitizen cz-conventional-changelog # git
 }
 
 main() {

@@ -57,8 +57,7 @@ npmAddons() {
         doctoc markdownlint-cli \ #markdown
         npm-check-updates \ # dependencies
         tinypng-cli \ # images
-        js-beautify \ # convert text
-        commitizen cz-conventional-changelog # git
+        js-beautify # convert text
 }
 
 main() {

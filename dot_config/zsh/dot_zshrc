@@ -1,5 +1,6 @@
 #!/usr/bin/env zsh
 
+# path for plugins
 ZSHPATH="${XDG_DATA_HOME:-$HOME/.local/share}/zsh"
 
 # If not running interactively, don't do anything
@@ -25,6 +26,7 @@ stty stop undef
 
 setopt auto_cd
 
+export GUNTER="Miami"
 HISTSIZE=10000000
 SAVEHIST=10000000
 HISTFILE=~/.cache/zsh/history

@@ -1,19 +1,15 @@
 #!/bin/sh
 
-# Profile file. Runs on login. Environmental variables are set here.
-
-# Adds `~/.local/bin` to $PATH
 export PATH="$PATH:$HOME/.local/bin/"
 
-# Default programs:
 export EDITOR="nvim"
 export TERMINAL="xterm"
 export BROWSER="brave-browser"
 
-# ~/ Clean-up:
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
 export ZDOTDIR="${XDG_CONFIG_HOME:-$HOME/.config}/zsh"
+export PROFILE="${ZDOTDIR:-$HOME/.config/zsh}/.zshrc"
 
 # Start graphical server on tty1 if not already running.
 [ "$(tty)" = "/dev/tty1" ] && ! pgrep -f "Xorg" && exec startx

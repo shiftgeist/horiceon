@@ -8,6 +8,7 @@ Dark 🌆 themed 🎨 rice 🍚.
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
 **Table of content**
 
 - [About](#about)
@@ -24,18 +25,18 @@ Managed with [chezmoi](https://github.com/twpayne/chezmoi) and inspired by [Hori
 
 ## Shortcuts
 
-| Binding                 | Description               | Role        |
-| ----------------------- | ------------------------- | ----------- |
-| `Caps`                  | Remapped                  | `Esc`       |
-| `Insert`                | Remapped                  | `Caps`      |
-| `Print`                 | Screenshot                | `flameshot` |
-| `Super + Ctrl + Space`  | Open emoji picker         | -           |
-| `Super + E`             | Open files manager        | `nautilus`  |
-| `Super + Number`        | Switch to tag number      | -           |
-| `Super + P`             | Open Application Launcher | `dmenu`     |
-| `Super + Q`             | Close Application         | -           |
-| `Super + Return`        | Launch Terminal           | `xterm`     |
-| `Super + S`             | Lock screen               | TBD         |
+| Binding            | Scope   | Description                         |
+| ------------------ | ------- | ----------------------------------- |
+| `Caps` -> `Esc`    |         | Remap                               |
+| `Ctrl` + `W`       | `xterm` | Delete Word                         |
+| `Insert` -> `Caps` |         | Remap                               |
+| `Print`            |         | Screenshot (`flameshot`)            |
+| `Super` + `E`      |         | Open files manager                  |
+| `Super` + `Number` |         | Switch to tag number                |
+| `Super` + `P`      |         | Open Application Launcher (`dmenu`) |
+| `Super` + `Q`      |         | Close Application                   |
+| `Super` + `Return` |         | Launch `xterm`                      |
+| `Super` + `S`      |         | Lock session                        |
 
 ## Installation
 

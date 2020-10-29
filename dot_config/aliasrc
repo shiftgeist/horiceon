@@ -96,8 +96,8 @@ function ls()
 }
 
 alias la='ls -lAh'
-alias l="exa -bghl -snew"
-alias ll="exa -bghl -snew"
+alias ls="exa -bghl -snew --icons"
+alias ll="exa -bghl -snew --icons"
 
 # npm
 

@@ -55,12 +55,12 @@ git_current_commit() {
   echo "$ref"
 }
 
-alias gcmsg='git commit -m'
 alias gco='git checkout'
 alias gcos="git for-each-ref --format='%(refname:short)' refs/heads | fzf | xargs git checkout"
 
 alias gaa="git add ."
-alias gcmsg="git commit -m"
+alias gcm="git commit -m"
+alias gcam="git add . && git commit -m"
 
 alias gp='git push'
 alias gpf='git push --force-with-lease'

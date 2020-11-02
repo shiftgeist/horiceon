@@ -33,13 +33,6 @@ zshAddons() {
         "git@github.com:zsh-users/zsh-syntax-highlighting.git"
 }
 
-diffSoFancy() {
-    file="$HOME/.local/bin/diff-so-fancy"
-    curl -o "$file" -z "$file" \
-        -fsSL https://github.com/so-fancy/diff-so-fancy/blob/master/diff-so-fancy &&
-        chmod +x "$file"
-}
-
 codeAddons() {
     code --install-extension "bierner.markdown-preview-github-styles"
     code --install-extension "editorconfig.editorconfig"
@@ -54,6 +47,7 @@ codeAddons() {
 
 npmAddons() {
     npm i -g sirv-cli live-server firebase-tools \ # development
+        diff-so-fancy \ # git
         doctoc markdownlint-cli \ #markdown
         npm-check-updates \ # dependencies
         tinypng-cli \ # images
@@ -67,7 +61,6 @@ fzf() {
 main() {
     yayAddons
     zshAddons
-    diffSoFancy
     codeAddons
     npmAddons
     fzf

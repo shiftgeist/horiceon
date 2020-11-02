@@ -36,7 +36,7 @@ setopt share_history
 # Plugins
 source $ZSHPATH/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source $ZSHPATH/zsh-you-should-use/you-should-use.plugin.zsh
-source /usr/share/zsh/vendor-completions/_fzf
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # Load additional zsh alias/plugins
 [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/aliasrc" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/aliasrc"

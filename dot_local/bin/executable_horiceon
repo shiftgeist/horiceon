@@ -3,7 +3,7 @@
 yayAddons() {
     yay -Syu suckless-tools brave-bin spotify notion-app \
         zsh \ # shells
-        fzf neofetch htop \ # utils
+        neofetch htop \ # utils
         neovim code \ # editors
         rsync rclone openssh \ # network
         nodejs-lts-erbium npm \ # language
@@ -60,12 +60,17 @@ npmAddons() {
         js-beautify # convert text
 }
 
+fzf() {
+    ~/.local/src/fzf/install
+}
+
 main() {
     yayAddons
     zshAddons
     diffSoFancy
     codeAddons
     npmAddons
+    fzf
 }
 
 main

@@ -55,28 +55,30 @@ git_current_commit() {
   echo "$ref"
 }
 
-alias gco='git checkout'
-alias gcos="git for-each-ref --format='%(refname:short)' refs/heads | fzf | xargs git checkout"
+alias gco="git checkout"
+gch() {
+ git checkout "$(git branch --all | fzf | tr -d '[:space:]')"
+}
 
 alias gaa="git add ."
 alias gcm="git commit -m"
 alias gcam="git add . && git commit -m"
 
-alias gp='git push'
-alias gpf='git push --force-with-lease'
-alias gpsup='git push --set-upstream origin $(git_current_branch)'
+alias gp="git push"
+alias gpf="git push --force-with-lease"
+alias gpsup="git push --set-upstream origin $(git_current_branch)"
 
-alias gl='git pull'
+alias gl="git pull"
 
-alias glog='git log --oneline --decorate --graph'
-alias gloga='git log --oneline --decorate --graph --all'
+alias glog="git log --oneline --decorate --graph"
+alias gloga="git log --oneline --decorate --graph --all"
 alias glol="git log --graph --pretty='%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'"
-alias gst='git status'
-alias gd='git diff'
-alias gt='git tag | sort -h'
-alias gdesc='git describe --tags $(git_current_commit)'
+alias gst="git status"
+alias gd="git diff"
+alias gt="git tag | sort -h"
+alias gdesc="git describe --tags $(git_current_commit)"
 
-alias gb='git branch'
+alias gb="git branch"
 alias gbc="git branch --merged | egrep -v '(^\*|master|dev)' | xargs git branch -d && git pull --prune"
 
 alias grv="git remote -v"
@@ -95,39 +97,39 @@ function ls()
   fi
 }
 
-alias la='ls -lAh'
+alias la="ls -lh"
 alias ls="exa -bghl -snew --icons"
 alias ll="exa -bghl -snew --icons"
 
 # npm
 
-alias npmg='npm i -g '
-alias npms='npm i -S '
-alias npmd='npm i -D '
-alias npme='PATH="$(npm bin)":"$PATH"'
-alias npmo='npm outdated'
-alias npmv='npm -v'
-alias npml='npm list'
-alias npml0='npm ls --depth=0'
-alias npmlg0='npm list -g --depth=0'
-alias npmst='npm start'
-alias npmt='npm test'
-alias npmr='npm run'
-alias npmrs='npm run start'
-alias npmp='npm publish'
-alias npmin='npm init -y'
+alias npmg="npm i -g"
+alias npms="npm i -S"
+alias npmd="npm i -D"
+alias npme="PATH="$(npm bin)":"$PATH""
+alias npmo="npm outdated"
+alias npmv="npm -v"
+alias npml="npm list"
+alias npml0="npm ls --depth=0"
+alias npmlg0="npm list -g --depth=0"
+alias npmst="npm start"
+alias npmt="npm test"
+alias npmr="npm run"
+alias npmrs="npm run start"
+alias npmp="npm publish"
+alias npmin="npm init -y"
 
-alias nv='npm version --no-git-tag-version'
+alias nv="npm version --no-git-tag-version"
 
 # nvm
 
-alias nvmin='nvm install node --reinstall-packages-from=node'
+alias nvmin="nvm install node --reinstall-packages-from=node"
 
 # tmux
 
-alias ta='tmux attach -t'
-alias tad='tmux attach -d -t'
-alias ts='tmux new-session -s'
-alias tl='tmux list-sessions'
-alias tksv='tmux kill-server'
-alias tkss='tmux kill-session -t'
+alias ta="tmux attach -t"
+alias tad="tmux attach -d -t"
+alias ts="tmux new-session -s"
+alias tl="tmux list-sessions"
+alias tksv="tmux kill-server"
+alias tkss="tmux kill-session -t"

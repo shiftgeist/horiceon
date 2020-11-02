@@ -56,8 +56,8 @@ git_current_commit() {
 }
 
 alias gco="git checkout"
-gch() {
- git checkout "$(git branch --all | fzf | tr -d '[:space:]')"
+function gch() {
+  git checkout "$(gb --all | fzf | tr -d '[:space:]')"
 }
 
 alias gaa="git add ."
@@ -66,7 +66,9 @@ alias gcam="git add . && git commit -m"
 
 alias gp="git push"
 alias gpf="git push --force-with-lease"
-alias gpsup="git push --set-upstream origin $(git_current_branch)"
+function gpsup() {
+  git push --set-upstream origin $(git_current_branch)
+}
 
 alias gl="git pull"
 
@@ -76,7 +78,9 @@ alias glol="git log --graph --pretty='%Cred%h%Creset -%C(auto)%d%Creset %s %Cgre
 alias gst="git status"
 alias gd="git diff"
 alias gt="git tag | sort -h"
-alias gdesc="git describe --tags $(git_current_commit)"
+function gdesc() {
+  git describe --tags $(git_current_commit)
+}
 
 alias gb="git branch"
 alias gbc="git branch --merged | egrep -v '(^\*|master|dev)' | xargs git branch -d && git pull --prune"
@@ -88,8 +92,7 @@ alias gstp="git stash pop"
 
 # list
 
-function ls()
-{
+function ls() {
   if [[ "$1" == -* ]]; then
     exa --colour-scale -bghla -snew $2
   else
@@ -106,7 +109,6 @@ alias ll="exa -bghl -snew --icons"
 alias npmg="npm i -g"
 alias npms="npm i -S"
 alias npmd="npm i -D"
-alias npme="PATH='$(npm bin)':'$PATH'"
 alias npmo="npm outdated"
 alias npmv="npm -v"
 alias npml="npm list"

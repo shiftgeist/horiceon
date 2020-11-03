@@ -30,6 +30,8 @@ alias syslog-crit="sudo dmesg -w -l err,warn"
 alias syslog="sudo dmesg -w"
 alias ports="netstat -tulpen"
 
+alias killp="pkill"
+
 # git
 
 # We wrap in a local function instead of exporting the variable directly in

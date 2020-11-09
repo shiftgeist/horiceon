@@ -27,6 +27,9 @@
   "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
+  "[go]": {
+    "editor.defaultFormatter": "golang.go"
+  },
   "gitlens.mode.active": "zen",
   "path-autocomplete.extensionOnImport": true,
   // only show file paths

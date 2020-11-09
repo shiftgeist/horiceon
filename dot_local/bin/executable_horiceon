@@ -58,7 +58,8 @@ npmAddons() {
 }
 
 fzf() {
-    ~/.local/src/fzf/install
+    chmod +x ~/.local/src/fzf/install
+    ~/.local/src/fzf/install --bin
 }
 
 gopkg() {

@@ -6,7 +6,7 @@ yayAddons() {
         neofetch htop \ # utils
         neovim code \ # editors
         rsync rclone openssh \ # network
-        nodejs-lts-erbium npm \ # language
+        go nodejs-lts-erbium npm \ # language
         ttf-dejavu noto-fonts-emoji otf-overpass \ # fonts
         feh flameshot gpick \ # graphics
         typora \ # markdown
@@ -37,6 +37,7 @@ codeAddons() {
     code --install-extension "bierner.markdown-preview-github-styles"
     code --install-extension "editorconfig.editorconfig"
     code --install-extension "esbenp.prettier-vscode"
+    code --install-extension "golang.go"
     code --install-extension "ionutvmi.path-autocomplete"
     code --install-extension "naumovs.color-highlight"
     code --install-extension "ow.vscode-subword-navigation"
@@ -47,10 +48,12 @@ codeAddons() {
 
 npmAddons() {
     npm i -g sirv-cli live-server firebase-tools \ # development
-        diff-so-fancy \ # git
+        diff-so-fancy np \ # git
         doctoc markdownlint-cli \ #markdown
         npm-check-updates \ # dependencies
         tinypng-cli \ # images
+        tldr \ # util
+        prettier \ # linting
         js-beautify # convert text
 }
 
@@ -58,12 +61,8 @@ fzf() {
     ~/.local/src/fzf/install
 }
 
-main() {
-    yayAddons
-    zshAddons
-    codeAddons
-    npmAddons
-    fzf
+gopkg() {
+    go get -u -v github.com/cosmtrek/air github.com/nektos/act \ # development
+        github.com/xxxserxxx/gotop/cmd/gotop \ # monitor
+        github.com/yudai/gotty \ # util
 }
-
-main

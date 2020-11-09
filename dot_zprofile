@@ -1,6 +1,6 @@
 #!/bin/sh
 
-export PATH="$PATH:$HOME/.local/bin/"
+export PATH="$PATH:$HOME/.local/bin/:$(go env GOPATH)/bin"
 
 export EDITOR="nvim"
 export TERMINAL="xterm"

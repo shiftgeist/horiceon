@@ -1,6 +1,6 @@
 ![Horiceon](.github/horiceon.png)
 
-[![github issues](https://img.shields.io/github/issues/shiftgeist/horiceon)](https://github.com/shiftgeist/horiceon/issues) [![github stars](https://img.shields.io/github/stars/shiftgeist/horiceon)](https://github.com/shiftgeist/horiceon/stargazers)
+[![github issues](https://img.shields.io/github/issues/shiftgeist/horiceon)](https://github.com/shiftgeist/horiceon/issues)
 
 ```markdown
 Dark 🌆 themed 🎨 rice 🍚.
@@ -49,3 +49,23 @@ makepkg -si
 
 chezmoi init git@github.com:shiftgeist/horiceon.git
 ```
+
+## Contributors ✨
+
+Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tr>
+    <td align="center"><a href="https://stackoverflow.com/users/428627/giorgiga"><img src="https://avatars3.githubusercontent.com/u/471835?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Giorgio Gallo</b></sub></a><br /><a href="https://github.com/shiftgeist/horiceon/commits?author=giorgiga" title="Documentation">📖</a></td>
+  </tr>
+</table>
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!

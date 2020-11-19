@@ -6,14 +6,16 @@
 Dark 🌆 themed 🎨 rice 🍚.
 ```
 
+**Table of content**
+
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-**Table of content**
 
 - [About](#about)
 - [Shortcuts](#shortcuts)
 - [Installation](#installation)
+- [Contributors ✨](#contributors-)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 

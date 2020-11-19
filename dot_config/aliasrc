@@ -18,7 +18,6 @@ alias zsh-debug="zprof > zprof-out.txt && less zprof-out.txt && rm zprof-out.txt
 
 # system
 
-alias rm="trash"
 alias history="history 0"
 
 alias cat="bat"

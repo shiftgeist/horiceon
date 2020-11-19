@@ -41,7 +41,7 @@ Managed with [chezmoi](https://github.com/twpayne/chezmoi) and inspired by [Hori
 ## Installation
 
 ```bash
-pacman -S base-devil git chezmoi
+pacman -S base-devel git chezmoi
 
 git clone https://aur.archlinux.org/yay.git
 cd yay

@@ -59,5 +59,9 @@
   "breadcrumbs.showStrings": false,
   "breadcrumbs.showStructs": false,
   "breadcrumbs.showTypeParameters": false,
-  "breadcrumbs.showVariables": false
+  "breadcrumbs.showVariables": false,
+  "terminal.integrated.copyOnSelection": true,
+  "terminal.integrated.minimumContrastRatio": 4.5,
+  "terminal.integrated.mouseWheelScrollSensitivity": 1.5,
+  "terminal.integrated.scrollback": 10000
 }

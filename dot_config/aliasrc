@@ -110,17 +110,8 @@ alias gflfpll='git flow feature pull'
 
 # list
 
-function ls() {
-  if [[ "$1" == -* ]]; then
-    exa --colour-scale -bghla -snew $2
-  else
-    exa --colour-scale -bghla -snew $1
-  fi
-}
-
-alias la="ls -lh"
-alias ls="exa -bghl -snew --icons"
-alias ll="exa -bghl -snew --icons"
+alias ls="exa"
+alias la="ls -lah"
 
 # npm
 

@@ -62,6 +62,6 @@
   "breadcrumbs.showVariables": false,
   "terminal.integrated.copyOnSelection": true,
   "terminal.integrated.minimumContrastRatio": 4.5,
-  "terminal.integrated.mouseWheelScrollSensitivity": 1.5,
+  "terminal.integrated.mouseWheelScrollSensitivity": 3,
   "terminal.integrated.scrollback": 100000
 }

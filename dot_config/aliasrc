@@ -27,7 +27,7 @@ alias vi="$EDITOR"
 
 alias syslog-crit="sudo dmesg -w -l err,warn"
 alias syslog="sudo dmesg -w"
-alias ports="netstat -tulpen"
+alias ports="netstat -tulpn"
 
 alias killp="pkill"
 

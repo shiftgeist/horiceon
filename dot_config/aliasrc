@@ -13,6 +13,7 @@ alias untar="tar xvf"
 alias untargz="tar zxvf"
 alias untarxz="tar xf"
 alias untarbz2="tar xjf"
+alias ungz="gzip -d"
 
 alias zsh-debug="zprof > zprof-out.txt && less zprof-out.txt && rm zprof-out.txt"
 

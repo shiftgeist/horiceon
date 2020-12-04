@@ -1,14 +1,17 @@
 #!/usr/bin/env zsh
 
-# path for plugins
-ZSHPATH="${XDG_DATA_HOME:-$HOME/.local/share}/zsh"
+export ZSHPATH="$XDG_DATA_HOME/zsh"
+export HISTSIZE=10000000
+export SAVEHIST=10000000
+export HISTFILE=~/.cache/zsh/history
 
-# If not running interactively, don't do anything
+# if not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-# Include custom dir to fpath
+# include custom dir to fpath
 fpath=(
     "$ZSHPATH"
+    "$ZSHPATH/pure"
     $fpath
 )
 
@@ -17,7 +20,7 @@ zstyle ':completion:*' menu yes select
 zstyle ':completion:*' rehash true
 zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}'
 zstyle ':completion::complete:*' gain-privileges 1
-# autoload -Uz promptinit; promptinit
+autoload -Uz promptinit; promptinit
 _comp_options+=(globdots) # Include hidden files.
 
 autoload -U select-word-style
@@ -26,42 +29,26 @@ stty stop undef
 
 setopt auto_cd
 setopt COMPLETE_ALIASES
-
-export GUNTER="Miami"
-HISTSIZE=10000000
-SAVEHIST=10000000
-HISTFILE=~/.cache/zsh/history
 setopt inc_append_history
 setopt share_history
 
-# Plugins
+# plugins
 source $ZSHPATH/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source $ZSHPATH/zsh-you-should-use/you-should-use.plugin.zsh
+
+# load additional zsh alias/plugins
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[ -f ~/go/bin/bin/jump ] && eval "$(~/go/bin/bin/jump shell zsh)"
+[ -f "$XDG_CONFIG_HOME/aliasrc" ] && source "$XDG_CONFIG_HOME/aliasrc"
+[ -f ~/.zshrc_local ] && source ~/.zshrc_local
 
-# Load additional zsh alias/plugins
-[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/aliasrc" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/aliasrc"
-
-# Load untracked zshrc
-if [ -f ~/.zshrc_local ]; then
-    source ~/.zshrc_local
-fi
-
-# Set emulator title
-# https://tldp.org/HOWTO/Xterm-Title-4.html
-case $TERM in
-    xterm*)
-        precmd () {print -Pn "\e]0;%n@%m: %~\a"}
-        ;;
-esac
-
-# Keybinds
+# keybinds
 
 # create a zkbd compatible hash;
 # to add other keys to this hash, see: man 5 terminfo
 typeset -g -A key
 
-# Partial command history search
+# partial command history search
 autoload -Uz up-line-or-beginning-search down-line-or-beginning-search
 zle -N up-line-or-beginning-search
 zle -N down-line-or-beginning-search
@@ -69,15 +56,15 @@ zle -N down-line-or-beginning-search
 [[ -n "${key[Up]}"   ]] && bindkey -- "${key[Up]}"   up-line-or-beginning-search
 [[ -n "${key[Down]}" ]] && bindkey -- "${key[Down]}" down-line-or-beginning-search
 
-# Navigation
+# navigation
 key[Control-Left]="${terminfo[kLFT5]}"
 key[Control-Right]="${terminfo[kRIT5]}"
 
 [[ -n "${key[Control-Left]}"  ]] && bindkey -- "${key[Control-Left]}"  backward-word
 [[ -n "${key[Control-Right]}" ]] && bindkey -- "${key[Control-Right]}" forward-word
 
-# Emacs key mode
+# emacs key mode
 bindkey -e
 
-# Init prompt
-eval "$(starship init zsh)"
+# init prompt
+prompt pure

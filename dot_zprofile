@@ -8,8 +8,8 @@ export BROWSER="brave-browser"
 
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
-export ZDOTDIR="${XDG_CONFIG_HOME:-$HOME/.config}/zsh"
-export PROFILE="${ZDOTDIR:-$HOME/.config/zsh}/.zshrc"
+export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
+export PROFILE="$ZDOTDIR/.zshrc"
 
 # Start graphical server on tty1 if not already running.
 [ "$(tty)" = "/dev/tty1" ] && ! pgrep -f "Xorg" && exec startx

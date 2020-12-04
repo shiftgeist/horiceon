@@ -1,10 +1,10 @@
 #!/bin/sh
 
-setxkbmap us altgr-intl
-xmodmap "${XDG_CONFIG_HOME:-$HOME/.config}"/.Xmodmap
+setxkbmap us altgr-intl &
+xmodmap "$XDG_CONFIG_HOME/.Xmodmap" &
 
 remaps &                # run the remaps script, switching caps/esc and more; check it for more info
-xrdb "${XDG_CONFIG_HOME:-$HOME/.config}"/Xresources & # Use Xresources colors/settings on startup
+xrdb "$XDG_CONFIG_HOME/Xresources" & # Use Xresources colors/settings on startup
 dunst &			# dunst for notifications
 gnome-screensaver &
 gnome-settings-daemon &

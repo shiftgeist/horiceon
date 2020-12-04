@@ -1,6 +1,0 @@
-# Starship prompt configuration file
-# https://starship.rs/config/
-
-[git_branch]
-symbol = "🌱 "
-truncation_length = 64

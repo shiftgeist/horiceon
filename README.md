@@ -1,56 +1,25 @@
 ![Horiceon](.github/horiceon.png)
 
+Horiceon is a dark 🌆 themed collection of [rice 🍚](https://wiki.archlinux.org/index.php/Dotfiles) with dwm, [alacritty](https://github.com/alacritty/alacritty), [zsh](https://github.com/zsh-users/zsh), [pure](https://github.com/sindresorhus/pure), [diff-so-fancy](https://github.com/so-fancy/diff-so-fancy), [fzf](https://github.com/junegunn/fzf) and [jump](https://github.com/gsamokovarov/jump).
+
+Inspired by [Horizon Theme](https://marketplace.visualstudio.com/items?itemName=jolaleye.horizon-theme-vscode) and [Panda Syntax](https://github.com/tinkertrain/panda-syntax-vscode).
+
 [![github issues](https://img.shields.io/github/issues/shiftgeist/horiceon)](https://github.com/shiftgeist/horiceon/issues)
+[![](https://img.shields.io/badge/uses-chezmoi-green)](https://github.com/twpayne/chezmoi)
 
-```markdown
-Dark 🌆 themed 🎨 rice 🍚.
-```
+## Shortcut concept ⌨️
 
-**Table of content**
-
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-
-
-- [About](#about)
-- [Shortcuts](#shortcuts)
-- [Installation](#installation)
-- [Contributors ✨](#contributors-)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
-## About
-
-Horiceon includs [dwm](https://github.com/shiftgeist/horiceon/tree/master/dot_local/src/dwm), xterm, [neovim config](https://github.com/shiftgeist/horiceon/blob/master/dot_config/nvim/init.vim) dvtm, dmenu, [dunst](https://github.com/shiftgeist/horiceon/blob/master/dot_config/dunst/dunstrc), [custom zsh config](https://github.com/shiftgeist/horiceon/blob/master/dot_config/zsh/dot_zshrc) with [starship](https://starship.rs/), [code theme](https://github.com/shiftgeist/horiceon/tree/master/dot_vscode/extensions/horiceon-theme), [spotify theme](https://github.com/shiftgeist/horiceon/tree/master/dot_config/spicetify/Themes/Horiceon), [Overpass font](http://overpassfont.org), [Dank Mono font](https://dank.sh) and [diff-so-fancy](https://github.com/so-fancy/diff-so-fancy).
-
-Managed with [chezmoi](https://github.com/twpayne/chezmoi) and inspired by [Horizon Theme](https://marketplace.visualstudio.com/items?itemName=jolaleye.horizon-theme-vscode) made by [@jolaleye](https://github.com/jolaleye).
-
-## Shortcuts
-
-| Binding            | Scope   | Description                         |
-| ------------------ | ------- | ----------------------------------- |
-| `Caps` -> `Esc`    |         | Remap                               |
-| `Ctrl` + `W`       | `xterm` | Delete Word                         |
-| `Insert` -> `Caps` |         | Remap                               |
-| `Print`            |         | Screenshot (`flameshot`)            |
-| `Super` + `E`      |         | Open files manager                  |
-| `Super` + `Number` |         | Switch to tag number                |
-| `Super` + `P`      |         | Open Application Launcher (`dmenu`) |
-| `Super` + `Q`      |         | Close Application                   |
-| `Super` + `Return` |         | Launch `xterm`                      |
-| `Super` + `S`      |         | Lock session                        |
-
-## Installation
-
-```bash
-pacman -S base-devel git chezmoi
-
-git clone https://aur.archlinux.org/yay.git
-cd yay
-makepkg -si
-
-chezmoi init git@github.com:shiftgeist/horiceon.git
-```
+| Binding            | Description                                                            |
+| ------------------ | ---------------------------------------------------------------------- |
+| `CAPS`             | Remaped to `ESC`                                                       |
+| `Insert`           | Remap to `CAPS`                                                        |
+| `Print`            | Screenshot ([`flameshot`](https://github.com/flameshot-org/flameshot)) |
+| `Super` + `E`      | Open files manager                                                     |
+| `Super` + `Number` | Switch to tag number                                                   |
+| `Super` + `P`      | Open Application Launcher (`dmenu`)                                    |
+| `Super` + `Q`      | Close Application                                                      |
+| `Super` + `Return` | Launch [`alacritty`](https://github.com/alacritty/alacritty)           |
+| `Super` + `S`      | Lock session                                                           |
 
 ## Contributors ✨
 

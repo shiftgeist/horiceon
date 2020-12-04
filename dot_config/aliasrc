@@ -58,6 +58,8 @@ git_current_commit() {
 }
 
 alias gco="git checkout"
+alias gcom="git checkout master"
+alias gcod="git checkout develop"
 function gch() {
   git checkout "$(gb --all | fzf | tr -d '[:space:]')"
 }

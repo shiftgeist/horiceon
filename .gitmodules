@@ -1,3 +1,6 @@
 [submodule "dot_local/src/fzf"]
 	path = dot_local/src/fzf
 	url = https://github.com/junegunn/fzf.git
+[submodule "dot_local/src/dwm"]
+	path = dot_local/src/dwm
+	url = https://github.com/shiftgeist/horiceon-dwm

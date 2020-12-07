@@ -57,10 +57,10 @@ git_current_commit() {
   echo "$ref"
 }
 
-alias gco="git checkout"
+alias gc="git checkout"
 alias gcom="git checkout master"
 alias gcod="git checkout develop"
-function gch() {
+function gco() {
   git checkout "$(gb --all | fzf | tr -d '[:space:]')"
 }
 

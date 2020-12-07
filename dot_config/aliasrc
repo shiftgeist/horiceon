@@ -61,7 +61,8 @@ alias gc="git checkout"
 alias gcom="git checkout master"
 alias gcod="git checkout develop"
 function gco() {
-  git checkout "$(gb --all | fzf | tr -d '[:space:]')"
+  [[ $1 ]] && b="$1" || b="$(git branch --all | fzf | tr -d '[:space:]')"
+  git checkout "$b"
 }
 
 alias gaa="git add ."

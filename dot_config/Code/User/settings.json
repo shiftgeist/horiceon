@@ -1,38 +1,10 @@
 {
-  "editor.minimap.enabled": false,
-  "editor.fontFamily": "'Dank Mono', monospace",
-  "editor.fontLigatures": true,
-  "editor.formatOnSave": true,
-  "editor.suggestSelection": "first",
-  "editor.rulers": [
-    {
-      "color": "#242526",
-      "column": 79
-    },
-    {
-      "color": "#242526",
-      "column": 119
-    }
-  ],
-  "explorer.confirmDelete": true,
-  "explorer.confirmDragAndDrop": true,
-  "git.autofetch": true,
-  "git.confirmSync": false,
-  "git.enableSmartCommit": true,
-  "git.allowForcePush": true,
-  "terminal.integrated.shell.linux": "/usr/bin/zsh",
-  "window.menuBarVisibility": "hidden",
-  "workbench.colorTheme": "Panda Syntax",
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "[javascript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
   "[go]": {
     "editor.defaultFormatter": "golang.go"
   },
-  "gitlens.mode.active": "zen",
-  "path-autocomplete.extensionOnImport": true,
-  // only show file paths
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
   "breadcrumbs.filePath": "on",
   "breadcrumbs.showArrays": false,
   "breadcrumbs.showBooleans": false,
@@ -60,10 +32,38 @@
   "breadcrumbs.showStructs": false,
   "breadcrumbs.showTypeParameters": false,
   "breadcrumbs.showVariables": false,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.fontFamily": "'Dank Mono', monospace",
+  "editor.fontLigatures": true,
+  "editor.formatOnSave": true,
+  "editor.minimap.enabled": false,
+  "editor.quickSuggestionsDelay": 0,
+  "editor.rulers": [
+    {
+      "color": "#242526",
+      "column": 79
+    },
+    {
+      "color": "#242526",
+      "column": 119
+    }
+  ],
+  "editor.suggest.showWords": false,
+  "editor.suggestSelection": "first",
+  "editor.tabSize": 2,
+  "explorer.confirmDelete": true,
+  "explorer.confirmDragAndDrop": true,
+  "git.allowForcePush": true,
+  "git.autofetch": true,
+  "git.confirmSync": false,
+  "git.enableSmartCommit": true,
+  "gitlens.mode.active": "zen",
+  "path-autocomplete.extensionOnImport": true,
   "terminal.integrated.copyOnSelection": true,
   "terminal.integrated.minimumContrastRatio": 4.5,
   "terminal.integrated.mouseWheelScrollSensitivity": 3,
   "terminal.integrated.scrollback": 100000,
-  "editor.quickSuggestionsDelay": 0,
-  "editor.suggest.showWords": false
+  "terminal.integrated.shell.linux": "/usr/bin/zsh",
+  "window.menuBarVisibility": "hidden",
+  "workbench.colorTheme": "Panda Syntax"
 }

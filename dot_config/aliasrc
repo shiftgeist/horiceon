@@ -34,6 +34,10 @@ alias killp="pkill"
 
 # git
 
+git_is_repo() {
+  git rev-parse HEAD > /dev/null 2>&1
+}
+
 # We wrap in a local function instead of exporting the variable directly in
 # order to avoid interfering with manually-run git commands by the user.
 __git_prompt_git() {
@@ -42,6 +46,7 @@ __git_prompt_git() {
 
 # Outputs the name of the current branch
 git_current_branch() {
+  git_is_repo || return
   ref=$(__git_prompt_git symbolic-ref --quiet HEAD 2> /dev/null)
   ret=$?
   if [ $ret -ne 0 ]; then
@@ -61,6 +66,7 @@ alias gc="git checkout"
 alias gcom="git checkout master"
 alias gcod="git checkout develop"
 function gco() {
+  git_is_repo || return
   [[ $1 ]] && b="$1" || b="$(git branch --all | fzf | tr -d '[:space:]')"
   git checkout "$b"
 }

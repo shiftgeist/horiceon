@@ -32,6 +32,8 @@ alias ports="netstat -tulpn"
 
 alias killp="pkill"
 
+alias vimz="fc"
+
 # git
 
 git_is_repo() {

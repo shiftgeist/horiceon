@@ -63,8 +63,8 @@ git_current_commit() {
 }
 
 alias gc="git checkout"
-alias gcom="git checkout master"
-alias gcod="git checkout develop"
+alias gcm="git checkout master"
+alias gcd="git checkout develop"
 function gco() {
   git_is_repo || return
   [[ $1 ]] && b="$1" || b="$(git branch --all | fzf | tr -d '[:space:]')"

@@ -34,6 +34,10 @@ alias killp="pkill"
 
 alias vimz="fc"
 
+alias mountcol="mount | column -t"
+
+alias getownip="curl ifconfig.me"
+
 # git
 
 git_is_repo() {

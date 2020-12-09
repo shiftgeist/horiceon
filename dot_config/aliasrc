@@ -19,24 +19,25 @@ alias zsh-debug="zprof > zprof-out.txt && less zprof-out.txt && rm zprof-out.txt
 
 # system
 
-alias history="history 0"
-
-alias cat="bat"
-
-alias vim="$EDITOR"
-alias vi="$EDITOR"
-
 alias syslog-crit="sudo dmesg -w -l err,warn"
 alias syslog="sudo dmesg -w"
 alias ports="netstat -tulpn"
+alias mountcol="mount | column -t"
+alias getownip="curl ifconfig.me"
 
-alias killp="pkill"
+# command line
 
+alias cat="bat"
+alias history="history 0"
 alias vimz="fc"
 
-alias mountcol="mount | column -t"
+alias vim="$EDITOR"
+alias vi="$EDITOR"
+alias json="fx"
 
-alias getownip="curl ifconfig.me"
+# processes
+
+alias killp="pkill"
 
 # git
 

@@ -69,10 +69,10 @@ git_current_commit() {
   echo "$ref"
 }
 
-alias gc="git checkout"
-alias gcm="git checkout master"
-alias gcd="git checkout develop"
-function gco() {
+alias gco="git checkout"
+alias gcom="git checkout master"
+alias gcod="git checkout develop"
+function gc() {
   git_is_repo || return
   [[ $1 ]] && b="$1" || b="$(git branch --all | fzf | tr -d '[:space:]')"
   git checkout "$b"

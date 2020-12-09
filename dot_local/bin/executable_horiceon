@@ -76,7 +76,7 @@ codepkg() {
 }
 
 npmpkg() {
-    npm i -g fx np doctoc prettier js-beautify tinypng-cli diff-so-fancy npm-check-updates sirv-cli live-server firebase-tools markdownlint-cli
+    npm i -g fx n np doctoc prettier js-beautify tinypng-cli diff-so-fancy npm-check-updates sirv-cli live-server firebase-tools markdownlint-cli
 }
 
 fzf() {

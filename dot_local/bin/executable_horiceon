@@ -1,17 +1,49 @@
 #!/bin/sh
 
+set -e
+
+cli_help() {
+  cli_name=${0##*/}
+  echo "
+$cli_name
+Brot and Games CLI
+Usage: $cli_name [command]
+Commands:
+  code      vscode extensions
+  fzf       install fzf
+  go        go packages
+  npm       npm global packages
+  yay       arch packages
+  *         Help
+"
+  exit 1
+}
+
+main() {
+    case "$1" in
+        code)
+            codepkg
+            ;;
+        fzf)
+            fzf
+            ;;
+        go)
+            gopkg
+            ;;
+        npm)
+            npmpkg
+            ;;
+        yay)
+            yaypkg
+            ;;
+        *)
+            cli_help
+            ;;
+    esac
+}
+
 yaypkg() {
-    yay -Syu suckless-tools brave-bin spotify notion-app \
-        alacritty zsh \ # shells
-        neofetch htop \ # utils
-        neovim code \ # editors
-        rsync rclone openssh \ # network
-        go nodejs-lts-erbium npm \ # language
-        ttf-dejavu noto-fonts-emoji otf-overpass \ # fonts
-        feh flameshot gpick \ # graphics
-        typora \ # markdown
-        xsel xcape dunst compton \ # X11
-        bat exa tmux jump-bin
+    yay -Syu suckless-tools brave-bin spotify notion-app alacritty zsh neofetch htop neovim code rsync rclone openssh go nodejs-lts-erbium npm ttf-dejavu noto-fonts-emoji otf-overpass feh flameshot gpick typora xsel xcape dunst compton bat exa tmux jump-bin
 }
 
 zshpkg() {
@@ -44,10 +76,7 @@ codepkg() {
 }
 
 npmpkg() {
-    npm i -g fx np doctoc prettier js-beautify tinypng-cli \ # processing
-        diff-so-fancy \ # display
-        npm-check-updates sirv-cli live-server firebase-tools \ # development
-        markdownlint-cli # linting
+    npm i -g fx np doctoc prettier js-beautify tinypng-cli diff-so-fancy npm-check-updates sirv-cli live-server firebase-tools markdownlint-cli
 }
 
 fzf() {
@@ -56,7 +85,7 @@ fzf() {
 }
 
 gopkg() {
-    go get -u -v github.com/cosmtrek/air github.com/nektos/act \ # development
-        github.com/xxxserxxx/gotop/cmd/gotop \ # monitor
-        github.com/yudai/gotty \ # util
+    go get -u -v github.com/cosmtrek/air github.com/nektos/act github.com/xxxserxxx/gotop/cmd/gotop github.com/yudai/gotty
 }
+
+main "$@"

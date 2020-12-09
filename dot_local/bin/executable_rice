@@ -1,0 +1,127 @@
+#!/bin/sh
+
+set -e
+
+main() {
+    cli_name=${0##*/}
+
+    cli_help() {
+        echo "
+Horiceon helper cli
+Usage: $cli_name [command]
+Commands:
+  install|i     install dependencies
+  package|p     install pgk
+  *             help
+"
+        exit 1
+    }
+
+    case "$1" in
+        install|i)
+            install "$2"
+            ;;
+        packages|pkg|p)
+            packages "$2"
+            ;;
+        *)
+            cli_help
+            ;;
+    esac
+}
+
+install() {
+    cli_help_install() {
+        echo "
+Install tools
+Usage: $cli_name install [tool]
+Commands:
+  dwm       install dwm
+  fzf       install fzf
+  go        install go
+  *         help with install
+"
+        exit 1
+    }
+
+    case "$1" in
+        dwm)
+            cd ~/.local/src/dwm && git pull && sudo make clean install
+            ;;
+        fzf)
+            chmod +x ~/.local/src/fzf/install
+            ~/.local/src/fzf/install --bin
+            ;;
+        go)
+            GO_INSTALLER_PATH=~/Downloads/installer_linux
+            [ -f $GO_INSTALLER_PATH ] || curl "https://storage.googleapis.com/golang/getgo/installer_linux" -o $GO_INSTALLER_PATH
+            chmod +x $GO_INSTALLER_PATH
+            $GO_INSTALLER_PATH
+            ;;
+        *)
+            cli_help_install
+            ;;
+    esac
+}
+
+packages() {
+    cli_help_packages() {
+        echo "
+Install packages
+Usage: $cli_name packages [dependency]
+Commands:
+  arch      arch packages
+  code      vscode extensions
+  go        go packages
+  npm       npm global packages
+  zsh       zsh packages
+  *         help with packages
+"
+        exit 1
+    }
+
+    case "$1" in
+        code)
+            code --install-extension "bierner.markdown-preview-github-styles"
+            code --install-extension "editorconfig.editorconfig"
+            code --install-extension "esbenp.prettier-vscode"
+            code --install-extension "golang.go"
+            code --install-extension "ionutvmi.path-autocomplete"
+            code --install-extension "naumovs.color-highlight"
+            code --install-extension "ow.vscode-subword-navigation"
+            code --install-extension "pflannery.vscode-versionlens"
+            code --install-extension "tinkertrain.theme-panda"
+            code --install-extension "wakatime.vscode-wakatime"
+            ;;
+        go)
+            go get -u -v github.com/cosmtrek/air github.com/nektos/act github.com/xxxserxxx/gotop/cmd/gotop github.com/yudai/gotty
+            ;;
+        npm)
+            npm i -g fx n np doctoc prettier js-beautify tinypng-cli diff-so-fancy npm-check-updates sirv-cli live-server firebase-tools markdownlint-cli
+            ;;
+        arch)
+            if hash yay 2>/dev/null; then
+                yay -Syu suckless-tools brave-bin spotify notion-app alacritty zsh neofetch htop neovim code rsync rclone openssh go nodejs-lts-erbium npm ttf-dejavu noto-fonts-emoji otf-overpass feh flameshot gpick typora xsel xcape dunst compton bat exa tmux jump-bin
+            else
+                echo "Dependency \"yay\" not found."
+                exit 1
+            fi
+            ;;
+        zsh)
+            cloneZshModule https://github.com/MichaelAquilina/zsh-you-should-use.git https://github.com/zsh-users/zsh-syntax-highlighting.git https://github.com/sindresorhus/pure.git
+            ;;
+        *)
+            cli_help_packages
+            ;;
+    esac
+}
+
+
+cloneZshModule() {
+    cd "$ZSHPATH" || exit
+    for n in "$@"; do
+        git clone "$n" 2> /dev/null
+    done
+}
+
+main "$@"

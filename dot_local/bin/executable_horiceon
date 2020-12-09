@@ -44,13 +44,10 @@ codepkg() {
 }
 
 npmpkg() {
-    npm i -g sirv-cli live-server firebase-tools \ # development
-        diff-so-fancy np \ # git
-        doctoc markdownlint-cli \ #markdown
-        npm-check-updates \ # dependencies
-        tinypng-cli \ # images
-        prettier \ # linting
-        js-beautify # convert text
+    npm i -g fx np doctoc prettier js-beautify tinypng-cli \ # processing
+        diff-so-fancy \ # display
+        npm-check-updates sirv-cli live-server firebase-tools \ # development
+        markdownlint-cli # linting
 }
 
 fzf() {

@@ -10,19 +10,19 @@ main() {
 Horiceon helper cli
 Usage: $cli_name [command]
 Commands:
-  install|i     install dependencies
-  package|p     install pgk
+  tool|t        install [tool]
+  install|i     install [tool]
   *             help
 "
         exit 1
     }
 
     case "$1" in
-        install|i)
+        tool|t)
             install "$2"
             ;;
-        packages|pkg|p)
-            packages "$2"
+        install|i)
+            install_packages "$2"
             ;;
         *)
             cli_help
@@ -34,7 +34,7 @@ install() {
     cli_help_install() {
         echo "
 Install tools
-Usage: $cli_name install [tool]
+Usage: $cli_name tool [tool]
 Commands:
   dwm       install dwm
   fzf       install fzf
@@ -64,11 +64,11 @@ Commands:
     esac
 }
 
-packages() {
+install_packages() {
     cli_help_packages() {
         echo "
 Install packages
-Usage: $cli_name packages [dependency]
+Usage: $cli_name packages [tool]
 Commands:
   arch      arch packages
   code      vscode extensions

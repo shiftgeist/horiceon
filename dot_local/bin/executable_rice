@@ -91,7 +91,6 @@ Commands:
             code --install-extension "ow.vscode-subword-navigation"
             code --install-extension "pflannery.vscode-versionlens"
             code --install-extension "tinkertrain.theme-panda"
-            code --install-extension "wakatime.vscode-wakatime"
             ;;
         go)
             go get -u -v github.com/cosmtrek/air github.com/nektos/act github.com/xxxserxxx/gotop/cmd/gotop github.com/yudai/gotty

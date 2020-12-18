@@ -10,19 +10,15 @@ main() {
 Horiceon helper cli
 Usage: $cli_name [command]
 Commands:
-  tool|t        install [tool]
-  install|i     install [tool]
+  install|i     install packages
   *             help
 "
         exit 1
     }
 
     case "$1" in
-        tool|t)
-            install "$2"
-            ;;
         install|i)
-            install_packages "$2"
+            install "$2"
             ;;
         *)
             cli_help
@@ -31,40 +27,6 @@ Commands:
 }
 
 install() {
-    cli_help_install() {
-        echo "
-Install tools
-Usage: $cli_name tool [tool]
-Commands:
-  dwm       install dwm
-  fzf       install fzf
-  go        install go
-  *         help with install
-"
-        exit 1
-    }
-
-    case "$1" in
-        dwm)
-            cd ~/.local/src/dwm && git pull && sudo make clean install
-            ;;
-        fzf)
-            chmod +x ~/.local/src/fzf/install
-            ~/.local/src/fzf/install --bin
-            ;;
-        go)
-            GO_INSTALLER_PATH=~/Downloads/installer_linux
-            [ -f $GO_INSTALLER_PATH ] || curl "https://storage.googleapis.com/golang/getgo/installer_linux" -o $GO_INSTALLER_PATH
-            chmod +x $GO_INSTALLER_PATH
-            $GO_INSTALLER_PATH
-            ;;
-        *)
-            cli_help_install
-            ;;
-    esac
-}
-
-install_packages() {
     cli_help_packages() {
         echo "
 Install packages
@@ -72,7 +34,10 @@ Usage: $cli_name packages [tool]
 Commands:
   arch      arch packages
   code      vscode extensions
+  dwm       install dwm
+  fzf       install fzf
   go        go packages
+  golang    install go
   npm       npm global packages
   zsh       zsh packages
   *         help with packages
@@ -81,6 +46,14 @@ Commands:
     }
 
     case "$1" in
+        arch)
+            if hash yay 2>/dev/null; then
+                yay -Syu suckless-tools brave-bin spotify notion-app alacritty zsh neofetch htop neovim code rsync rclone openssh go nodejs-lts-erbium npm ttf-dejavu noto-fonts-emoji otf-overpass feh flameshot gpick typora xsel xcape dunst compton bat exa tmux jump-bin
+            else
+                echo "Dependency \"yay\" not found."
+                exit 1
+            fi
+            ;;
         code)
             code --install-extension "bierner.markdown-preview-github-styles"
             code --install-extension "editorconfig.editorconfig"
@@ -92,19 +65,24 @@ Commands:
             code --install-extension "pflannery.vscode-versionlens"
             code --install-extension "tinkertrain.theme-panda"
             ;;
+        dwm)
+            cd ~/.local/src/dwm && git pull && sudo make clean install
+            ;;
+        fzf)
+            chmod +x ~/.local/src/fzf/install
+            ~/.local/src/fzf/install --bin
+            ;;
         go)
-            go get -u -v github.com/cosmtrek/air github.com/nektos/act github.com/xxxserxxx/gotop/cmd/gotop github.com/yudai/gotty
+            go get -u github.com/cosmtrek/air github.com/nektos/act github.com/xxxserxxx/gotop/cmd/gotop github.com/yudai/gotty
+            ;;
+        golang)
+            GO_INSTALLER_PATH=~/Downloads/installer_linux
+            [ -f $GO_INSTALLER_PATH ] || curl "https://storage.googleapis.com/golang/getgo/installer_linux" -o $GO_INSTALLER_PATH
+            chmod +x $GO_INSTALLER_PATH
+            $GO_INSTALLER_PATH
             ;;
         npm)
             npm i -g fx n np doctoc prettier js-beautify tinypng-cli diff-so-fancy npm-check-updates sirv-cli live-server firebase-tools markdownlint-cli
-            ;;
-        arch)
-            if hash yay 2>/dev/null; then
-                yay -Syu suckless-tools brave-bin spotify notion-app alacritty zsh neofetch htop neovim code rsync rclone openssh go nodejs-lts-erbium npm ttf-dejavu noto-fonts-emoji otf-overpass feh flameshot gpick typora xsel xcape dunst compton bat exa tmux jump-bin
-            else
-                echo "Dependency \"yay\" not found."
-                exit 1
-            fi
             ;;
         zsh)
             cloneZshModule https://github.com/MichaelAquilina/zsh-you-should-use.git https://github.com/zsh-users/zsh-syntax-highlighting.git https://github.com/sindresorhus/pure.git
@@ -114,7 +92,6 @@ Commands:
             ;;
     esac
 }
-
 
 cloneZshModule() {
     cd "$ZSHPATH" || exit

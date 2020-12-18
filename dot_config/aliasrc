@@ -167,3 +167,4 @@ alias tkss="tmux kill-session -t"
 # music
 
 alias lofi="mpv --ytdl-format=93 \"https://www.youtube.com/watch?v=5qap5aO4i9A\" --no-video --really-quiet"
+alias lofiv="vlc --open \"https://www.youtube.com/watch?v=5qap5aO4i9A\" &"

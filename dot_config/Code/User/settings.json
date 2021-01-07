@@ -65,5 +65,6 @@
   "terminal.integrated.scrollback": 100000,
   "terminal.integrated.shell.linux": "/usr/bin/zsh",
   "window.menuBarVisibility": "hidden",
-  "workbench.colorTheme": "Panda Syntax"
+  "workbench.colorTheme": "Panda Syntax",
+  "workbench.startupEditor": "newUntitledFile"
 }

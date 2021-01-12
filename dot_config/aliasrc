@@ -107,7 +107,7 @@ alias gbc="git branch --merged | egrep -v '(^\*|master|dev)' | xargs git branch 
 
 alias grv="git remote -v"
 
-alias gsta="git stash save --include-untracked"
+alias gsta="git stash -u"
 alias gstp="git stash pop"
 
 # git flow

@@ -30,9 +30,6 @@ alias getownip="curl ifconfig.me"
 alias cat="bat"
 alias history="history 0"
 alias vimz="fc"
-
-alias vim="$EDITOR"
-alias vi="$EDITOR"
 alias json="fx"
 
 # processes
@@ -47,36 +44,58 @@ git_is_repo() {
 
 # We wrap in a local function instead of exporting the variable directly in
 # order to avoid interfering with manually-run git commands by the user.
-__git_prompt_git() {
+__git() {
   GIT_OPTIONAL_LOCKS=0 command git "$@"
 }
 
 # Outputs the name of the current branch
-git_current_branch() {
+__git_current_branch() {
   git_is_repo || return
-  ref=$(__git_prompt_git symbolic-ref --quiet HEAD 2> /dev/null)
+  ref=$(__git symbolic-ref --quiet HEAD 2> /dev/null)
   ret=$?
   if [ $ret -ne 0 ]; then
     [ $ret -eq 128 ] && return  # no git repo.
-    ref=$(__git_prompt_git rev-parse --short HEAD 2> /dev/null) || return
+    ref=$(__git rev-parse --short HEAD 2> /dev/null) || return
   fi
   echo "${ref#refs/heads/}"
 }
 
 # Outputs the id of the current commit
-git_current_commit() {
+__git_current_commit() {
   ref=$(git rev-list --tags --max-count=1)
   echo "$ref"
 }
 
+__git_fzf_branch() {
+  git_is_repo || return
+
+  git branch --all --sort=-committerdate --color=always |
+    # remove entries with "HEAD" in them
+    grep -v HEAD |
+    # run thought fzf
+    fzf --ansi --no-multi --preview-window right:60% --preview "git log -n 50 --color=always --date=short --pretty='format:%C(auto)%cd %h%d %s' $(sed 's/.* //' <<< {})" |
+    # trim asterisk and leading whitespace
+    sed "s/.* //"
+}
+
+__git_fzf_checkout() {
+    git_is_repo || return
+
+    local branch
+     [[ $1 ]] && branch="$1" || branch=$(__git_fzf_branch)
+    [[ "$branch" = "" ]] && return
+
+    if [[ "$branch" = 'remotes/'* ]]; then
+        git checkout --track "$branch"
+    else
+        git checkout "$branch";
+    fi
+}
+
+alias gc="__git_fzf_checkout"
 alias gco="git checkout"
 alias gcom="git checkout master"
 alias gcod="git checkout develop"
-function gc() {
-  git_is_repo || return
-  [[ $1 ]] && b="$1" || b="$(git branch --all | fzf | tr -d '[:space:]')"
-  git checkout "$b"
-}
 
 alias gaa="git add ."
 alias gcm="git commit -m"
@@ -84,12 +103,12 @@ alias gcam="git add . && git commit -m"
 
 alias gp="git push"
 alias gpf="git push --force-with-lease"
-function gpsup() {
-  git push --set-upstream origin $(git_current_branch)
+gpsup() {
+  git push --set-upstream origin "$(__git_current_branch)"
 }
 
 alias gl="git pull"
-alias gf="git fetch"
+alias gf="git fetch --all"
 alias gfp="git fetch --all --prune"
 
 alias glog="git log --oneline --decorate --graph"
@@ -98,8 +117,8 @@ alias glol="git log --graph --pretty='%Cred%h%Creset -%C(auto)%d%Creset %s %Cgre
 alias gst="git status"
 alias gd="git diff"
 alias gt="git tag | sort -h"
-function gdesc() {
-  git describe --tags $(git_current_commit)
+gdesc() {
+  git describe --tags "$(__git_current_commit)"
 }
 
 alias gb="git branch"

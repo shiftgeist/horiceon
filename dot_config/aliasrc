@@ -80,21 +80,25 @@ __git_fzf_branch() {
 }
 
 __git_fzf_checkout() {
-    git_is_repo || return
+  git_is_repo || return
 
-    local branch
-     [[ $1 ]] && branch="$1" || branch=$(__git_fzf_branch)
-    [[ "$branch" = "" ]] && return
+  if [[ $@ ]]; then
+    command git checkout "$@"
+    return $?
+  fi
 
-    if [[ "$branch" = 'remotes/'* ]]; then
-        git checkout --track "$branch"
-    else
-        git checkout "$branch";
-    fi
+  local branch
+  branch=$(__git_fzf_branch)
+  [[ "$branch" = "" ]] && return
+
+  if [[ "$branch" = "remotes/"* ]]; then
+    git checkout --track "$branch"
+  else
+    git checkout "$branch";
+  fi
 }
 
-alias gc="__git_fzf_checkout"
-alias gco="git checkout"
+alias gco="__git_fzf_checkout"
 alias gcom="git checkout master"
 alias gcod="git checkout develop"
 

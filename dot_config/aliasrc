@@ -107,7 +107,10 @@ alias gcm="git commit -m"
 alias gcam="git add . && git commit -m"
 
 alias gp="git push"
-alias gpf="git push --force-with-lease"
+gpf() {
+  read "REPLY?Force push? (Yy)"
+  [[ "$REPLY" =~ ^[Yy]$ ]] && git push --force-with-lease
+}
 gpsup() {
   git push --set-upstream origin "$(__git_current_branch)"
 }

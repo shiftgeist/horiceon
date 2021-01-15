@@ -27,18 +27,8 @@ function latest_revision(){
   git rev-list --count HEAD 2>/dev/null
 }
 
-# parse last found tag, extract it PARTS
-function parse_last(){
-  local position=$(($1-1))
-
-  # two parts found only
-  local SUBS=( ${PARTS[$position]//-/ } )
-
-  # found NUMBER
-  PARTS[$position]=${SUBS[0]}
-
-  # found SUFFIX
-  [[ ${#SUBS} -ge 1 ]] && PARTS[4]=${SUBS[1],,} #lowercase
+function version_dots(){
+  echo "$TAG" | grep -o "\." | wc -l
 }
 
 function increment_patch(){
@@ -84,12 +74,17 @@ function compose(){
   # remove suffix if we don't have a alpha/beta/rc
   [[ "${#SUFFIX}" == 1 ]] && SUFFIX=""
 
-  echo "${MAJOR}${MINOR}${PATCH}${REVISION}${SUFFIX}" # full format
+  if [ "$DOTS" == "2" ]; then
+    echo "${MAJOR}${MINOR}${PATCH}${REVISION}${SUFFIX}" # full format
+  elif [ "$DOTS" == "1" ]; then
+    echo "${MAJOR}${MINOR}${REVISION}${SUFFIX}" # full format
+  fi
 }
 
 # do GIT data extracting
 TAG=$(latest_tag)
 REVISION=$(latest_revision)
+DOTS=$(version_dots)
 
 # {MAJOR}.{MINOR}[.{PATCH}[.{REVISION}][-(.*)]
 #
@@ -100,7 +95,6 @@ REVISION=$(latest_revision)
 #    rc --> {VERSION}
 #
 PARTS=( ${TAG//./ } )
-parse_last ${#PARTS[@]} # array size as argument
 
 # parse input parameters
 for i in "$@"

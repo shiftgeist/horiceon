@@ -98,6 +98,19 @@ __git_fzf_checkout() {
   fi
 }
 
+__git_push_current_to_origin() {
+  git push --set-upstream origin "$(__git_current_branch)"
+}
+
+__git_latest_tag() {
+  git describe --tags "$(__git_current_commit)"
+}
+
+__git_push_force_ask() {
+  read "REPLY?Force push? (Yy)"
+  [[ "$REPLY" =~ ^[Yy]$ ]] && git push --force-with-lease
+}
+
 alias gco="__git_fzf_checkout"
 alias gcom="git checkout master"
 alias gcod="git checkout develop"
@@ -107,13 +120,8 @@ alias gcm="git commit -m"
 alias gcam="git add . && git commit -m"
 
 alias gp="git push"
-gpf() {
-  read "REPLY?Force push? (Yy)"
-  [[ "$REPLY" =~ ^[Yy]$ ]] && git push --force-with-lease
-}
-gpsup() {
-  git push --set-upstream origin "$(__git_current_branch)"
-}
+alias gpf="__git_push_force_ask"
+alias gpsup="__git_push_current_to_origin"
 
 alias gl="git pull"
 alias gf="git fetch --all"
@@ -125,9 +133,7 @@ alias glol="git log --graph --pretty='%Cred%h%Creset -%C(auto)%d%Creset %s %Cgre
 alias gst="git status"
 alias gd="git diff"
 alias gt="git tag | sort -h"
-gdesc() {
-  git describe --tags "$(__git_current_commit)"
-}
+alias gdesc="__git_latest_tag"
 
 alias gb="git branch"
 alias gbc="git branch --merged | egrep -v '(^\*|master|dev)' | xargs git branch -d && git pull --prune"

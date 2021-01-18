@@ -1,0 +1,90 @@
+#!/usr/bin/env bash
+
+set -e
+
+if ! command -v semver &>/dev/null
+then
+  echo "semver could not be found"
+  exit
+fi
+
+function help() {
+  cli_name=${0##*/}
+  echo "
+usage: $cli_name [command] [prerelease]
+"
+  exit 0
+}
+
+# options
+SOURCE="npm"
+
+function latest_tag() {
+  if [[ "$SOURCE" == "git" ]]; then
+    git describe --tags --abbrev=0 2>/dev/null
+  elif [[ "$SOURCE" == "npm" ]]; then
+    sed -nE 's/^\s*"version": "(.*?)",$/\1/p' package.json
+  fi
+}
+
+TAG="$(latest_tag)"
+
+# parse input parameters
+for i in "$@"
+do
+  case $i in
+    alpha)
+    PRERELEASE=true
+    PREID="alpha"
+    ;;
+    beta)
+    PRERELEASE=true
+    PREID="beta"
+    ;;
+    rc)
+    PRERELEASE=true
+    PREID="rc"
+    ;;
+    patch)
+    LEVEL="patch"
+    ;;
+    minor)
+    LEVEL="minor"
+    ;;
+    major)
+    LEVEL="major"
+    ;;
+    rev)
+    PRERELEASE=true
+    ;;
+    npm)
+    SOURCE="npm"
+    ;;
+    git)
+    SOURCE="git"
+    ;;
+    now)
+    echo "$TAG"
+    ;;
+    *) # unknown command
+    help
+    ;;
+  esac
+  shift
+done
+
+if [[ ${PRERELEASE} ]]; then
+  if [[ ${#PREID} == 0 ]]; then
+    OPTIONS="-i prerelease"
+  else
+    OPTIONS="-i pre$LEVEL --preid $PREID"
+  fi
+else
+  OPTIONS="-i $LEVEL"
+fi
+
+EXEC=$(printf "%s %s" "$TAG" "$OPTIONS")
+
+# echo "semver $EXEC" # debug
+
+echo "$EXEC" | xargs semver

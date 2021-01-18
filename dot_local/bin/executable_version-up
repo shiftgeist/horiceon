@@ -1,48 +1,56 @@
 #!/usr/bin/env bash
-# Copyright (C) 2017, Oleksandr Kucherenko
-# Source: https://gist.github.com/OleksandrKucherenko/9fb14f81a29b46886ccd63b774c5959f
-#
-# Modified by Felix (shiftgeist) Hungenberg
+# Copyright (C) 2017, Oleksandr Kucherenko (from https://gist.github.com/OleksandrKucherenko/9fb14f81a29b46886ccd63b774c5959f)
+# Copyright (C) 2021, Felix Hungenberg (shiftgeist)
 
-function help(){
-  echo 'usage: version-up [label]'
+function help() {
+  echo 'Usage: version-up [command] [suffix] [option]'
   echo ''
-  echo 'labels:'
-  echo '  major             version when you make incompatible API changes'
-  echo '  minor             version when you add functionality in a backwards compatible manner'
-  echo '  patch             version when you make backwards compatible bug fixes'
+  echo 'Commands:'
+  echo '    major, minor, patch, rev'
   echo ''
-  echo 'other labels:'
-  echo '  alpha             switch stage to alpha'
-  echo '  beta              switch stage to beta'
-  echo '  rc                switch stage to rc'
+  echo 'Suffix:'
+  echo '    alpha, beta, rc'
+  echo ''
+  echo 'Options:'
+  echo '    help, npm'
   exit 0
 }
 
-function latest_tag(){
+# options
+NPM=false
+
+function latest_tag() {
+  if [ "$NPM" = false ] && latest_git_tag ; then
+    latest_git_tag
+  else
+    latest_npm_tag
+  fi
+}
+
+function latest_git_tag() {
   git describe --tags --abbrev=0 2>/dev/null
 }
 
-function latest_revision(){
-  git rev-list --count HEAD 2>/dev/null
+function latest_npm_tag() {
+  sed -nE 's/^\s*"version": "(.*?)",$/\1/p' package.json
 }
 
-function version_dots(){
-  echo "$TAG" | grep -o "\." | wc -l
+function version_dots() {
+  echo "$TAG" | sed 's/-.*//' | grep -o "\." | wc -l
 }
 
-function increment_patch(){
+function increment_patch() {
   PARTS[2]=$(( PARTS[2] + 1 ))
-  PARTS[3]=0
+  PARTS[3]="-1"
 }
 
-function increment_minor(){
-    PARTS[1]=$(( PARTS[1] + 1 ))
-    PARTS[2]=0
-    PARTS[3]=0
+function increment_minor() {
+  PARTS[1]=$(( PARTS[1] + 1 ))
+  PARTS[2]=0
+  PARTS[3]="-1"
 }
 
-function incremet_major(){
+function incremet_major() {
   if [[ "${PARTS[0]}" == *"v"* ]]; then
     PARTS[0]=v$(( PARTS[0] + 1 ))
   else
@@ -50,43 +58,39 @@ function incremet_major(){
   fi
   PARTS[1]=0
   PARTS[2]=0
-  PARTS[3]=0
+  PARTS[3]="-1"
 }
 
-function compose(){
+function incremet_revision() {
+  PARTS[4]=$(( PARTS[4] + 1 ))
+}
+
+function compose() {
   MAJOR="${PARTS[0]}"
   MINOR=".${PARTS[1]}"
   PATCH=".${PARTS[2]}"
-  REVISION=".${PARTS[3]}"
-  SUFFIX="-${PARTS[4]}"
+  SUFFIX="-${PARTS[3]}"
+  REVISION=".${PARTS[4]}"
 
   [[ "${#PATCH}" == 1 ]] && PATCH=""
   [[ "${#REVISION}" == 1 ]] && REVISION=""
-  [[ "${PARTS[3]}" == "0" ]] && REVISION=""
-
-  # shrink patch and revision
-  if [[ -z "${REVISION// }" ]]; then
-    [[ "${PARTS[2]}" == "0" ]] && PATCH=".0"
-  else # revision is not EMPTY
-    [[ "${#PATCH}" == 0 ]] && PATCH=".0"
+  if [[ "${PARTS[3]}" == "-1" ]] || [[ "${#SUFFIX}" == 1 ]]; then
+    SUFFIX=""
+    REVISION=""
   fi
 
-  # remove suffix if we don't have a alpha/beta/rc
-  [[ "${#SUFFIX}" == 1 ]] && SUFFIX=""
-
   if [ "$DOTS" == "2" ]; then
-    echo "${MAJOR}${MINOR}${PATCH}${REVISION}${SUFFIX}" # full format
-  elif [ "$DOTS" == "1" ]; then
-    echo "${MAJOR}${MINOR}${REVISION}${SUFFIX}" # full format
+    echo "${MAJOR}${MINOR}${PATCH}${SUFFIX}${REVISION}" # full format
+  else
+    echo "${MAJOR}${MINOR}${SUFFIX}${REVISION}" # half format
   fi
 }
 
 # do GIT data extracting
 TAG=$(latest_tag)
-REVISION=$(latest_revision)
 DOTS=$(version_dots)
 
-# {MAJOR}.{MINOR}[.{PATCH}[.{REVISION}][-(.*)]
+# {MAJOR}.{MINOR}[.{PATCH}][-{SUFFIX}][.{REVISION}]
 #
 #  Suffix: alpha, beta, rc
 #    No Suffix --> {NEW_VERSION}-alpha
@@ -94,7 +98,16 @@ DOTS=$(version_dots)
 #    beta --> rc
 #    rc --> {VERSION}
 #
-PARTS=( ${TAG//./ } )
+VERSION=( ${TAG//-/ } )
+PARTS=( ${VERSION[0]//./ } ) # don't include suffix in first part
+
+if [ "${VERSION[0]}" != "${VERSION[1]}" ]; then
+  PRERELEASE=( ${VERSION[1]//./ } )
+  PARTS[3]="${PRERELEASE[0]}"
+  PARTS[4]="${PRERELEASE[1]}"
+else
+  PARTS[4]="0" # suffix revision base
+fi
 
 # parse input parameters
 for i in "$@"
@@ -103,13 +116,13 @@ do
 
   case $key in
     alpha)
-    PARTS[4]="alpha"
+    PARTS[3]="alpha"
     ;;
     beta)
-    PARTS[4]="beta"
+    PARTS[3]="beta"
     ;;
     rc)
-    PARTS[4]="rc"
+    PARTS[3]="rc"
     ;;
     patch)
     increment_patch
@@ -120,8 +133,15 @@ do
     major)
     incremet_major
     ;;
-    help|-h|--help)
+    rev)
+    incremet_revision
+    ;;
+    npm)
+    NPM=true
+    ;;
+    *) # unknown command
     help
+    exit 0
     ;;
   esac
   shift

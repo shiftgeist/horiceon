@@ -165,11 +165,9 @@ alias la="ls -lah"
 # npm
 
 alias npmi="npm install"
-alias npmg="npm install -g"
-alias npmd="npm install -D"
-alias npmo="npm outdated"
+alias npmig="npm install -g"
+alias npmid="npm install -D"
 alias npmlg="volta list all"
-alias npmt="npm test"
 alias npmr="npm run"
 alias npmrs="npm run start"
 alias npmin="npm init -y"

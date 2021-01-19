@@ -11,23 +11,21 @@ fi
 function help() {
   cli_name=${0##*/}
   echo "
-usage: $cli_name [command] [prerelease]
+usage: $cli_name [npm|git] [command] [prerelease]
 "
   exit 0
 }
 
 # options
-SOURCE="npm"
-
 function latest_tag() {
   if [[ "$SOURCE" == "git" ]]; then
     git describe --tags --abbrev=0 2>/dev/null
-  elif [[ "$SOURCE" == "npm" ]]; then
+  fi
+
+  if [[ "$SOURCE" == "npm" ]]; then
     sed -nE 's/^\s*"version": "(.*?)",$/\1/p' package.json
   fi
 }
-
-TAG="$(latest_tag)"
 
 # parse input parameters
 for i in "$@"
@@ -72,6 +70,8 @@ do
   esac
   shift
 done
+
+TAG="$(latest_tag)"
 
 if [[ ${PRERELEASE} ]]; then
   if [[ ${#PREID} == 0 ]]; then

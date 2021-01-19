@@ -25,6 +25,7 @@ alias ports="netstat -tulpn"
 alias mountcol="mount | column -t"
 alias getownip="curl ifconfig.me"
 alias curl-json="curl --header 'Content-Type:application/json'"
+alias vm="mv"
 
 # command line
 

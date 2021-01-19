@@ -147,15 +147,15 @@ alias gstp="git stash pop"
 # git flow
 # https://gist.github.com/JamesMGreene/cdd0ac49f90c987e45ac
 
-alias gflf='git flow feature'
-alias gflfs='git flow feature start'
-alias gflff='git flow feature finish'
-alias gflh='git flow hotfix'
-alias gflhs='git flow hotfix start'
-alias gflhf='git flow hotfix finish'
-alias gflr='git flow release'
-alias gflrs='git flow release start'
-alias gflrf='git flow release finish'
+alias gFf="git flow feature"
+alias gFfs="git flow feature start"
+alias gFff="git flow feature finish"
+alias gFh="git flow hotfix"
+alias gFhs="git flow hotfix start"
+alias gFhf="git flow hotfix finish"
+alias gFr="git flow release"
+alias gFrs="git flow release start"
+alias gFrf="git flow release finish"
 
 # list
 

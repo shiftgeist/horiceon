@@ -108,8 +108,24 @@ __git_latest_tag() {
 }
 
 __git_push_force_ask() {
-  read "REPLY?Force push? (Yy)"
-  [[ "$REPLY" =~ ^[Yy]$ ]] && git push --force-with-lease
+  read "REPLY?Force push? (Yy) "
+  case $REPLY in
+    *)
+    git push --force-with-lease
+    ;;
+  esac
+}
+
+__git_release_ask() {
+  read "REPLY?Major (default) or Minor (minor)? "
+  case $REPLY in
+    minor)
+    git flow release up git minor
+    ;;
+    *)
+    git flow release up git major
+    ;;
+  esac
 }
 
 alias gco="__git_fzf_checkout"
@@ -151,9 +167,11 @@ alias gff="git flow feature"
 alias gffs="git flow feature start"
 alias gfff="git flow feature finish"
 alias gfh="git flow hotfix"
-alias gfhs="git flow hotfix start"
+alias gfhs="git flow hotfix start $(up git patch)"
+alias gfhsc="git flow hotfix start" # with custom tag
 alias gfhf="git flow hotfix finish"
-alias gfr="git flow release"
+alias gfrs="__git_release_ask"
+alias gfrc="git flow release" # with custom tag
 alias gfrs="git flow release start"
 alias gfrf="git flow release finish"
 

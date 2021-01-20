@@ -116,7 +116,7 @@ __git_push_force_ask() {
   esac
 }
 
-__git_release_ask() {
+__git_flow_release_ask() {
   read "REPLY?Major (default) or Minor (minor)? "
   case $REPLY in
     minor)
@@ -126,6 +126,18 @@ __git_release_ask() {
     git flow release up git major
     ;;
   esac
+}
+
+__git_flow_finish_ask() {
+  echo "Command to be executed: \"git flow ${"$(__git_current_branch)"/\/*/} finish\""
+  echo ""
+  read "REPLY?Continue? (Yy) "
+  case $REPLY in
+    *)
+    git flow ${"$(__git_current_branch)"/\/*/} finish
+    ;;
+  esac
+  echo
 }
 
 alias gco="__git_fzf_checkout"
@@ -161,19 +173,14 @@ alias gsta="git stash -u"
 alias gstp="git stash pop"
 
 # git flow
-# https://gist.github.com/JamesMGreene/cdd0ac49f90c987e45ac
 
-alias gff="git flow feature"
 alias gffs="git flow feature start"
-alias gfff="git flow feature finish"
-alias gfh="git flow hotfix"
 alias gfhs="git flow hotfix start $(up git patch)"
 alias gfhsc="git flow hotfix start" # with custom tag
-alias gfhf="git flow hotfix finish"
-alias gfrs="__git_release_ask"
-alias gfrc="git flow release" # with custom tag
+alias gfrs="__git_flow_release_ask"
 alias gfrs="git flow release start"
-alias gfrf="git flow release finish"
+
+alias gff="__git_flow_finish_ask"
 
 # list
 

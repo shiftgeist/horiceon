@@ -142,12 +142,20 @@ __git_flow_hotfix_start() {
 }
 
 __git_flow_finish_ask() {
-  echo "Command to be executed: \"git flow ${"$(__git_current_branch)"/\/*/} finish\""
+  local BRANCH=$(__git_current_branch)
+  local FLOW_TYPE="$(cut -d '/' -f1 <<< "$BRANCH")"
+  local FLOW_NAME="$(cut -d '/' -f2 <<< "$BRANCH")"
+  local FLOW_MESSAGE=""
+
+  [[ $FLOW_TYPE == "release" ]] && FLOW_MESSAGE="-m \"$FLOW_NAME\""
+  [[ $FLOW_TYPE == "hotfix" ]] && FLOW_MESSAGE="-m \"$FLOW_NAME\""
+
+  echo "Command to be executed: \"git flow $FLOW_TYPE finish $FLOW_MESSAGE\""
   echo ""
   read "REPLY?Continue? (Yy) "
   case $REPLY in
     *)
-    git flow ${"$(__git_current_branch)"/\/*/} finish
+    git flow $FLOW_TYPE finish $FLOW_MESSAGE
     ;;
   esac
   echo

@@ -116,16 +116,29 @@ __git_push_force_ask() {
   esac
 }
 
-__git_flow_release_ask() {
-  read "REPLY?Major (default) or Minor (minor)? "
-  case $REPLY in
-    minor)
-    git flow release up git minor
-    ;;
-    *)
-    git flow release up git major
-    ;;
-  esac
+__git_flow_release_start() {
+  if [[ $@ ]]; then
+    command git flow release start "$@"
+  else
+    read "REPLY?Major (default) or Minor (minor)? "
+    case $REPLY in
+      minor)
+      git flow release start $(up git minor)
+      ;;
+      *)
+      git flow release start $(up git major)
+      ;;
+    esac
+  fi
+
+}
+
+__git_flow_hotfix_start() {
+  if [[ $@ ]]; then
+    command git flow hotfix start "$@"
+  else
+    git flow hotfix start $(up git patch)
+  fi
 }
 
 __git_flow_finish_ask() {
@@ -151,6 +164,7 @@ alias gcam="git add . && git commit -m"
 alias gp="git push"
 alias gpf="__git_push_force_ask"
 alias gpsup="__git_push_current_to_origin"
+alias gptdm="git push --tags && git checkout develop && git push && git checkout master && git push"
 
 alias gl="git pull"
 alias gf="git fetch --all"
@@ -175,10 +189,8 @@ alias gstp="git stash pop"
 # git flow
 
 alias gffs="git flow feature start"
-alias gfhs="git flow hotfix start $(up git patch)"
-alias gfhsc="git flow hotfix start" # with custom tag
-alias gfrs="__git_flow_release_ask"
-alias gfrs="git flow release start"
+alias gfhs="__git_flow_hotfix_start"
+alias gfrs="__git_flow_release_start"
 
 alias gff="__git_flow_finish_ask"
 

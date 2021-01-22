@@ -1,0 +1,7 @@
+#!/usr/bin/env node
+
+const { loadavg, cpus } = require("os"); // https://nodejs.org/api/os.html
+
+const load = 100 - (loadavg()[0] * 100) / cpus().length;
+
+console.log(load.toFixed() + "%");

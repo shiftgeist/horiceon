@@ -1,9 +1,0 @@
-#!/usr/bin/env node
-
-os = require("os");
-
-var freemem = (100 - (os.freemem() / os.totalmem()) * 100)
-  .toString()
-  .split(".");
-
-console.log(freemem[0] + "%");

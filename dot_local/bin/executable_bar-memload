@@ -1,0 +1,7 @@
+#!/usr/bin/env node
+
+const { freemem, totalmem } = require("os"); // https://nodejs.org/api/os.html
+
+const load = 100 - (freemem() / totalmem()) * 100;
+
+console.log(load.toFixed() + "%");

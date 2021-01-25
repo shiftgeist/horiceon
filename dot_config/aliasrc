@@ -77,7 +77,7 @@ __git_fzf_branch() {
     # remove entries with "HEAD" in them
     grep -v HEAD |
     # run thought fzf
-    fzf --ansi --no-multi --preview-window right:60% --preview "git log -n 50 --color=always --date=short --pretty='format:%C(auto)%cd %h%d %s' $(sed 's/.* //' <<< {})" |
+    fzf --ansi --no-multi --preview-window right:65% --preview 'git log -n 50 --color=always --date=short --pretty="format:%C(auto)%cd %h%d %s (%an)" $(sed "s/.* //" <<< {})' |
     # trim asterisk and leading whitespace
     sed "s/.* //"
 }

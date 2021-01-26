@@ -1,5 +1,7 @@
 #!/usr/bin/env zsh
 
+set -k
+
 export ZSHPATH="$XDG_DATA_HOME/zsh"
 export HISTSIZE=10000000
 export SAVEHIST=10000000
@@ -15,22 +17,29 @@ fpath=(
     $fpath
 )
 
-autoload -U compinit; compinit
+zmodload -i zsh/complist
+
+unsetopt menu_complete   # do not autoselect the first completion entry
+unsetopt flowcontrol
+setopt auto_menu         # show completion menu on successive tab press
+setopt complete_in_word
+setopt always_to_end
+
+autoload -Uz compinit; compinit
 zstyle ':completion:*' menu yes select
 zstyle ':completion:*' rehash true
-zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}'
+zstyle ':completion:*' special-dirs true
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|=*' 'l:|=* r:|=*'
 zstyle ':completion::complete:*' gain-privileges 1
 autoload -Uz promptinit; promptinit
 _comp_options+=(globdots) # Include hidden files.
 
+# automatically load bash completion functions
+autoload -U +X bashcompinit && bashcompinit
+
 autoload -U select-word-style
 select-word-style bash
 stty stop undef
-
-setopt auto_cd
-setopt COMPLETE_ALIASES
-setopt inc_append_history
-setopt share_history
 
 # plugins
 source $ZSHPATH/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
@@ -41,6 +50,11 @@ source $ZSHPATH/zsh-you-should-use/you-should-use.plugin.zsh
 [ -f ~/go/bin/bin/jump ] && eval "$(~/go/bin/bin/jump shell zsh)"
 [ -f "$XDG_CONFIG_HOME/aliasrc" ] && source "$XDG_CONFIG_HOME/aliasrc"
 [ -f ~/.zshrc_local ] && source ~/.zshrc_local
+
+setopt auto_cd
+setopt complete_aliases
+setopt inc_append_history
+setopt share_history
 
 # keybinds
 

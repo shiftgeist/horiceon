@@ -1,0 +1,34 @@
+[
+  {
+    "key": "caps",
+    "command": "key esc"
+  },
+  {
+    "key": "insert",
+    "command": "key caps"
+  },
+  {
+    "key": "print",
+    "command": "flameshot gui"
+  },
+  {
+    "key": "mod+e",
+    "command": "nautilus"
+  },
+  {
+    "key": "mod+{0-9}",
+    "command": "switch tag number"
+  },
+  {
+    "key": "mod+q",
+    "command": "close application"
+  },
+  {
+    "key": "mod+return",
+    "command": "launch terminal"
+  },
+  {
+    "key": "mod+s",
+    "command": "slock"
+  }
+]

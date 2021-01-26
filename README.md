@@ -4,22 +4,9 @@ Horiceon is a dark 🌆 themed collection of [rice 🍚](https://wiki.archlinux.
 
 Inspired by [Horizon Theme](https://marketplace.visualstudio.com/items?itemName=jolaleye.horizon-theme-vscode) and [Panda Syntax](https://github.com/tinkertrain/panda-syntax-vscode).
 
-[![github issues](https://img.shields.io/github/issues/shiftgeist/horiceon)](https://github.com/shiftgeist/horiceon/issues)
-[![](https://img.shields.io/badge/uses-chezmoi-green)](https://github.com/twpayne/chezmoi)
-
-## Shortcut concept ⌨️
-
-| Binding            | Description                                                            |
-| ------------------ | ---------------------------------------------------------------------- |
-| `CAPS`             | Remaped to `ESC`                                                       |
-| `Insert`           | Remap to `CAPS`                                                        |
-| `Print`            | Screenshot ([`flameshot`](https://github.com/flameshot-org/flameshot)) |
-| `Super` + `E`      | Open files manager                                                     |
-| `Super` + `Number` | Switch to tag number                                                   |
-| `Super` + `P`      | Open Application Launcher (`dmenu`)                                    |
-| `Super` + `Q`      | Close Application                                                      |
-| `Super` + `Return` | Launch [`alacritty`](https://github.com/alacritty/alacritty)           |
-| `Super` + `S`      | Lock session                                                           |
+[![issues](https://img.shields.io/github/issues/shiftgeist/horiceon)](https://github.com/shiftgeist/horiceon/issues)
+[![chezmoi](https://img.shields.io/badge/uses-chezmoi-green)](https://github.com/twpayne/chezmoi)
+[![GitHub contributors](https://img.shields.io/github/contributors/shiftgeist/horiceon)](https://github.com/shiftgeist/horiceon/graphs/contributors)
 
 ## Contributors ✨
 

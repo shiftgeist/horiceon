@@ -95,7 +95,7 @@ __git_fzf_checkout() {
   [[ "$branch" = "" ]] && return
 
   if [[ "$branch" = "remotes/"* ]]; then
-    git checkout --track "$branch"
+    git checkout "$(echo $branch | cut -d '/' -f 3-4)";
   else
     git checkout "$branch";
   fi

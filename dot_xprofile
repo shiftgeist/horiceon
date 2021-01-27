@@ -9,6 +9,8 @@ dunst &			# dunst for notifications
 gnome-screensaver &
 gnome-settings-daemon &
 
+tmux source "${XDG_CONFIG_HOME}/tmux/.tmux.conf"
+
 export "$(/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh,gpg)"
 
 # xrandr --output HDMI2 --right-of HDMI1

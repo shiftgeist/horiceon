@@ -5,9 +5,11 @@
 . ~/.xprofile
 
 # Statusbar loop
-while true; do
-   xsetroot -name "$( date +"%F %R" )"
-   sleep 1m  # Update time every minute
-done &
+# while true; do
+#    xsetroot -name "$( date +"%F %R" )"
+#    sleep 1m  # Update time every minute
+# done &
+
+(conky | while read -r LINE; do xsetroot -name "$LINE"; done) &
 
 ssh-agent startdwm

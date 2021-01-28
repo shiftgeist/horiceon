@@ -4,4 +4,4 @@
 
 . ~/.xprofile
 
-ssh-agent dwm
+ssh-agent startdwm

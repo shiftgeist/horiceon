@@ -169,7 +169,7 @@ alias gcod="git checkout develop"
 
 alias gaa="git add ."
 alias gcm="git commit -m"
-alias gcam="git add . && git commit -m"
+alias gcma="git add . && git commit -m"
 
 alias gp="git push"
 alias gpf="__git_push_force_ask"

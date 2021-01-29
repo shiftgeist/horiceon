@@ -1,34 +1,17 @@
 #!/bin/sh
 
-# Modified source from: https://github.com/petere/git-whoami
-
 set -e
 
-get_email() {
-	git config user.email || ( [ -n "$EMAIL" ] && echo "$EMAIL" ) || echo "$(id -nu)@$(hostname -f)"
+get_name() {
+	git config --show-origin user.name
 }
 
-get_name() {
-	git config user.name || getent passwd "$(id -un)" | cut -d : -f 5 | cut -d , -f 1
+get_email() {
+	git config user.email
 }
 
 get_gpg() {
 	git config user.signingkey
 }
 
-: "${GIT_AUTHOR_NAME=$(get_name)}"
-: "${GIT_COMMITTER_NAME=$(get_name)}"
-: "${GIT_AUTHOR_EMAIL=$(get_email)}"
-: "${GIT_COMMITTER_EMAIL=$(get_email)}"
-: "${GIT_AUTHOR_GPG=$(get_gpg)}"
-: "${GIT_COMMITTER_GPG=$(get_gpg)}"
-
-author="$GIT_AUTHOR_NAME <$GIT_AUTHOR_EMAIL> $GIT_AUTHOR_GPG"
-commit="$GIT_COMMITTER_NAME <$GIT_COMMITTER_EMAIL> $GIT_COMMITTER_GPG"
-
-if [ "$author" = "$commit" ]; then
-	echo "$author"
-else
-	echo "Author: $author"
-	echo "Commit: $commit"
-fi
+echo "$(get_name) <$(get_email)> $(get_gpg)"

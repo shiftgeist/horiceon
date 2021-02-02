@@ -157,7 +157,9 @@ __git_flow_finish_ask() {
   read "REPLY?Continue? (Yy) "
   case $REPLY in
     *)
+    export GIT_MERGE_AUTOEDIT=no
     git flow $FLOW_TYPE finish $FLOW_MESSAGE
+    unset GIT_MERGE_AUTOEDIT
     ;;
   esac
   echo

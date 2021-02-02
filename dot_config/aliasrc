@@ -143,7 +143,7 @@ __git_flow_hotfix_start() {
   fi
 }
 
-__git_flow_finish_ask() {
+__git_flow_finish() {
   local BRANCH=$(__git_current_branch)
   local FLOW_TYPE="$(cut -d '/' -f1 <<< "$BRANCH")"
   local FLOW_NAME="$(cut -d '/' -f2 <<< "$BRANCH")"
@@ -152,17 +152,11 @@ __git_flow_finish_ask() {
   [[ $FLOW_TYPE == "release" ]] && FLOW_MESSAGE="-m \"$FLOW_NAME\""
   [[ $FLOW_TYPE == "hotfix" ]] && FLOW_MESSAGE="-m \"$FLOW_NAME\""
 
-  echo "Command to be executed: \"git flow $FLOW_TYPE finish $FLOW_MESSAGE\""
-  echo ""
-  read "REPLY?Continue? (Yy) "
-  case $REPLY in
-    *)
-    export GIT_MERGE_AUTOEDIT=no
-    git flow $FLOW_TYPE finish $FLOW_MESSAGE
-    unset GIT_MERGE_AUTOEDIT
-    ;;
-  esac
-  echo
+  echo "git flow $FLOW_TYPE finish $FLOW_MESSAGE"
+
+  export GIT_MERGE_AUTOEDIT=no
+  git flow $FLOW_TYPE finish $FLOW_MESSAGE
+  unset GIT_MERGE_AUTOEDIT
 }
 
 alias gco="__git_fzf_checkout"
@@ -200,11 +194,11 @@ alias gstp="git stash pop"
 
 # git flow
 
-alias gffs="git flow feature start"
-alias gfhs="__git_flow_hotfix_start"
-alias gfrs="__git_flow_release_start"
+alias gff="git flow feature start"
+alias gfh="__git_flow_hotfix_start"
+alias gfr="__git_flow_release_start"
 
-alias gff="__git_flow_finish_ask"
+alias gff="__git_flow_finish"
 
 # list
 

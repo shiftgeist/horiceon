@@ -105,6 +105,15 @@ __git_push_current_to_origin() {
   git push --set-upstream origin "$(__git_current_branch)"
 }
 
+__npm_set_tag() {
+  if [ -f "package.json" ]; then
+    sed -i '/version/c\  \"version\": \"$1\",' package.json
+  fi
+  if [ -f "package-lock.json" ]; then
+    sed -i '/version/c\  \"version\": \"$1\",' package-lock.json
+  fi
+}
+
 __git_latest_tag() {
   git describe --tags "$(__git_current_commit)"
 }
@@ -125,21 +134,25 @@ __git_flow_release_start() {
     read "REPLY?Major (default) or Minor (minor)? "
     case $REPLY in
       minor)
-      git flow release start $(up git minor)
+      NEW_GIT_TAG=$(up git minor)
       ;;
       *)
-      git flow release start $(up git major)
+      NEW_GIT_TAG=$(up git major)
       ;;
     esac
-  fi
 
+    git flow release start $NEW_GIT_TAG
+    __npm_set_tag $NEW_GIT_TAG
+  fi
 }
 
 __git_flow_hotfix_start() {
   if [[ $@ ]]; then
     command git flow hotfix start "$@"
   else
-    git flow hotfix start $(up git patch)
+    NEW_GIT_TAG=$(up git patch)
+    git flow hotfix start $NEW_GIT_TAG
+    __npm_set_tag $NEW_GIT_TAG
   fi
 }
 

@@ -110,7 +110,7 @@ __npm_set_tag() {
     sed -i "/version/c\  \"version\": \"$1\"," package.json
   fi
   if [ -f "package-lock.json" ]; then
-    sed -i "/version/c\  \"version\": \"$1\"," package-lock.json
+    sed -i "0,/version/c\  \"version\": \"$1\"," package-lock.json
   fi
 }
 

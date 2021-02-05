@@ -129,7 +129,7 @@ __git_push_force_ask() {
 
 __git_flow_release_start() {
   if [[ $@ ]]; then
-    command git flow release start "$@"
+    NEW_GIT_TAG="$@"
   else
     read "REPLY?Major (default) or Minor (minor)? "
     case $REPLY in
@@ -140,20 +140,21 @@ __git_flow_release_start() {
       NEW_GIT_TAG=$(up git major)
       ;;
     esac
-
-    git flow release start $NEW_GIT_TAG
-    __npm_set_tag $NEW_GIT_TAG
   fi
+
+  git flow release start $NEW_GIT_TAG
+  __npm_set_tag $NEW_GIT_TAG
 }
 
 __git_flow_hotfix_start() {
   if [[ $@ ]]; then
-    command git flow hotfix start "$@"
+    NEW_GIT_TAG="$@"
   else
     NEW_GIT_TAG=$(up git patch)
-    git flow hotfix start $NEW_GIT_TAG
-    __npm_set_tag $NEW_GIT_TAG
   fi
+
+  git flow hotfix start $NEW_GIT_TAG
+  __npm_set_tag $NEW_GIT_TAG
 }
 
 __git_flow_finish() {

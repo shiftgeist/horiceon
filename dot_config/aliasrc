@@ -75,7 +75,7 @@ alias gdesc="__git_latest_tag"
 alias gb="git branch"
 alias gbc="git branch --merged | egrep -v '(^\*|master|dev)' | xargs git branch -d && git pull --prune"
 
-alias ghs="git reset HEAD~ --soft"
+alias grhs="git reset HEAD~ --soft"
 
 alias grv="git remote -v"
 

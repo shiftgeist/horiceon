@@ -53,7 +53,7 @@ __git_fzf_checkout() {
   git_is_repo || return
 
   if [[ $@ ]]; then
-    command __git checkout "$@"
+    __git checkout "$@"
     return $?
   fi
 

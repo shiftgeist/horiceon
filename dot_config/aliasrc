@@ -136,13 +136,16 @@ __git_flow_release_start() {
   if [[ $@ ]]; then
     NEW_GIT_TAG="$@"
   else
-    read "REPLY?Major (default) or Minor (minor)? "
+    read "REPLY?[m]ajor, m[I]nor or [p]atch? "
     case $REPLY in
-      minor)
-      NEW_GIT_TAG=$(up git minor)
-      ;;
-      *)
+      m|major)
       NEW_GIT_TAG=$(up git major)
+      ;;
+      p|patch)
+      NEW_GIT_TAG=$(up git patch)
+      ;;
+      *|i)
+      NEW_GIT_TAG=$(up git minor)
       ;;
     esac
   fi

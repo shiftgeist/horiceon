@@ -1,5 +1,8 @@
 #!/usr/bin/env zsh
 
+# dependencies
+# git git-flow jq
+
 # general
 
 alias battery-status="upower -i /org/freedesktop/UPower/devices/battery_BAT0 | grep -E 'state|time\ to\ full|percentage'"
@@ -107,10 +110,12 @@ __git_push_current_to_origin() {
 
 __npm_set_tag() {
   if [ -f "package.json" ]; then
-    sed -i "/version/c\  \"version\": \"$1\"," package.json
+    jq ".version=\"$1\"" package.json > package.json.tmp
+    mv package.json.tmp package.json
   fi
   if [ -f "package-lock.json" ]; then
-    sed -i "0,/version/c\  \"version\": \"$1\"," package-lock.json
+    jq ".version=\"$1\"" package-lock.json > package-lock.json.tmp
+    mv package-lock.json.tmp package-lock.json
   fi
 }
 

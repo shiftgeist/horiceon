@@ -136,11 +136,8 @@ __git_flow_finish() {
   local BRANCH=$(__git_current_branch)
   local FLOW_TYPE="$(cut -d '/' -f1 <<< "$BRANCH")"
   local FLOW_NAME="$(cut -d '/' -f2 <<< "$BRANCH")"
-  local FLOW_MESSAGE=""
-
-  echo "git flow $FLOW_TYPE finish -m \"$FLOW_NAME\""
 
   export GIT_MERGE_AUTOEDIT=no
-  __git flow $FLOW_TYPE finish $FLOW_MESSAGE
+  __git flow $FLOW_TYPE finish --message \"$FLOW_NAME\" --showcommands
   unset GIT_MERGE_AUTOEDIT
 }

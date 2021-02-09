@@ -73,13 +73,10 @@ __git_push_current_to_origin() {
 }
 
 __npm_set_tag() {
-  git_is_clean || return
-
   if [ -f "package.json" ]; then
     jq ".version=\"$1\"" package.json > package.json.tmp
     mv package.json.tmp package.json
   fi
-
   if [ -f "package-lock.json" ]; then
     jq ".version=\"$1\"" package-lock.json > package-lock.json.tmp
     mv package-lock.json.tmp package-lock.json
@@ -117,8 +114,7 @@ __git_flow_release_start() {
     esac
   fi
 
-  __git flow release start $NEW_GIT_TAG
-  __npm_set_tag $NEW_GIT_TAG
+  __git flow release start $NEW_GIT_TAG && __npm_set_tag $NEW_GIT_TAG
 }
 
 __git_flow_hotfix_start() {
@@ -128,8 +124,7 @@ __git_flow_hotfix_start() {
     NEW_GIT_TAG=$(up git patch)
   fi
 
-  __git flow hotfix start $NEW_GIT_TAG
-  __npm_set_tag $NEW_GIT_TAG
+  __git flow hotfix start $NEW_GIT_TAG && __npm_set_tag $NEW_GIT_TAG
 }
 
 __git_flow_finish() {

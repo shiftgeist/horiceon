@@ -48,7 +48,7 @@ alias killp="pkill"
 # git
 
 alias gco="__git_fzf_checkout"
-alias gcom="git checkout master"
+alias gcom="git checkout $(git_main_branch)"
 alias gcod="git checkout develop"
 
 alias gaa="git add ."

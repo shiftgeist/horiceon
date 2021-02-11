@@ -113,6 +113,8 @@ alias nvmin="nvm install node --reinstall-packages-from=node"
 
 # tmux
 
+alias tmux="tmux source $XDG_CONFIG_HOME/tmux/.tmux.conf && tmux"
+
 alias ta="tmux attach -t"
 alias tad="tmux attach -d -t"
 alias ts="tmux new-session -s"

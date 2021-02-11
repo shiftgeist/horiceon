@@ -39,6 +39,7 @@ Commands:
   go        go packages
   golang    install go
   npm       npm global packages
+  volta     node version manager
   zsh       zsh packages
   *         help with packages
 "
@@ -82,7 +83,10 @@ Commands:
             $GO_INSTALLER_PATH
             ;;
         npm)
-            npm i -g fx n np doctoc prettier js-beautify tinypng-cli diff-so-fancy npm-check-updates sirv-cli live-server firebase-tools markdownlint-cli semver
+            npm i -g fx np doctoc prettier js-beautify tinypng-cli diff-so-fancy npm-check-updates sirv-cli live-server firebase-tools markdownlint-cli semver bundle-phobia-cli
+            ;;
+        volta)
+            curl https://get.volta.sh | bash
             ;;
         zsh)
             cloneZshModule https://github.com/MichaelAquilina/zsh-you-should-use.git https://github.com/zsh-users/zsh-syntax-highlighting.git https://github.com/sindresorhus/pure.git

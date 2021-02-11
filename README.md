@@ -1,12 +1,24 @@
 ![Horiceon](.github/horiceon.png)
 
-Horiceon is a dark 🌆 themed collection of [rice 🍚](https://wiki.archlinux.org/index.php/Dotfiles) with dwm, [alacritty](https://github.com/alacritty/alacritty), [zsh](https://github.com/zsh-users/zsh), [pure](https://github.com/sindresorhus/pure), [diff-so-fancy](https://github.com/so-fancy/diff-so-fancy), [fzf](https://github.com/junegunn/fzf) and [jump](https://github.com/gsamokovarov/jump).
+[Panda themed](github.com/tinkertrain/panda-syntax-vscode) dotfiles and utils.
 
-Inspired by [Horizon Theme](https://marketplace.visualstudio.com/items?itemName=jolaleye.horizon-theme-vscode) and [Panda Syntax](https://github.com/tinkertrain/panda-syntax-vscode).
+[![GitHub contributors](https://img.shields.io/github/contributors/shiftgeist/horiceon)](github.com/shiftgeist/horiceon/graphs/contributors)
+[![issues](https://img.shields.io/github/issues/shiftgeist/horiceon)](github.com/shiftgeist/horiceon/issues)
 
-[![issues](https://img.shields.io/github/issues/shiftgeist/horiceon)](https://github.com/shiftgeist/horiceon/issues)
-[![chezmoi](https://img.shields.io/badge/uses-chezmoi-green)](https://github.com/twpayne/chezmoi)
-[![GitHub contributors](https://img.shields.io/github/contributors/shiftgeist/horiceon)](https://github.com/shiftgeist/horiceon/graphs/contributors)
+|                   |                                                    |
+| ----------------- | -------------------------------------------------- |
+| dotfile manager   | [chezmoi](github.com/twpayne/chezmoi)              |
+| window manager    | [dwm](github.com/shiftgeist/horiceon-dwm)          |
+| terminal emulator | [alacritty](github.com/alacritty/alacritty)        |
+| shell             | [zsh](github.com/zsh-users/zsh)                    |
+| prompt            | [pure](github.com/sindresorhus/pure)               |
+| `git diff`        | [diff-so-fancy](github.com/so-fancy/diff-so-fancy) |
+
+Other usefull integrations: [fzf](github.com/junegunn/fzf), [jump](github.com/gsamokovarov/jump)
+
+## Extra
+
+Extras can be found under [`horiceon-extra`](github.com/shiftgeist/horiceon-extra).
 
 ## Contributors ✨
 
@@ -17,7 +29,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- markdownlint-disable -->
 <table>
   <tr>
-    <td align="center"><a href="https://stackoverflow.com/users/428627/giorgiga"><img src="https://avatars3.githubusercontent.com/u/471835?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Giorgio Gallo</b></sub></a><br /><a href="https://github.com/shiftgeist/horiceon/commits?author=giorgiga" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://stackoverflow.com/users/428627/giorgiga"><img src="https://avatars3.githubusercontent.com/u/471835?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Giorgio Gallo</b></sub></a><br /><a href="github.com/shiftgeist/horiceon/commits?author=giorgiga" title="Documentation">📖</a></td>
   </tr>
 </table>
 
@@ -26,8 +38,8 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
-This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
+This project follows the [all-contributors](github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
 
-## Extra
+## Credit
 
-Extras can be found under [`horiceon-extra`](https://github.com/shiftgeist/horiceon-extra).
+This project was originally inspired by [Horizon Theme](https://marketplace.visualstudio.com/items?itemName=jolaleye.horizon-theme-vscode) and uses the [Panda Syntax](github.com/tinkertrain/panda-syntax-vscode) color palette.

@@ -83,7 +83,7 @@ Commands:
             $GO_INSTALLER_PATH
             ;;
         npm)
-            npm i -g fx np doctoc prettier js-beautify tinypng-cli diff-so-fancy npm-check-updates sirv-cli live-server firebase-tools markdownlint-cli semver bundle-phobia-cli
+            npm i -g np doctoc prettier js-beautify tinypng-cli diff-so-fancy npm-check-updates sirv-cli live-server firebase-tools markdownlint-cli semver bundle-phobia-cli
             ;;
         volta)
             curl https://get.volta.sh | bash

@@ -39,7 +39,7 @@ alias calc="bc -ql"
 alias cat="bat"
 alias history="history 0"
 alias vimz="fc"
-alias json="fx"
+alias json="jq"
 
 # processes
 

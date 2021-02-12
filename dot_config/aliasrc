@@ -97,19 +97,15 @@ alias la="ls -lah"
 
 # npm
 
-alias npmi="npm install"
-alias npmig="npm install -g"
-alias npmid="npm install -D"
-alias npmlg="volta list all"
-alias npmr="npm run"
-alias npmrs="npm run start"
-alias npmin="npm init -y"
+alias ni="npm install"
+alias nig="npm install -g"
+alias nid="npm install -D"
+alias nlg="volta list all"
+alias nr="npm run"
+alias nrs="npm run start"
+alias nin="npm init -y"
 
 alias nv="npm version --no-git-tag-version"
-
-# nvm
-
-alias nvmin="nvm install node --reinstall-packages-from=node"
 
 # tmux
 

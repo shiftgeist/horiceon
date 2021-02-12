@@ -32,6 +32,10 @@ git_main_branch() {
   echo master
 }
 
+__git_checkout_main() {
+  git checkout $(git_main_branch)
+}
+
 # Outputs the name of the current branch
 __git_current_branch() {
   git_is_repo || return

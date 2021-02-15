@@ -84,7 +84,7 @@ alias gstp="git stash pop"
 
 # git flow
 
-alias gff="git flow feature start"
+alias gffs="git flow feature start"
 alias gfh="__git_flow_hotfix_start"
 alias gfr="__git_flow_release_start"
 

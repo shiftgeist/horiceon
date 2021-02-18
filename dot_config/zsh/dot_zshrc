@@ -26,12 +26,20 @@ setopt complete_in_word
 setopt always_to_end
 
 autoload -Uz compinit; compinit
-zstyle ':completion:*' menu yes select
+
+bindkey -M menuselect '^o' accept-and-infer-next-history
+zstyle ':completion:*:*:*:*:*' menu select
 zstyle ':completion:*' rehash true
+
+# Complete . and .. special directories
 zstyle ':completion:*' special-dirs true
+
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|=*' 'l:|=* r:|=*'
 zstyle ':completion::complete:*' gain-privileges 1
-autoload -Uz promptinit; promptinit
+
+autoload -Uz promptinit
+promptinit
+
 _comp_options+=(globdots) # Include hidden files.
 
 # automatically load bash completion functions

@@ -53,6 +53,9 @@
   "editor.tabSize": 2,
   "explorer.confirmDelete": true,
   "explorer.confirmDragAndDrop": true,
+  "files.associations": {
+    "*.svg": "html"
+  },
   "git.allowForcePush": true,
   "git.autofetch": true,
   "git.confirmSync": false,

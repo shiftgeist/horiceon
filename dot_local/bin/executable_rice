@@ -77,10 +77,9 @@ Commands:
             go get -u github.com/cosmtrek/air github.com/nektos/act github.com/xxxserxxx/gotop/cmd/gotop github.com/yudai/gotty
             ;;
         golang)
-            GO_INSTALLER_PATH=~/Downloads/installer_linux
-            [ -f $GO_INSTALLER_PATH ] || curl "https://storage.googleapis.com/golang/getgo/installer_linux" -o $GO_INSTALLER_PATH
-            chmod +x $GO_INSTALLER_PATH
-            $GO_INSTALLER_PATH
+            GO_LATEST_VERSION=$(curl -s "https://golang.org/VERSION?m=text")
+            curl --progress-bar "https://dl.google.com/go/$GO_LATEST_VERSION.linux-amd64.tar.gz" | sudo tar zxf - -C /usr/local
+            go version
             ;;
         npm)
             npm i -g np doctoc prettier js-beautify tinypng-cli diff-so-fancy npm-check-updates sirv-cli live-server firebase-tools markdownlint-cli semver bundle-phobia-cli

@@ -38,6 +38,7 @@
   "editor.formatOnSave": true,
   "editor.minimap.enabled": false,
   "editor.quickSuggestionsDelay": 0,
+  "editor.renderWhitespace": "boundary",
   "editor.rulers": [
     {
       "color": "#242526",

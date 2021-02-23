@@ -84,7 +84,7 @@ alias gstp="git stash pop"
 
 # git flow
 
-alias gfin="git flow init -f -d -p 'feature' -b 'bugfix' -r 'release' -x 'hotfix' -s 'support'"
+alias gfin="git flow init -f -d -p 'feature/' -b 'bugfix/' -r 'release/' -x 'hotfix/' -s 'support/'"
 
 alias gffs="git flow feature start"
 alias gfh="__git_flow_hotfix_start"

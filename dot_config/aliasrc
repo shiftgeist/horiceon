@@ -31,7 +31,6 @@ alias mountcol="mount | column -t"
 alias getownip="curl ifconfig.me"
 alias curl-json="curl --header 'Content-Type:application/json'"
 alias vm="mv"
-alias update-go="rice i golang"
 alias calc="bc -ql"
 
 # command line

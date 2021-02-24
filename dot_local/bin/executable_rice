@@ -77,6 +77,7 @@ Commands:
             go get -u github.com/cosmtrek/air github.com/nektos/act github.com/xxxserxxx/gotop/cmd/gotop github.com/yudai/gotty
             ;;
         golang)
+            sudo rm -rf /usr/local/go
             if [ "$3" ]; then
                 GO_VERSION="go$3"
             else

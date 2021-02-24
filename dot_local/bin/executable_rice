@@ -18,7 +18,7 @@ Commands:
 
     case "$1" in
         install|i)
-            install "$2"
+            install "$@"
             ;;
         *)
             cli_help
@@ -37,7 +37,7 @@ Commands:
   dwm       install dwm
   fzf       install fzf
   go        go packages
-  golang    install go
+  golang    install go [version]
   npm       npm global packages
   volta     node version manager
   zsh       zsh packages
@@ -46,7 +46,7 @@ Commands:
         exit 1
     }
 
-    case "$1" in
+    case "$2" in
         arch)
             if hash yay 2>/dev/null; then
                 yay -Syu suckless-tools brave-bin spotify notion-app alacritty zsh neofetch htop neovim code rsync rclone openssh go nodejs-lts-erbium npm ttf-dejavu noto-fonts-emoji otf-overpass feh flameshot gpick typora xsel xcape dunst compton bat exa tmux jump-bin
@@ -77,8 +77,12 @@ Commands:
             go get -u github.com/cosmtrek/air github.com/nektos/act github.com/xxxserxxx/gotop/cmd/gotop github.com/yudai/gotty
             ;;
         golang)
-            GO_LATEST_VERSION=$(curl -s "https://golang.org/VERSION?m=text")
-            curl --progress-bar "https://dl.google.com/go/$GO_LATEST_VERSION.linux-amd64.tar.gz" | sudo tar zxf - -C /usr/local
+            if [ "$3" ]; then
+                GO_VERSION="go$3"
+            else
+                GO_VERSION=$(curl -s "https://golang.org/VERSION?m=text")
+            fi
+            curl --progress-bar "https://dl.google.com/go/$GO_VERSION.linux-amd64.tar.gz" | sudo tar zxf - -C /usr/local
             go version
             ;;
         npm)

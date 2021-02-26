@@ -6,4 +6,4 @@
 {{ end }}
 
 # build dotfile/rice helper
-cd src/rice && go build -o ~/.local/bin/rice .
+cd src/rice && go build -o ~/bin/rice2 .

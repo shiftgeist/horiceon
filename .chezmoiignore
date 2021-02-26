@@ -1,7 +1,10 @@
-.all-contributorsrc
-.docs
 .editorconfig
 .github
 .gitignore
-.gitmodules
+.gitmodules # remove
 README.md
+
+# ignore source files to symlinks
+src
+*.src.*
+**/*.src.* #

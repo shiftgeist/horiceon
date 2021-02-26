@@ -1,0 +1,9 @@
+data:
+  desktop:
+  git:
+    name:
+    email:
+    gpg:
+  api:
+    bitwarden:
+    tinypng:

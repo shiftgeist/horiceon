@@ -1,0 +1,9 @@
+#!/bin/sh
+
+# add dependencies here
+{{ if eq .chezmoi.osRelease.idLike "debian" }}
+  sudo apt-get install fzf
+{{ end }}
+
+# build dotfile/rice helper
+cd src/rice && go build -o ~/.local/bin/rice .

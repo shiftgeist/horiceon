@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# bump git and npm semantic version with git flow
+
 set -e
 
 if ! command -v semver &>/dev/null

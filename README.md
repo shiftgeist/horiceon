@@ -23,7 +23,7 @@ Get started
 ```
 chezmoi init https://github.com/shiftgeist/horiceon.git
 
-chezmoi apply ~/.local/bin
+chezmoi apply ~/bin
 ```
 
 For `dwm` and `fzf`

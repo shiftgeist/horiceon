@@ -1,7 +1,7 @@
+#!/bin/sh
+
 # dependencies
 # git git-flow jq
-
-source $ZDOTDIR/git.helper.zsh
 
 # general
 
@@ -112,8 +112,6 @@ alias nin="npm init -y"
 alias nv="npm version --no-git-tag-version"
 
 # tmux
-
-alias tmux="tmux source $XDG_CONFIG_HOME/tmux/.tmux.conf && tmux"
 
 alias ta="tmux attach -t"
 alias tad="tmux attach -d -t"

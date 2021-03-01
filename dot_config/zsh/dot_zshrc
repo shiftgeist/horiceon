@@ -54,10 +54,11 @@ source $ZSHPATH/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source $ZSHPATH/zsh-you-should-use/you-should-use.plugin.zsh
 
 # load additional zsh alias/plugins
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-[ -f ~/go/bin/bin/jump ] && eval "$(~/go/bin/bin/jump shell zsh)"
-[ -f "$XDG_CONFIG_HOME/aliasrc" ] && source "$XDG_CONFIG_HOME/aliasrc"
-[ -f ~/.zshrc_local ] && source ~/.zshrc_local
+[ -f "$HOME/.fzf.zsh" ] && source "$HOME/.fzf.zsh"
+[ -f "$GOPATH/bin/jump" ] && eval "$("$GOPATH"/bin/jump shell zsh)"
+[ -f "$XDG_CONFIG_HOME/.aliases" ] && source "$XDG_CONFIG_HOME/.aliases"
+[ -f "$XDG_CONFIG_HOME/.functions" ] && source "$XDG_CONFIG_HOME/.functions"
+[ -f "$HOME/.extras" ] && source "$HOME/.extras"
 
 setopt auto_cd
 setopt complete_aliases

@@ -1,6 +1,7 @@
 #!/usr/bin/env zsh
 
 source "${PROFILE:-$HOME/.config/zsh/.zshrc}"
-source "$XDG_CONFIG_HOME/aliasrc"
+source "$XDG_CONFIG_HOME/.aliases"
+source "$XDG_CONFIG_HOME/.functions"
 xmodmap "$XDG_CONFIG_HOME/.Xmodmap"
 xrdb "$XDG_CONFIG_HOME/Xresources"

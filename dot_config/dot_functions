@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh
+#!/bin/sh
 
 # We wrap in a local function instead of exporting the variable directly in
 # order to avoid interfering with manually-run git commands by the user.
@@ -11,18 +11,17 @@ git_is_repo() {
 }
 
 git_is_clean() {
-  if [[ -z $(__git status -s) ]]
-  then
-    return 0
-  else
+  if __git status -s | read -r REPLY; then
     return 1
+  else
+    return 0
   fi
 }
 
 # Check if main exists and use instead of master
 git_main_branch() {
-  command git rev-parse --git-dir &>/dev/null || return
-  local branch
+  command git rev-parse --git-dir >/dev/null || return
+
   for branch in main trunk; do
     if command git show-ref -q --verify refs/heads/$branch; then
       echo $branch
@@ -33,7 +32,7 @@ git_main_branch() {
 }
 
 __git_checkout_main() {
-  git checkout $(git_main_branch)
+  git checkout "$(git_main_branch)"
 }
 
 # Outputs the name of the current branch
@@ -66,24 +65,23 @@ __git_fzf_branch() {
     sed "s/.* //"
 }
 
-__git_fzf_checkout() {
+__git_fzf_checkout() (
   git_is_repo || return
 
-  if [[ $@ ]]; then
+  if [ "$@" ]; then
     __git checkout "$@"
     return $?
   fi
 
-  local branch
   branch=$(__git_fzf_branch)
-  [[ "$branch" = "" ]] && return
+  [ "$branch" = "" ] && return
 
-  if [[ "$branch" = "remotes/"* ]]; then
-    __git checkout "$(echo $branch | cut -d '/' -f 3-4)";
+  if "$branch" -eq "remotes/"*; then
+    __git checkout "$(echo "$branch" | cut -d '/' -f 3-4)";
   else
     __git checkout "$branch";
   fi
-}
+)
 
 __git_push_current_to_origin() {
   __git push --set-upstream origin "$(__git_current_branch)"
@@ -125,7 +123,7 @@ __git_flow_release_start() {
       p|patch)
       NEW_GIT_TAG=$(up git patch)
       ;;
-      *|i)
+      *)
       NEW_GIT_TAG=$(up git minor)
       ;;
     esac
@@ -150,6 +148,6 @@ __git_flow_finish() {
   local FLOW_NAME="$(cut -d '/' -f2 <<< "$BRANCH")"
 
   export GIT_MERGE_AUTOEDIT=no
-  __git flow $FLOW_TYPE finish --message \"$FLOW_NAME\" --showcommands
+  __git flow "$FLOW_TYPE" finish --message "$FLOW_NAME" --showcommands
   unset GIT_MERGE_AUTOEDIT
 }

@@ -1,8 +1,13 @@
 #!/bin/sh
 
+. "$HOME/.bashrc"
+. "$HOME/.cargo/env"
+
 export PATH="$PATH:$HOME/bin/"
 export PATH="$PATH:$HOME/go/bin"
 export PATH="$PATH:$HOME/.cargo/bin"
+export VOLTA_HOME="$HOME/.volta"
+export PATH="$VOLTA_HOME/bin:$PATH"
 
 export EDITOR="nvim"
 export TERMINAL="xterm"

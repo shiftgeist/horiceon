@@ -38,8 +38,6 @@ alias calc="bc -ql"
 
 # command line
 
-alias cat="bat"
-alias history="history 0"
 alias vimz="fc"
 alias json="jq"
 

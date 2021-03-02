@@ -2,6 +2,8 @@
 
 set -k
 
+source "$HOME/.profile"
+
 export ZSHPATH="$XDG_DATA_HOME/zsh"
 export HISTSIZE=10000000
 export SAVEHIST=10000000
@@ -54,7 +56,6 @@ source $ZSHPATH/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source $ZSHPATH/zsh-you-should-use/you-should-use.plugin.zsh
 
 # load additional zsh alias/plugins
-[ -f "$HOME/.fzf.zsh" ] && source "$HOME/.fzf.zsh"
 [ -f "$GOPATH/bin/jump" ] && eval "$("$GOPATH"/bin/jump shell zsh)"
 [ -f "$XDG_CONFIG_HOME/.aliases" ] && source "$XDG_CONFIG_HOME/.aliases"
 [ -f "$XDG_CONFIG_HOME/.functions" ] && source "$XDG_CONFIG_HOME/.functions"

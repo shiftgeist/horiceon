@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+# dont to anything on non-interactive sessions
+[ -z "$PS1" ] && return
+
+export EDITOR=nvim
+export PAGER=less
+
+# complete -cf sudo

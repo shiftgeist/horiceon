@@ -60,7 +60,7 @@ __git_fzf_branch() {
     # remove entries with "HEAD" in them
     grep -v HEAD |
     # run thought fzf
-    fzf --ansi --no-multi --preview-window right:65% --preview '__git log -n 50 --color=always --date=short --pretty="format:%C(auto)%cd %h%d %s (%an)" $(sed "s/.* //" <<< {})' |
+    fzf --ansi --no-multi --preview-window right:65% --preview 'git log -n 50 --color=always --date=short --pretty="format:%C(auto)%cd %h%d %s (%an)" $(sed "s/.* //" <<< {})' |
     # trim asterisk and leading whitespace
     sed "s/.* //"
 }
@@ -68,19 +68,23 @@ __git_fzf_branch() {
 __git_fzf_checkout() (
   git_is_repo || return
 
-  if [ "$@" ]; then
+  # has argument
+  if [ "$#" -ne 0 ]; then
     __git checkout "$@"
-    return $?
+    exit $?
   fi
 
   branch=$(__git_fzf_branch)
   [ "$branch" = "" ] && return
 
-  if "$branch" -eq "remotes/"*; then
-    __git checkout "$(echo "$branch" | cut -d '/' -f 3-4)";
-  else
-    __git checkout "$branch";
-  fi
+  case $branch in
+    remotes/*)
+      __git checkout "$(echo "$branch" | cut -d '/' -f 3-4)";
+    ;;
+    *)
+      __git checkout "$branch";
+    ;;
+  esac
 )
 
 __git_push_current_to_origin() {

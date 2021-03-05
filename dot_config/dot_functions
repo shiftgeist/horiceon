@@ -65,12 +65,14 @@ __git_fzf_branch() {
     sed "s/.* //"
 }
 
-__git_fzf_checkout() (
+__git_fzf() (
   git_is_repo || return
 
+  git_method=$1
+
   # has argument
-  if [ "$#" -ne 0 ]; then
-    __git checkout "$@"
+  if [ "$#" -ne 1 ]; then
+    eval "__git $*"
     exit $?
   fi
 
@@ -79,10 +81,10 @@ __git_fzf_checkout() (
 
   case $branch in
     remotes/*)
-      __git checkout "$(echo "$branch" | cut -d '/' -f 3-4)";
+      eval "__git $git_method $(echo "$branch" | cut -d '/' -f 3-4)";
     ;;
     *)
-      __git checkout "$branch";
+      eval "__git $git_method $branch";
     ;;
   esac
 )

@@ -47,7 +47,7 @@ alias killp="pkill"
 
 # git
 
-alias gco="__git_fzf_checkout"
+alias gco="__git_fzf 'checkout'"
 alias gcom="__git_checkout_main"
 alias gcod="git checkout develop"
 
@@ -74,6 +74,7 @@ alias gdesc="__git_latest_tag"
 
 alias gb="git branch"
 alias gbc="git branch --merged | egrep -v '(^\*|master|dev)' | xargs git branch -d && git pull --prune"
+alias gbd="__git_fzf 'branch -D'"
 
 alias grhs="git reset HEAD~ --soft"
 

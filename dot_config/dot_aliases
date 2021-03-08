@@ -11,7 +11,10 @@ alias find-broken-symlinks="find ~/ -xtype l -print"
 alias fonts="fc-list"
 alias fonts-rebuild="fc-cache -f -v"
 alias x-refresh-db="xrdb ~/.Xresources"
+
 alias select-file="xsel -b <"
+alias dir-size="du -sk * | sort -n"
+
 alias untar="tar xvf"
 alias untargz="tar zxvf"
 alias untarxz="tar xf"

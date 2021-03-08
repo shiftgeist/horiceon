@@ -1,13 +1,13 @@
 #!/bin/sh
 
 # dependencies
-# git git-flow jq
+# git git-flow jq bc jq vim docker xsel tar
 
 # general
 
 alias battery-status="upower -i /org/freedesktop/UPower/devices/battery_BAT0 | grep -E 'state|time\ to\ full|percentage'"
 alias docker-cleanup="echo 'Cleaning docker images older than 24h' && docker image prune -a --filter 'until=24h'"
-alias find-broken-symlinks="find ~/ -xtype l -print"
+alias find-broken-symlinks-home="find ~/ -xtype l -print"
 alias fonts="fc-list"
 alias fonts-rebuild="fc-cache -f -v"
 alias x-refresh-db="xrdb ~/.Xresources"
@@ -43,10 +43,6 @@ alias calc="bc -ql"
 
 alias vimz="fc"
 alias json="jq"
-
-# processes
-
-alias killp="pkill"
 
 # git
 

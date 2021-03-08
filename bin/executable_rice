@@ -87,7 +87,7 @@ Commands:
             go version
             ;;
         npm)
-            npm i -g np doctoc prettier js-beautify tinypng-cli diff-so-fancy npm-check-updates sirv-cli live-server firebase-tools markdownlint-cli semver bundle-phobia-cli
+            npm i -g np doctoc prettier js-beautify tinypng-cli diff-so-fancy npm-check-updates sirv-cli live-server firebase-tools markdownlint-cli semver bundle-phobia-cli imagemin imagemin-webp
             ;;
         volta)
             curl https://get.volta.sh | bash

@@ -94,7 +94,9 @@ alias gff="__git_flow_finish"
 
 # list
 
-alias ls="exa"
+if command -v exa &> /dev/null; then
+  alias ls="exa"
+fi
 alias la="ls -lah"
 
 # npm

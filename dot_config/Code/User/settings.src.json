@@ -5,6 +5,9 @@
   "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
+  "[svelte]": {
+    "editor.defaultFormatter": "svelte.svelte-vscode"
+  },
   "breadcrumbs.filePath": "on",
   "breadcrumbs.showArrays": false,
   "breadcrumbs.showBooleans": false,

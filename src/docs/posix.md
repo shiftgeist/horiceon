@@ -24,6 +24,14 @@ if [ -f "$FILE" ]; then
 fi
 ```
 
+## Check if command exists
+
+```shell
+if command -v COMMAND &> /dev/null; then
+  echo "command exists"
+fi
+```
+
 ## Check if function has an argument
 
 ```shell

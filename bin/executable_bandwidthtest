@@ -1,0 +1,17 @@
+#!/bin/sh
+
+# Author: Luke Smith
+# Source: https://www.youtube.com/watch?v=cvDyQUpaFf4
+
+# Used for educational purposes
+# Check src/docs/posix I learned a thing or two.
+
+init="$(($(cat /sys/class/net/[ew]*/statistics/rx_bytes | paste -sd '+')))"
+
+printf "Recording bandwidth. Press enter to stop."
+
+read -r inputdone
+
+fin="$(($(cat /sys/class/net/[ew]*/statistics/rx_bytes | paste -sd '+')))"
+
+printf "%4sB of bandwidth used.\\n" "$(numfmt --to=iec $(($fin-$init)))"

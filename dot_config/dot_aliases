@@ -46,8 +46,18 @@ alias json="jq"
 
 # git
 
-alias gco="__git_fzf 'checkout'"
-alias gcom="__git_checkout_main"
+if command -v __git_fzf &> /dev/null; then
+  alias gco="__git_fzf 'checkout'"
+  alias gbd="__git_fzf 'branch -D'"
+else
+  alias gco="git checkout"
+  alias gbd="git branch -D"
+fi
+
+if command -v __git_checkout_main &> /dev/null; then
+  alias gcom="__git_checkout_main"
+fi
+
 alias gcod="git checkout develop"
 
 alias gaa="git add ."
@@ -55,8 +65,15 @@ alias gcm="git commit -m"
 alias gcma="git add . && git commit -m"
 
 alias gp="git push"
-alias gpf="__git_push_force_ask"
-alias gpsup="__git_push_current_to_origin"
+if command -v __git_push_force_ask &> /dev/null; then
+  alias gpf="__git_push_force_ask"
+else
+  alias gpf="git push --force-with-lease"
+fi
+
+if command -v __git_push_current_to_origin &> /dev/null; then
+  alias gpsup="__git_push_current_to_origin"
+fi
 alias gptdm="git push --tags && git checkout develop && git push && git checkout master && git push"
 
 alias gl="git pull"
@@ -69,11 +86,14 @@ alias glol="git log --graph --pretty='%Cred%h%Creset -%C(auto)%d%Creset %s %Cgre
 alias gst="git status"
 alias gd="git diff"
 alias gt="git tag | sort -h"
-alias gdesc="__git_latest_tag"
+if command -v __git_latest_tag &> /dev/null; then
+  alias gdesc="__git_latest_tag"
+else
+  alias gdesc="git describe"
+fi
 
 alias gb="git branch"
 alias gbc="git branch --merged | egrep -v '(^\*|master|dev)' | xargs git branch -d && git pull --prune"
-alias gbd="__git_fzf 'branch -D'"
 
 alias grhs="git reset HEAD~ --soft"
 
@@ -83,14 +103,27 @@ alias gsta="git stash -u"
 alias gstp="git stash pop"
 
 # git flow
+if command -v 'git flow'; then
+  alias gfin="git flow init -f -d -p 'feature/' -b 'bugfix/' -r 'release/' -x 'hotfix/' -s 'support/'"
 
-alias gfin="git flow init -f -d -p 'feature/' -b 'bugfix/' -r 'release/' -x 'hotfix/' -s 'support/'"
+  alias gffs="git flow feature start"
 
-alias gffs="git flow feature start"
-alias gfh="__git_flow_hotfix_start"
-alias gfr="__git_flow_release_start"
+  if command -v __git_flow_hotfix_start &> /dev/null; then
+    alias gfh="__git_flow_hotfix_start"
+  else
+    alias gdesc="git flow hotfix start"
+  fi
 
-alias gff="__git_flow_finish"
+  if command -v __git_flow_release_start &> /dev/null; then
+    alias gfr="__git_flow_release_start"
+  else
+    alias gfr="git flow release start"
+  fi
+
+  if command -v __git_flow_finish &> /dev/null; then
+    alias gff="__git_flow_finish"
+  fi
+fi
 
 # list
 

@@ -11,7 +11,8 @@ git_is_repo() {
 }
 
 git_is_clean() {
-  if __git status -s | read -r REPLY; then
+  if __git status -s | read -r REPLY
+  then
     return 1
   else
     return 0
@@ -23,7 +24,8 @@ git_main_branch() {
   command git rev-parse --git-dir >/dev/null || return
 
   for branch in main trunk; do
-    if command git show-ref -q --verify refs/heads/$branch; then
+    if command git show-ref -q --verify refs/heads/$branch
+    then
       echo $branch
       return
     fi
@@ -40,7 +42,8 @@ __git_current_branch() {
   git_is_repo || return
   ref=$(__git symbolic-ref --quiet HEAD 2> /dev/null)
   ret=$?
-  if [ $ret -ne 0 ]; then
+  if [ $ret -ne 0 ]
+  then
     [ $ret -eq 128 ] && return  # no git repo.
     ref=$(__git rev-parse --short HEAD 2> /dev/null) || return
   fi
@@ -71,7 +74,8 @@ __git_fzf() (
   git_method=$1
 
   # has argument
-  if [ "$#" -ne 1 ]; then
+  if [ "$#" -ne 1 ]
+  then
     eval "__git $*"
     exit $?
   fi
@@ -94,11 +98,13 @@ __git_push_current_to_origin() {
 }
 
 __npm_set_tag() {
-  if [ -f "package.json" ]; then
+  if [ -f "package.json" ]
+  then
     jq ".version=\"$1\"" package.json > package.json.tmp
     mv package.json.tmp package.json
   fi
-  if [ -f "package-lock.json" ]; then
+  if [ -f "package-lock.json" ]
+  then
     npm install
   fi
 }
@@ -108,49 +114,69 @@ __git_latest_tag() {
 }
 
 __git_push_force_ask() {
-  read "REPLY?Force push? (Yy) "
-  case $REPLY in
-    *)
-    __git push --force-with-lease
-    ;;
-  esac
+  read -r "REPLY?Force push? (Yy) "
+  while read -r REPLY
+  do
+    case $REPLY in
+      *)
+        __git push --force-with-lease
+      ;;
+    esac
+  done
 }
 
 __git_flow_release_start() {
-  if [[ $@ ]]; then
-    NEW_GIT_TAG="$@"
+  if [ "$#" -ne 0 ]
+  then
+    NEW_GIT_TAG="$1"
   else
-    read "REPLY?$(__git_latest_tag) » [m]ajor, m[I]nor or [p]atch? "
-    case $REPLY in
-      m|major)
-      NEW_GIT_TAG=$(up git major)
-      ;;
-      p|patch)
-      NEW_GIT_TAG=$(up git patch)
-      ;;
-      *)
-      NEW_GIT_TAG=$(up git minor)
-      ;;
-    esac
+    echo "$(__git_latest_tag) » [m]ajor, m[I]nor or [p]atch?"
+    while read -r REPLY
+    do
+      case $REPLY in
+        m|major)
+          NEW_GIT_TAG=$(up git major)
+        ;;
+        p|patch)
+          NEW_GIT_TAG=$(up git patch)
+        ;;
+        *)
+          NEW_GIT_TAG=$(up git minor)
+        ;;
+      esac
+
+      break
+    done
   fi
 
-  __git flow release start $NEW_GIT_TAG && __npm_set_tag $NEW_GIT_TAG
+  __git flow release start "$NEW_GIT_TAG"
+
+  if [ "$#" -eq 0 ]
+  then
+    __npm_set_tag "$NEW_GIT_TAG"
+  fi
 }
 
 __git_flow_hotfix_start() {
-  if [[ $@ ]]; then
-    NEW_GIT_TAG="$@"
+  if [ "$#" -ne 0 ]
+  then
+    NEW_GIT_TAG="$1"
   else
     NEW_GIT_TAG=$(up git patch)
   fi
 
-  __git flow hotfix start $NEW_GIT_TAG && __npm_set_tag $NEW_GIT_TAG
+  __git flow hotfix start "$NEW_GIT_TAG"
+
+  if [ "$#" -eq 0 ]
+  then
+    __npm_set_tag "$NEW_GIT_TAG"
+  fi
 }
 
 __git_flow_finish() {
-  local BRANCH=$(__git_current_branch)
-  local FLOW_TYPE="$(cut -d '/' -f1 <<< "$BRANCH")"
-  local FLOW_NAME="$(cut -d '/' -f2 <<< "$BRANCH")"
+  BRANCH=$(__git_current_branch)
+  FLOW_TYPE="$(printf '%s' "$BRANCH" | cut -d '/' -f1)"
+  FLOW_NAME="$(printf '%s' "$BRANCH" | cut -d '/' -f2)"
 
   export GIT_MERGE_AUTOEDIT=no
   __git flow "$FLOW_TYPE" finish --message "$FLOW_NAME" --showcommands

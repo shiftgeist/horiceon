@@ -19,7 +19,8 @@ printf "%4sB" "$(numfmt --to=iec 125829120)"
 ## Check if file exists
 
 ```shell
-if [ -f "$FILE" ]; then
+if [ -f "$FILE" ]
+then
   echo "$FILE exists."
 fi
 ```
@@ -27,7 +28,8 @@ fi
 ## Check if command exists
 
 ```shell
-if command -v COMMAND &> /dev/null; then
+if command -v COMMAND &> /dev/null
+then
   echo "command exists"
 fi
 ```
@@ -35,7 +37,8 @@ fi
 ## Check if function has an argument
 
 ```shell
-if [ "$#" -ne 0 ]; then
+if [ "$#" -ne 0 ]
+then
   echo "has argument"
 fi
 ```
@@ -43,7 +46,8 @@ fi
 ## Check if string contains substring
 
 ```shell
-if [ "$#" -ne 0 ]; then
+if [ "$#" -ne 0 ]
+then
   echo "has argument"
 fi
 ```

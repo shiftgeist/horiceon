@@ -65,6 +65,7 @@
   "git.confirmSync": false,
   "git.enableSmartCommit": true,
   "gitlens.mode.active": "zen",
+  "go.toolsManagement.autoUpdate": true,
   "path-autocomplete.extensionOnImport": true,
   "terminal.integrated.copyOnSelection": true,
   "terminal.integrated.minimumContrastRatio": 4.5,

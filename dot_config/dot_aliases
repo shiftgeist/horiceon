@@ -47,7 +47,7 @@ alias json="jq"
 
 # git
 
-if command -v __git_fzf &> /dev/null; then
+if command -v __git_fzf > /dev/null; then
   alias gco="__git_fzf 'checkout'"
   alias gbd="__git_fzf 'branch -D'"
 else
@@ -55,7 +55,7 @@ else
   alias gbd="git branch -D"
 fi
 
-if command -v __git_checkout_main &> /dev/null; then
+if command -v __git_checkout_main > /dev/null; then
   alias gcom="__git_checkout_main"
 fi
 
@@ -66,13 +66,13 @@ alias gcm="git commit -m"
 alias gcma="git add . && git commit -m"
 
 alias gp="git push"
-if command -v __git_push_force_ask &> /dev/null; then
+if command -v __git_push_force_ask > /dev/null; then
   alias gpf="__git_push_force_ask"
 else
   alias gpf="git push --force-with-lease"
 fi
 
-if command -v __git_push_current_to_origin &> /dev/null; then
+if command -v __git_push_current_to_origin > /dev/null; then
   alias gpsup="__git_push_current_to_origin"
 fi
 alias gptdm="git push --tags && git checkout develop && git push && git checkout master && git push"
@@ -87,7 +87,7 @@ alias glol="git log --graph --pretty='%Cred%h%Creset -%C(auto)%d%Creset %s %Cgre
 alias gst="git status"
 alias gd="git diff"
 alias gt="git tag | sort -h"
-if command -v __git_latest_tag &> /dev/null; then
+if command -v __git_latest_tag > /dev/null; then
   alias gdesc="__git_latest_tag"
 else
   alias gdesc="git describe"
@@ -109,26 +109,26 @@ if command -v 'git flow'; then
 
   alias gffs="git flow feature start"
 
-  if command -v __git_flow_hotfix_start &> /dev/null; then
+  if command -v __git_flow_hotfix_start > /dev/null; then
     alias gfh="__git_flow_hotfix_start"
   else
     alias gdesc="git flow hotfix start"
   fi
 
-  if command -v __git_flow_release_start &> /dev/null; then
+  if command -v __git_flow_release_start > /dev/null; then
     alias gfr="__git_flow_release_start"
   else
     alias gfr="git flow release start"
   fi
 
-  if command -v __git_flow_finish &> /dev/null; then
+  if command -v __git_flow_finish > /dev/null; then
     alias gff="__git_flow_finish"
   fi
 fi
 
 # list
 
-if command -v exa &> /dev/null; then
+if command -v exa > /dev/null; then
   alias ls="exa"
 fi
 alias la="ls -lah"

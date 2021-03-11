@@ -20,7 +20,7 @@ printf "%4sB" "$(numfmt --to=iec 125829120)"
 
 ```shell
 if [ -f "$FILE" ]; then
-    echo "$FILE exists."
+  echo "$FILE exists."
 fi
 ```
 
@@ -36,7 +36,7 @@ fi
 
 ```shell
 if [ "$#" -ne 0 ]; then
-	echo "has argument"
+  echo "has argument"
 fi
 ```
 
@@ -44,6 +44,6 @@ fi
 
 ```shell
 if [ "$#" -ne 0 ]; then
-	echo "has argument"
+  echo "has argument"
 fi
 ```

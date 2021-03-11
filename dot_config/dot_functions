@@ -99,8 +99,7 @@ __npm_set_tag() {
     mv package.json.tmp package.json
   fi
   if [ -f "package-lock.json" ]; then
-    jq ".version=\"$1\"" package-lock.json > package-lock.json.tmp
-    mv package-lock.json.tmp package-lock.json
+    npm install
   fi
 }
 
@@ -121,7 +120,7 @@ __git_flow_release_start() {
   if [[ $@ ]]; then
     NEW_GIT_TAG="$@"
   else
-    read "REPLY?[m]ajor, m[I]nor or [p]atch? "
+    read "REPLY?$(__git_latest_tag) » [m]ajor, m[I]nor or [p]atch? "
     case $REPLY in
       m|major)
       NEW_GIT_TAG=$(up git major)

@@ -1,5 +1,7 @@
 # POSIX Shell Script
 
+Mostly learned from [shellcheck](https://github.com/koalaman/shellcheck).
+
 ## Utils
 
 Usefull utils:
@@ -28,7 +30,7 @@ fi
 ## Check if command exists
 
 ```shell
-if command -v COMMAND &> /dev/null
+if command -v COMMAND > /dev/null
 then
   echo "command exists"
 fi

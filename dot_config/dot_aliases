@@ -78,8 +78,8 @@ fi
 alias gptdm="git push --tags && git checkout develop && git push && git checkout master && git push"
 
 alias gl="git pull"
-alias gf="git fetch --all"
-alias gfp="git fetch --all --prune"
+alias gf="git fetch --all --verbose"
+alias gfp="git fetch --all --prune --verbose"
 
 alias glog="git log --oneline --decorate --graph"
 alias gloga="git log --oneline --decorate --graph --all"

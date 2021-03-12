@@ -9,10 +9,11 @@ main() {
         echo "
 Horiceon helper cli
 Usage: $cli_name [command]
+
 Commands:
   install|i     install packages
-  *             help
-"
+
+Hint: No/empty command shows help."
         exit 1
     }
 
@@ -31,9 +32,11 @@ install() {
         echo "
 Install packages
 Usage: $cli_name packages [tool]
+
 Commands:
   arch      arch packages
   code      vscode extensions
+  deb       debian packages
   dwm       install dwm
   fzf       install fzf
   go        go packages
@@ -41,15 +44,15 @@ Commands:
   npm       npm global packages
   volta     node version manager
   zsh       zsh packages
-  *         help with packages
-"
+
+Hint: No/empty command shows help."
         exit 1
     }
 
     case "$2" in
         arch)
             if hash yay 2>/dev/null; then
-                yay -Syu suckless-tools brave-bin spotify notion-app alacritty zsh neofetch htop neovim code rsync rclone openssh go nodejs-lts-erbium npm ttf-dejavu noto-fonts-emoji otf-overpass feh flameshot gpick typora xsel xcape dunst compton bat exa tmux jump-bin
+                yay -Syu suckless-tools brave-bin notion-app alacritty zsh neofetch htop neovim code rsync rclone openssh go ttf-dejavu noto-fonts-emoji otf-overpass feh flameshot gpick xsel xcape dunst compton bat exa tmux jump-bin screen ghostwriter
             else
                 echo "Dependency \"yay\" not found."
                 exit 1
@@ -65,6 +68,19 @@ Commands:
             code --install-extension "ow.vscode-subword-navigation"
             code --install-extension "pflannery.vscode-versionlens"
             code --install-extension "tinkertrain.theme-panda"
+            ;;
+        deb)
+            if hash aptitude 2>/dev/null; then
+                echo "installing aptitude"
+                sudo apt install aptitude
+            elif hash apt 2>/dev/null; then
+                echo "installing aptitude"
+
+                sudo aptitude install alacritty screen tmux flameshot ghostwriter
+            else
+                echo "Dependency \"apt\" not found."
+                exit 1
+            fi
             ;;
         dwm)
             cd ~/.local/src/dwm && git pull && sudo make clean install

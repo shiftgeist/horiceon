@@ -96,7 +96,8 @@ fi
 alias gb="git branch"
 alias gbc="git branch --merged | egrep -v '(^\*|master|dev)' | xargs git branch -d && git pull --prune"
 
-alias grhs="git reset HEAD~ --soft"
+alias grs="git reset HEAD~ --soft"
+alias grh="__git_reset_current"
 
 alias grv="git remote -v"
 

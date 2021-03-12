@@ -69,12 +69,15 @@ __git_fzf_branch() {
 }
 
 __git_fzf() (
+  # arg 1: method
+  # arg 2: branch
+
   git_is_repo || return
 
   git_method=$1
 
   # has argument
-  if [ "$#" -ne 1 ]
+  if [ "$#" -gt 1 ]
   then
     eval "__git $*"
     exit $?
@@ -95,6 +98,10 @@ __git_fzf() (
 
 __git_push_current_to_origin() {
   __git push --set-upstream origin "$(__git_current_branch)"
+}
+
+__git_reset_current() {
+  __git reset origin/"$(__git_current_branch)" --hard
 }
 
 __npm_set_tag() {

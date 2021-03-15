@@ -102,6 +102,7 @@ alias grh="__git_reset_current"
 alias grv="git remote -v"
 
 alias gsta="git stash -u"
+alias gstl="git stash list"
 alias gstp="git stash pop"
 
 # git flow

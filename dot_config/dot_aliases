@@ -105,7 +105,8 @@ alias la="ls -lah"
 
 # npm
 
-alias npm="__npm_manager"
+alias npm_run="__npm_bin"
+alias npm="__pnpm_bin"
 
 alias ni="npm install"
 alias nig="npm install -g"
@@ -114,6 +115,7 @@ alias nlg="volta list all"
 alias nr="npm run"
 alias nrs="npm run start"
 alias nin="npm init -y"
+alias no="npm outdated"
 
 alias nv="npm version --no-git-tag-version"
 

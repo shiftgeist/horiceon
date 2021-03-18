@@ -12,16 +12,12 @@ __npm_set_tag() {
   fi
 }
 
-__npm_manager() {
-  if [ -f "pnpm-lock.yaml" ]
-  then
-    command pnpm "$@"
-  elif [ -f "yarn.lock" ]
-  then
-    command yarn "$@"
-  else
-    command npm "$@"
-  fi
+__npm_bin() {
+  volta which npm
+}
+
+__pnpm_bin() {
+  volta which pnpm
 }
 
 # We wrap in a local function instead of exporting the variable directly in

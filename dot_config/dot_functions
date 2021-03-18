@@ -15,12 +15,12 @@ __npm_set_tag() {
 __npm_package_manager() {
   if jq -e ".engines.pnpm" package.json >/dev/null
   then
-    pnpm
+    command pnpm
   elif jq -e ".engines.yarn" package.json >/dev/null
   then
-    yarn
+    command yarn
   else
-    npm
+    command npm
   fi
 }
 

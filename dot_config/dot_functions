@@ -1,5 +1,26 @@
 #!/bin/sh
 
+__npm_set_tag() {
+  if [ -f "package.json" ]
+  then
+    jq ".version=\"$1\"" package.json > package.json.tmp
+    mv package.json.tmp package.json
+  fi
+  if [ -f "package-lock.json" ]
+  then
+    npm install
+  fi
+}
+
+__npm_worker() {
+  if jq -e ".npm" package.json >/dev/null
+  then
+    eval "$(jq -e ".npm" package.json)"
+  else
+    echo "npm"
+  fi
+}
+
 # We wrap in a local function instead of exporting the variable directly in
 # order to avoid interfering with manually-run git commands by the user.
 __git() {
@@ -102,18 +123,6 @@ __git_push_current_to_origin() {
 
 __git_reset_current() {
   __git reset origin/"$(__git_current_branch)" --hard
-}
-
-__npm_set_tag() {
-  if [ -f "package.json" ]
-  then
-    jq ".version=\"$1\"" package.json > package.json.tmp
-    mv package.json.tmp package.json
-  fi
-  if [ -f "package-lock.json" ]
-  then
-    npm install
-  fi
 }
 
 __git_latest_tag() {

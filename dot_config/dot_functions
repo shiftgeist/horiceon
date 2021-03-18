@@ -12,12 +12,15 @@ __npm_set_tag() {
   fi
 }
 
-__npm_worker() {
-  if jq -e ".npm" package.json >/dev/null
+__npm_package_manager() {
+  if jq -e ".engines.pnpm" package.json >/dev/null
   then
-    eval "$(jq -e ".npm" package.json)"
+    pnpm
+  elif jq -e ".engines.yarn" package.json >/dev/null
+  then
+    yarn
   else
-    echo "npm"
+    npm
   fi
 }
 

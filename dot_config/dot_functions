@@ -12,15 +12,15 @@ __npm_set_tag() {
   fi
 }
 
-__npm_package_manager() {
-  if jq -e ".engines.pnpm" package.json >/dev/null
+__npm_manager() {
+  if [ -f "pnpm-lock.yaml" ]
   then
-    command pnpm
-  elif jq -e ".engines.yarn" package.json >/dev/null
+    command pnpm "$@"
+  elif [ -f "yarn.lock" ]
   then
-    command yarn
+    command yarn "$@"
   else
-    command npm
+    command npm "$@"
   fi
 }
 

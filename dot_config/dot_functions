@@ -13,11 +13,7 @@ __npm_set_tag() {
 }
 
 __npm_bin() {
-  volta which npm
-}
-
-__pnpm_bin() {
-  volta which pnpm
+  command "$(volta which npm)"
 }
 
 # We wrap in a local function instead of exporting the variable directly in

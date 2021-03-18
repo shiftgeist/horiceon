@@ -105,8 +105,8 @@ alias la="ls -lah"
 
 # npm
 
-alias npm_run="__npm_bin"
-alias npm="__pnpm_bin"
+alias npm_og="__npm_bin"
+alias npm="pnpm"
 
 alias ni="npm install"
 alias nig="npm install -g"

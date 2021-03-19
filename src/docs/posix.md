@@ -20,6 +20,12 @@ Bytes to string with unit
 printf "%4sB" "$(numfmt --to=iec 125829120)"
 ```
 
+Git url to folder name
+
+```shell
+basename "git@github.com:shiftgeist/horiceon.git" .git
+```
+
 ## Check if...
 
 File exists

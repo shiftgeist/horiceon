@@ -58,6 +58,7 @@ source $ZSHPATH/zsh-you-should-use/you-should-use.plugin.zsh
 # load additional zsh alias/plugins
 [ -f "$GOPATH/bin/jump" ] && eval "$("$GOPATH"/bin/jump shell zsh)"
 [ -f "$XDG_CONFIG_HOME/.aliases" ] && source "$XDG_CONFIG_HOME/.aliases"
+[ -f "$XDG_CONFIG_HOME/.aliases-more" ] && source "$XDG_CONFIG_HOME/.aliases-more"
 [ -f "$XDG_CONFIG_HOME/.functions" ] && source "$XDG_CONFIG_HOME/.functions"
 [ -f "$HOME/.extras" ] && source "$HOME/.extras"
 

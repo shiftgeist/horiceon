@@ -1,4 +1,4 @@
-# Linux
+# Shortcuts
 
 ## TMUX
 
@@ -12,9 +12,3 @@
 - delete word before cursor: `alt` + `d`
 - undo: `ctrl` + `_`
 - delete from cursor to start: `ctrl` + `u`
-
-## Missing rice
-
-Bash completion with aliases
-
-- https://ubuntuforums.org/showthread.php?t=733397

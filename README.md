@@ -36,6 +36,10 @@ git submodule update --init
 
 Extras can be found under [`horiceon-extra`](https://github.com/shiftgeist/horiceon-extra).
 
+## missing
+
+Bash completion with aliases [ubuntuforums](https://ubuntuforums.org/showthread.php?t=733397)
+
 ## credits
 
 This project is originally inspired by [Horizon Theme](https://marketplace.visualstudio.com/items?itemName=jolaleye.horizon-theme-vscode), is now based around the [Panda Syntax](https://github.com/tinkertrain/panda-syntax-vscode) color palette.\

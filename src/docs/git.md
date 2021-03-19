@@ -26,3 +26,11 @@ git branch -m NEW
 git push origin -u NEW
 git push origin --delete OLD
 ```
+
+delete tag (loca/remote)
+
+```
+git tag -d tagname
+
+git push --delete origin tagname
+```

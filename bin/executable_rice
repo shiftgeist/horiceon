@@ -59,15 +59,17 @@ Hint: No/empty command shows help."
             fi
             ;;
         code)
+            code --install-extension "antfu.browse-lite"
             code --install-extension "bierner.markdown-preview-github-styles"
             code --install-extension "editorconfig.editorconfig"
             code --install-extension "esbenp.prettier-vscode"
-            code --install-extension "golang.go"
             code --install-extension "ionutvmi.path-autocomplete"
+            code --install-extension "lokalise.i18n-ally"
             code --install-extension "naumovs.color-highlight"
             code --install-extension "ow.vscode-subword-navigation"
             code --install-extension "pflannery.vscode-versionlens"
             code --install-extension "tinkertrain.theme-panda"
+            code --install-extension "voorjaar.windicss-intellisense"
             ;;
         deb)
             if hash aptitude 2>/dev/null; then
@@ -103,7 +105,7 @@ Hint: No/empty command shows help."
             go version
             ;;
         npm)
-            npm i -g np doctoc prettier js-beautify tinypng-cli diff-so-fancy npm-check-updates sirv-cli live-server firebase-tools markdownlint-cli semver bundle-phobia-cli imagemin imagemin-webp
+            npm i -g pnpm np doctoc prettier js-beautify tinypng-cli diff-so-fancy npm-check-updates sirv-cli live-server firebase-tools markdownlint-cli semver bundle-phobia-cli imagemin imagemin-webp
             ;;
         volta)
             curl https://get.volta.sh | bash

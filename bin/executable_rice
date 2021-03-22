@@ -108,7 +108,7 @@ Hint: No/empty command shows help."
             npm i -g pnpm np doctoc prettier js-beautify tinypng-cli diff-so-fancy npm-check-updates sirv-cli live-server firebase-tools markdownlint-cli semver bundle-phobia-cli imagemin imagemin-webp
             ;;
         volta)
-            curl https://get.volta.sh | bash
+            curl https://get.volta.sh | bash -s -- "--skip-setup"
             ;;
         zsh)
             cloneZshModule https://github.com/MichaelAquilina/zsh-you-should-use.git https://github.com/zsh-users/zsh-syntax-highlighting.git https://github.com/sindresorhus/pure.git

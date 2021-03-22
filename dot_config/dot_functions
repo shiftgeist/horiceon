@@ -12,10 +12,6 @@ __npm_set_tag() {
   fi
 }
 
-__npm_bin() {
-  command "$(volta which npm)"
-}
-
 # We wrap in a local function instead of exporting the variable directly in
 # order to avoid interfering with manually-run git commands by the user.
 __git() {

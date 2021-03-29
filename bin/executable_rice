@@ -21,6 +21,9 @@ Hint: No/empty command shows help."
         install|i)
             install "$@"
             ;;
+        docs|d)
+            docs "$@"
+            ;;
         *)
             cli_help
             ;;
@@ -115,6 +118,28 @@ Hint: No/empty command shows help."
             ;;
         *)
             cli_help_packages
+            ;;
+    esac
+}
+
+docs() {
+    cli_name=${0##*/}
+
+    cli_help_docs() {
+        echo "
+Documentation
+Usage: $cli_name docs git|posix|shortcuts|vim"
+        exit 1
+    }
+
+    BASE_CHEZMOI="$(chezmoi source-path)/src/docs/"
+
+    case "$2" in
+        git|posix|shortcuts|vim)
+            less "$BASE_CHEZMOI/$2.md"
+            ;;
+        *)
+            cli_help_docs
             ;;
     esac
 }

@@ -40,7 +40,7 @@ compinit
 
 bindkey -e # Use emacs key bindings
 
-zinit light Aloxaf/fzf-tab
+# zinit light Aloxaf/fzf-tab
 
 zinit ice compile'(pure|async).zsh' pick'async.zsh' src'pure.zsh'
 zinit light sindresorhus/pure

@@ -14,7 +14,6 @@
 - Dynamic environment - `arch`, `debian` or `ubuntu (wsl)`
 - Focus on terminal and programs\
    for desktop environment head [over to this](https://github.com/shiftgeist/horiceon-dwm)
-- Learn go
 
 ## setup
 
@@ -35,6 +34,8 @@ git submodule update --init
 ### extra
 
 Extras can be found under [`horiceon-extra`](https://github.com/shiftgeist/horiceon-extra).
+
+<small>(Not to be confused with `~/.extra`)</small>
 
 ## missing
 

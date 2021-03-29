@@ -1,120 +1,50 @@
 #!/usr/bin/env zsh
 
-set -k
+[[ $- != *i* ]] && return # if not running interactively, don't do anything
 
-source "$HOME/.profile"
+if [[ ! -f $HOME/.zinit/bin/zinit.zsh ]]; then
+  if curl -s cht.sh &> /dev/null
+  then
+    print -P "%F{33}▓▒░ %F{220}Installing %F{33}DHARMA%F{220} Initiative Plugin Manager (%F{33}zdharma/zinit%F{220})…%f"
+    command mkdir -p "$HOME/.zinit" && command chmod g-rwX "$HOME/.zinit"
+    command git clone https://github.com/zdharma/zinit "$HOME/.zinit/bin" && \
+      print -P "%F{33}▓▒░ %F{34}Installation successful.%f%b" || \
+      print -P "%F{160}▓▒░ The clone has failed.%f%b"
+  fi
+fi
 
-export ZSHPATH="$XDG_DATA_HOME/zsh"
-export HISTSIZE=10000000
-export SAVEHIST=10000000
-export HISTFILE=~/.cache/zsh/history
+source "$HOME/.zinit/bin/zinit.zsh"
 
-# if not running interactively, don't do anything
-[[ $- != *i* ]] && return
+autoload -Uz _zinit
+(( ${+_comps} )) && _comps[zinit]=_zinit
 
-# include custom dir to fpath
-fpath=(
-    "$ZSHPATH"
-    "$ZSHPATH/pure"
-    $fpath
-)
+PS1="loading> " # provide a simple prompt till the theme loads
 
-zmodload -i zsh/complist
-
-unsetopt menu_complete   # do not autoselect the first completion entry
-unsetopt flowcontrol
-setopt auto_menu         # show completion menu on successive tab press
-setopt complete_in_word
-setopt always_to_end
-
-autoload -Uz compinit; compinit
-
-bindkey -M menuselect '^o' accept-and-infer-next-history
-zstyle ':completion:*:*:*:*:*' menu select
-zstyle ':completion:*' rehash true
-
-# Complete . and .. special directories
-zstyle ':completion:*' special-dirs true
-
-zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|=*' 'l:|=* r:|=*'
-zstyle ':completion::complete:*' gain-privileges 1
-
-autoload -Uz promptinit
-promptinit
-
-_comp_options+=(globdots) # Include hidden files.
-
-# automatically load bash completion functions
-autoload -U +X bashcompinit && bashcompinit
-
-autoload -U select-word-style
-select-word-style bash
-stty stop undef
-
-# plugins
-source $ZSHPATH/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source $ZSHPATH/zsh-you-should-use/you-should-use.plugin.zsh
-
-# load additional zsh alias/plugins
-[ -f "$GOPATH/bin/jump" ] && eval "$("$GOPATH"/bin/jump shell zsh)"
-[ -f "$XDG_CONFIG_HOME/.aliases" ] && source "$XDG_CONFIG_HOME/.aliases"
-[ -f "$XDG_CONFIG_HOME/.aliases-more" ] && source "$XDG_CONFIG_HOME/.aliases-more"
-[ -f "$XDG_CONFIG_HOME/.functions" ] && source "$XDG_CONFIG_HOME/.functions"
-[ -f "$HOME/.extras" ] && source "$HOME/.extras"
-
+ZSHPATH="$XDG_DATA_HOME/zsh"
+HISTFILE=~/.cache/zsh/history
+HISTSIZE=1000
+SAVEHIST=1000
+setopt appendhistory
 setopt auto_cd
-setopt complete_aliases
-setopt inc_append_history
-setopt share_history
 
-# keybinds
+zinit snippet OMZL::git.zsh
 
-# create a zkbd compatible hash;
-# to add other keys to this hash, see: man 5 terminfo
-typeset -g -A key
+zinit ice wait"1" lucid
+zinit light zdharma/fast-syntax-highlighting
+zinit ice wait"1" lucid
+zinit snippet OMZP::fzf
+zinit snippet OMZL::key-bindings.zsh
 
-# http://zsh.sourceforge.net/Doc/Release/Zsh-Line-Editor.html
-# http://zsh.sourceforge.net/Doc/Release/Zsh-Line-Editor.html#Zle-Builtins
-# http://zsh.sourceforge.net/Doc/Release/Zsh-Line-Editor.html#Standard-Widgets
+autoload -Uz compinit
+compinit
 
-# Make sure that the terminal is in application mode when zle is active, since
-# only then values from $terminfo are valid
-if (( ${+terminfo[smkx]} )) && (( ${+terminfo[rmkx]} )); then
-  function zle-line-init() {
-    echoti smkx
-  }
-  function zle-line-finish() {
-    echoti rmkx
-  }
-  zle -N zle-line-init
-  zle -N zle-line-finish
-fi
+bindkey -e # Use emacs key bindings
 
-# Use emacs key bindings
-bindkey -e
+zinit light Aloxaf/fzf-tab
 
-# Start typing + [Up-Arrow] - fuzzy find history forward
-if [[ -n "${terminfo[kcuu1]}" ]]; then
-  autoload -U up-line-or-beginning-search
-  zle -N up-line-or-beginning-search
+zinit ice compile'(pure|async).zsh' pick'async.zsh' src'pure.zsh'
+zinit light sindresorhus/pure
 
-  bindkey -M emacs "${terminfo[kcuu1]}" up-line-or-beginning-search
-fi
-# Start typing + [Down-Arrow] - fuzzy find history backward
-if [[ -n "${terminfo[kcud1]}" ]]; then
-  autoload -U down-line-or-beginning-search
-  zle -N down-line-or-beginning-search
-
-  bindkey -M emacs "${terminfo[kcud1]}" down-line-or-beginning-search
-fi
-
-# [Ctrl-Delete] - delete whole forward-word
-bindkey -M emacs '^[[3;5~' kill-word
-
-# [Ctrl-RightArrow] - move forward one word
-bindkey -M emacs '^[[1;5C' forward-word
-# [Ctrl-LeftArrow] - move backward one word
-bindkey -M emacs '^[[1;5D' backward-word
-
-# init prompt
-prompt pure
+zinit light "$XDG_CONFIG_HOME/.aliases"
+zinit light "$XDG_CONFIG_HOME/.functions"
+[ -f "$HOME/.extras" ] && zinit light "$HOME/.extras"

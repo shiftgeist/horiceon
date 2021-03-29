@@ -22,5 +22,9 @@ export XDG_CACHE_HOME="$HOME/.cache"
 export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 export PROFILE="$ZDOTDIR/.zshrc"
 
+. "$XDG_CONFIG_HOME/.aliases"
+. "$XDG_CONFIG_HOME/.functions"
+[ -f "$HOME/.extras" ] && . "$HOME/.extras"
+
 # Start graphical server on tty1 if not already running.
 [ "$(tty)" = "/dev/tty1" ] && ! pgrep -f "Xorg" && exec startx

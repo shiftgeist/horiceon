@@ -2,8 +2,8 @@
 
 ## TMUX
 
-- Min-/Maximise current pane: `c-b` + `z`
-- Backward Search: `ctrl` + `shift` + `b`
+- Min-/Maximise current pane: `c-b z`
+- Backward Search: `c-b ctrl+shift+b`
 - Resize pane: `c-b ctrl+[arrow-key]`
 
 ## Shell

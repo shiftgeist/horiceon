@@ -52,7 +52,7 @@ Hint: No/empty command shows help."
     case "$2" in
         arch)
             if hash yay 2>/dev/null; then
-                yay -Syu suckless-tools brave-bin notion-app alacritty zsh neofetch htop neovim code rsync rclone openssh go ttf-dejavu noto-fonts-emoji otf-overpass feh flameshot gpick xsel xcape dunst compton bat exa tmux jump-bin screen ghostwriter
+                yay -Syu suckless-tools brave-bin notion-app alacritty zsh neofetch htop neovim code rsync rclone openssh go ttf-dejavu noto-fonts-emoji otf-overpass feh flameshot gpick xsel xcape dunst compton bat exa tmux screen ghostwriter
             else
                 echo "Dependency \"yay\" not found."
                 exit 1

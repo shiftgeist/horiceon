@@ -1,9 +1,13 @@
+# ~/.config/chezmoi/chezmoi.toml
 data:
-  desktop:
+  desktop: ""
   git:
-    name:
-    email:
-    gpg:
+    name: ""
+    email: ""
+    gpg: ""
   api:
-    bitwarden:
-    tinypng:
+    bitwarden: ""
+    tinypng: ""
+diff:
+  format: "git"
+  pager: "diff-so-fancy"

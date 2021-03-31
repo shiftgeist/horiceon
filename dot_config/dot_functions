@@ -80,46 +80,6 @@ __git_current_commit() {
   echo "$ref"
 }
 
-__git_fzf_branch() {
-  git_is_repo || return
-
-  __git branch --all --sort=-committerdate --color=always |
-    # remove entries with "HEAD" in them
-    grep -v HEAD |
-    # run thought fzf
-    fzf --ansi --no-multi --preview-window right:65% --preview 'git log -n 50 --color=always --date=short --pretty="format:%C(auto)%cd %h%d %s (%an)" $(sed "s/.* //" <<< {})' |
-    # trim asterisk and leading whitespace
-    sed "s/.* //"
-}
-
-__git_fzf() (
-  # arg 1: method
-  # arg 2: branch
-
-  git_is_repo || return
-
-  git_method=$1
-
-  # has argument
-  if [ "$#" -gt 1 ]
-  then
-    eval "__git $*"
-    exit $?
-  fi
-
-  branch=$(__git_fzf_branch)
-  [ "$branch" = "" ] && return
-
-  case $branch in
-    remotes/*)
-      eval "__git $git_method $(echo "$branch" | cut -d '/' -f 3-4)";
-    ;;
-    *)
-      eval "__git $git_method $branch";
-    ;;
-  esac
-)
-
 __git_push_current_to_origin() {
   __git push --set-upstream origin "$(__git_current_branch)"
 }

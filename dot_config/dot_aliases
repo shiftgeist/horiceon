@@ -47,8 +47,8 @@ alias json="jq"
 
 # git
 
-alias gco="__git_fzf 'checkout'"
-alias gbd="__git_fzf 'branch -D'"
+alias gco="git checkout"
+alias gbd="git branch -D"
 
 alias gcom="__git_checkout_main"
 alias gcod="git checkout develop"

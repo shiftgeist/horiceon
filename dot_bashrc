@@ -6,4 +6,6 @@
 export EDITOR=nvim
 export PAGER=less
 
-# complete -cf sudo
+. "$XDG_CONFIG_HOME/.aliases"
+. "$XDG_CONFIG_HOME/.functions"
+[ -f "$HOME/.extras" ] && . "$HOME/.extras"

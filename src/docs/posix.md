@@ -58,8 +58,8 @@ fi
 String contains substring
 
 ```shell
-if [ "$#" -ne 0 ]
+if echo "hello world" | grep -q "world"
 then
-  echo "has argument"
+  echo "contains substring"
 fi
 ```

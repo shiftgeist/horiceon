@@ -127,15 +127,13 @@ docs() {
 
     cli_help_docs() {
         echo "
-Documentation
-Usage: $cli_name docs git|posix|shortcuts|vim"
+Usage: $cli_name docs git|posix|shortcuts|units|vim"
         exit 1
     }
 
     BASE_CHEZMOI="$(chezmoi source-path)/src/docs/"
-
     case "$2" in
-        git|posix|shortcuts|vim)
+        git|posix|shortcuts|units|vim)
             less "$BASE_CHEZMOI/$2.md"
             ;;
         *)

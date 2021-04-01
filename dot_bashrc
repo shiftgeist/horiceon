@@ -6,6 +6,6 @@
 export EDITOR=nvim
 export PAGER=less
 
-. "$XDG_CONFIG_HOME/.aliases"
-. "$XDG_CONFIG_HOME/.functions"
-[ -f "$HOME/.extras" ] && . "$HOME/.extras"
+# . "$XDG_CONFIG_HOME/.aliases"
+# . "$XDG_CONFIG_HOME/.functions"
+# [ -f "$HOME/.extras" ] && . "$HOME/.extras"

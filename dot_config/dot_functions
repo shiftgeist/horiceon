@@ -84,24 +84,12 @@ __git_push_current_to_origin() {
   __git push --set-upstream origin "$(__git_current_branch)"
 }
 
-__git_reset_current() {
+__git_reset_current_hard() {
   __git reset origin/"$(__git_current_branch)" --hard
 }
 
 __git_latest_tag() {
   __git describe --tags "$(__git_current_commit)"
-}
-
-__git_push_force_ask() {
-  read -r "REPLY?Force push? (Yy) "
-  while read -r REPLY
-  do
-    case $REPLY in
-      *)
-        __git push --force-with-lease
-      ;;
-    esac
-  done
 }
 
 __git_flow_release_start() {

@@ -72,5 +72,6 @@
   "terminal.integrated.shell.linux": "/usr/bin/zsh",
   "window.menuBarVisibility": "hidden",
   "workbench.colorTheme": "Panda Syntax",
-  "workbench.startupEditor": "newUntitledFile"
+  "workbench.startupEditor": "newUntitledFile",
+  "svgPreview.autoOpen": false
 }

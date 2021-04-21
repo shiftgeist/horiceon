@@ -89,6 +89,10 @@ Hint: No/empty command shows help."
         code --install-extension "pflannery.vscode-versionlens"
         code --install-extension "alfnielsen.vsc-rename-files"
         code --install-extension "antfu.browse-lite"
+        code --install-extension "ryu1kn.edit-with-shell"
+        code --install-extension "pnp.polacode"
+        code --install-extension "jock.svg"
+        code --install-extension "ryu1kn.text-marker"
         ;;
     code-languages)
         code --install-extension "stylelint.vscode-stylelint"

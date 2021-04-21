@@ -5,6 +5,9 @@
   "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
+  "[shellscript]": {
+    "editor.defaultFormatter": "foxundermoon.shell-format"
+  },
   "[svelte]": {
     "editor.defaultFormatter": "svelte.svelte-vscode"
   },
@@ -65,6 +68,7 @@
   "gitlens.mode.active": "zen",
   "go.toolsManagement.autoUpdate": true,
   "path-autocomplete.extensionOnImport": true,
+  "svgPreview.autoOpen": false,
   "terminal.integrated.copyOnSelection": true,
   "terminal.integrated.minimumContrastRatio": 4.5,
   "terminal.integrated.mouseWheelScrollSensitivity": 3,
@@ -72,6 +76,5 @@
   "terminal.integrated.shell.linux": "/usr/bin/zsh",
   "window.menuBarVisibility": "hidden",
   "workbench.colorTheme": "Panda Syntax",
-  "workbench.startupEditor": "newUntitledFile",
-  "svgPreview.autoOpen": false
+  "workbench.startupEditor": "newUntitledFile"
 }

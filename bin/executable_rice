@@ -37,16 +37,18 @@ Install packages
 Usage: $cli_name packages [tool]
 
 Commands:
-  arch      arch packages
-  code      vscode extensions
-  deb       debian packages
-  dwm       install dwm
-  fzf       install fzf
-  go        go packages
-  golang    install go [version]
-  npm       npm global packages
-  volta     node version manager
-  zsh       zsh packages
+  arch              arch packages
+  code              vscode extensions
+  code-optional     optional vscode extensions
+  code-languages    language specific vscode extensions
+  deb               debian packages
+  dwm               install dwm
+  fzf               install fzf
+  go                go packages
+  golang            install go [version]
+  npm               npm global packages
+  volta             node version manager
+  zsh               zsh packages
 
 Hint: No/empty command shows help."
         exit 1
@@ -62,17 +64,41 @@ Hint: No/empty command shows help."
             fi
             ;;
         code)
-            code --install-extension "antfu.browse-lite"
-            code --install-extension "bierner.markdown-preview-github-styles"
-            code --install-extension "editorconfig.editorconfig"
-            code --install-extension "esbenp.prettier-vscode"
-            code --install-extension "ionutvmi.path-autocomplete"
-            code --install-extension "lokalise.i18n-ally"
             code --install-extension "naumovs.color-highlight"
-            code --install-extension "ow.vscode-subword-navigation"
-            code --install-extension "pflannery.vscode-versionlens"
+            code --install-extension "editorconfig.editorconfig"
+            code --install-extension "lokalise.i18n-ally"
             code --install-extension "tinkertrain.theme-panda"
+            code --install-extension "dominicvonk.parameter-hints"
+            code --install-extension "ionutvmi.path-autocomplete"
+            code --install-extension "esbenp.prettier-vscode"
+            code --install-extension "ow.vscode-subword-navigation"
+            code --install-extension "redhat.vscode-yaml"
+            ;;
+        code-optional)
+            code --install-extension "bierner.emojisense"
+            code --install-extension "ms-azuretools.vscode-docker"
+            code --install-extension "dbaeumer.vscode-eslint"
+            code --install-extension "eamodio.gitlens"
+            code --install-extension "mkaufman.htmlhint"
+            code --install-extension "wix.vscode-import-cost"
+            code --install-extension "bierner.markdown-preview-github-styles"
+            code --install-extension "silvenon.mdx"
+            code --install-extension "ryu1kn.partial-diff"
+            code --install-extension "richie5um2.vscode-sort-json"
+            code --install-extension "simonsiefke.svg-preview"
+            code --install-extension "pflannery.vscode-versionlens"
+            code --install-extension "alfnielsen.vsc-rename-files"
+            code --install-extension "antfu.browse-lite"
+            ;;
+        code-languages)
+            code --install-extension "heybourn.headwind"
+            code --install-extension "fivethree.vscode-svelte-snippets"
+            code --install-extension "svelte.svelte-vscode"
+            code --install-extension "bradlc.vscode-tailwindcss"
             code --install-extension "voorjaar.windicss-intellisense"
+            code --install-extension "stylelint.vscode-stylelint"
+            code --install-extension "octref.vetur"
+            code --install-extension "timonwong.shellcheck"
             ;;
         deb)
             if hash aptitude 2>/dev/null; then

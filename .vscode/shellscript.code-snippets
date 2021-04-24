@@ -1,0 +1,19 @@
+{
+  "if-file-exists": {
+    "scope": "shellscript",
+    "prefix": ["if-file"],
+    "body": ["if [ -f \"$FILE\" ]", "then", "  echo \"$FILE exists.\"", "fi"]
+  },
+  "ife-file-exists": {
+    "scope": "shellscript",
+    "prefix": ["ife-file"],
+    "body": [
+      "if [ -f \"$0\" ]",
+      "then",
+      "  echo \"Exists.\"",
+      "else",
+      "  echo \"Doesn't exists.\"",
+      "fi"
+    ]
+  }
+}

@@ -1,10 +1,18 @@
 #!/bin/sh
 
-# add dependencies here
-{{ if eq .chezmoi.osRelease.id "debian" }}
-echo "run_once_init"
-sudo apt-get install fzf
-{{ end }}
+# zinit
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma/zinit/master/doc/install.sh)"
 
-# build dotfile/rice helper
-cd src/rice && go build -o ~/bin/rice2 .
+# fzf
+git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+~/.fzf/install
+
+# zsh
+[command -v COMMAND > /dev/null] && chsh -s $(which zsh)
+
+if command -v COMMAND > /dev/null
+then
+  chsh -s $(which zsh)
+else
+  echo "PLEASE INSTALL ZSH (rice install arch|deb)"
+fi

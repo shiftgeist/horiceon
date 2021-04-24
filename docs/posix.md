@@ -28,6 +28,35 @@ basename "git@github.com:shiftgeist/horiceon.git" .git
 
 ## Check if...
 
+Variable exists
+
+```shell
+if [ "$VARIABLE" ]
+then
+  echo "$VARIABLE is set."
+fi
+```
+
+Variable is empty
+
+```shell
+if [ -z "$VARIABLE" ]
+then
+  echo "$VARIABLE is unset."
+fi
+```
+
+Display exists
+
+```shell
+if [ "$DISPLAY" ]
+then
+  echo "No display attached."
+else
+  echo "Has display $DISPLAY."
+fi
+```
+
 File exists
 
 ```shell

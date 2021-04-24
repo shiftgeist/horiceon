@@ -48,7 +48,6 @@ Commands:
   golang            install go [version]
   npm               npm global packages
   volta             node version manager
-  zsh               zsh packages
 
 Hint: No/empty command shows help."
         exit 1
@@ -116,7 +115,7 @@ Hint: No/empty command shows help."
         elif hash apt 2>/dev/null; then
             echo "installing aptitude"
 
-            sudo aptitude install alacritty screen tmux flameshot ghostwriter
+            sudo aptitude install alacritty screen tmux flameshot ghostwriter zsh
         else
             echo "Dependency \"apt\" not found."
             exit 1
@@ -148,9 +147,6 @@ Hint: No/empty command shows help."
     volta)
         curl https://get.volta.sh | bash -s -- "--skip-setup"
         ;;
-    zsh)
-        cloneZshModule https://github.com/MichaelAquilina/zsh-you-should-use.git https://github.com/zsh-users/zsh-syntax-highlighting.git https://github.com/sindresorhus/pure.git
-        ;;
     *)
         cli_help_packages
         ;;
@@ -166,7 +162,7 @@ Usage: $cli_name docs git|posix|shortcuts|units|vim"
         exit 1
     }
 
-    BASE_CHEZMOI="$(chezmoi source-path)/src/docs/"
+    BASE_CHEZMOI="$(chezmoi source-path)/docs/"
     case "$2" in
     git | posix | shortcuts | units | vim)
         less "$BASE_CHEZMOI/$2.md"
@@ -175,13 +171,6 @@ Usage: $cli_name docs git|posix|shortcuts|units|vim"
         cli_help_docs
         ;;
     esac
-}
-
-cloneZshModule() {
-    cd "$ZSHPATH" || exit
-    for n in "$@"; do
-        git clone "$n" 2>/dev/null
-    done
 }
 
 main "$@"

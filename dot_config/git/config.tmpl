@@ -1,7 +1,9 @@
 [user]
 	name = "{{ .git.name }}"
 	email = "{{ .git.email }}"
+	{{ if .git.gpg }}
 	signingkey = "{{ .git.gpg }}"
+	{{ end }}
 [color]
 	ui = true
 [color "diff-highlight"]
@@ -16,8 +18,10 @@
 	old = red bold
 	new = green bold
 	whitespace = red reverse
+{{ if .git.gpg }}
 [commit]
 	gpgsign = true
+{{ end }}
 [core]
 	pager = diff-so-fancy | less --tabs=4 -RFX
 [merge]

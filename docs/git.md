@@ -2,7 +2,17 @@
 
 <!-- https://devhints.io/git-tricks -->
 
-## branch
+push to remote
+
+```
+git push origin master
+```
+
+push to remote and save remote name as default
+
+```
+git push -u origin master
+```
 
 pull after forced update
 
@@ -27,7 +37,7 @@ git push origin -u NEW
 git push origin --delete OLD
 ```
 
-delete tag (loca/remote)
+delete tag (local/remote)
 
 ```
 git tag -d tagname

@@ -63,48 +63,53 @@ Hint: No/empty command shows help."
         fi
         ;;
     code)
-        code --install-extension "naumovs.color-highlight"
-        code --install-extension "editorconfig.editorconfig"
-        code --install-extension "lokalise.i18n-ally"
-        code --install-extension "tinkertrain.theme-panda"
         code --install-extension "dominicvonk.parameter-hints"
-        code --install-extension "ionutvmi.path-autocomplete"
+        code --install-extension "editorconfig.editorconfig"
         code --install-extension "esbenp.prettier-vscode"
+        code --install-extension "ionutvmi.path-autocomplete"
+        code --install-extension "lokalise.i18n-ally"
+        code --install-extension "naumovs.color-highlight"
         code --install-extension "ow.vscode-subword-navigation"
         code --install-extension "redhat.vscode-yaml"
+        code --install-extension "tinkertrain.theme-panda"
         ;;
     code-optional)
-        code --install-extension "bierner.emojisense"
-        code --install-extension "ms-azuretools.vscode-docker"
-        code --install-extension "dbaeumer.vscode-eslint"
-        code --install-extension "eamodio.gitlens"
-        code --install-extension "mkaufman.htmlhint"
-        code --install-extension "wix.vscode-import-cost"
-        code --install-extension "bierner.markdown-preview-github-styles"
-        code --install-extension "silvenon.mdx"
-        code --install-extension "ryu1kn.partial-diff"
-        code --install-extension "richie5um2.vscode-sort-json"
-        code --install-extension "simonsiefke.svg-preview"
-        code --install-extension "pflannery.vscode-versionlens"
         code --install-extension "alfnielsen.vsc-rename-files"
         code --install-extension "antfu.browse-lite"
-        code --install-extension "ryu1kn.edit-with-shell"
-        code --install-extension "pnp.polacode"
+        code --install-extension "bierner.emojisense"
+        code --install-extension "bierner.markdown-preview-github-styles"
+        code --install-extension "dbaeumer.vscode-eslint"
+        code --install-extension "eamodio.gitlens"
         code --install-extension "jock.svg"
+        code --install-extension "mkaufman.htmlhint"
+        code --install-extension "ms-azuretools.vscode-docker"
+        code --install-extension "pflannery.vscode-versionlens"
+        code --install-extension "pnp.polacode"
+        code --install-extension "ryu1kn.edit-with-shell"
+        code --install-extension "ryu1kn.partial-diff"
         code --install-extension "ryu1kn.text-marker"
+        code --install-extension "silvenon.mdx"
+        code --install-extension "simonsiefke.svg-preview"
+        code --install-extension "wix.vscode-import-cost"
+        code --install-extension "zengxingxin.sort-js-object-keys"
         ;;
     code-languages)
+        # css
         code --install-extension "stylelint.vscode-stylelint"
 
+        # svelte
         code --install-extension "fivethree.vscode-svelte-snippets"
         code --install-extension "svelte.svelte-vscode"
 
+        # vue
         code --install-extension "octref.vetur"
 
+        # tailwind/windicss
         code --install-extension "heybourn.headwind"
         code --install-extension "bradlc.vscode-tailwindcss"
         code --install-extension "voorjaar.windicss-intellisense"
 
+        # shell
         code --install-extension "timonwong.shellcheck"
         code --install-extension "foxundermoon.shell-format"
         ;;

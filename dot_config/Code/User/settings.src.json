@@ -58,6 +58,7 @@
   "editor.tabSize": 2,
   "explorer.confirmDelete": true,
   "explorer.confirmDragAndDrop": true,
+  "explorer.sortOrder": "default",
   "files.associations": {
     "*.svg": "html"
   },
@@ -66,15 +67,25 @@
   "git.confirmSync": false,
   "git.enableSmartCommit": true,
   "gitlens.mode.active": "zen",
-  "go.toolsManagement.autoUpdate": true,
-  "path-autocomplete.extensionOnImport": true,
+  "gutterpreview.showImagePreviewOnGutter": false,
+  "parameterHints.hintingType": "typeOnly",
+  "parameterHints.margin": "0 3 0 0",
+  "parameterHints.padding": "0",
+  "redhat.telemetry.enabled": false,
   "svgPreview.autoOpen": false,
   "terminal.integrated.copyOnSelection": true,
+  "terminal.integrated.defaultProfile.linux": "zsh",
   "terminal.integrated.minimumContrastRatio": 4.5,
   "terminal.integrated.mouseWheelScrollSensitivity": 3,
   "terminal.integrated.scrollback": 100000,
-  "terminal.integrated.shell.linux": "/usr/bin/zsh",
+  "toggle.settingState1": "default",
+  "toggle.settingState2": "modified",
+  "toggle.settingTitle": "explorer.sortOrder",
   "window.menuBarVisibility": "hidden",
+  "workbench.colorCustomizations": {
+    "parameterHints.hintBackground": "#00000000"
+  },
   "workbench.colorTheme": "Panda Syntax",
+  "workbench.editor.untitled.hint": "hidden",
   "workbench.startupEditor": "newUntitledFile"
 }

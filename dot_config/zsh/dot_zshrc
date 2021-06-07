@@ -21,7 +21,7 @@ autoload -Uz _zinit
 PS1="loading> " # provide a simple prompt till the theme loads
 
 ZSHPATH="$XDG_DATA_HOME/zsh"
-HISTFILE=~/.cache/zsh/history
+HISTFILE="$XDG_CACHE_HOME/zsh/history"
 HISTSIZE=10000
 SAVEHIST=1000000
 setopt appendhistory

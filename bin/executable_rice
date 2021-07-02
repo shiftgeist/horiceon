@@ -65,7 +65,7 @@ Hint: No/empty command shows help."
     code)
         code --install-extension "dominicvonk.parameter-hints"
         code --install-extension "editorconfig.editorconfig"
-        code --install-extension "esbenp.prettier-vscode"
+        code --install-extension "simonsiefke.prettier-vscode"
         code --install-extension "ionutvmi.path-autocomplete"
         code --install-extension "lokalise.i18n-ally"
         code --install-extension "naumovs.color-highlight"

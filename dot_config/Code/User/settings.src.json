@@ -3,13 +3,16 @@
     "editor.defaultFormatter": "golang.go"
   },
   "[javascript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "simonsiefke.prettier-vscode"
   },
   "[shellscript]": {
     "editor.defaultFormatter": "foxundermoon.shell-format"
   },
   "[svelte]": {
     "editor.defaultFormatter": "svelte.svelte-vscode"
+  },
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.python"
   },
   "breadcrumbs.filePath": "on",
   "breadcrumbs.showArrays": false,
@@ -38,7 +41,7 @@
   "breadcrumbs.showStructs": false,
   "breadcrumbs.showTypeParameters": false,
   "breadcrumbs.showVariables": false,
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.defaultFormatter": "simonsiefke.prettier-vscode",
   "editor.fontFamily": "'Dank Mono', monospace",
   "editor.fontLigatures": true,
   "editor.formatOnSave": true,
@@ -87,5 +90,6 @@
   },
   "workbench.colorTheme": "Panda Syntax",
   "workbench.editor.untitled.hint": "hidden",
-  "workbench.startupEditor": "newUntitledFile"
+  "workbench.startupEditor": "newUntitledFile",
+  "editor.inlineSuggest.enabled": true
 }

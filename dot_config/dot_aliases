@@ -48,11 +48,11 @@ alias json="jq"
 
 # git
 
-alias gco="git checkout"
+alias gco="git co"
 alias gbd="git branch -D"
 
 alias gcom="__git_checkout_main"
-alias gcod="git checkout develop"
+alias gcod="git co develop"
 
 alias gaa="git add ."
 alias gcm="git commit -m"
@@ -60,7 +60,8 @@ alias gcma="git add . && git commit -m"
 
 alias gpf="git push --force-with-lease"
 alias gpsup="__git_push_current_to_origin"
-alias gptdm="git push --tags && git checkout develop && git push && git checkout master && git push"
+alias gptdm="git push --tags && git co develop && git push && git co master && git push"
+alias gpla="git co develop && git pull && git co master && git pull"
 
 alias gl="git pull"
 alias gf="git fetch --all --verbose"
@@ -94,8 +95,7 @@ alias gff="__git_flow_finish"
 
 # list
 
-if command -v exa > /dev/null
-then
+if command -v exa >/dev/null; then
   alias ls="exa"
 fi
 alias la="ls -lah"

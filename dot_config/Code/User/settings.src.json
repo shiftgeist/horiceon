@@ -3,7 +3,7 @@
     "editor.defaultFormatter": "golang.go"
   },
   "[javascript]": {
-    "editor.defaultFormatter": "simonsiefke.prettier-vscode"
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "[shellscript]": {
     "editor.defaultFormatter": "foxundermoon.shell-format"
@@ -14,6 +14,7 @@
   "[python]": {
     "editor.defaultFormatter": "ms-python.python"
   },
+  "prettier.prettierPath": "/home/fhungenberg/.volta/tools/image/packages/prettier/lib/node_modules/prettier",
   "breadcrumbs.filePath": "on",
   "breadcrumbs.showArrays": false,
   "breadcrumbs.showBooleans": false,
@@ -41,7 +42,7 @@
   "breadcrumbs.showStructs": false,
   "breadcrumbs.showTypeParameters": false,
   "breadcrumbs.showVariables": false,
-  "editor.defaultFormatter": "simonsiefke.prettier-vscode",
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.fontFamily": "'Dank Mono', monospace",
   "editor.fontLigatures": true,
   "editor.formatOnSave": true,
@@ -91,5 +92,9 @@
   "workbench.colorTheme": "Panda Syntax",
   "workbench.editor.untitled.hint": "hidden",
   "workbench.startupEditor": "newUntitledFile",
-  "editor.inlineSuggest.enabled": true
+  "editor.inlineSuggest.enabled": true,
+  "github.copilot.enable": {
+    "*": false,
+    "typescript": true
+  }
 }

@@ -56,3 +56,7 @@ then
 else
   pnpm install-completion zsh
 fi
+
+alias cp="cp -v"
+alias mv="mv -v"
+alias rm="trash"

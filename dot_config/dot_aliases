@@ -25,12 +25,6 @@ alias un7z="7za e"
 
 alias zsh-debug="zprof > zprof-out.txt && less zprof-out.txt && rm zprof-out.txt"
 
-# cp, mv, rm
-
-alias cp="cp -v"
-alias mv='mv -v'
-alias rm='rm -v'
-
 # system
 
 alias syslog-crit="sudo dmesg -w -l err,warn"

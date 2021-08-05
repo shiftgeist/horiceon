@@ -5,58 +5,30 @@
   "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.python"
+  },
   "[shellscript]": {
     "editor.defaultFormatter": "foxundermoon.shell-format"
   },
   "[svelte]": {
     "editor.defaultFormatter": "svelte.svelte-vscode"
   },
-  "[python]": {
-    "editor.defaultFormatter": "ms-python.python"
-  },
-  "prettier.prettierPath": "/home/fhungenberg/.volta/tools/image/packages/prettier/lib/node_modules/prettier",
-  "breadcrumbs.filePath": "on",
-  "breadcrumbs.showArrays": false,
-  "breadcrumbs.showBooleans": false,
-  "breadcrumbs.showClasses": false,
-  "breadcrumbs.showConstants": false,
-  "breadcrumbs.showConstructors": false,
-  "breadcrumbs.showEnumMembers": false,
-  "breadcrumbs.showEnums": false,
-  "breadcrumbs.showEvents": false,
-  "breadcrumbs.showFields": false,
-  "breadcrumbs.showFiles": false,
-  "breadcrumbs.showFunctions": false,
-  "breadcrumbs.showInterfaces": false,
-  "breadcrumbs.showKeys": false,
-  "breadcrumbs.showMethods": false,
-  "breadcrumbs.showModules": false,
-  "breadcrumbs.showNamespaces": false,
-  "breadcrumbs.showNull": false,
-  "breadcrumbs.showNumbers": false,
-  "breadcrumbs.showObjects": false,
-  "breadcrumbs.showOperators": false,
-  "breadcrumbs.showPackages": false,
-  "breadcrumbs.showProperties": false,
-  "breadcrumbs.showStrings": false,
-  "breadcrumbs.showStructs": false,
-  "breadcrumbs.showTypeParameters": false,
-  "breadcrumbs.showVariables": false,
+  "breadcrumbs.enabled": false,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "editor.fontFamily": "'Dank Mono', monospace",
+  "editor.fontFamily": "'Dank Mono', 'Fira Code', monospace",
   "editor.fontLigatures": true,
+  "editor.fontSize": 14,
   "editor.formatOnSave": true,
+  "editor.inlineSuggest.enabled": true,
   "editor.minimap.enabled": false,
+  "editor.multiCursorModifier": "alt",
   "editor.quickSuggestionsDelay": 0,
   "editor.renderWhitespace": "boundary",
   "editor.rulers": [
     {
       "color": "#242526",
       "column": 79
-    },
-    {
-      "color": "#242526",
-      "column": 119
     }
   ],
   "editor.tabSize": 2,
@@ -72,29 +44,18 @@
   "git.enableSmartCommit": true,
   "gitlens.mode.active": "zen",
   "gutterpreview.showImagePreviewOnGutter": false,
-  "parameterHints.hintingType": "typeOnly",
-  "parameterHints.margin": "0 3 0 0",
-  "parameterHints.padding": "0",
-  "redhat.telemetry.enabled": false,
+  "prettier.prettierPath": "/home/fhungenberg/.volta/tools/image/packages/prettier/lib/node_modules/prettier",
   "svgPreview.autoOpen": false,
   "terminal.integrated.copyOnSelection": true,
   "terminal.integrated.defaultProfile.linux": "zsh",
   "terminal.integrated.minimumContrastRatio": 4.5,
   "terminal.integrated.mouseWheelScrollSensitivity": 3,
   "terminal.integrated.scrollback": 100000,
-  "toggle.settingState1": "default",
-  "toggle.settingState2": "modified",
-  "toggle.settingTitle": "explorer.sortOrder",
   "window.menuBarVisibility": "hidden",
   "workbench.colorCustomizations": {
     "parameterHints.hintBackground": "#00000000"
   },
   "workbench.colorTheme": "Panda Syntax",
   "workbench.editor.untitled.hint": "hidden",
-  "workbench.startupEditor": "newUntitledFile",
-  "editor.inlineSuggest.enabled": true,
-  "github.copilot.enable": {
-    "*": false,
-    "typescript": true
-  }
+  "workbench.startupEditor": "newUntitledFile"
 }

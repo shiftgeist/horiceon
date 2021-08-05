@@ -1,47 +1,35 @@
-![hoRICEon](.github/horiceon.png)
+# ![horiceon](.github/horiceon.png)
 
-[![GitHub contributors](https://img.shields.io/github/contributors/shiftgeist/horiceon)](https://github.com/shiftgeist/horiceon/graphs/contributors)
-[![issues](https://img.shields.io/github/issues/shiftgeist/horiceon)](https://github.com/shiftgeist/horiceon/issues)
+[![GitHub contributors][contrib_shield]][contrib]
+[![issues][issues_shield]][issues]
 
-## about
+These are my personal configuration files and scripts, written primarily for
+use on an Arch Linux system. In particular, I strive to minimise the amount of
+files under `$HOME` by adhering to the [XDG standards][xdg] wherever possible.
 
-- This repo contains dotfiles for my personal use
-- Suggestion are welcome, but if they don't fit my prefferences, when they aren't taken further
-- Managed by [chezmoi](https://github.com/twpayne/chezmoi) using symlinks soonTM ([#726](https://github.com/twpayne/chezmoi/issues/726))
+## quick start
 
-## goals
+I manage my dotfiles with [Chezmoi][chezmoi]. Suggestion are welcome, but if they don't fit my prefferences, when they aren't taken further.
 
-- Dynamic environment - `arch`, `debian` or `ubuntu (wsl)`
-- Focus on terminal and programs\
-   for desktop environment head [over to this](https://github.com/shiftgeist/horiceon-dwm)
+## starring
 
-## setup
+- Shell: [zsh][zsh] + [zinit][zinit]
+- Terminal emulator: [Alacritty][alacritty]
+- Interface Font: [Overpass][overpass]
 
-Get started
-
-```
-chezmoi init https://github.com/shiftgeist/horiceon.git
-
-chezmoi apply ~/bin
-```
-
-For `dwm` and `fzf`
+## installation and usage
 
 ```
-git submodule update --init
+sh -c "$(curl -fsLS git.io/chezmoi)" -- init --apply shiftgeist/horiceon
 ```
 
-### extra
-
-Extras can be found under [`horiceon-extra`](https://github.com/shiftgeist/horiceon-extra).
-
-<small>(Not to be confused with `~/.extra`)</small>
-
-## missing
-
-Bash completion with aliases [ubuntuforums](https://ubuntuforums.org/showthread.php?t=733397)
-
-## credits
-
-This project is originally inspired by [Horizon Theme](https://marketplace.visualstudio.com/items?itemName=jolaleye.horizon-theme-vscode), is now based around the [Panda Syntax](https://github.com/tinkertrain/panda-syntax-vscode) color palette.\
-Config files are it's inspired by [LukeSmithxyz/voidrice](https://github.com/LukeSmithxyz/voidrice) and [paulirish/dotfiles](https://github.com/paulirish/dotfiles).
+[alacritty]: https://github.com/alacritty/alacritty
+[chezmoi]: https://github.com/twpayne/chezmoi
+[contrib_shield]: https://img.shields.io/github/contributors/shiftgeist/horiceon
+[contrib]: https://github.com/shiftgeist/horiceon/graphs/contributors
+[issues_shield]: https://img.shields.io/github/issues/shiftgeist/horiceon
+[issues]: https://github.com/shiftgeist/horiceon/issues
+[overpass]: https://github.com/RedHatOfficial/Overpass
+[xdg]: https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html
+[zinit]: https://github.com/zdharma/zinit
+[zsh]: https://github.com/zsh-users/zsh

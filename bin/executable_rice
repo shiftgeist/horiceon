@@ -63,39 +63,27 @@ Hint: No/empty command shows help."
         fi
         ;;
     code)
-        code --install-extension "dominicvonk.parameter-hints"
         code --install-extension "editorconfig.editorconfig"
-        code --install-extension "simonsiefke.prettier-vscode"
-        code --install-extension "ionutvmi.path-autocomplete"
         code --install-extension "lokalise.i18n-ally"
         code --install-extension "naumovs.color-highlight"
         code --install-extension "ow.vscode-subword-navigation"
-        code --install-extension "redhat.vscode-yaml"
+        code --install-extension "simonsiefke.prettier-vscode"
         code --install-extension "tinkertrain.theme-panda"
-        ;;
-    code-optional)
-        code --install-extension "alfnielsen.vsc-rename-files"
-        code --install-extension "antfu.browse-lite"
         code --install-extension "bierner.emojisense"
         code --install-extension "bierner.markdown-preview-github-styles"
         code --install-extension "dbaeumer.vscode-eslint"
         code --install-extension "eamodio.gitlens"
-        code --install-extension "jock.svg"
-        code --install-extension "mkaufman.htmlhint"
-        code --install-extension "ms-azuretools.vscode-docker"
         code --install-extension "pflannery.vscode-versionlens"
-        code --install-extension "pnp.polacode"
-        code --install-extension "ryu1kn.edit-with-shell"
-        code --install-extension "ryu1kn.partial-diff"
-        code --install-extension "ryu1kn.text-marker"
-        code --install-extension "silvenon.mdx"
         code --install-extension "simonsiefke.svg-preview"
         code --install-extension "wix.vscode-import-cost"
         code --install-extension "zengxingxin.sort-js-object-keys"
         ;;
+    code-optional)
+        code --install-extension "ryu1kn.text-marker"
+        ;;
     code-languages)
         # css
-        code --install-extension "stylelint.vscode-stylelint"
+        code --install-extension "stylelint.vscode-stylelint" # :warning: slow!
 
         # svelte
         code --install-extension "fivethree.vscode-svelte-snippets"
@@ -104,14 +92,20 @@ Hint: No/empty command shows help."
         # vue
         code --install-extension "octref.vetur"
 
-        # tailwind/windicss
+        # tailwind
         code --install-extension "heybourn.headwind"
         code --install-extension "bradlc.vscode-tailwindcss"
-        code --install-extension "voorjaar.windicss-intellisense"
+        code --install-extension "voorjaar.windicss-intellisense" # windicss
 
         # shell
         code --install-extension "timonwong.shellcheck"
         code --install-extension "foxundermoon.shell-format"
+
+        # yaml
+        code --install-extension "redhat.vscode-yaml"
+
+        # mdx
+        code --install-extension "silvenon.mdx"
         ;;
     deb)
         if hash aptitude 2>/dev/null; then

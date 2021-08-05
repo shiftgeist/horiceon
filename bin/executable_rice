@@ -63,19 +63,20 @@ Hint: No/empty command shows help."
         fi
         ;;
     code)
-        code --install-extension "editorconfig.editorconfig"
-        code --install-extension "lokalise.i18n-ally"
-        code --install-extension "naumovs.color-highlight"
-        code --install-extension "ow.vscode-subword-navigation"
-        code --install-extension "simonsiefke.prettier-vscode"
-        code --install-extension "tinkertrain.theme-panda"
         code --install-extension "bierner.emojisense"
         code --install-extension "bierner.markdown-preview-github-styles"
         code --install-extension "dbaeumer.vscode-eslint"
         code --install-extension "eamodio.gitlens"
+        code --install-extension "editorconfig.editorconfig"
+        code --install-extension "lokalise.i18n-ally"
+        code --install-extension "naumovs.color-highlight"
+        code --install-extension "ow.vscode-subword-navigation"
         code --install-extension "pflannery.vscode-versionlens"
+        code --install-extension "simonsiefke.prettier-vscode"
         code --install-extension "simonsiefke.svg-preview"
+        code --install-extension "tinkertrain.theme-panda"
         code --install-extension "wix.vscode-import-cost"
+        code --install-extension "wmaurer.change-case"
         code --install-extension "zengxingxin.sort-js-object-keys"
         ;;
     code-optional)

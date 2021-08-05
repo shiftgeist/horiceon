@@ -44,7 +44,6 @@
   "git.enableSmartCommit": true,
   "gitlens.mode.active": "zen",
   "gutterpreview.showImagePreviewOnGutter": false,
-  "prettier.prettierPath": "/home/fhungenberg/.volta/tools/image/packages/prettier/lib/node_modules/prettier",
   "svgPreview.autoOpen": false,
   "terminal.integrated.copyOnSelection": true,
   "terminal.integrated.defaultProfile.linux": "zsh",

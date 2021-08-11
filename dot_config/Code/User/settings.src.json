@@ -15,6 +15,7 @@
     "editor.defaultFormatter": "svelte.svelte-vscode"
   },
   "breadcrumbs.enabled": false,
+  "debug.javascript.autoAttachFilter": "smart",
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.fontFamily": "'Dank Mono', 'Fira Code', monospace",
   "editor.fontLigatures": true,

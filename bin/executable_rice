@@ -109,17 +109,8 @@ Hint: No/empty command shows help."
         code --install-extension "silvenon.mdx"
         ;;
     deb)
-        if hash aptitude 2>/dev/null; then
-            echo "installing aptitude"
-            sudo apt install aptitude
-        elif hash apt 2>/dev/null; then
-            echo "installing aptitude"
-
-            sudo aptitude install alacritty screen tmux flameshot ghostwriter zsh
-        else
-            echo "Dependency \"apt\" not found."
-            exit 1
-        fi
+        sudo apt-get install tmux flameshot ghostwriter zsh telnet git vim htop nload dstat net-tools
+        # alacritty
         ;;
     dwm)
         cd ~/.local/src/dwm && git pull && sudo make clean install

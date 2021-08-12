@@ -23,6 +23,10 @@ I manage my dotfiles with [Chezmoi][chezmoi]. Suggestion are welcome, but if the
 sh -c "$(curl -fsLS git.io/chezmoi)" -- init --apply shiftgeist/horiceon
 ```
 
+## todos
+
+- [ ] explore option to convert bin/executable_rice to ansible
+
 [alacritty]: https://github.com/alacritty/alacritty
 [chezmoi]: https://github.com/twpayne/chezmoi
 [contrib_shield]: https://img.shields.io/github/contributors/shiftgeist/horiceon

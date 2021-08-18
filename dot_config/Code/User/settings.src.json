@@ -33,6 +33,7 @@
     }
   ],
   "editor.tabSize": 2,
+  "editor.suggestOnTriggerCharacters": false,
   "explorer.confirmDelete": true,
   "explorer.confirmDragAndDrop": true,
   "explorer.sortOrder": "default",

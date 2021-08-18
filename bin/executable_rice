@@ -42,7 +42,6 @@ Commands:
   code-optional     optional vscode extensions
   code-languages    language specific vscode extensions
   deb               debian packages
-  dwm               install dwm
   fzf               install fzf
   go                go packages
   golang            install go [version]
@@ -111,9 +110,6 @@ Hint: No/empty command shows help."
     deb)
         sudo apt-get install tmux flameshot ghostwriter zsh telnet git vim htop nload dstat net-tools
         # alacritty
-        ;;
-    dwm)
-        cd ~/.local/src/dwm && git pull && sudo make clean install
         ;;
     fzf)
         chmod +x ~/.local/src/fzf/install

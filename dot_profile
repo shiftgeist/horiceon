@@ -26,4 +26,10 @@ export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 export PROFILE="$ZDOTDIR/.zshrc"
 
 # Start graphical server on tty1 if not already running.
+if [ -z "$SSH_AUTH_SOCK" ]; then
+  eval $(ssh-agent -s)
+  ssh-add
+fi
+
+# Start graphical server on tty1 if not already running.
 [ "$(tty)" = "/dev/tty1" ] && ! pgrep -f "Xorg" && exec startx

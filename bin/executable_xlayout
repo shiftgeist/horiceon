@@ -1,7 +1,0 @@
-#!/bin/sh
-
-get_xmap() {
-	echo "$(setxkbmap -query | sed "s/\s*//g")"
-}
-
-echo "$(get_xmap | grep 'layout' | cut -d ':' -f 2)"

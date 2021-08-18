@@ -1,7 +1,31 @@
-[alias]
-	co = checkout
+[user]
+	name = "{{ .git.name }}"
+	email = "{{ .git.email }}"
+	signingkey = "{{ .git.gpg }}"
+
+[github]
+	user = shiftgeist
+
+[core]
+	editor = vim
+	excludesfile = ~/.config/git/ignore
+	pager = diff-so-fancy | less --tabs=4 -RFX
+
+[diff-so-fancy]
+	first-run = false
+
+[credential]
+	helper = cache --timeout=36000000
+
+[commit]
+	gpgsign = true
+
+[gpg]
+	program = gpg2
+
 [color]
 	ui = true
+
 [color "diff"]
 	meta = yellow
 	frag = magenta bold
@@ -9,34 +33,26 @@
 	old = red bold
 	new = green bold
 	whitespace = red reverse
+
 [color "diff-highlight"]
 	oldNormal = red bold
 	oldHighlight = red bold 52
 	newNormal = green bold
 	newHighlight = green bold 22
-{{ if .git.gpg }}
-[commit]
-	gpgsign = true
-{{ end }}
-[core]
-	pager = diff-so-fancy | less --tabs=4 -RFX
+
+[alias]
+	co = checkout
+
 [diff "minjs"]
 	textconv = js-beautify
 	cachetextconv = true
+
 [diff "mincss"]
 	textconv = js-beautify --css
 	cachetextconv = true
-[diff-so-fancy]
-	first-run = false
-[gpg]
-	program = gpg2
+
 [merge]
 	conflictStyle = diff3
+
 [pull]
 	rebase = true
-[user]
-	name = "{{ .git.name }}"
-	email = "{{ .git.email }}"
-	{{ if .git.gpg }}
-	signingkey = "{{ .git.gpg }}"
-	{{ end }}

@@ -2,7 +2,9 @@
 .github
 .gitignore
 .vscode
+ansible
 docs
+
 README.md
 
 # ignore source files to symlinks

@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 
-# dont to anything on non-interactive sessions
-[ -z "$PS1" ] && return
+# ~/.bash_profile
+
+# ~/.profile contains environment variables.
+[[ -f "$HOME"/.profile ]] && . "$HOME"/.profile
 
 export EDITOR=nvim
 export PAGER=less

@@ -12,6 +12,12 @@ export SSH_AUTH_SOCK
 
 # export "$(/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh,gpg)"
 
+# Start graphical server on tty1 if not already running.
+if [ -z "$SSH_AUTH_SOCK" ]; then
+  eval $(ssh-agent -s)
+  ssh-add
+fi
+
 if [ "$(tty)" = "/dev/tty1" ]; then
   ssh-agent startxfce4
 fi

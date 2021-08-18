@@ -1,6 +1,5 @@
 #!/bin/sh
 
-. "$HOME/.bashrc"
 [ -f "$FILE" ] && . "$HOME/.cargo/env"
 
 export PATH="$PATH:$HOME/bin/"
@@ -11,9 +10,10 @@ export VOLTA_HOME="$HOME/.volta"
 export FZF_BASE="$HOME/.fzf/bin/fzf"
 export PATH="$VOLTA_HOME/bin:$PATH"
 
-export EDITOR="nvim"
-export TERMINAL="xterm"
 export BROWSER="brave-browser"
+export EDITOR="vim"
+export PAGER="less"
+export TERMINAL="alacritty"
 
 TTY="$(tty)"
 export GPG_TTY=$TTY

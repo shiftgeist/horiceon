@@ -7,10 +7,10 @@ xmodmap "$XDG_CONFIG_HOME/.Xmodmap" &
 remaps &                             # run the remaps script, switching caps/esc and more; check it for more info
 xrdb "$XDG_CONFIG_HOME/Xresources" & # Use Xresources colors/settings on startup
 
-eval $(gnome-keyring-daemon --start)
+eval $(gnome-keyring-daemon --start) # generates GNOME_KEYRING_CONTROL and SSH_AUTH_SOCK
 export SSH_AUTH_SOCK
 
-# export "$(/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh,gpg)"
+export "$(/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh,gpg)"
 
 # Start graphical server on tty1 if not already running.
 if [ -z "$SSH_AUTH_SOCK" ]; then

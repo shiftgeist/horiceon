@@ -17,12 +17,6 @@ files under `$HOME` by adhering to the [XDG standards][xdg] wherever possible.
 - Theme: [Matcha-dark-azul][matcha]
 - Icons: [elementary-xfce][elementary]
 
-## installation and usage
-
-```
-sh -c "$(curl -fsLS git.io/chezmoi)" -- init --apply shiftgeist/horiceon
-```
-
 ## todos
 
 - [ ] explore option to convert bin/executable_rice to ansible

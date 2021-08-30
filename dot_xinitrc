@@ -3,7 +3,6 @@
 # xinitrc runs automatically when you run startx.
 
 setxkbmap us altgr-intl &
-xmodmap "$XDG_CONFIG_HOME/.Xmodmap" &
 remaps &                             # run the remaps script, switching caps/esc and more; check it for more info
 xrdb "$XDG_CONFIG_HOME/Xresources" & # Use Xresources colors/settings on startup
 

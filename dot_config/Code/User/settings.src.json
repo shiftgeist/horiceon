@@ -15,7 +15,7 @@
     "editor.defaultFormatter": "svelte.svelte-vscode"
   },
   "breadcrumbs.enabled": false,
-  "debug.javascript.autoAttachFilter": "smart",
+  "debug.javascript.autoAttachFilter": "onlyWithFlag",
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.fontFamily": "'Dank Mono', 'Fira Code', monospace",
   "editor.fontLigatures": true,
@@ -32,8 +32,8 @@
       "column": 79
     }
   ],
-  "editor.tabSize": 2,
   "editor.suggestOnTriggerCharacters": false,
+  "editor.tabSize": 2,
   "explorer.confirmDelete": true,
   "explorer.confirmDragAndDrop": true,
   "explorer.sortOrder": "default",
@@ -44,7 +44,47 @@
   "git.autofetch": true,
   "git.confirmSync": false,
   "git.enableSmartCommit": true,
+  "gitlens.defaultDateShortFormat": "D.MM.YYYY",
+  "gitlens.menus": {
+    "editor": false,
+    "editorGroup": {
+      "blame": true,
+      "compare": true
+    },
+    "editorTab": {
+      "clipboard": false,
+      "compare": false,
+      "history": true,
+      "remote": false
+    },
+    "explorer": {
+      "clipboard": true,
+      "compare": false,
+      "history": true,
+      "remote": false
+    },
+    "scm": {
+      "authors": true
+    },
+    "scmGroup": {
+      "compare": true,
+      "openClose": true,
+      "stash": true
+    },
+    "scmGroupInline": {
+      "stash": true
+    },
+    "scmItem": {
+      "clipboard": true,
+      "compare": true,
+      "history": true,
+      "remote": false,
+      "stash": true
+    }
+  },
   "gitlens.mode.active": "zen",
+  "gitlens.mode.statusBar.enabled": false,
+  "gitlens.statusBar.format": "${author}",
   "gutterpreview.showImagePreviewOnGutter": false,
   "prettier.prettierPath": "/home/fhungenberg/.volta/tools/image/packages/prettier/lib/node_modules/prettier",
   "svgPreview.autoOpen": false,
@@ -59,5 +99,7 @@
   },
   "workbench.colorTheme": "Panda Syntax",
   "workbench.editor.untitled.hint": "hidden",
-  "workbench.startupEditor": "newUntitledFile"
+  "workbench.startupEditor": "newUntitledFile",
+  "gitblame.infoMessageFormat": "${author.name}: \"${commit.summary}\" (${commit.hash_short})",
+  "gitblame.statusBarMessageFormat": "${time.ago}"
 }

@@ -34,8 +34,6 @@
   ],
   "editor.suggestOnTriggerCharacters": false,
   "editor.tabSize": 2,
-  "explorer.confirmDelete": true,
-  "explorer.confirmDragAndDrop": true,
   "explorer.sortOrder": "default",
   "files.associations": {
     "*.svg": "html"

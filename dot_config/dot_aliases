@@ -6,6 +6,7 @@
 # general
 
 alias battery-status="upower -i /org/freedesktop/UPower/devices/battery_BAT0 | grep -E 'state|time\ to\ full|percentage'"
+alias battery-powernow="awk '{print $1*10^-6 " W"}' /sys/class/power_supply/BAT0/power_now"
 alias find-broken-symlinks-home="find ~/ -xtype l -print"
 alias fonts="fc-list"
 alias fonts-rebuild="fc-cache -f -v"

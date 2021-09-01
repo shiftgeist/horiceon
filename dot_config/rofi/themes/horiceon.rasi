@@ -1,0 +1,48 @@
+* {
+  gray900: #0E0E18;
+  red:     #FF506D;
+  green:   #19F9D8;
+  orange:  #FFCC99;
+  blue:    #6CB1FF;
+  cyan:    #43D5EC;
+  midgray: #4A4A52;
+  text:    #ffffff;
+  textalt: #E1E1E2;
+
+  border-radius: 4px;
+  background-color: @gray900;
+  text-color: @text;
+}
+
+mainbox {
+  padding: 12px;
+}
+
+inputbar {
+  margin: 0px 0px 12px 0px;
+}
+
+prompt {
+  text-color: @midgray;
+}
+
+entry {
+  margin: 0px 10px;
+}
+
+listview {
+  spacing: 5px;
+  dynamic: true;
+  scrollbar: false;
+}
+
+element {
+  padding: 5px;
+  text-color: @textalt;
+  highlight: bold;
+}
+
+element selected {
+  background-color: @green;
+  text-color: @gray900;
+}

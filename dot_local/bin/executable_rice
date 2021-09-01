@@ -55,7 +55,7 @@ Hint: No/empty command shows help."
     case "$2" in
     arch)
         if hash yay 2>/dev/null; then
-            yay -Syu suckless-tools brave-bin notion-app alacritty zsh neofetch htop neovim code rsync rclone openssh go ttf-dejavu noto-fonts-emoji otf-overpass feh flameshot gpick xsel xcape compton bat exa tmux screen ghostwriter
+            yay -Syu suckless-tools brave-bin notion-app alacritty zsh neofetch htop neovim code rsync rclone openssh go ttf-dejavu noto-fonts-emoji otf-overpass feh flameshot gpick xsel xcape compton bat exa tmux screen ghostwriter rofi
         else
             echo "Dependency \"yay\" not found."
             exit 1
@@ -109,7 +109,7 @@ Hint: No/empty command shows help."
         code --install-extension "silvenon.mdx"
         ;;
     deb)
-        sudo apt-get install tmux flameshot ghostwriter zsh telnet git vim htop nload dstat net-tools
+        sudo apt-get install tmux flameshot ghostwriter zsh telnet git vim htop nload dstat net-tools rofi
         # alacritty
         ;;
     fzf)

@@ -13,6 +13,8 @@ alias fonts-rebuild="fc-cache -f -v"
 alias x-refresh-db="xrdb ~/.Xresources"
 alias weather="curl 'wttr.in?format=2'"
 alias keyboard-info="man 7 xkeyboard-config"
+alias cpu-set-performance="sudo cpufreq-set -r -g performance"
+alias cpu-set-powersave="sudo cpufreq-set -r -g powersave"
 
 alias select-file="xsel -b <"
 alias dir-size="du -sk * | sort -n"

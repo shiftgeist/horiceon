@@ -13,10 +13,10 @@
 # the first command does not respect panel/decoration offsets and the second
 # will sometimes give a "-0-0" geometry. This is why we resort to "xwininfo".
 
-screen_width=$(xdpyinfo | awk '/dimensions:/ { print $2; exit }' | cut -d"x" -f1)
-screen_height=$(xdpyinfo | awk '/dimensions:/ { print $2; exit }' | cut -d"x" -f2)
-display_width=$(xdotool getdisplaygeometry | cut -d" " -f1)
-display_height=$(xdotool getdisplaygeometry | cut -d" " -f2)
+screen_width=$(xdpyinfo | awk '/dimensions:/ { print $2; exit }' | cut -d "x" -f1)
+screen_height=$(xdpyinfo | awk '/dimensions:/ { print $2; exit }' | cut -d "x" -f2)
+display_width=$(xdotool getdisplaygeometry | cut -d " " -f1)
+display_height=$(xdotool getdisplaygeometry | cut -d " " -f2)
 window_id=$(xdotool getactivewindow)
 
 # Read window position
@@ -30,16 +30,23 @@ x=$((x - x_offset))
 y=$((y - y_offset))
 
 # Compute new X position
-new_x_left=$((x - display_width))
-new_x_right=$((x + display_width))
+case $1 in
+-l)
+  new_x=$((x - display_width))
+  ;;
+-r)
+  new_x=$((x + display_width))
+  ;;
+esac
+
 # Compute new Y position
 new_y=$((y + display_height))
 
 # If we would move off the right-most monitor, we set it to the left one.
 # We also respect the window's width here: moving a window off more than half its width won't happen.
 width=$(xdotool getwindowgeometry "$window_id" | awk '/Geometry:/ { print $2 }' | cut -d"x" -f1)
-if [ "$((new_x_right + width / 2))" -gt "$screen_width" ]; then
-  new_x_right=$((new_x_right - screen_width))
+if [ "$((new_x + width / 2))" -gt "$screen_width" ]; then
+  new_x=$((new_x - screen_width))
 fi
 
 height=$(xdotool getwindowgeometry "$window_id" | awk '/Geometry:/ { print $2 }' | cut -d"x" -f2)
@@ -48,13 +55,8 @@ if [ "$((new_y + height / 2))" -gt "$screen_height" ]; then
 fi
 
 # Don't move off the left side.
-if [ "$new_x_right" -lt 0 ]; then
-  new_x_right=0
-fi
-
-# Don't move off the left side.
-if [ "$new_x_left" -lt 0 ]; then
-  new_x_left=0
+if [ "$new_x" -lt 0 ]; then
+  new_x=0
 fi
 
 # Don't move off the bottom
@@ -62,12 +64,4 @@ if [ "$new_y" -lt 0 ]; then
   new_y=0
 fi
 
-# Move the window
-case $1 in
--l)
-  xdotool windowmove "$window_id" "$new_x_left" "$new_y"
-  ;;
--r)
-  xdotool windowmove "$window_id" "$new_x_right" "$new_y"
-  ;;
-esac
+xdotool windowmove "$window_id" "$new_x" "$new_y"

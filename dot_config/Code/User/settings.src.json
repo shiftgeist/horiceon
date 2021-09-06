@@ -16,6 +16,7 @@
   },
   "breadcrumbs.enabled": false,
   "debug.javascript.autoAttachFilter": "onlyWithFlag",
+  "editor.bracketPairColorization.enabled": true,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.fontFamily": "'Dank Mono', 'Fira Code', monospace",
   "editor.fontLigatures": true,
@@ -32,6 +33,7 @@
       "column": 79
     }
   ],
+  "editor.suggest.preview": true,
   "editor.suggestOnTriggerCharacters": false,
   "editor.tabSize": 2,
   "explorer.sortOrder": "default",
@@ -42,6 +44,8 @@
   "git.autofetch": true,
   "git.confirmSync": false,
   "git.enableSmartCommit": true,
+  "gitblame.infoMessageFormat": "${author.name}: \"${commit.summary}\" (${commit.hash_short})",
+  "gitblame.statusBarMessageFormat": "${time.ago}",
   "gitlens.defaultDateShortFormat": "D.MM.YYYY",
   "gitlens.menus": {
     "editor": false,
@@ -97,7 +101,5 @@
   },
   "workbench.colorTheme": "Panda Syntax",
   "workbench.editor.untitled.hint": "hidden",
-  "workbench.startupEditor": "newUntitledFile",
-  "gitblame.infoMessageFormat": "${author.name}: \"${commit.summary}\" (${commit.hash_short})",
-  "gitblame.statusBarMessageFormat": "${time.ago}"
+  "workbench.startupEditor": "newUntitledFile"
 }

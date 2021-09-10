@@ -2,6 +2,7 @@
 
 # xinitrc runs automatically when you run startx.
 
+# todo: make it work (xrate, set-prop)
 setxkbmap us altgr-intl &
 setxkbmap -option caps:escape -option lv3:ralt_switch & # Map the caps lock key to escape
 xset r rate 300 50 &                                    # Increase key speed via a rate change

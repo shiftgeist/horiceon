@@ -6,6 +6,8 @@ ansible
 docs
 
 README.md
+LICENSE
+ignore_run_once_init
 
 # ignore source files to symlinks
 *.src.*

@@ -5,8 +5,7 @@
 # todo: make it work (xrate, set-prop)
 setxkbmap us altgr-intl &
 setxkbmap -option caps:escape -option lv3:ralt_switch & # Map the caps lock key to escape
-xset r rate 300 50 &                                    # Increase key speed via a rate change
-xinput set-prop 11 290 1 &                              # Make touch pad tapable
+xinput set-prop 11 290 1 &                              # Touchpad libinput Tapping Enabled
 xrdb "$XDG_CONFIG_HOME/Xresources" &                    # Use Xresources colors/settings on startup
 
 eval $(gnome-keyring-daemon --start) # generates GNOME_KEYRING_CONTROL and SSH_AUTH_SOCK
@@ -17,7 +16,7 @@ export "$(/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh,
 # Start graphical server on tty1 if not already running.
 if [ -z "$SSH_AUTH_SOCK" ]; then
   eval $(ssh-agent -s)
-  ssh-add
+  ssh-add ~/.ssh/id_rsa
 fi
 
 if [ "$(tty)" = "/dev/tty1" ]; then

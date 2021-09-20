@@ -1,0 +1,3 @@
+#!/bin/sh
+
+nmcli device status | grep connected | grep -vE 'br' | awk '{print $1}'

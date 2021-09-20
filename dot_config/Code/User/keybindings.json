@@ -15,10 +15,6 @@
     "when": "editorTextFocus && !editorReadonly"
   },
   {
-    "key": "ctrl+r",
-    "command": "workbench.action.openRecent"
-  },
-  {
     "key": "ctrl+shift+enter",
     "command": "workbench.action.terminal.split",
     "when": "terminalFocus"

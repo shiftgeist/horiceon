@@ -36,6 +36,7 @@
   "editor.suggest.preview": true,
   "editor.suggestOnTriggerCharacters": false,
   "editor.tabSize": 2,
+  "eslint.format.enable": true,
   "explorer.sortOrder": "default",
   "files.associations": {
     "*.svg": "html"

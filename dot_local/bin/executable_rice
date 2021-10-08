@@ -75,7 +75,6 @@ Hint: No/empty command shows help."
         code --install-extension "simonsiefke.prettier-vscode"
         code --install-extension "simonsiefke.svg-preview"
         code --install-extension "waderyan.gitblame"
-        code --install-extension "wix.vscode-import-cost"
         code --install-extension "wmaurer.change-case"
         code --install-extension "zengxingxin.sort-js-object-keys"
         ;;

@@ -1,12 +1,27 @@
 {
+  "[css]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
   "[go]": {
     "editor.defaultFormatter": "golang.go"
   },
   "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[jsx]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[markdown]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
   "[python]": {
     "editor.defaultFormatter": "ms-python.python"
+  },
+  "[scss]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "[shellscript]": {
     "editor.defaultFormatter": "foxundermoon.shell-format"
@@ -16,7 +31,6 @@
   },
   "breadcrumbs.enabled": false,
   "debug.javascript.autoAttachFilter": "onlyWithFlag",
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.fontFamily": "'Dank Mono', 'Fira Code', monospace",
   "editor.fontLigatures": true,
   "editor.fontSize": 14,
@@ -29,8 +43,8 @@
   "editor.renderWhitespace": "boundary",
   "editor.rulers": [
     {
-      "color": "#242526",
-      "column": 79
+      "color": "#21242C",
+      "column": 80
     }
   ],
   "editor.suggest.preview": true,

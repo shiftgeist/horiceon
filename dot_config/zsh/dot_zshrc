@@ -22,8 +22,9 @@ PS1="loading> " # provide a simple prompt till the theme loads
 
 ZSHPATH="$XDG_DATA_HOME/zsh"
 HISTFILE="$XDG_CACHE_HOME/zsh/history"
-HISTSIZE=10000
+HISTSIZE=1000000
 SAVEHIST=1000000
+setopt interactive_comments
 setopt appendhistory
 setopt auto_cd
 

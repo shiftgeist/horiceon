@@ -1,4 +1,7 @@
 {
+  "[css]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
   "[go]": {
     "editor.defaultFormatter": "golang.go"
   },
@@ -112,7 +115,8 @@
   "workbench.colorCustomizations": {
     "parameterHints.hintBackground": "#00000000"
   },
-  "workbench.colorTheme": "Andromeda Italic Bordered",
+  "workbench.colorTheme": "Xresources Bordered",
   "workbench.editor.untitled.hint": "hidden",
-  "workbench.startupEditor": "newUntitledFile"
+  "workbench.startupEditor": "newUntitledFile",
+  "xresourcesTheme.xresourcesPath": "~/.config/Xresources"
 }

@@ -103,7 +103,7 @@ Hint: No/empty command shows help."
         code --install-extension "foxundermoon.shell-format"
         ;;
     deb)
-        sudo apt-get install tmux flameshot ghostwriter zsh telnet git vim htop nload dstat net-tools rofi
+        sudo apt-get install tmux flameshot ghostwriter zsh telnet git vim htop nload dstat net-tools rofi git-merge-changelog
         ;;
     fzf)
         chmod +x ~/.local/src/fzf/install

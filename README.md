@@ -10,8 +10,9 @@ files under `$HOME` by adhering to the [XDG standards][xdg] wherever possible.
 ## starring
 
 - Shell: [zsh][zsh] + [zinit][zinit]
-- Terminal emulator: [Alacritty](https://github.com/alacritty/alacritty)
+- Terminal emulator: [Kitty](https://github.com/kovidgoyal/kitty)
 - Interface Font: [Akinson Hyperlegible](https://github.com/shiftgeist/atkinson-hyperlegible-deb)
+- Mono Font: [Dank Mono](https://philpl.gumroad.com/l/dank-mono)
 - Lookscreen: [slock](https://tools.suckless.org/slock/)
 - Theme: [Matcha-dark-azul](https://github.com/vinceliuice/Matcha-gtk-theme)
 - Icons: [elementary-xfce](https://github.com/shimmerproject/elementary-xfce)

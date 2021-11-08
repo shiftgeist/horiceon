@@ -10,10 +10,9 @@ main() {
 Horiceon helper cli
 Usage: $cli_name [command]
 
-Commands:
-  install|i     install packages
-
-Hint: No/empty command shows help."
+  install i   install packages
+  docs d      show docs
+  *           help"
         exit 1
     }
 
@@ -79,37 +78,32 @@ Hint: No/empty command shows help."
         code --install-extension "zengxingxin.sort-js-object-keys"
         ;;
     code-optional)
-        code --install-extension "ryu1kn.text-marker"
-        ;;
-    code-languages)
+        # logs
+        code --install-extension "ibm.output-colorizer"
+
         # css
         code --install-extension "stylelint.vscode-stylelint" # :warning: slow!
 
         # svelte
-        code --install-extension "fivethree.vscode-svelte-snippets"
         code --install-extension "svelte.svelte-vscode"
-
+        code --install-extension "fivethree.vscode-svelte-snippets"
         # vue
         code --install-extension "octref.vetur"
 
         # tailwind
         code --install-extension "heybourn.headwind"
         code --install-extension "bradlc.vscode-tailwindcss"
-        code --install-extension "voorjaar.windicss-intellisense" # windicss
+        code --install-extension "voorjaar.windicss-intellisense"
 
         # shell
         code --install-extension "timonwong.shellcheck"
-        code --install-extension "foxundermoon.shell-format"
 
         # yaml
         code --install-extension "redhat.vscode-yaml"
-
-        # mdx
-        code --install-extension "silvenon.mdx"
+        code --install-extension "foxundermoon.shell-format"
         ;;
     deb)
         sudo apt-get install tmux flameshot ghostwriter zsh telnet git vim htop nload dstat net-tools rofi
-        # alacritty
         ;;
     fzf)
         chmod +x ~/.local/src/fzf/install
@@ -133,6 +127,12 @@ Hint: No/empty command shows help."
         ;;
     volta)
         curl https://get.volta.sh | bash -s -- "--skip-setup"
+        ;;
+    kitty)
+        curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
+        ln -s ~/.local/kitty.app/bin/kitty ~/.local/bin/
+        cp ~/.local/kitty.app/share/applications/kitty.desktop ~/.local/share/applications/
+        sed -i "s|Icon=kitty|Icon=/home/$USER/.local/kitty.app/share/icons/hicolor/256x256/apps/kitty.png|g" ~/.local/share/applications/kitty.desktop
         ;;
     *)
         cli_help_packages

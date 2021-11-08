@@ -115,7 +115,7 @@
   "workbench.colorCustomizations": {
     "parameterHints.hintBackground": "#00000000"
   },
-  "workbench.colorTheme": "Xresources Bordered",
+  "workbench.colorTheme": "Andromeda Italic",
   "workbench.editor.untitled.hint": "hidden",
   "workbench.startupEditor": "newUntitledFile",
   "xresourcesTheme.xresourcesPath": "~/.config/Xresources"

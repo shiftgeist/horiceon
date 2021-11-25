@@ -28,6 +28,11 @@ setopt interactive_comments
 setopt appendhistory
 setopt auto_cd
 
+autoload -Uz add-zsh-hook
+setopt AUTO_PUSHD PUSHD_SILENT PUSHD_TO_HOME # remember cd history
+setopt PUSHD_IGNORE_DUPS ## Remove duplicate entries
+setopt PUSHD_MINUS ## This reverts the +/- operators.
+
 zinit snippet OMZL::git.zsh
 
 zinit ice wait"1" lucid

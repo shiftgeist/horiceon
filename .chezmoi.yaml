@@ -1,6 +1,6 @@
 # ~/.config/chezmoi/chezmoi.toml
 data:
-  desktop: ""
+  desktop: true
   git:
     name: ""
     email: ""
@@ -8,6 +8,12 @@ data:
   api:
     bitwarden: ""
     tinypng: ""
+  mail:
+    from: ""
+    realname: ""
+    imap_url: ""
+    smtp_url: ""
+    pass: ""
 diff:
   format: "git"
   pager: "diff-so-fancy"

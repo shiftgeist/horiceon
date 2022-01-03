@@ -45,7 +45,7 @@
 	st = status
 	co = checkout
 	br = branch
-	yeet = !git reset --hard && git clean -fd
+	yeet = !git reset --hard origin/$(git rev-parse --abbrev-ref HEAD) && git clean -fd
 	logo = log --pretty='%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
 	loga = log --oneline --decorate --graph --all
 

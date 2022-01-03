@@ -1,0 +1,11 @@
+set from = "{{ .mail.from }}"
+set realname = "{{ .mail.realname }}"
+
+set smtp_url = "smtp://{{ .mail.from }}@{{ .mail.smtp_url }}/"
+set smtp_pass = "{{ .mail.pass }}"
+set imap_user = "{{ .mail.from }}"
+set imap_pass = "{{ .mail.pass }}"
+set folder = "imaps://{{ .mail.imap_url }}/"
+set spoolfile = "+INBOX"
+
+set sort = "reverse-date-received"

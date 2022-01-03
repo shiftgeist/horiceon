@@ -9,7 +9,7 @@ files under `$HOME` by adhering to the [XDG standards][xdg] wherever possible.
 
 ## starring
 
-- Shell: [zsh][zsh] + [zinit][zinit]
+- Shell: [zsh](https://github.com/zsh-users/zsh) + [zinit](https://github.com/zdharma/zinit)
 - Terminal emulator: [Kitty](https://github.com/kovidgoyal/kitty)
 - Interface Font: [Akinson Hyperlegible](https://github.com/shiftgeist/atkinson-hyperlegible-deb)
 - Mono Font: [Dank Mono](https://philpl.gumroad.com/l/dank-mono)
@@ -17,17 +17,12 @@ files under `$HOME` by adhering to the [XDG standards][xdg] wherever possible.
 - Theme: [Matcha-dark-azul](https://github.com/vinceliuice/Matcha-gtk-theme)
 - Icons: [elementary-xfce](https://github.com/shimmerproject/elementary-xfce)
 
-## todos
+## open
 
 - [ ] explore option to convert bin/executable_rice to ansible
-  - [ ] add ripgrep
-  - [ ] add exa
-- [ ] rewrite git-change-author in python
 
 [contrib]: https://github.com/shiftgeist/horiceon/graphs/contributors
 [issues]: https://github.com/shiftgeist/horiceon/issues
 [shield_contrib]: https://img.shields.io/github/contributors/shiftgeist/horiceon
 [shield_issues]: https://img.shields.io/github/issues/shiftgeist/horiceon
 [xdg]: https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html
-[zinit]: https://github.com/zdharma/zinit
-[zsh]: https://github.com/zsh-users/zsh

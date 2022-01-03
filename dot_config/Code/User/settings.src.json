@@ -8,10 +8,10 @@
   "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "[json]": {
+  "[javascriptreact]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "[javascriptreact]": {
+  "[json]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "[markdown]": {
@@ -29,8 +29,12 @@
   "[svelte]": {
     "editor.defaultFormatter": "svelte.svelte-vscode"
   },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
   "breadcrumbs.enabled": false,
   "debug.javascript.autoAttachFilter": "onlyWithFlag",
+  "editor.cursorBlinking": "solid",
   "editor.fontFamily": "'Dank Mono', 'Fira Code', monospace",
   "editor.fontLigatures": true,
   "editor.fontSize": 14,

@@ -11,10 +11,9 @@ export VOLTA_HOME="$HOME/.volta"
 export FZF_BASE="$HOME/.fzf/bin/fzf"
 export PATH="$VOLTA_HOME/bin:$PATH"
 
-export BROWSER="brave-browser"
 export EDITOR="vim"
 export PAGER="less"
-export TERMINAL="alacritty"
+export TERMINAL="kitty"
 
 TTY="$(tty)"
 export GPG_TTY=$TTY

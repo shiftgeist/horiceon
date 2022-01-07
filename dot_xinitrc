@@ -7,8 +7,12 @@ setxkbmap -option caps:escape -option lv3:ralt_switch & # Map the caps lock key 
 xinput set-prop 11 290 1 &                              # Touchpad libinput Tapping Enabled
 xrdb "$XDG_CONFIG_HOME/Xresources" &                    # Use Xresources colors/settings on startup
 
-eval $(ssh-agent -s)
-ssh-add ~/.ssh/id_rsa
+export SSH_AUTH_SOCK
+
+if [ -z "$SSH_AUTH_SOCK" ]; then
+  eval $(ssh-agent -s)
+  ssh-add ~/.ssh/id_rsa
+fi
 
 if [ "$(tty)" = "/dev/tty1" ]; then
   ssh-agent startxfce4

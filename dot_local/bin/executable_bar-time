@@ -4,16 +4,20 @@
 # https://docs.xfce.org/panel-plugins/xfce4-genmon-plugin/start
 
 INFO=
-INFO+=$(date +"%d.%m %l")                  # 01.03 8
-INFO+=":"                                  #
-INFO+=$(echo "$(date +%M) / 10 * 10" | bc) # slow minute (0, 10, 20, 30, 40, 50)
-INFO+=$(date +"%P")                        # am/pm
+INFO+=$(date +"%d.%m %l") # 01.03 8
+INFO+=":"
+slow_minute=$(echo "$(date +%M) / 10 * 10" | bc)
+if [ $slow_minute = '0' ]; then
+  slow_minute='00'
+fi
+INFO+=$slow_minute  # 00, 10, 20, 30, 40, 50
+INFO+=$(date +"%P") # am/pm
 
 MORE_INFO=
 MORE_INFO+=$(echo "$(date +%j) / 3.65" | bc) # year percent
 MORE_INFO+="% / "                            #
 MORE_INFO+="$(date +KW%V)"                   # KW14
-MORE_INFO+=" /"                              #
+MORE_INFO+=" / "                             #
 MORE_INFO+=$(date +%l:%M%P)                  # 8:30pm
 
 # Panel Print

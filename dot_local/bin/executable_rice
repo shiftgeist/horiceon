@@ -66,7 +66,7 @@ Hint: No/empty command shows help."
         code --install-extension "dbaeumer.vscode-eslint"
         code --install-extension "eamodio.gitlens"
         code --install-extension "editorconfig.editorconfig"
-        code --install-extension "eliverlara.andromeda" # theme
+        code --install-extension "ahmadawais.shades-of-purple" # theme
         code --install-extension "lokalise.i18n-ally"
         code --install-extension "naumovs.color-highlight"
         code --install-extension "ow.vscode-subword-navigation"

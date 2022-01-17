@@ -61,46 +61,24 @@ Hint: No/empty command shows help."
         fi
         ;;
     code)
+        code --install-extension "ahmadawais.shades-of-purple" # theme
         code --install-extension "bierner.emojisense"
+        code --install-extension "bierner.markdown-mermaid"
         code --install-extension "bierner.markdown-preview-github-styles"
         code --install-extension "dbaeumer.vscode-eslint"
         code --install-extension "eamodio.gitlens"
         code --install-extension "editorconfig.editorconfig"
-        code --install-extension "ahmadawais.shades-of-purple" # theme
+        code --install-extension "formulahendry.code-runner"
+        code --install-extension "foxundermoon.shell-format"
         code --install-extension "lokalise.i18n-ally"
         code --install-extension "naumovs.color-highlight"
         code --install-extension "ow.vscode-subword-navigation"
-        code --install-extension "mskelton.npm-outdated"
         code --install-extension "simonsiefke.prettier-vscode"
         code --install-extension "simonsiefke.svg-preview"
+        code --install-extension "timonwong.shellcheck"
         code --install-extension "waderyan.gitblame"
         code --install-extension "wmaurer.change-case"
         code --install-extension "zengxingxin.sort-js-object-keys"
-        ;;
-    code-optional)
-        # logs
-        code --install-extension "ibm.output-colorizer"
-
-        # css
-        code --install-extension "stylelint.vscode-stylelint" # :warning: slow!
-
-        # svelte
-        code --install-extension "svelte.svelte-vscode"
-        code --install-extension "fivethree.vscode-svelte-snippets"
-        # vue
-        code --install-extension "octref.vetur"
-
-        # tailwind
-        code --install-extension "heybourn.headwind"
-        code --install-extension "bradlc.vscode-tailwindcss"
-        code --install-extension "voorjaar.windicss-intellisense"
-
-        # shell
-        code --install-extension "timonwong.shellcheck"
-
-        # yaml
-        code --install-extension "redhat.vscode-yaml"
-        code --install-extension "foxundermoon.shell-format"
         ;;
     deb)
         sudo apt-get install tmux flameshot ghostwriter zsh telnet git vim htop nload dstat net-tools rofi git-merge-changelog

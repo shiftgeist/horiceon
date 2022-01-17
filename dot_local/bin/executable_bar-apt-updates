@@ -6,9 +6,9 @@
 INFO=
 MORE_CMD=
 
-UPDATES=$(apt list --upgradable 2>/dev/null | grep upgradable)
+UPDATES=$(apt list --upgradable 2>/dev/null | grep -c upgradable)
 
-if [ "$UPDATES" -gt 0 ]; then
+if [ "$UPDATES" -ne "0" ]; then
   MORE_CMD="<txtclick>kitty sudo aptitude full-upgrade</txtclick>"
   INFO+="<txt> "
   INFO+="$UPDATES 📦"

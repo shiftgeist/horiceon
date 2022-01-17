@@ -31,37 +31,49 @@ basename "git@github.com:shiftgeist/horiceon.git" .git
 Variable exists
 
 ```shell
-if [ "$VARIABLE" ]
-then
+if [ "$VARIABLE" ]; then
   echo "$VARIABLE is set."
 fi
 ```
 
-Variable is empty
+If the length of string is zero (Variable is empty)
 
 ```shell
-if [ -z "$VARIABLE" ]
-then
+if [ -z "$UPDATES" ]; then
   echo "$VARIABLE is unset."
+fi
+```
+
+If the length of string is non-zero (Variable is not empty)
+
+```shell
+if [ -n "$VARIABLE" ]; then
+  echo "$VARIABLE is set."
+fi
+```
+
+Variable is equal to
+
+```shell
+if [ "$VARA" -eq "$VARB" ]; then
+  echo "$VARA is equal to $VARB."
 fi
 ```
 
 Display exists
 
 ```shell
-if [ "$DISPLAY" ]
-then
+if [ "$DISPLAY" ]; then
   echo "No display attached."
 else
   echo "Has display $DISPLAY."
 fi
 ```
 
-File exists
+File exists and is a regular file
 
 ```shell
-if [ -f "$FILE" ]
-then
+if [ -f "$FILE" ]; then
   echo "$FILE exists."
 fi
 ```
@@ -69,8 +81,7 @@ fi
 Command exists
 
 ```shell
-if command -v COMMAND > /dev/null
-then
+if command -v COMMAND > /dev/null; then
   echo "command exists"
 fi
 ```
@@ -78,8 +89,7 @@ fi
 Function has an argument
 
 ```shell
-if [ "$#" -ne 0 ]
-then
+if [ "$#" -ne 0 ]; then
   echo "has argument"
 fi
 ```
@@ -87,8 +97,7 @@ fi
 String contains substring
 
 ```shell
-if echo "hello world" | grep -q "world"
-then
+if echo "hello world" | grep -q "world"; then
   echo "contains substring"
 fi
 ```

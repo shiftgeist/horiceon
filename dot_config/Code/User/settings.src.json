@@ -32,6 +32,9 @@
   "[typescript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
+  "[vue]": {
+    "editor.defaultFormatter": "johnsoncodehk.volar"
+  },
   "breadcrumbs.enabled": false,
   "debug.javascript.autoAttachFilter": "onlyWithFlag",
   "editor.cursorBlinking": "solid",
@@ -115,6 +118,11 @@
   "terminal.integrated.minimumContrastRatio": 4.5,
   "terminal.integrated.mouseWheelScrollSensitivity": 3,
   "terminal.integrated.scrollback": 100000,
+  "vite.autoStart": true,
+  "vite.notifyOnStarted": false,
+  "vite.open": false,
+  "volar.completion.preferredTagNameCase": "pascal",
+  "volar.formatting.printWidth": 80,
   "window.menuBarVisibility": "hidden",
   "workbench.colorCustomizations": {
     "parameterHints.hintBackground": "#00000000"

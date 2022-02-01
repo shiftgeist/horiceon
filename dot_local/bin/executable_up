@@ -1,11 +1,10 @@
 #!/usr/bin/env bash
 
-# bump git and npm semantic version with git flow
+# bump git and npm semantic version with
 
 set -e
 
-if ! command -v semver &>/dev/null
-then
+if ! command -v semver &>/dev/null; then
   echo "semver could not be found"
   exit
 fi
@@ -30,43 +29,42 @@ function latest_tag() {
 }
 
 # parse input parameters
-for i in "$@"
-do
+for i in "$@"; do
   case $i in
-    alpha)
+  alpha)
     PRERELEASE=true
     PREID="alpha"
     ;;
-    beta)
+  beta)
     PRERELEASE=true
     PREID="beta"
     ;;
-    rc)
+  rc)
     PRERELEASE=true
     PREID="rc"
     ;;
-    patch)
+  patch)
     LEVEL="patch"
     ;;
-    minor)
+  minor)
     LEVEL="minor"
     ;;
-    major)
+  major)
     LEVEL="major"
     ;;
-    rev)
+  rev)
     PRERELEASE=true
     ;;
-    npm)
+  npm)
     SOURCE="npm"
     ;;
-    git)
+  git)
     SOURCE="git"
     ;;
-    now)
+  now)
     echo "$TAG"
     ;;
-    *) # unknown command
+  *) # unknown command
     help
     ;;
   esac

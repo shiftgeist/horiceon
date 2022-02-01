@@ -1,25 +1,21 @@
 #!/bin/sh
 
 __npm_set_tag() {
-  if [ -f "package.json" ]
-  then
-    jq ".version=\"$1\"" package.json > package.json.tmp
+  if [ -f "package.json" ]; then
+    jq ".version=\"$1\"" package.json >package.json.tmp
     mv package.json.tmp package.json
   fi
   __npm_install_lock_file
 }
 
 __npm_install_lock_file() {
-  if [ -f "package-lock.json" ]
-  then
+  if [ -f "package-lock.json" ]; then
     npm install
   fi
-  if [ -f "pnpm-lock.yaml" ]
-  then
+  if [ -f "pnpm-lock.yaml" ]; then
     pnpm install
   fi
-  if [ -f "yarn.lock" ]
-  then
+  if [ -f "yarn.lock" ]; then
     yarn install
   fi
 }
@@ -31,12 +27,11 @@ __git() {
 }
 
 git_is_repo() {
-  __git rev-parse HEAD > /dev/null 2>&1
+  __git rev-parse HEAD >/dev/null 2>&1
 }
 
 git_is_clean() {
-  if __git status -s | read -r REPLY
-  then
+  if __git status -s | read -r REPLY; then
     return 1
   else
     return 0
@@ -48,8 +43,7 @@ git_main_branch() {
   command git rev-parse --git-dir >/dev/null || return
 
   for branch in main trunk; do
-    if command git show-ref -q --verify refs/heads/$branch
-    then
+    if command git show-ref -q --verify refs/heads/$branch; then
       echo $branch
       return
     fi
@@ -64,12 +58,11 @@ __git_checkout_main() {
 # Outputs the name of the current branch
 __git_current_branch() {
   git_is_repo || return
-  ref=$(__git symbolic-ref --quiet HEAD 2> /dev/null)
+  ref=$(__git symbolic-ref --quiet HEAD 2>/dev/null)
   ret=$?
-  if [ $ret -ne 0 ]
-  then
-    [ $ret -eq 128 ] && return  # no git repo.
-    ref=$(__git rev-parse --short HEAD 2> /dev/null) || return
+  if [ $ret -ne 0 ]; then
+    [ $ret -eq 128 ] && return # no git repo.
+    ref=$(__git rev-parse --short HEAD 2>/dev/null) || return
   fi
   echo "${ref#refs/heads/}"
 }
@@ -92,23 +85,39 @@ __git_latest_tag() {
   __git describe --tags "$(__git_current_commit)"
 }
 
-__git_flow_release_start() {
-  if [ "$#" -ne 0 ]
-  then
+__git_flow_feature() {
+  __git checkout -b "feature/$1" develop
+}
+
+__git_flow_hotfix() {
+  if [ "$#" -ne 0 ]; then
+    NEW_GIT_TAG="$1"
+  else
+    NEW_GIT_TAG=$(up git patch)
+  fi
+
+  __git checkout -b "hotfix/$NEW_GIT_TAG"
+
+  if [ "$#" -eq 0 ]; then
+    __npm_set_tag "$NEW_GIT_TAG"
+  fi
+}
+
+__git_flow_release() {
+  if [ "$#" -ne 0 ]; then
     NEW_GIT_TAG="$1"
   else
     echo "$(__git_latest_tag) » [m]ajor, m[I]nor or [p]atch?"
-    while read -r REPLY
-    do
+    while read -r REPLY; do
       case $REPLY in
-        m|major)
-          NEW_GIT_TAG=$(up git major)
+      m | major)
+        NEW_GIT_TAG=$(up git major)
         ;;
-        p|patch)
-          NEW_GIT_TAG=$(up git patch)
+      p | patch)
+        NEW_GIT_TAG=$(up git patch)
         ;;
-        *)
-          NEW_GIT_TAG=$(up git minor)
+      *)
+        NEW_GIT_TAG=$(up git minor)
         ;;
       esac
 
@@ -116,26 +125,9 @@ __git_flow_release_start() {
     done
   fi
 
-  __git flow release start "$NEW_GIT_TAG"
+  __git checkout -b "release/$NEW_GIT_TAG" develop
 
-  if [ "$#" -eq 0 ]
-  then
-    __npm_set_tag "$NEW_GIT_TAG"
-  fi
-}
-
-__git_flow_hotfix_start() {
-  if [ "$#" -ne 0 ]
-  then
-    NEW_GIT_TAG="$1"
-  else
-    NEW_GIT_TAG=$(up git patch)
-  fi
-
-  __git flow hotfix start "$NEW_GIT_TAG"
-
-  if [ "$#" -eq 0 ]
-  then
+  if [ "$#" -eq 0 ]; then
     __npm_set_tag "$NEW_GIT_TAG"
   fi
 }
@@ -146,6 +138,28 @@ __git_flow_finish() {
   FLOW_NAME="$(printf '%s' "$BRANCH" | cut -d '/' -f2)"
 
   export GIT_MERGE_AUTOEDIT=no
-  __git flow "$FLOW_TYPE" finish --message "$FLOW_NAME" --showcommands
+
+  echo "step 1"
+  case "$FLOW_TYPE" in
+  feature)
+    echo "nothing to do here"
+    ;;
+  hotfix | release)
+    git checkout master
+    git merge --no-ff "$FLOW_TYPE/$FLOW_NAME"
+    git tag -a "$FLOW_NAME" -m "$FLOW_TYPE $FLOW_NAME"
+    ;;
+  *)
+    echo "no valid type found (__git_flow_finish)"
+    unset GIT_MERGE_AUTOEDIT
+    exit 1
+    ;;
+  esac
+
+  echo "step 2"
+  git checkout develop
+  git merge --no-ff "$FLOW_TYPE/$FLOW_NAME"
+  git branch -d "$FLOW_TYPE/$FLOW_NAME"
+
   unset GIT_MERGE_AUTOEDIT
 }

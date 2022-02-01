@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # dependencies
-# git git-flow jq bc jq vim docker xsel tar
+# git jq bc jq vim docker xsel tar
 
 # general
 
@@ -83,11 +83,9 @@ alias gstl="git stash list"
 alias gstp="git stash pop"
 
 # git flow
-alias gfin="git flow init -f -d -p 'feature/' -b 'bugfix/' -r 'release/' -x 'hotfix/' -s 'support/'"
-alias gffs="git flow feature start"
-alias gfh="__git_flow_hotfix_start"
-alias gdesc="git flow hotfix start"
-alias gfr="__git_flow_release_start"
+alias gff="__git_flow_feature"
+alias gfh="__git_flow_hotfix"
+alias gfr="__git_flow_release"
 alias gff="__git_flow_finish"
 
 # list

@@ -19,7 +19,7 @@ files under `$HOME` by adhering to the [XDG standards][xdg] wherever possible.
 
 ## open
 
-- [ ] explore option to convert bin/executable_rice to ansible
+- [ ] test [symlink mode](https://www.chezmoi.io/reference/target-types/#symlink-mode)
 
 [contrib]: https://github.com/shiftgeist/horiceon/graphs/contributors
 [issues]: https://github.com/shiftgeist/horiceon/issues

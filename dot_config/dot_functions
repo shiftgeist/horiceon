@@ -12,9 +12,9 @@ __npm_install_lock_file() {
   if [ -f "package-lock.json" ]; then
     npm install
   fi
-  if [ -f "pnpm-lock.yaml" ]; then
-    pnpm install
-  fi
+  # if [ -f "pnpm-lock.yaml" ]; then
+  #   pnpm install
+  # fi
   if [ -f "yarn.lock" ]; then
     yarn install
   fi
@@ -127,9 +127,7 @@ __git_flow_release() {
   fi
 
   if __git checkout -b "release/$NEW_GIT_TAG" develop; then
-    if [ "$#" -eq 0 ]; then
-      __npm_set_tag "$NEW_GIT_TAG"
-    fi
+    __npm_set_tag "$NEW_GIT_TAG"
   else
     return 1
   fi

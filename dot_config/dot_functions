@@ -96,10 +96,12 @@ __git_flow_hotfix() {
     NEW_GIT_TAG=$(up git patch)
   fi
 
-  __git checkout -b "hotfix/$NEW_GIT_TAG"
-
-  if [ "$#" -eq 0 ]; then
-    __npm_set_tag "$NEW_GIT_TAG"
+  if __git checkout -b "hotfix/$NEW_GIT_TAG"; then
+    if [ "$#" -eq 0 ]; then
+      __npm_set_tag "$NEW_GIT_TAG"
+    fi
+  else
+    return 1
   fi
 }
 
@@ -107,28 +109,29 @@ __git_flow_release() {
   if [ "$#" -ne 0 ]; then
     NEW_GIT_TAG="$1"
   else
-    echo "$(__git_latest_tag) » [m]ajor, m[I]nor or [p]atch?"
+    echo "$(__git_latest_tag) » [m]ajor, m[i]nor or [P]atch?"
     while read -r REPLY; do
       case $REPLY in
       m | major)
         NEW_GIT_TAG=$(up git major)
         ;;
-      p | patch)
-        NEW_GIT_TAG=$(up git patch)
-        ;;
-      *)
+      i | minor)
         NEW_GIT_TAG=$(up git minor)
         ;;
+      *)
+        NEW_GIT_TAG=$(up git patch)
+        ;;
       esac
-
       break
     done
   fi
 
-  __git checkout -b "release/$NEW_GIT_TAG" develop
-
-  if [ "$#" -eq 0 ]; then
-    __npm_set_tag "$NEW_GIT_TAG"
+  if __git checkout -b "release/$NEW_GIT_TAG" develop; then
+    if [ "$#" -eq 0 ]; then
+      __npm_set_tag "$NEW_GIT_TAG"
+    fi
+  else
+    return 1
   fi
 }
 

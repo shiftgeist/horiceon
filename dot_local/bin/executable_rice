@@ -96,7 +96,7 @@ Hint: No/empty command shows help."
         if [ "$3" ]; then
             GO_VERSION="go$3"
         else
-            GO_VERSION=$(curl -s "https://golang.org/VERSION?m=text")
+            GO_VERSION=$(curl -s "https://go.dev/VERSION?m=text")
         fi
         curl --progress-bar "https://dl.google.com/go/$GO_VERSION.linux-amd64.tar.gz" | sudo tar zxf - -C /usr/local
         go version

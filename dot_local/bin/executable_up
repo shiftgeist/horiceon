@@ -17,10 +17,9 @@ usage: $cli_name [npm|git] [command] [prerelease]
   exit 0
 }
 
-# options
 function latest_tag() {
   if [[ "$SOURCE" == "git" ]]; then
-    git describe --tags --abbrev=0 2>/dev/null
+    git describe --tags "$(git rev-list --tags --max-count=1)"
   fi
 
   if [[ "$SOURCE" == "npm" ]]; then

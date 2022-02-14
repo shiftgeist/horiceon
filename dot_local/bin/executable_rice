@@ -60,27 +60,25 @@ Hint: No/empty command shows help."
         fi
         ;;
     code)
-        code --install-extension "ahmadawais.shades-of-purple" # theme
-        code --install-extension "bierner.emojisense"
-        code --install-extension "bierner.markdown-mermaid"
-        code --install-extension "bierner.markdown-preview-github-styles"
-        code --install-extension "dbaeumer.vscode-eslint"
-        code --install-extension "deque-systems.vscode-axe-linter"
-        code --install-extension "eamodio.gitlens"
-        code --install-extension "editorconfig.editorconfig"
-        code --install-extension "formulahendry.code-runner"
-        code --install-extension "foxundermoon.shell-format"
-        code --install-extension "lokalise.i18n-ally"
-        code --install-extension "ms-vscode-remote.remote-containers"
-        code --install-extension "naumovs.color-highlight"
-        code --install-extension "ow.vscode-subword-navigation"
-        code --install-extension "simonsiefke.prettier-vscode"
-        code --install-extension "simonsiefke.svg-preview"
-        code --install-extension "timonwong.shellcheck"
-        code --install-extension "waderyan.gitblame"
-        code --install-extension "webhint.vscode-webhint"
-        code --install-extension "wmaurer.change-case"
-        code --install-extension "zengxingxin.sort-js-object-keys"
+        # code --install-extension "EXTENSION_ID"                         # WHY?
+        code --install-extension "ahmadawais.shades-of-purple"            # theme
+        code --install-extension "bierner.emojisense"                     # utility
+        code --install-extension "bierner.markdown-mermaid"               # markdown
+        code --install-extension "bierner.markdown-preview-github-styles" # markdown
+        code --install-extension "deque-systems.vscode-axe-linter"        # lint
+        code --install-extension "eamodio.gitlens"                        # git
+        code --install-extension "editorconfig.editorconfig"              # lint
+        code --install-extension "formulahendry.code-runner"              # utility
+        code --install-extension "lokalise.i18n-ally"                     # utility
+        code --install-extension "ms-vscode-remote.remote-containers"     # docker
+        code --install-extension "naumovs.color-highlight"                # utility
+        code --install-extension "ow.vscode-subword-navigation"           # utility
+        code --install-extension "simonsiefke.prettier-vscode"            # lint
+        code --install-extension "timonwong.shellcheck"                   # lint
+        code --install-extension "waderyan.gitblame"                      # git
+        code --install-extension "wdhongtw.gpg-indicator"                 # git
+        code --install-extension "webhint.vscode-webhint"                 # lint
+        code --install-extension "zengxingxin.sort-js-object-keys"        # utility
         ;;
     deb)
         sudo apt-get install tmux flameshot ghostwriter zsh telnet git vim htop nload dstat net-tools rofi git-merge-changelog

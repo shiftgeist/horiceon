@@ -10,5 +10,10 @@
     "body": "<!-- prettier-ignore-end -->",
     "description": "Add prettier ignore comment for auto-generated content (end).",
     "scope": "html,markdown"
+  },
+  "heh?": {
+    "prefix": "!heh",
+    "body": "heh? 🐸📣",
+    "description": "Add funny"
   }
 }

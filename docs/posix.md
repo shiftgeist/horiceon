@@ -26,6 +26,14 @@ Git url to folder name
 basename "git@github.com:shiftgeist/horiceon.git" .git
 ```
 
+## Get
+
+Path of script
+
+```shell
+dir=$(dirname "$0")
+```
+
 ## Check if...
 
 Variable exists

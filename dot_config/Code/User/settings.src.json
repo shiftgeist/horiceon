@@ -129,5 +129,8 @@
   },
   "workbench.colorTheme": "Shades of Purple",
   "workbench.editor.untitled.hint": "hidden",
-  "workbench.startupEditor": "newUntitledFile"
+  "workbench.startupEditor": "newUntitledFile",
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
 }

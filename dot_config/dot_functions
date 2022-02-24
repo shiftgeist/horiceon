@@ -30,7 +30,7 @@ git_is_repo() {
   __git rev-parse HEAD >/dev/null 2>&1
 }
 
-git_is_clean() {
+__git_is_clean() {
   if __git status -s | read -r REPLY; then
     return 1
   else
@@ -38,25 +38,8 @@ git_is_clean() {
   fi
 }
 
-# Check if main exists and use instead of master
-git_main_branch() {
-  command git rev-parse --git-dir >/dev/null || return
-
-  for branch in main trunk; do
-    if command git show-ref -q --verify refs/heads/$branch; then
-      echo $branch
-      return
-    fi
-  done
-  echo master
-}
-
-__git_checkout_main() {
-  git checkout "$(git_main_branch)"
-}
-
 # Outputs the name of the current branch
-__git_current_branch() {
+git_current_branch() {
   git_is_repo || return
   ref=$(__git symbolic-ref --quiet HEAD 2>/dev/null)
   ret=$?
@@ -73,23 +56,16 @@ __git_current_commit() {
   echo "$ref"
 }
 
-__git_push_current_to_origin() {
-  __git push --set-upstream origin "$(__git_current_branch)"
-}
-
-__git_reset_current_hard() {
-  __git reset origin/"$(__git_current_branch)" --hard
-}
-
-__git_latest_tag() {
+git_latest_tag() {
   __git describe --tags "$(__git_current_commit)"
 }
+alias gdesc="git_latest_tag"
 
-__git_flow_feature() {
+gitflow_feature() {
   __git checkout -b "feature/$1" develop
 }
 
-__git_flow_hotfix() {
+gitflow_hotfix() {
   if [ "$#" -ne 0 ]; then
     NEW_GIT_TAG="$1"
   else
@@ -104,12 +80,13 @@ __git_flow_hotfix() {
     return 1
   fi
 }
+alias gfh="gitflow_hotfix"
 
-__git_flow_release() {
+gitflow_release() {
   if [ "$#" -ne 0 ]; then
     NEW_GIT_TAG="$1"
   else
-    echo "$(__git_latest_tag) » [m]ajor, m[i]nor or [P]atch?"
+    echo "$(git_latest_tag) » [m]ajor, m[i]nor or [P]atch?"
     while read -r REPLY; do
       case $REPLY in
       m | major)
@@ -132,9 +109,12 @@ __git_flow_release() {
     return 1
   fi
 }
+alias gfr="gitflow_release"
 
-__git_flow_finish() {
-  BRANCH=$(__git_current_branch)
+gitflow_finish() {
+  function_name=${0##*/}
+
+  BRANCH=$(git_current_branch)
   FLOW_TYPE="$(printf '%s' "$BRANCH" | cut -d '/' -f1)"
   FLOW_NAME="$(printf '%s' "$BRANCH" | cut -d '/' -f2)"
 
@@ -151,7 +131,7 @@ __git_flow_finish() {
     git tag -a "$FLOW_NAME" -m "$FLOW_TYPE $FLOW_NAME"
     ;;
   *)
-    echo "no valid type found (__git_flow_finish)"
+    echo "no valid type found ($function_name)"
     unset GIT_MERGE_AUTOEDIT
     exit 1
     ;;
@@ -164,3 +144,4 @@ __git_flow_finish() {
 
   unset GIT_MERGE_AUTOEDIT
 }
+alias gff="gitflow_finish"

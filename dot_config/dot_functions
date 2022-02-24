@@ -72,6 +72,11 @@ gitflow_hotfix() {
     NEW_GIT_TAG=$(up git patch)
   fi
 
+  if [ -z "$NEW_GIT_TAG" ]; then
+    echo "No valid hotfix tag found after $(git_latest_tag). Provide custom tag."
+    return 1
+  fi
+
   if __git checkout -b "hotfix/$NEW_GIT_TAG"; then
     if [ "$#" -eq 0 ]; then
       __npm_set_tag "$NEW_GIT_TAG"

@@ -44,3 +44,23 @@ git tag -d tagname
 
 git push --delete origin tagname
 ```
+
+## shell helper
+
+get remote url
+
+```shell
+git ls-remote --get-url
+```
+
+get latest commit
+
+```shell
+git rev-list --tags --max-count=1
+```
+
+get latest tag
+
+```shell
+git describe --abbrev=0
+```

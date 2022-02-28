@@ -1,16 +1,27 @@
 #!/bin/sh
 
-# Author: Luke Smith
-# Source: https://www.youtube.com/watch?v=cvDyQUpaFf4
+# Original Author: Luke Smith
+# Original Source: https://www.youtube.com/watch?v=cvDyQUpaFf4
 
 # Used for educational purposes
 
 init="$(($(cat /sys/class/net/[ew]*/statistics/rx_bytes | paste -sd '+')))"
+init_date=$(date)
 
-printf "Recording bandwidth. Press enter to stop."
+printf "Recording bandwidth. Press enter to stop..."
 
-read -r inputdone
+read -r enter
 
 fin="$(($(cat /sys/class/net/[ew]*/statistics/rx_bytes | paste -sd '+')))"
+fin_date=$(date)
 
-printf "%4sB of bandwidth used.\\n" "$(numfmt --to=iec $(($fin - $init)))"
+diff=$((fin - init))
+diff_date=$(printf "%s\n" $(($(date -d "$fin_date" "+%s") - $(date -d "$init_date" "+%s"))))
+
+to_minute=$(echo "$diff_date" | awk '{printf "%f", $1 / 60}')
+minute=$(echo "$diff $to_minute" | awk '{printf "%f", $1 / $2}')
+hour=$(echo "$minute" | awk '{printf "%f", $1 * 60}')
+
+printf "%6sB of bandwidth used in %-5s (captured)\\n" "$(numfmt --to=iec $diff)" "$diff_date sec"
+printf "%6sB of bandwidth used in %-5s (calculated)\\n" "$(numfmt --to=iec "$minute")" "1 min"
+printf "%6sB of bandwidth used in %-5s (calculated)\\n" "$(numfmt --to=iec "$hour")" "1 h"

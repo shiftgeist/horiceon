@@ -6,11 +6,12 @@ Mostly learned from [shellcheck](https://github.com/koalaman/shellcheck).
 
 Usefull utils:
 
-| name   | function                                        |
-| ------ | ----------------------------------------------- |
-| numfmt | Convert numbers from/to human-read‐able strings |
-| paste  | merge lines of file                             |
-| printf | format and print data                           |
+| name   | function                                                       |
+| ------ | -------------------------------------------------------------- |
+| numfmt | Convert numbers from/to human-read‐able strings                |
+| paste  | merge lines of file                                            |
+| printf | format and print data                                          |
+| tee    | Copy standard input to each FILE, and also to standard output. |
 
 ## Convert
 

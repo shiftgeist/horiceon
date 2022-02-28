@@ -27,12 +27,25 @@ Git url to folder name
 basename "git@github.com:shiftgeist/horiceon.git" .git
 ```
 
+Math
+
+```shell
+echo "$((3*6))"
+echo "echo "$input1 $input2" | awk '{printf "%f", $1 / $2}'"
+```
+
 ## Get
 
 Path of script
 
 ```shell
 dir=$(dirname "$0")
+```
+
+First line of file into variable
+
+```shell
+output=$(head -n1 FILE_PATH)
 ```
 
 ## Check if...
@@ -108,5 +121,13 @@ String contains substring
 ```shell
 if echo "hello world" | grep -q "world"; then
   echo "contains substring"
+fi
+```
+
+Is greater than
+
+```shell
+if [ "$a" -gt "$b" ]; then
+    echo "yes"
 fi
 ```

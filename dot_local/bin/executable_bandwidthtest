@@ -22,6 +22,6 @@ to_minute=$(echo "$diff_date" | awk '{printf "%f", $1 / 60}')
 minute=$(echo "$diff $to_minute" | awk '{printf "%f", $1 / $2}')
 hour=$(echo "$minute" | awk '{printf "%f", $1 * 60}')
 
-printf "%6sB of bandwidth used in %-5s (captured)\\n" "$(numfmt --to=iec $diff)" "$diff_date sec"
-printf "%6sB of bandwidth used in %-5s (calculated)\\n" "$(numfmt --to=iec "$minute")" "1 min"
-printf "%6sB of bandwidth used in %-5s (calculated)\\n" "$(numfmt --to=iec "$hour")" "1 h"
+printf "%5sB of bandwidth used in %1s %-3s (captured)\\n" "$(numfmt --to=iec $diff)" "$diff_date" "sec"
+printf "%5sB of bandwidth used in %1s %-3s (calculated)\\n" "$(numfmt --to=iec "$minute")" "1" "min"
+printf "%5sB of bandwidth used in %1s %-3s (calculated)\\n" "$(numfmt --to=iec "$hour")" "1" "h"

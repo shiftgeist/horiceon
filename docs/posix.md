@@ -13,7 +13,7 @@ Usefull utils:
 | printf | format and print data                                          |
 | tee    | Copy standard input to each FILE, and also to standard output. |
 
-## Convert
+## Helper
 
 Bytes to string with unit
 
@@ -34,15 +34,19 @@ echo "$((3*6))"
 echo "echo "$input1 $input2" | awk '{printf "%f", $1 / $2}'"
 ```
 
-## Get
+Template strings
 
-Path of script
+```shell
+printf "Hello %s" "World"
+```
+
+Get path of script
 
 ```shell
 dir=$(dirname "$0")
 ```
 
-First line of file into variable
+Get first line of file into variable
 
 ```shell
 output=$(head -n1 FILE_PATH)
@@ -124,7 +128,7 @@ if echo "hello world" | grep -q "world"; then
 fi
 ```
 
-Is greater than
+Number is greater than the other
 
 ```shell
 if [ "$a" -gt "$b" ]; then

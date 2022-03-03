@@ -60,7 +60,7 @@ Hint: No/empty command shows help."
         fi
         ;;
     code)
-        # code --install-extension "EXTENSION_ID"                         # WHY?
+        # code --install-extension "EXTENSION_ID"
         code --install-extension "ahmadawais.shades-of-purple"            # theme
         code --install-extension "bierner.emojisense"                     # utility
         code --install-extension "bierner.markdown-mermaid"               # markdown
@@ -102,7 +102,7 @@ Hint: No/empty command shows help."
         ;;
     kitty)
         curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
-        ln -s ~/.local/kitty.app/bin/kitty ~/.local/bin/
+        ln -sf ~/.local/kitty.app/bin/kitty ~/.local/bin/
         cp ~/.local/kitty.app/share/applications/kitty.desktop ~/.local/share/applications/
         sed -i "s|Icon=kitty|Icon=/home/$USER/.local/kitty.app/share/icons/hicolor/256x256/apps/kitty.png|g" ~/.local/share/applications/kitty.desktop
         ;;

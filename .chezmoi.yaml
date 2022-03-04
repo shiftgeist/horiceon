@@ -1,4 +1,10 @@
 # ~/.config/chezmoi/chezmoi.toml
+diff:
+  format: "git"
+  pager: "diff-so-fancy"
+git:
+  autoCommit: true
+  autoPush: true
 data:
   desktop: true
   git:
@@ -14,6 +20,3 @@ data:
     imap_url: ""
     smtp_url: ""
     pass: ""
-diff:
-  format: "git"
-  pager: "diff-so-fancy"

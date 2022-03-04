@@ -1,10 +1,11 @@
 .editorconfig
+.gitattribute
 .github
 .gitignore
-.gitattribute
 .vscode
 ansible
 docs
+manual
 
 README.md
 LICENSE

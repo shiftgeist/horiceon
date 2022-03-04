@@ -8,64 +8,21 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 #Insert::Capslock
 PrintScreen::Run "C:\WINDOWS\system32\SnippingTool.exe"
 #Enter::Run "C:\Users\fhungenberg\AppData\Local\Microsoft\WindowsApps\wt.exe" ; Win+Enter
-!o::
-Send, ö
-return
 
-+!o::
-Send, Ö
-return
+!o::Send, ö
++!o::Send, Ö
+!p::Send, ö
++!p::Send, Ö
+!u::Send, ü
++!u::Send, Ü
++!y::Send, Ü
+!a::Send, ä
++!a::Send, Ä
+!q::Send, ä
++!q::Send, Ä
+!s::Send, ß
++!s::Send, ß
+!e::Send, €
 
-!p::
-Send, ö
-return
-
-+!p::
-Send, Ö
-return
-
-!u::
-Send, ü
-return
-
-+!u::
-Send, Ü
-!y::
-Send, ü
-return
-
-+!y::
-Send, Ü
-return
-
-!a::
-Send, ä
-return
-
-+!a::
-Send, Ä
-return
-
-!q::
-Send, ä
-return
-
-+!q::
-Send, Ä
-return
-
-!s::
-Send, ß
-return
-
-+!s::
-Send, ß
-return
-
-!e::
-Send, €
-return
-
-#Space::
-Send, {LWin}
-return
+#Space::Send, {LWin}  ; win + space -> win left
+#q::Send, !{F4}       ; win + q -> alt + f4

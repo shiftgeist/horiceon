@@ -5,6 +5,9 @@
   "[go]": {
     "editor.defaultFormatter": "golang.go"
   },
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
   "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
@@ -55,7 +58,6 @@
     }
   ],
   "editor.suggest.preview": true,
-  "editor.suggestOnTriggerCharacters": false,
   "editor.tabSize": 2,
   "eslint.format.enable": true,
   "explorer.sortOrder": "default",
@@ -117,10 +119,7 @@
   "terminal.integrated.defaultProfile.linux": "zsh",
   "terminal.integrated.minimumContrastRatio": 4.5,
   "terminal.integrated.mouseWheelScrollSensitivity": 3,
-  "terminal.integrated.scrollback": 100000,
-  "vite.autoStart": true,
-  "vite.notifyOnStarted": false,
-  "vite.open": false,
+  "terminal.integrated.scrollback": 1000000,
   "volar.completion.preferredTagNameCase": "pascal",
   "volar.formatting.printWidth": 80,
   "window.menuBarVisibility": "hidden",
@@ -129,8 +128,5 @@
   },
   "workbench.colorTheme": "Shades of Purple",
   "workbench.editor.untitled.hint": "hidden",
-  "workbench.startupEditor": "newUntitledFile",
-  "[html]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  }
+  "workbench.startupEditor": "newUntitledFile"
 }

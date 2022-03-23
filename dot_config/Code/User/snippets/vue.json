@@ -3,29 +3,35 @@
 	// description. The prefix is what is used to trigger the snippet and the body will be expanded and inserted. Possible variables are:
 	// $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. Placeholders with the
 	// same ids are connected.
-	// Example:
-	// "Print to console": {
-	// 	"prefix": "log",
-	// 	"body": [
-	// 		"console.log('$1');",
-	// 		"$2"
-	// 	],
-	// 	"description": "Log output to console"
-	// }
-	"Component Setup Composition API": {
+	"Script Setup Typescript": {
     "prefix": "script:setup",
     "body": [
       "<script setup lang=\"ts\">$1</script>",
-      "",
-      "<template>$2</template>",
-      "",
     ],
     "description": "Base for Vue File Setup Composition API"
   },
-	"Script": {
+	"Script Typescript": {
     "prefix": "script",
     "body": [
       "<script lang=\"ts\">$1</script>",
+    ],
+    "description": "Base for Vue File Setup Composition API"
+  },
+	"Typed Define Emits": {
+    "prefix": "defineEmits",
+    "body": [
+			"const emit = defineEmits<{",
+			"  (event: '$1', params: any): void;",
+			"}>();"
+    ],
+    "description": "Base for Vue File Setup Composition API"
+  },
+	"Typed Define Props": {
+    "prefix": "defineProps",
+    "body": [
+			"const props = defineProps<{",
+			"  input$1: any;",
+			"}>();"
     ],
     "description": "Base for Vue File Setup Composition API"
   },

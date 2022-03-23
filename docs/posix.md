@@ -40,7 +40,7 @@ Template strings
 printf "Hello %s" "World"
 ```
 
-Get path of script
+Get directory path of script
 
 ```shell
 dir=$(dirname "$0")

@@ -1,4 +1,5 @@
-# ~/.config/chezmoi/chezmoi.toml
+# ~/.config/chezmoi/chezmoi.{yaml,toml}
+mode: "symlink"
 diff:
   format: "git"
   pager: "diff-so-fancy"

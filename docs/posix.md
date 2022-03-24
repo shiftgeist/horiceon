@@ -86,16 +86,6 @@ if [ "$VARA" -eq "$VARB" ]; then
 fi
 ```
 
-Display exists
-
-```shell
-if [ "$DISPLAY" ]; then
-  echo "No display attached."
-else
-  echo "Has display $DISPLAY."
-fi
-```
-
 File exists and is a regular file
 
 ```shell

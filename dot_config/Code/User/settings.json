@@ -17,6 +17,9 @@
   "[json]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
   "[markdown]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
@@ -40,6 +43,7 @@
   },
   "breadcrumbs.enabled": false,
   "debug.javascript.autoAttachFilter": "onlyWithFlag",
+  "diffEditor.ignoreTrimWhitespace": false,
   "editor.cursorBlinking": "solid",
   "editor.fontFamily": "'Dank Mono', 'Fira Code', monospace",
   "editor.fontLigatures": true,
@@ -112,7 +116,7 @@
   "gitlens.mode.statusBar.enabled": false,
   "gitlens.statusBar.format": "${author}",
   "gutterpreview.showImagePreviewOnGutter": false,
-  "prettier.prettierPath": "/home/fhungenberg/.volta/tools/image/packages/prettier/lib/node_modules/prettier",
+  "prettier.prettierPath": "~/.npm-global/bin/prettier",
   "svgPreview.autoOpen": false,
   "telemetry.telemetryLevel": "off",
   "terminal.integrated.copyOnSelection": true,

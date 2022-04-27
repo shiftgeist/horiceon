@@ -1,50 +1,15 @@
 {
-  "[css]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[go]": {
-    "editor.defaultFormatter": "golang.go"
-  },
-  "[html]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[javascript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[javascriptreact]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[json]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[jsonc]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[markdown]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
   "[python]": {
     "editor.defaultFormatter": "ms-python.python"
   },
-  "[scss]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
   "[shellscript]": {
     "editor.defaultFormatter": "foxundermoon.shell-format"
-  },
-  "[svelte]": {
-    "editor.defaultFormatter": "svelte.svelte-vscode"
-  },
-  "[typescript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[vue]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "breadcrumbs.enabled": false,
   "debug.javascript.autoAttachFilter": "onlyWithFlag",
   "diffEditor.ignoreTrimWhitespace": false,
   "editor.cursorBlinking": "solid",
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.fontFamily": "'Dank Mono', 'Fira Code', monospace",
   "editor.fontLigatures": true,
   "editor.fontSize": 14,
@@ -74,63 +39,15 @@
   "git.enableSmartCommit": true,
   "gitblame.infoMessageFormat": "${author.name}: \"${commit.summary}\" (${commit.hash_short})",
   "gitblame.statusBarMessageFormat": "${time.ago}",
-  "gitlens.defaultDateShortFormat": "D.MM.YYYY",
-  "gitlens.menus": {
-    "editor": false,
-    "editorGroup": {
-      "blame": true,
-      "compare": true
-    },
-    "editorTab": {
-      "clipboard": false,
-      "compare": false,
-      "history": true,
-      "remote": false
-    },
-    "explorer": {
-      "clipboard": true,
-      "compare": false,
-      "history": true,
-      "remote": false
-    },
-    "scm": {
-      "authors": true
-    },
-    "scmGroup": {
-      "compare": true,
-      "openClose": true,
-      "stash": true
-    },
-    "scmGroupInline": {
-      "stash": true
-    },
-    "scmItem": {
-      "clipboard": true,
-      "compare": true,
-      "history": true,
-      "remote": false,
-      "stash": true
-    }
-  },
-  "gitlens.mode.active": "zen",
-  "gitlens.mode.statusBar.enabled": false,
-  "gitlens.statusBar.format": "${author}",
-  "gutterpreview.showImagePreviewOnGutter": false,
+  "gitlens.currentLine.enabled": false,
   "prettier.prettierPath": "~/.npm-global/bin/prettier",
   "svgPreview.autoOpen": false,
   "telemetry.telemetryLevel": "off",
   "terminal.integrated.copyOnSelection": true,
   "terminal.integrated.defaultProfile.linux": "zsh",
-  "terminal.integrated.minimumContrastRatio": 4.5,
-  "terminal.integrated.mouseWheelScrollSensitivity": 3,
+  "terminal.integrated.minimumContrastRatio": 7,
   "terminal.integrated.scrollback": 1000000,
   "volar.completion.preferredTagNameCase": "pascal",
-  "volar.formatting.printWidth": 80,
   "window.menuBarVisibility": "hidden",
-  "workbench.colorCustomizations": {
-    "parameterHints.hintBackground": "#00000000"
-  },
-  "workbench.colorTheme": "Shades of Purple",
-  "workbench.editor.untitled.hint": "hidden",
-  "workbench.startupEditor": "newUntitledFile"
+  "workbench.colorTheme": "Shades of Purple"
 }

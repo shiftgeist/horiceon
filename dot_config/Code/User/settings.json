@@ -1,15 +1,20 @@
 {
+  "[css][html][javascript][javascriptreact][json][jsonc][markdown][scss][shellscript][typescript][vue]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[go]": {
+    "editor.defaultFormatter": "golang.go"
+  },
   "[python]": {
     "editor.defaultFormatter": "ms-python.python"
   },
-  "[shellscript]": {
-    "editor.defaultFormatter": "foxundermoon.shell-format"
+  "[svelte]": {
+    "editor.defaultFormatter": "svelte.svelte-vscode"
   },
   "breadcrumbs.enabled": false,
   "debug.javascript.autoAttachFilter": "onlyWithFlag",
   "diffEditor.ignoreTrimWhitespace": false,
   "editor.cursorBlinking": "solid",
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.fontFamily": "'Dank Mono', 'Fira Code', monospace",
   "editor.fontLigatures": true,
   "editor.fontSize": 14,
@@ -28,7 +33,6 @@
   ],
   "editor.suggest.preview": true,
   "editor.tabSize": 2,
-  "eslint.format.enable": true,
   "explorer.sortOrder": "default",
   "files.associations": {
     "*.svg": "html"
@@ -37,8 +41,6 @@
   "git.autofetch": true,
   "git.confirmSync": false,
   "git.enableSmartCommit": true,
-  "gitblame.infoMessageFormat": "${author.name}: \"${commit.summary}\" (${commit.hash_short})",
-  "gitblame.statusBarMessageFormat": "${time.ago}",
   "gitlens.currentLine.enabled": false,
   "prettier.prettierPath": "~/.npm-global/bin/prettier",
   "svgPreview.autoOpen": false,

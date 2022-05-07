@@ -60,9 +60,9 @@ Hint: No/empty command shows help."
         fi
         ;;
     code)
-        # code --install-extension "EXTENSION_ID"
-        code --install-extension "ahmadawais.shades-of-purple"        # theme
+        # code --install-extension "EXTENSION_ID"                     # TOPIC
         code --install-extension "editorconfig.editorconfig"          # lint
+        code --install-extension "github.github-vscode-theme"         # theme
         code --install-extension "lokalise.i18n-ally"                 # utility
         code --install-extension "maattdd.gitless"                    # git
         code --install-extension "ms-vscode-remote.remote-containers" # docker
@@ -70,7 +70,7 @@ Hint: No/empty command shows help."
         code --install-extension "ow.vscode-subword-navigation"       # utility
         code --install-extension "simonsiefke.prettier-vscode"        # lint
         code --install-extension "timonwong.shellcheck"               # lint
-        code --install-extension "wdhongtw.gpg-indicator"             # git
+        code --install-extension "wdhongtw.gpg-indicator"             # misc
         code --install-extension "yzhang.markdown-all-in-one"         # markdown
         code --install-extension "zengxingxin.sort-js-object-keys"    # utility
         ;;

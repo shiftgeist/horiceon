@@ -8,6 +8,9 @@
   "[python]": {
     "editor.defaultFormatter": "ms-python.python"
   },
+  "[shellscript]": {
+    "editor.defaultFormatter": "foxundermoon.shell-format"
+  },
   "[svelte]": {
     "editor.defaultFormatter": "svelte.svelte-vscode"
   },
@@ -42,14 +45,18 @@
   "git.confirmSync": false,
   "git.enableSmartCommit": true,
   "gitlens.currentLine.enabled": false,
+  "prettier.arrowParens": "avoid",
   "prettier.prettierPath": "~/.npm-global/bin/prettier",
+  "prettier.semi": false,
+  "prettier.singleQuote": true,
   "svgPreview.autoOpen": false,
   "telemetry.telemetryLevel": "off",
   "terminal.integrated.copyOnSelection": true,
   "terminal.integrated.defaultProfile.linux": "zsh",
   "terminal.integrated.minimumContrastRatio": 7,
   "terminal.integrated.scrollback": 1000000,
+  "update.mode": "manual",
   "volar.completion.preferredTagNameCase": "pascal",
   "window.menuBarVisibility": "hidden",
-  "workbench.colorTheme": "Shades of Purple"
+  "workbench.colorTheme": "GitHub Dark"
 }

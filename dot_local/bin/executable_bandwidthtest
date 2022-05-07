@@ -15,13 +15,16 @@ read -r enter
 fin="$(($(cat /sys/class/net/[ew]*/statistics/rx_bytes | paste -sd '+')))"
 fin_date=$(date)
 
-diff=$((fin - init))
-diff_date=$(printf "%s\n" $(($(date -d "$fin_date" "+%s") - $(date -d "$init_date" "+%s"))))
+BAND_DIFF=$((fin - init))
+DATE_DIFF=$(printf "%s\n" $(($(date -d "$fin_date" "+%s") - $(date -d "$init_date" "+%s"))))
 
-to_minute=$(echo "$diff_date" | awk '{printf "%f", $1 / 60}')
-minute=$(echo "$diff $to_minute" | awk '{printf "%f", $1 / $2}')
+to_minute=$(echo "$DATE_DIFF" | awk '{printf "%f", $1 / 60}')
+minute=$(echo "$BAND_DIFF $to_minute" | awk '{printf "%f", $1 / $2}')
+second=$(echo "$minute" | awk '{printf "%f", $1 / 60}')
 hour=$(echo "$minute" | awk '{printf "%f", $1 * 60}')
 
-printf "%5sB of bandwidth used in %1s %-3s (captured)\\n" "$(numfmt --to=iec $diff)" "$diff_date" "sec"
-printf "%5sB of bandwidth used in %1s %-3s (calculated)\\n" "$(numfmt --to=iec "$minute")" "1" "min"
-printf "%5sB of bandwidth used in %1s %-3s (calculated)\\n" "$(numfmt --to=iec "$hour")" "1" "h"
+printf "%5sB captured in %1s %-3s\\n" "$(numfmt --to=iec $BAND_DIFF)" "$DATE_DIFF" "sec"
+printf "\\n"
+printf "%5sB/s\\n" "$(numfmt --to=iec "$second")"
+printf "%5sB/min\\n" "$(numfmt --to=iec "$minute")"
+printf "%5sB/h\\n" "$(numfmt --to=iec "$hour")"

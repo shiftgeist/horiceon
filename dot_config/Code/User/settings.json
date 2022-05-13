@@ -37,6 +37,7 @@
   "editor.suggest.preview": true,
   "editor.tabSize": 2,
   "explorer.sortOrder": "default",
+  "extensions.ignoreRecommendations": true,
   "files.associations": {
     "*.svg": "html"
   },

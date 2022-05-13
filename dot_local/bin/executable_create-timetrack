@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+# click action for bar-check-timetrack
+
+DATE_TODAY=$(date +"%F")
+TT_DIR="$HOME/zeiterfassung"
+TT_TMPL="$TT_DIR/yyyy-mm-dd.csv"
+TT_FILE="$TT_DIR/$DATE_TODAY.csv"
+
+# create file if not exist
+if [ ! -f "$TT_FILE" ]; then
+  cp "$TT_TMPL" "$TT_FILE"
+fi
+
+# insert new line
+#
+echo "$DATE_TODAY;;;;1" >>"$TT_FILE"
+
+# open file
+code -g "$TT_FILE:2:13"

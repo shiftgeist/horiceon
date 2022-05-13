@@ -6,13 +6,12 @@
 DATE_TODAY=$(date +"%F")
 TT_FILE="$HOME/zeiterfassung/$DATE_TODAY.csv"
 
-# Panel Print if file not exist
-if [ ! -f "$TT_FILE" ]; then
-  echo "<img>/usr/share/icons/elementary-xfce/actions/16/appointment-new.png</img>"
-  echo "<click>create-timetrack</click>"
-  echo "<tool>Zeiterfassung für heute erstellen</tool>"
+if [ -f "$TT_FILE" ]; then
+  echo "<img>/usr/share/icons/elementary-xfce/actions/24/appointment-new.png</img>"
+  echo "<tool>Zeiterfassung Eintrag hinzufügen</tool>"
 else
-  echo ""
+  echo "<img>/usr/share/icons/Adwaita/24x24/status/appointment-soon.png</img>"
+  echo "<tool>Zeiterfassung für heute erstellen</tool>"
 fi
 
-exit 0
+echo "<click>open-timetrack</click>"

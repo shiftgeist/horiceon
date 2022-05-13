@@ -13,8 +13,9 @@ if [ ! -f "$TT_FILE" ]; then
 fi
 
 # insert new line
-#
-echo "$DATE_TODAY;;;;1" >>"$TT_FILE"
+echo "$DATE_TODAY;;;;1 " >>"$TT_FILE"
+
+LINES=$(wc -l "$TT_FILE" | awk '{ print $1 }')
 
 # open file
-code -g "$TT_FILE:2:13"
+code --goto "$TT_FILE:$LINES:13"

@@ -50,6 +50,7 @@
   "prettier.prettierPath": "~/.npm-global/bin/prettier",
   "prettier.semi": false,
   "prettier.singleQuote": true,
+  "redhat.telemetry.enabled": false,
   "svgPreview.autoOpen": false,
   "telemetry.telemetryLevel": "off",
   "terminal.integrated.copyOnSelection": true,

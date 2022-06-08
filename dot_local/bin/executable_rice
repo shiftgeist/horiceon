@@ -33,56 +33,27 @@ install() {
     cli_help_packages() {
         echo "
 Install packages
-Usage: $cli_name packages [tool]
+Usage: $cli_name install [command]
 
 Commands:
-  arch              arch packages
-  code              vscode extensions
-  deb               debian packages
   fzf               install fzf
-  gopk              go packages
-  golang            install go ([version] optional)
+  golang            install go ([version] optional, eg. '1.0.0', default latest)
   kitty             install kitty terminal
-  npm               npm global packages
-  nodejs            node version manager
+  nodejs            install nodejs ([version] optional, eg. '18', default '18')
 
-Hint: No/empty command shows help."
+  pkg-arch          arch packages
+  pkg-code          vscode extensions
+  pkg-deb           debian packages
+  pkg-go            go packages
+  pkg-npm           npm global packages
+"
         exit 1
     }
 
     case "$2" in
-    arch)
-        if hash yay 2>/dev/null; then
-            yay -Syu suckless-tools brave-bin notion-app alacritty zsh neofetch htop neovim code rsync rclone openssh go ttf-dejavu noto-fonts-emoji otf-overpass feh flameshot gpick xsel xcape compton exa tmux screen ghostwriter rofi
-        else
-            echo "Dependency \"yay\" not found."
-            exit 1
-        fi
-        ;;
-    code)
-        # code --install-extension "EXTENSION_ID"                     # TOPIC
-        code --install-extension "editorconfig.editorconfig"          # lint
-        code --install-extension "github.github-vscode-theme"         # theme
-        code --install-extension "lokalise.i18n-ally"                 # utility
-        code --install-extension "maattdd.gitless"                    # git
-        code --install-extension "ms-vscode-remote.remote-containers" # docker
-        code --install-extension "naumovs.color-highlight"            # utility
-        code --install-extension "ow.vscode-subword-navigation"       # utility
-        code --install-extension "simonsiefke.prettier-vscode"        # lint
-        code --install-extension "timonwong.shellcheck"               # lint
-        code --install-extension "wdhongtw.gpg-indicator"             # misc
-        code --install-extension "yzhang.markdown-all-in-one"         # markdown
-        code --install-extension "zengxingxin.sort-js-object-keys"    # utility
-        ;;
-    deb)
-        sudo apt-get install tmux flameshot ghostwriter zsh telnet git vim htop nload dstat net-tools rofi git-merge-changelog nodejs
-        ;;
     fzf)
         chmod +x ~/.local/src/fzf/install
         ~/.local/src/fzf/install --bin
-        ;;
-    gopkg)
-        go get -u github.com/cosmtrek/air github.com/nektos/act github.com/xxxserxxx/gotop/cmd/gotop github.com/yudai/gotty
         ;;
     golang)
         sudo rm -rf /usr/local/go
@@ -100,11 +71,45 @@ Hint: No/empty command shows help."
         cp ~/.local/kitty.app/share/applications/kitty.desktop ~/.local/share/applications/
         sed -i "s|Icon=kitty|Icon=/home/$USER/.local/kitty.app/share/icons/hicolor/256x256/apps/kitty.png|g" ~/.local/share/applications/kitty.desktop
         ;;
-    npm)
-        npm i -g npm doctoc prettier js-beautify tinypng-cli diff-so-fancy npm-check-updates markdownlint-cli semver imagemin imagemin-webp zx
+    node | nodejs)
+        if [ "$3" ]; then
+            NODE_VERSION="$3"
+        else
+            NODE_VERSION="18"
+        fi
+        curl -fsSL "https://deb.nodesource.com/setup_$NODE_VERSION.x" | sudo -E bash -
         ;;
-    nodejs)
-        curl -fsSL https://deb.nodesource.com/setup_17.x | sudo -E bash -
+    pkg-arch)
+        if hash yay 2>/dev/null; then
+            yay -Syu suckless-tools brave-bin notion-app alacritty zsh neofetch htop neovim code rsync rclone openssh go ttf-dejavu noto-fonts-emoji otf-overpass feh flameshot gpick xsel xcape compton exa tmux screen ghostwriter rofi
+        else
+            echo "Dependency \"yay\" not found."
+            exit 1
+        fi
+        ;;
+    pkg-code)
+        # code --install-extension "EXTENSION_ID"                     # TOPIC
+        code --install-extension "editorconfig.editorconfig"          # lint
+        code --install-extension "github.github-vscode-theme"         # theme
+        code --install-extension "lokalise.i18n-ally"                 # utility
+        code --install-extension "maattdd.gitless"                    # git
+        code --install-extension "ms-vscode-remote.remote-containers" # docker
+        code --install-extension "naumovs.color-highlight"            # utility
+        code --install-extension "ow.vscode-subword-navigation"       # utility
+        code --install-extension "simonsiefke.prettier-vscode"        # lint
+        code --install-extension "timonwong.shellcheck"               # lint
+        code --install-extension "wdhongtw.gpg-indicator"             # misc
+        code --install-extension "yzhang.markdown-all-in-one"         # markdown
+        code --install-extension "zengxingxin.sort-js-object-keys"    # utility
+        ;;
+    pkg-deb)
+        sudo apt-get install tmux flameshot ghostwriter zsh telnet git vim htop nload dstat net-tools rofi git-merge-changelog nodejs
+        ;;
+    pkg-go)
+        go get -u github.com/cosmtrek/air github.com/nektos/act github.com/xxxserxxx/gotop/cmd/gotop github.com/yudai/gotty
+        ;;
+    pkg-npm)
+        npm i -g npm doctoc prettier js-beautify tinypng-cli diff-so-fancy npm-check-updates markdownlint-cli semver imagemin imagemin-webp zx
         ;;
     *)
         cli_help_packages

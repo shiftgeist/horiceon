@@ -59,8 +59,6 @@ zinit light "$XDG_CONFIG_HOME/.functions"
 if [ -f "$HOME/.config/tabtab/zsh/__tabtab.zsh" ]
 then
   . "$HOME/.config/tabtab/zsh/__tabtab.zsh"
-else
-  pnpm install-completion zsh
 fi
 
 alias ls="exa"

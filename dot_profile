@@ -2,12 +2,13 @@
 
 [ -f "$FILE" ] && . "$HOME/.cargo/env"
 
-export PATH="$PATH:$HOME/bin/"
-export PATH="$PATH:$HOME/.local/bin/"
-export PATH="$PATH:$HOME/go/bin"
-export PATH="$PATH:$HOME/.cargo/bin"
 export PATH="$PATH:/usr/local/go/bin"
-export PATH="$HOME/.npm-global/bin:$PATH"
+export PATH="$PATH:$HOME/.cargo/bin/"
+export PATH="$PATH:$HOME/.deno/bin/"
+export PATH="$PATH:$HOME/.local/bin/"
+export PATH="$PATH:$HOME/.npm-global/bin/"
+export PATH="$PATH:$HOME/bin/"
+export PATH="$PATH:$HOME/go/bin/"
 
 export EDITOR="vim"
 export PAGER="less"

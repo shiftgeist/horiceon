@@ -9,7 +9,7 @@ files under `$HOME` by adhering to the [XDG standards][xdg] wherever possible.
 
 ## starring
 
-- Shell: [zsh](https://github.com/zsh-users/zsh) + [zinit](https://github.com/zdharma/zinit)
+- Shell: [zsh](https://github.com/zsh-users/zsh) + [zinit](https://github.com/zdharma-continuum/zinit)
 - Terminal emulator: [Kitty](https://github.com/kovidgoyal/kitty)
 - Interface Font: [Akinson Hyperlegible](https://github.com/shiftgeist/atkinson-hyperlegible-deb)
 - Mono Font: [Dank Mono](https://philpl.gumroad.com/l/dank-mono)

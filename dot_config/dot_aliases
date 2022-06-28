@@ -37,6 +37,7 @@ alias mountcol="mount | column -t"
 alias getownip="curl ifconfig.me"
 alias curl-json="curl --header 'Content-Type:application/json'"
 alias calc="bc -ql"
+alias network-active="nmcli device status"
 
 # command line
 

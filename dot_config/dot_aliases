@@ -38,6 +38,7 @@ alias getownip="curl ifconfig.me"
 alias curl-json="curl --header 'Content-Type:application/json'"
 alias calc="bc -ql"
 alias network-active="nmcli device status"
+alias audio-active="pacmd list-sinks | grep -e 'name:' -e 'index' -e 'Speakers'"
 
 # command line
 

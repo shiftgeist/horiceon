@@ -17,10 +17,6 @@ files under `$HOME` by adhering to the [XDG standards][xdg] wherever possible.
 - Theme: [Matcha-dark-azul](https://github.com/vinceliuice/Matcha-gtk-theme)
 - Icons: [elementary-xfce](https://github.com/shimmerproject/elementary-xfce)
 
-## open
-
-- [ ] test [symlink mode](https://www.chezmoi.io/reference/target-types/#symlink-mode)
-
 [contrib]: https://github.com/shiftgeist/horiceon/graphs/contributors
 [issues]: https://github.com/shiftgeist/horiceon/issues
 [shield_contrib]: https://img.shields.io/github/contributors/shiftgeist/horiceon

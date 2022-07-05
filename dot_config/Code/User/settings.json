@@ -60,5 +60,5 @@
   "update.mode": "manual",
   "volar.completion.preferredTagNameCase": "pascal",
   "window.menuBarVisibility": "hidden",
-  "workbench.colorTheme": "GitHub Dark"
+  "workbench.colorTheme": "Dracula"
 }

@@ -89,8 +89,8 @@ Commands:
         ;;
     pkg-code)
         # code --install-extension "EXTENSION_ID"                     # TOPIC
+        code --install-extension "dracula-theme.theme-dracula"        # theme
         code --install-extension "editorconfig.editorconfig"          # lint
-        code --install-extension "github.github-vscode-theme"         # theme
         code --install-extension "lokalise.i18n-ally"                 # utility
         code --install-extension "maattdd.gitless"                    # git
         code --install-extension "ms-vscode-remote.remote-containers" # docker

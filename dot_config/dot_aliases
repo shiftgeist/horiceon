@@ -62,5 +62,8 @@ alias icat="kitty +kitten icat"
 
 # python
 
-alias pyfind='find . -name "*.py"'
-alias pygrep='grep -nr --include="*.py"' # lookup text in python files
+alias pyfind="find . -name '*.py'"
+alias pygrep="grep -nr --include='*.py'" # lookup text in python files
+
+# npm
+alias dev="npm run dev"

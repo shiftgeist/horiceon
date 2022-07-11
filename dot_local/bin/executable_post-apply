@@ -1,6 +1,6 @@
-source "$HOME/.profile"
-source "${PROFILE:-$HOME/.config/zsh/.zshrc}"
-source "$XDG_CONFIG_HOME/.aliases"
-source "$XDG_CONFIG_HOME/.functions"
-[ -f "$HOME/.extras" ] && source "$HOME/.extras"
+#!/bin/sh
+
+. "$HOME/.profile"
+. "${PROFILE:-$HOME/.config/zsh/.zshrc}"
+[ -f "$HOME/.extras" ] && . "$HOME/.extras"
 [ -z "$DISPLAY" ] || xrdb "$XDG_CONFIG_HOME/Xresources"

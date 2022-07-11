@@ -36,6 +36,7 @@ Install packages
 Usage: $cli_name install [command]
 
 Commands:
+  bun               install bun
   fzf               install fzf
   golang            install go ([version] optional, eg. '1.0.0', default latest)
   kitty             install kitty terminal
@@ -51,6 +52,9 @@ Commands:
     }
 
     case "$2" in
+    bun)
+        curl -fsSL https://bun.sh/install | bash
+        ;;
     fzf)
         chmod +x ~/.local/src/fzf/install
         ~/.local/src/fzf/install --bin

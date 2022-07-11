@@ -3,7 +3,7 @@
 [[ $- != *i* ]] && return # if not running interactively, don't do anything
 
 if [[ ! -f $HOME/.zinit/bin/zinit.zsh ]]; then
-  if curl -s cht.sh &> /dev/null
+  if curl -s cht.sh &> /dev/null # check network
   then
     print -P "%F{33}▓▒░ %F{220}Installing %F{33}DHARMA%F{220} Initiative Plugin Manager (%F{33}ryanstreur/zinit%F{220})…%f"
     command mkdir -p "$HOME/.zinit" && command chmod g-rwX "$HOME/.zinit"
@@ -20,18 +20,19 @@ autoload -Uz _zinit
 
 PS1="loading> " # provide a simple prompt till the theme loads
 
-ZSHPATH="$XDG_DATA_HOME/zsh"
-HISTFILE="$XDG_CACHE_HOME/zsh/history"
-HISTSIZE=1000000
-SAVEHIST=1000000
+export ZSHPATH="$XDG_DATA_HOME/zsh"
+export HISTFILE="$XDG_CACHE_HOME/zsh/history"
+export HISTSIZE=1000000
+export SAVEHIST=1000000
+
 setopt interactive_comments
 setopt appendhistory
 setopt auto_cd
 
 autoload -Uz add-zsh-hook
 setopt AUTO_PUSHD PUSHD_SILENT PUSHD_TO_HOME # remember cd history
-setopt PUSHD_IGNORE_DUPS ## Remove duplicate entries
-setopt PUSHD_MINUS ## This reverts the +/- operators.
+setopt PUSHD_IGNORE_DUPS # remove duplicate entries
+setopt PUSHD_MINUS # revert +/- operators
 
 zinit snippet OMZL::git.zsh
 
@@ -51,9 +52,6 @@ zinit light Aloxaf/fzf-tab
 zinit ice compile'(pure|async).zsh' pick'async.zsh' src'pure.zsh'
 zinit light sindresorhus/pure
 
-zinit light "$XDG_CONFIG_HOME/.aliases"
-zinit light "$XDG_CONFIG_HOME/.functions"
+zinit snippet "$XDG_CONFIG_HOME/.aliases"
+zinit snippet "$XDG_CONFIG_HOME/.functions"
 [ -f "$HOME/.extras" ] && zinit light "$HOME/.extras"
-
-alias ls="exa"
-### End of Zinit's installer chunk

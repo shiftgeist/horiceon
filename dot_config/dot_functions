@@ -12,9 +12,9 @@ __npm_install_lock_file() {
   if [ -f "package-lock.json" ]; then
     npm install
   fi
-  # if [ -f "pnpm-lock.yaml" ]; then
-  #   pnpm install
-  # fi
+  if [ -f "pnpm-lock.yaml" ]; then
+    pnpm install
+  fi
   if [ -f "yarn.lock" ]; then
     yarn install
   fi
@@ -30,14 +30,6 @@ git_is_repo() {
   __git rev-parse HEAD >/dev/null 2>&1
 }
 
-__git_is_clean() {
-  if __git status -s | read -r REPLY; then
-    return 1
-  else
-    return 0
-  fi
-}
-
 # Outputs the name of the current branch
 git_current_branch() {
   git_is_repo || return
@@ -50,22 +42,12 @@ git_current_branch() {
   echo "${ref#refs/heads/}"
 }
 
-# Outputs the id of the current commit
-__git_current_commit() {
-  ref=$(__git rev-list --tags --max-count=1)
-  echo "$ref"
+gdesc() {
+  __git describe --tags "$(__git rev-list --tags --max-count=1)"
 }
 
-git_latest_tag() {
-  __git describe --tags "$(__git_current_commit)"
-}
-alias gdesc="git_latest_tag"
-
-gitflow_feature() {
-  __git checkout -b "feature/$1" develop
-}
-
-gitflow_hotfix() {
+# git flow hotfix start
+gfh() {
   if [ "$#" -ne 0 ]; then
     NEW_GIT_TAG="$1"
   else
@@ -73,7 +55,7 @@ gitflow_hotfix() {
   fi
 
   if [ -z "$NEW_GIT_TAG" ]; then
-    echo "No valid hotfix tag found after $(git_latest_tag). Provide custom tag."
+    echo "No valid hotfix tag found after $(gdesc). Provide custom tag."
     return 1
   fi
 
@@ -85,13 +67,13 @@ gitflow_hotfix() {
     return 1
   fi
 }
-alias gfh="gitflow_hotfix"
 
-gitflow_release() {
+# git flow release start
+gfr() {
   if [ "$#" -ne 0 ]; then
     NEW_GIT_TAG="$1"
   else
-    echo "$(git_latest_tag) » [m]ajor, m[i]nor or [P]atch?"
+    echo "$(gdesc) » [m]ajor, m[i]nor or [P]atch?"
     while read -r REPLY; do
       case $REPLY in
       m | major)
@@ -114,9 +96,9 @@ gitflow_release() {
     return 1
   fi
 }
-alias gfr="gitflow_release"
 
-gitflow_finish() {
+# git flow finish (any)
+gff() {
   function_name=${0##*/}
 
   BRANCH=$(git_current_branch)
@@ -125,10 +107,9 @@ gitflow_finish() {
 
   export GIT_MERGE_AUTOEDIT=no
 
-  echo "step 1"
   case "$FLOW_TYPE" in
   feature)
-    echo "nothing to do here"
+    # nothing to do here, just don't run into catchall
     ;;
   hotfix | release)
     git checkout master
@@ -136,17 +117,15 @@ gitflow_finish() {
     git tag -a "$FLOW_NAME" -m "$FLOW_TYPE $FLOW_NAME"
     ;;
   *)
-    echo "no valid type found ($function_name)"
+    printf "no valid type found %s" "$function_name"
     unset GIT_MERGE_AUTOEDIT
     exit 1
     ;;
   esac
 
-  echo "step 2"
   git checkout develop
   git merge --no-ff "$FLOW_TYPE/$FLOW_NAME"
   git branch -d "$FLOW_TYPE/$FLOW_NAME"
 
   unset GIT_MERGE_AUTOEDIT
 }
-alias gff="gitflow_finish"

@@ -2,7 +2,7 @@
 
 [ -f "$FILE" ] && . "$HOME/.cargo/env"
 
-export PATH="$PATH:/usr/local/go/bin"
+export PATH="$PATH:/usr/local/go/bin/"
 export PATH="$PATH:$HOME/.cargo/bin/"
 export PATH="$PATH:$HOME/.deno/bin/"
 export PATH="$PATH:$HOME/.local/bin/"
@@ -16,11 +16,11 @@ export PAGER="less"
 export TERMINAL="kitty"
 
 TTY="$(tty)"
-export GPG_TTY=$TTY
+export GPG_TTY="$TTY"
 
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
-export XDG_DATA_DIRS="$XDG_DATA_DIRS:/var/lib/flatpak/exports/share:/$HOME/.local/share/flatpak/exports/share"
+export XDG_DATA_DIRS="$XDG_DATA_DIRS:/var/lib/flatpak/exports/share:$HOME/.local/share/flatpak/exports/share"
 export XDG_CACHE_HOME="$HOME/.cache"
 
 export ZDOTDIR="$XDG_CONFIG_HOME/zsh"

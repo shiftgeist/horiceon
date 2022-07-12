@@ -40,6 +40,9 @@ alias calc="bc -ql"
 alias network-active="nmcli device status"
 alias audio-active="pacmd list-sinks | grep -e 'name:' -e 'index' -e 'Speakers'"
 
+# apps
+alias obsidian="/usr/bin/flatpak run --branch=stable --arch=x86_64 --command=obsidian.sh --file-forwarding md.obsidian.Obsidian @@u %u @@"
+
 # command line
 
 alias vimz="fc"

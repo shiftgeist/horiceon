@@ -41,6 +41,7 @@ Commands:
   golang            install go ([version] optional, eg. '1.0.0', default latest)
   kitty             install kitty terminal
   nodesource        install nodejs package debian source ([version] optional, eg. '18', default '18')
+  watson            install watson time tracking
 
   pkg-arch          arch packages
   pkg-code          vscode extensions
@@ -82,6 +83,12 @@ Commands:
             NODE_VERSION="18"
         fi
         curl -fsSL "https://deb.nodesource.com/setup_$NODE_VERSION.x" | sudo -E bash -
+        ;;
+    watson)
+        python3 -m pip install -U td-watson
+        # Broken completions https://github.com/TailorDev/Watson/issues/477
+        # Using voidus/Watson watson.zsh-completion version:
+        curl -L https://raw.githubusercontent.com/voidus/Watson/fix-completions/watson.zsh-completion -o "$HOME/.zinit/completions/_watson"
         ;;
     pkg-arch)
         if hash yay 2>/dev/null; then

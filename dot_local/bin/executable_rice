@@ -114,7 +114,7 @@ Commands:
         code --install-extension "zengxingxin.sort-js-object-keys"    # utility
         ;;
     pkg-deb)
-        sudo apt-get install tmux flameshot ghostwriter zsh telnet git vim htop nload dstat net-tools rofi git-merge-changelog nodejs network-manager
+        sudo apt-get install tmux flameshot ghostwriter zsh telnet git vim htop nload dstat net-tools rofi git-merge-changelog nodejs network-manager wicd-client
         ;;
     pkg-go)
         go get -u github.com/cosmtrek/air github.com/nektos/act github.com/xxxserxxx/gotop/cmd/gotop github.com/yudai/gotty

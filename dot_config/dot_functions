@@ -54,6 +54,8 @@ gfh() {
     NEW_GIT_TAG=$(up git patch)
   fi
 
+  echo "Starting hotfix $NEW_GIT_TAG"
+
   if [ -z "$NEW_GIT_TAG" ]; then
     echo "No valid hotfix tag found after $(gdesc). Provide custom tag."
     return 1
@@ -90,6 +92,8 @@ gfr() {
     done
   fi
 
+  echo "Starting release $NEW_GIT_TAG"
+
   if __git checkout -b "release/$NEW_GIT_TAG" develop; then
     __npm_set_tag "$NEW_GIT_TAG"
   else
@@ -104,6 +108,8 @@ gff() {
   BRANCH=$(git_current_branch)
   FLOW_TYPE="$(printf '%s' "$BRANCH" | cut -d '/' -f1)"
   FLOW_NAME="$(printf '%s' "$BRANCH" | cut -d '/' -f2)"
+
+  echo "Finishing $FLOW_TYPE"
 
   export GIT_MERGE_AUTOEDIT=no
 

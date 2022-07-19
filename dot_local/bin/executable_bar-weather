@@ -8,7 +8,7 @@ print_forecast() {
   forecast=$(curl "http://wttr.in?0m&format=$format")
 
   echo -e "<txt>${forecast}</txt>"
-  echo -e "<click>xdg-open https://v2.wttr.in</click>"
+  echo -e "<txtclick>xdg-open https://v2.wttr.in</txtclick>"
 }
 
 main() {

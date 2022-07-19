@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+# shows count of upgradable apt packages
+# xfce genmon docs: https://docs.xfce.org/panel-plugins/xfce4-genmon-plugin/start
+
+print_forecast() {
+  format="%c%t"
+  forecast=$(curl "http://wttr.in?0m&format=$format")
+
+  echo -e "<txt>${forecast}</txt>"
+  echo -e "<click>xdg-open https://v2.wttr.in</click>"
+}
+
+main() {
+  print_forecast
+}
+
+main

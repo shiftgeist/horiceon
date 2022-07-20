@@ -1,0 +1,2 @@
+toolkit.legacyUserProfileCustomizations.stylesheets = true # enable profile customise $PROFILE/chrome/*
+ui.key.menuAccessKeyFocuses	= false # disable alt opening menu

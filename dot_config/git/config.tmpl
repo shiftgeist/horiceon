@@ -41,12 +41,15 @@
   ci = commit
   cleanfd = clean -fd
   co = checkout
+  lo = log
   loga = log --oneline --decorate --graph --all
   logo = log --pretty='%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
+  pl = pull
   pls = pull --autostash
+  pu = push
   pushup = !git push --set-upstream origin "$(git_current_branch)"
+  resethard = !git reset --hard origin/$(git rev-parse --abbrev-ref HEAD)
   st = status
-  yeet = !git reset --hard origin/$(git rev-parse --abbrev-ref HEAD)
 
 [diff "minjs"]
   textconv = js-beautify

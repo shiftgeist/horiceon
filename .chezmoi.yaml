@@ -1,10 +1,11 @@
-# ~/.config/chezmoi/chezmoi.{yaml,toml}
-mode: "symlink"
+# ~/.config/chezmoi/chezmoi.yaml
+mode: symlink
 diff:
-  format: "git"
-  pager: "diff-so-fancy"
+  format: git
+  pager: diff-so-fancy
 git:
   autoCommit: true
+  autoPull: true
   autoPush: true
 data:
   desktop: true
@@ -13,5 +14,5 @@ data:
     email: ""
     gpg: ""
   api:
-    bitwarden: ""
     tinypng: ""
+    airwater_url: ""

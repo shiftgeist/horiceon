@@ -1,18 +1,43 @@
 #!/usr/bin/env bash
 
+set -e
+
 # shows count of upgradable apt packages
 # xfce genmon docs: https://docs.xfce.org/panel-plugins/xfce4-genmon-plugin/start
 
-print_forecast() {
-  format="%c%t"
-  forecast=$(curl "http://wttr.in?0m&format=$format")
+print_airwater() {
+  # config
+  config="$XDG_CONFIG_HOME/chezmoi/chezmoi.yaml"
+  url=$(yq -p=yaml ".data.api.airwater_url" <"$config")
+  dataout="$HOME/cloud/second-brain/data/forecast.yaml"
+  date=$(date --iso-8601=hours)
 
-  echo -e "<txt>${forecast}</txt>"
-  echo -e "<txtclick>xdg-open https://v2.wttr.in</txtclick>"
+  if [ ! -f "$dataout" ]; then
+    touch "$dataout"
+  else
+    airwater=$(yq -p=yaml ".[\"$date\"]" <"$dataout")
+  fi
+
+  castemoti=$(curl -s -L "http://wttr.in?0m&format=%c" | sed -r "s/  //g")
+
+  if [ "$airwater" = "null" ]; then
+    airwater=$(curl -s -L "$url" | yq -p=xml ".WXDATA.PARAM")
+
+    # cache saving
+    yq -i ".[\"$date\"] = (\"$airwater\" | from_yaml)" "$dataout"
+  fi
+
+  # data handling
+  airtemp="$(echo "$airwater" | yq -p=yaml '.airtemp' | awk '{print int($1+0.5)}')"
+  watertemp="$(echo "$airwater" | yq -p=yaml '.watertemp' | awk '{print int($1+0.5)}')"
+
+  # output values to bar
+  echo -e "<txt>${castemoti} ${airtemp}°C 🌊 ${watertemp}°C</txt>"
+  echo -e "<txtclick>xdg-open https://wttr.in</txtclick>"
 }
 
 main() {
-  print_forecast
+  print_airwater
 }
 
 main

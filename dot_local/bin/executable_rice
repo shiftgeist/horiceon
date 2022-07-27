@@ -117,7 +117,7 @@ Commands:
         sudo apt-get install tmux flameshot ghostwriter zsh telnet git vim htop nload dstat net-tools rofi git-merge-changelog nodejs network-manager wicd-client
         ;;
     pkg-go)
-        go get -u github.com/cosmtrek/air github.com/nektos/act github.com/xxxserxxx/gotop/cmd/gotop github.com/yudai/gotty
+        go get -u github.com/cosmtrek/air github.com/nektos/act github.com/xxxserxxx/gotop/cmd/gotop github.com/yudai/gotty github.com/mikefarah/yq/v4@latest
         ;;
     pkg-npm)
         npm i -g npm doctoc prettier js-beautify tinypng-cli diff-so-fancy npm-check-updates markdownlint-cli semver imagemin imagemin-webp zx

@@ -15,9 +15,3 @@ data:
   api:
     bitwarden: ""
     tinypng: ""
-  mail:
-    from: ""
-    realname: ""
-    imap_url: ""
-    smtp_url: ""
-    pass: ""

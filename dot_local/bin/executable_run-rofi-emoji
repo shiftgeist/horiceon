@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+
 #   Source: https://gist.github.com/Tadly/0741821d3694deaec1ee454a95c591fa
 #
 #   Use rofi to pick emoji because that's what this
@@ -19,10 +20,9 @@
 #     * Confirming an item will automatically paste it WITHOUT
 #       writing it to your clipboard.
 #     * Ctrl+C will copy it to your clipboard WITHOUT pasting it.
-#
 
 # Where to save the emojis file.
-EMOJI_FILE="$HOME/.cache/emojis.txt"
+EMOJI_FILE="$XDG_CACHE_HOME/emojis.txt"
 
 # Urls of emoji to download.
 # You can remove what you don't need.
@@ -69,31 +69,28 @@ function download() {
   notify "$(basename "$0")" "We're all set!"
 }
 
-function rofi_menu() { # {{{
+function rofi_menu() {
   rofi -width 25 -lines 7 -dmenu -i -p 'emoji: ' \
     -kb-row-tab '' \
     -kb-row-select Tab \
     -kb-custom-1 Ctrl+c
 }
-# }}}
 
-function repeat() { # {{{
+function repeat() {
   local rplc str="$1" count="$2"
   rplc="$(printf "%${count}s")"
   echo "${rplc// /"$str"}"
 }
-# }}}
 
-function toclipboard() { # {{{
+function toclipboard() {
   xclip -i -selection primary
   xclip -o -selection primary | xclip -i -selection clipboard
 }
-# }}}
 
 function display() {
   local emoji line exit_code quantifier
 
-  emoji=$(cat "$EMOJI_FILE" | grep -v '#' | grep -v '^[[:space:]]*$')
+  emoji=$(grep -v "#" "$EMOJI_FILE" | grep -v "^[[:space:]]*$")
   line="$(echo "$emoji" | rofi_menu)"
   exit_code=$?
 

@@ -7,7 +7,7 @@ set -e
 
 print_airwater() {
   if ! curl -s cht.sh &>/dev/null; then # check network
-    echo -e ""
+    echo -e "Disconnected 🌊"
     return
   fi
 
@@ -23,7 +23,9 @@ print_airwater() {
     airwater=$(yq -p=yaml ".[\"$date\"]" <"$dataout")
   fi
 
-  castemoti=$(curl -s -L "http://wttr.in?0m&format=%c" | sed -r "s/  //g")
+  wttrin=$(curl -s -L "https://wttr.in/?format=j1")
+  condition=$(echo "$wttrin" | jq '.current_condition[0].weatherDesc[0].value' | sed -r "s/\"//g")
+  yq -i ".[\"$date\"].condition = \"$condition\"" "$dataout"
 
   if [ "$airwater" = "null" ]; then
     airwater=$(curl -s -L "$url" | yq -p=xml ".WXDATA.PARAM")
@@ -37,7 +39,7 @@ print_airwater() {
   watertemp="$(echo "$airwater" | yq -p=yaml '.watertemp' | awk '{print int($1+0.5)}')"
 
   # output values to bar
-  echo -e "<txt>${castemoti} ${airtemp}°C 🌊 ${watertemp}°C</txt>"
+  echo -e "<txt>${condition} ${airtemp}°C 🌊 ${watertemp}°C</txt>"
   echo -e "<txtclick>xdg-open https://wttr.in</txtclick>"
 }
 

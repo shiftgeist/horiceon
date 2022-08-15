@@ -57,7 +57,6 @@
   "terminal.integrated.defaultProfile.linux": "zsh",
   "terminal.integrated.minimumContrastRatio": 7,
   "terminal.integrated.scrollback": 1000000,
-  "terminal.integrated.shellIntegration.enabled": true,
   "update.mode": "manual",
   "volar.completion.preferredTagNameCase": "pascal",
   "window.menuBarVisibility": "hidden",

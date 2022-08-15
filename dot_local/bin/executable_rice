@@ -99,19 +99,18 @@ Commands:
         fi
         ;;
     pkg-code)
-        # code --install-extension "EXTENSION_ID"                     # TOPIC
-        code --install-extension "dracula-theme.theme-dracula"        # theme
-        code --install-extension "editorconfig.editorconfig"          # lint
-        code --install-extension "lokalise.i18n-ally"                 # utility
-        code --install-extension "maattdd.gitless"                    # git
-        code --install-extension "ms-vscode-remote.remote-containers" # docker
-        code --install-extension "naumovs.color-highlight"            # utility
-        code --install-extension "ow.vscode-subword-navigation"       # utility
-        code --install-extension "simonsiefke.prettier-vscode"        # lint
-        code --install-extension "timonwong.shellcheck"               # lint
-        code --install-extension "wdhongtw.gpg-indicator"             # misc
-        code --install-extension "yzhang.markdown-all-in-one"         # markdown
-        code --install-extension "zengxingxin.sort-js-object-keys"    # utility
+        # code --install-extension "EXTENSION_ID"                  # TOPIC
+        code --install-extension "dracula-theme.theme-dracula"     # theme
+        code --install-extension "editorconfig.editorconfig"       # lint
+        code --install-extension "lokalise.i18n-ally"              # utility
+        code --install-extension "maattdd.gitless"                 # git
+        code --install-extension "naumovs.color-highlight"         # utility
+        code --install-extension "ow.vscode-subword-navigation"    # utility
+        code --install-extension "simonsiefke.prettier-vscode"     # lint
+        code --install-extension "timonwong.shellcheck"            # lint
+        code --install-extension "wdhongtw.gpg-indicator"          # misc
+        code --install-extension "yzhang.markdown-all-in-one"      # markdown
+        code --install-extension "zengxingxin.sort-js-object-keys" # utility
         ;;
     pkg-deb)
         sudo apt-get install tmux flameshot ghostwriter zsh telnet git vim htop nload dstat net-tools rofi git-merge-changelog nodejs network-manager wicd-client

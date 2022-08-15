@@ -1,6 +1,0 @@
-#!/bin/sh
-
-. "$HOME/.profile"
-. "${PROFILE:-$HOME/.config/zsh/.zshrc}"
-[ -f "$HOME/.extras" ] && . "$HOME/.extras"
-[ -z "$DISPLAY" ] || xrdb "$XDG_CONFIG_HOME/Xresources"

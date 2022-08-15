@@ -3,8 +3,7 @@
 [[ $- != *i* ]] && return # if not running interactively, don't do anything
 
 if [[ ! -f $HOME/.zinit/bin/zinit.zsh ]]; then
-  if curl -s cht.sh &> /dev/null # check network
-  then
+  if curl -s cht.sh &> /dev/null; then # check network
     print -P "%F{33}▓▒░ %F{220}Installing %F{33}DHARMA%F{220} Initiative Plugin Manager (%F{33}ryanstreur/zinit%F{220})…%f"
     command mkdir -p "$HOME/.zinit" && command chmod g-rwX "$HOME/.zinit"
     command git clone https://github.com/ryanstreur/zinit "$HOME/.zinit/bin" && \

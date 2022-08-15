@@ -1,3 +1,0 @@
-#!/bin/sh
-
-. "${PROFILE:-$HOME/.config/zsh/.zshrc}"

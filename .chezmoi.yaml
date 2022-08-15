@@ -3,10 +3,6 @@ mode: symlink
 diff:
   format: git
   pager: diff-so-fancy
-git:
-  autoCommit: true
-  autoPull: true
-  autoPush: true
 data:
   desktop: true
   git:

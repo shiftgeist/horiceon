@@ -42,6 +42,7 @@
   pl = pull
   pls = pull --autostash
   pu = push
+  putdm = !git push --tags && git co develop && git push && git co master && git push
   pushup = !git push --set-upstream origin "$(git_current_branch)"
   resethard = !git reset --hard origin/$(git rev-parse --abbrev-ref HEAD)
   st = status

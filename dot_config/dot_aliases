@@ -48,10 +48,6 @@ alias obsidian="/usr/bin/flatpak run --branch=stable --arch=x86_64 --command=obs
 alias vimz="fc"
 alias json="jq"
 
-# git
-
-alias gptdm="git push --tags && git co develop && git push && git co master && git push"
-
 # list
 
 if command -v exa >/dev/null; then

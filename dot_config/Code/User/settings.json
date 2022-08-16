@@ -14,7 +14,7 @@
   "[svelte]": {
     "editor.defaultFormatter": "svelte.svelte-vscode"
   },
-  "breadcrumbs.enabled": false,
+  "cSpell.userWords": ["Nextcloud"],
   "debug.javascript.autoAttachFilter": "onlyWithFlag",
   "diffEditor.ignoreTrimWhitespace": false,
   "editor.cursorBlinking": "solid",

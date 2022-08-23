@@ -3,17 +3,17 @@
   // same ids are connected.
   "Log to the console": {
     "prefix": "log",
-    "body": ["console.log('$1', $1);", "$0"],
+    "body": ["console.log('🐸📣', $1, '$1');", "$0"],
     "description": "Log to the console"
   },
   "Log warning to console": {
     "prefix": "warn",
-    "body": ["console.warn('$1', $1);", "$0"],
+    "body": ["console.warn('🐸📣', $1, '$1');", "$0"],
     "description": "Log warning to the console"
   },
   "Log error to console": {
     "prefix": "error",
-    "body": ["console.error('$1', $1);", "$0"],
+    "body": ["console.error('🐸📣', $1, '$1');", "$0"],
     "description": "Log error to the console"
   }
 }

@@ -14,7 +14,14 @@
   "[svelte]": {
     "editor.defaultFormatter": "svelte.svelte-vscode"
   },
-  "cSpell.userWords": ["Nextcloud"],
+  "cSpell.userWords": [
+    "esbuild",
+    "Nextcloud",
+    "openapi",
+    "pinia",
+    "typecheck",
+    "vueuse"
+  ],
   "debug.javascript.autoAttachFilter": "onlyWithFlag",
   "diffEditor.ignoreTrimWhitespace": false,
   "editor.cursorBlinking": "solid",
@@ -46,6 +53,7 @@
   "git.confirmSync": false,
   "git.enableSmartCommit": true,
   "gitlens.currentLine.enabled": false,
+  "Lua.telemetry.enable": false,
   "prettier.arrowParens": "avoid",
   "prettier.prettierPath": "~/.npm-global/bin/prettier",
   "prettier.semi": false,
@@ -53,7 +61,6 @@
   "redhat.telemetry.enabled": false,
   "svgPreview.autoOpen": false,
   "telemetry.telemetryLevel": "off",
-  "terminal.integrated.copyOnSelection": true,
   "terminal.integrated.defaultProfile.linux": "zsh",
   "terminal.integrated.minimumContrastRatio": 7,
   "terminal.integrated.scrollback": 1000000,

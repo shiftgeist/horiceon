@@ -41,6 +41,7 @@
       "column": 80
     }
   ],
+  "editor.stickyScroll.enabled": true,
   "editor.suggest.preview": true,
   "editor.tabSize": 2,
   "explorer.sortOrder": "default",
@@ -54,6 +55,7 @@
   "git.enableSmartCommit": true,
   "gitlens.currentLine.enabled": false,
   "Lua.telemetry.enable": false,
+  "mergeEditor.diffAlgorithm": "experimental",
   "prettier.arrowParens": "avoid",
   "prettier.prettierPath": "~/.npm-global/bin/prettier",
   "prettier.semi": false,

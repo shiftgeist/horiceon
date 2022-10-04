@@ -41,12 +41,13 @@ Commands:
   golang            install go ([version] optional, eg. '1.0.0', default latest)
   kitty             install kitty terminal
   neovim-plug       install vim-plug
-  nodesource        install nodejs package debian source ([version] optional, eg. '18', default '18')
+  node              install nodejs package universal ([version] optional, eg. '18', default 'lts')
   watson            install watson time tracking
 
   pkg-arch          arch packages
   pkg-code          vscode extensions
   pkg-deb           debian packages
+  pkg-deb-node      setup nodejs package debian source ([version] optional, eg. '18', default '18')
   pkg-flatpak       flatpak packages
   pkg-go            go packages
   pkg-npm           npm global packages
@@ -86,14 +87,6 @@ Commands:
         fi
         curl -sL "install-node.vercel.app/$NODE_VERSION" | bash
         ;;
-    nodesource)
-        if [ "$3" ]; then
-            NODE_VERSION="$3"
-        else
-            NODE_VERSION="18"
-        fi
-        curl -fsSL "https://deb.nodesource.com/setup_$NODE_VERSION.x" | sudo -E bash -
-        ;;
     neovim-plug)
         # https://github.com/junegunn/vim-plug#neovim
         curl -fLo "$XDG_DATA_HOME/nvim/site/autoload/plug.vim" --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -129,6 +122,14 @@ Commands:
         ;;
     pkg-deb)
         sudo apt-get install tmux flameshot ghostwriter zsh telnet git vim htop nload dstat net-tools rofi git-merge-changelog nodejs network-manager wicd-client lua5.3
+        ;;
+    pkg-deb-node)
+        if [ "$3" ]; then
+            NODE_VERSION="$3"
+        else
+            NODE_VERSION="18"
+        fi
+        curl -fsSL "https://deb.nodesource.com/setup_$NODE_VERSION.x" | sudo -E bash -
         ;;
     pkg-flatpak)
         flatpak install --noninteractive com.spotify.Client

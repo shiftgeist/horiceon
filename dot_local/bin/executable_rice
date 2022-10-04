@@ -47,6 +47,7 @@ Commands:
   pkg-arch          arch packages
   pkg-code          vscode extensions
   pkg-deb           debian packages
+  pkg-flatpak       flatpak packages
   pkg-go            go packages
   pkg-npm           npm global packages
 "
@@ -128,6 +129,9 @@ Commands:
         ;;
     pkg-deb)
         sudo apt-get install tmux flameshot ghostwriter zsh telnet git vim htop nload dstat net-tools rofi git-merge-changelog nodejs network-manager wicd-client lua5.3
+        ;;
+    pkg-flatpak)
+        flatpak install --noninteractive com.spotify.Client
         ;;
     pkg-go)
         go get -u github.com/cosmtrek/air github.com/nektos/act github.com/xxxserxxx/gotop/cmd/gotop github.com/yudai/gotty github.com/mikefarah/yq/v4@latest

@@ -2,6 +2,7 @@
 .gitattribute
 .github
 .gitignore
+.prettierrc
 .vscode
 ansible
 docs

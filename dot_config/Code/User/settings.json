@@ -48,7 +48,8 @@
   "explorer.sortOrder": "default",
   "extensions.ignoreRecommendations": true,
   "files.associations": {
-    "*.svg": "html"
+    "*.svg": "html",
+    ".chezmoiignore": "ignore"
   },
   "git.allowForcePush": true,
   "git.autofetch": true,

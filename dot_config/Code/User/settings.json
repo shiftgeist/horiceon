@@ -5,6 +5,9 @@
   "[go]": {
     "editor.defaultFormatter": "golang.go"
   },
+  "[php]": {
+    "editor.defaultFormatter": "junstyle.php-cs-fixer"
+  },
   "[python]": {
     "editor.defaultFormatter": "ms-python.python"
   },
@@ -19,6 +22,8 @@
     "esbuild",
     "Nextcloud",
     "openapi",
+    "openapitools",
+    "Parens",
     "pinia",
     "typecheck",
     "vueuse"
@@ -48,8 +53,8 @@
   "explorer.sortOrder": "default",
   "extensions.ignoreRecommendations": true,
   "files.associations": {
-    "*.svg": "html",
-    ".chezmoiignore": "ignore"
+    ".chezmoiignore": "ignore",
+    "*.svg": "html"
   },
   "git.allowForcePush": true,
   "git.autofetch": true,

@@ -30,18 +30,6 @@ git_is_repo() {
   __git rev-parse HEAD >/dev/null 2>&1
 }
 
-# Outputs the name of the current branch
-git_current_branch() {
-  git_is_repo || return
-  ref=$(__git symbolic-ref --quiet HEAD 2>/dev/null)
-  ret=$?
-  if [ $ret -ne 0 ]; then
-    [ $ret -eq 128 ] && return # no git repo.
-    ref=$(__git rev-parse --short HEAD 2>/dev/null) || return
-  fi
-  echo "${ref#refs/heads/}"
-}
-
 gdesc() {
   __git describe --tags "$(__git rev-list --tags --max-count=1)"
 }
@@ -105,7 +93,7 @@ gfr() {
 gff() {
   function_name=${0##*/}
 
-  BRANCH=$(git_current_branch)
+  BRANCH=$(__git rev-parse --abbrev-ref HEAD)
   FLOW_TYPE="$(printf '%s' "$BRANCH" | cut -d '/' -f1)"
   FLOW_NAME="$(printf '%s' "$BRANCH" | cut -d '/' -f2)"
 

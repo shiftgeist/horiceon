@@ -134,7 +134,7 @@ Commands:
         go get -u github.com/cosmtrek/air github.com/nektos/act github.com/xxxserxxx/gotop/cmd/gotop github.com/yudai/gotty github.com/mikefarah/yq/v4@latest
         ;;
     pkg-npm)
-        npm i -g npm diff-so-fancy doctoc imagemin imagemin-webp js-beautify jscpd markdownlint-cli npm-check-updates prettier semver tinypng-cli zx
+        npm i -g diff-so-fancy doctoc imagemin imagemin-webp js-beautify jscpd markdownlint-cli npm npm-check-updates prettier semver tinypng-cli ts-node
         ;;
     *)
         cli_help_packages

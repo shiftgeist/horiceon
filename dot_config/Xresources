@@ -34,3 +34,30 @@
 ! white
 *.color7:      #E1E1E2
 *.color15:     #FFFFFF
+
+st.font: Dank Mono:pixelsize=15:antialias=true:autohint=true
+
+! cursor size
+Xcursor.size: 24
+
+! xterm config
+xterm*faceName: Dank Mono
+xterm*faceSize: 11
+
+! double-click to select whole URLs
+xterm*charClass: 33:48,36-47:48,58-59:48,61:48,63-64:48,95:48,126:48
+
+! stop output to terminal from jumping down to bottom of scroll again
+xterm*scrollTtyOutput: false
+
+! scroll on key input
+xterm*scrollKey: true
+
+! copy and pasting
+xterm*vt100.translations: #override \
+    Shift Ctrl <Key> C: copy-selection(CLIPBOARD) \n\
+    Shift Ctrl <Key> V: insert-selection(CLIPBOARD)
+
+! right hand side scrollbar...
+xterm*rightScrollBar: true
+xterm*ScrollBar: true

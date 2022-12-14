@@ -4,7 +4,8 @@
 
 setxkbmap us altgr-intl &
 setxkbmap -option caps:escape -option lv3:ralt_switch & # Map the caps lock key to escape
-xinput set-prop 11 290 1 &                              # Touchpad libinput Tapping Enabled
+xset r rate 300 50 &                                    # Increase key speed via a rate change
+xinput set-prop 11 290 1 &                              # Touchpad libinput enabled soft tapping
 xrdb "$XDG_CONFIG_HOME/Xresources" &                    # Use Xresources colors/settings on startup
 
 export SSH_AUTH_SOCK

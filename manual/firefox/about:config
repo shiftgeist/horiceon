@@ -1,2 +1,3 @@
+accessibility.typeaheadfind.enablesound = false            # disable beeping on search results
 toolkit.legacyUserProfileCustomizations.stylesheets = true # enable profile customise $PROFILE/chrome/*
-ui.key.menuAccessKeyFocuses	= false # disable alt opening menu
+ui.key.menuAccessKeyFocuses = false                        # disable alt opening menu

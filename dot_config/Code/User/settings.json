@@ -40,7 +40,7 @@
   "editor.minimap.enabled": false,
   "editor.multiCursorModifier": "alt",
   "editor.quickSuggestionsDelay": 0,
-  "editor.renderWhitespace": "boundary",
+  "editor.renderWhitespace": "all",
   "editor.rulers": [
     {
       "color": "#21242C",
@@ -50,6 +50,7 @@
   "editor.stickyScroll.enabled": true,
   "editor.suggest.preview": true,
   "editor.tabSize": 2,
+  "explorer.confirmDragAndDrop": false,
   "explorer.sortOrder": "default",
   "extensions.ignoreRecommendations": true,
   "files.associations": {
@@ -61,10 +62,10 @@
   "git.confirmSync": false,
   "git.enableSmartCommit": true,
   "gitlens.currentLine.enabled": false,
+  "go.toolsManagement.autoUpdate": true,
   "Lua.telemetry.enable": false,
   "mergeEditor.diffAlgorithm": "experimental",
   "prettier.arrowParens": "avoid",
-  "prettier.prettierPath": "~/.npm-global/bin/prettier",
   "prettier.semi": false,
   "prettier.singleQuote": true,
   "redhat.telemetry.enabled": false,
@@ -74,8 +75,8 @@
   "terminal.integrated.minimumContrastRatio": 7,
   "terminal.integrated.scrollback": 1000000,
   "update.mode": "manual",
-  "window.menuBarVisibility": "hidden",
-  "workbench.colorTheme": "Dracula",
   "volar.autoCompleteRefs": true,
-  "volar.completion.preferredAttrNameCase": "auto-camel"
+  "volar.completion.preferredAttrNameCase": "auto-camel",
+  "window.menuBarVisibility": "hidden",
+  "workbench.colorTheme": "Dracula"
 }

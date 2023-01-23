@@ -41,6 +41,8 @@ async function getWeatherData() {
 }
 
 async function saveDataToFile({ airtemp, watertemp, windspeed, desc }) {
+  const csvSeparator = ';'
+
   const date = new Date().toISOString()
   const data = [date, airtemp, watertemp, windspeed, desc]
 
@@ -51,11 +53,15 @@ async function saveDataToFile({ airtemp, watertemp, windspeed, desc }) {
   }
 
   const dataOutResponse = await Deno.readTextFile(outPath)
-  const dataOutData = csvParse(dataOutResponse, { separator: ';' })
+  const dataOutData = csvParse(dataOutResponse, { separator: csvSeparator })
 
   dataOutData.push(data)
 
-  const dataOutPrepare = csvStringify(dataOutData)
+  const dataOutPrepare = csvStringify(dataOutData, {
+    separator: csvSeparator,
+    headers: false,
+  })
+
   await Deno.writeTextFile(outPath, dataOutPrepare)
 }
 
@@ -63,8 +69,9 @@ async function saveDataToFile({ airtemp, watertemp, windspeed, desc }) {
  * @docs xfce genmon docs: https://docs.xfce.org/panel-plugins/xfce4-genmon-plugin/start
  */
 function barOutput(output) {
-  console.log(`<txt>${output}</txt>`)
-  console.log('<txtclick>xdg-open https://wttr.in</txtclick>')
+  console.log(
+    `<txt>${output}</txt><txtclick>xdg-open https://wttr.in</txtclick>`
+  )
 }
 
 async function main() {

@@ -74,6 +74,12 @@
   "terminal.integrated.defaultProfile.linux": "zsh",
   "terminal.integrated.minimumContrastRatio": 7,
   "terminal.integrated.scrollback": 1000000,
+  "totalTypeScript.hiddenTips": [
+    "passing-generics-to-types",
+    "nonnullable-utility-type"
+  ],
+  "totalTypeScript.hideAllTips": false,
+  "totalTypeScript.hideBasicTips": true,
   "update.mode": "manual",
   "volar.autoCompleteRefs": true,
   "volar.completion.preferredAttrNameCase": "auto-camel",

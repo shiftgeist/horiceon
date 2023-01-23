@@ -12,3 +12,4 @@ data:
   api:
     tinypng: ""
     airwater_url: ""
+  forecast_csv: ""

@@ -1,3 +1,0 @@
-#!/usr/bin/env denorun
-
-console.log('hello world')

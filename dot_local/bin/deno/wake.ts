@@ -22,10 +22,7 @@ async function getLocalData() {
   const airwaterData = await airwaterResponse.text()
 
   const regex = /(?<=.*temp>).*(?=<\/)/gm
-  let matches = airwaterData.match(regex) || []
-  const [airtemp, watertemp] = matches
-    .map(comaString => comaString.replace(',', '.'))
-    .map(dotString => parseFloat(dotString))
+  const [airtemp, watertemp] = airwaterData.match(regex) || []
 
   return { airtemp, watertemp }
 }
@@ -41,8 +38,11 @@ async function getWeatherData() {
 async function saveDataToFile({ airtemp, watertemp, windspeed, desc }) {
   const csvSeparator = ';'
 
-  const date = new Date().toISOString()
-  const data = [date, airtemp, watertemp, windspeed, desc]
+  const now = new Date()
+  const date = now.toISOString().slice(0, 10)
+  const time = now.toTimeString().slice(0, 8)
+  const isoString = `${date} ${time}`
+  const data = [isoString, airtemp, watertemp, windspeed, desc]
 
   const outPath = config?.data.forecast_csv
   if (!outPath) {

@@ -1,14 +1,14 @@
 import config from './config.ts'
+import { isOnline } from './online.ts'
 
 import {
   parse as csvParse,
   stringify as csvStringify,
 } from 'https://deno.land/std@0.173.0/encoding/csv.ts'
-import { isOnline } from 'https://deno.land/x/is_online@v0.1.0/mod.ts'
 
 async function getLocalData() {
   if (!(await isOnline())) {
-    console.log('Offline')
+    console.log('Weather Offline')
     Deno.exit()
   }
 

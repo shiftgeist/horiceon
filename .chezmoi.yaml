@@ -12,4 +12,5 @@ data:
   api:
     tinypng: ""
     airwater_url: ""
+    wttr_city: ""
   forecast_csv: ""

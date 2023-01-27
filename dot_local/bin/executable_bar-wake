@@ -12,9 +12,11 @@ function barOutput(output) {
 }
 
 async function main() {
-  const { airtemp, desc, watertemp, windspeed } = await wake()
+  const { airtempC, desc, watertempC, windspeedKmph } = await wake()
 
-  barOutput(`🌡️ ${airtemp}°C 🌊 ${watertemp}°C 🌬️ ${windspeed}Kmph "${desc}"`)
+  barOutput(
+    `🌡️ ${airtempC}°C 🌊 ${watertempC}°C 🌬️ ${windspeedKmph} Kmph "${desc}"`
+  )
 }
 
 await main()

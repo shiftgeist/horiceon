@@ -6,7 +6,30 @@ import {
   stringify as csvStringify,
 } from 'https://deno.land/std@0.173.0/encoding/csv.ts'
 
-async function getLocalData() {
+const csvSeparator = ';'
+
+type ValueOf<T> = T[keyof T]
+
+interface WakeDataLocal {
+  airtempC: string
+  watertempC: string
+}
+
+interface WakeDataWeather {
+  desc: string
+  windspeedKmph: string
+  sunrise: string
+  sunset: string
+  cloudcover: string
+  uvIndex: string
+  visibilityKm: string
+}
+
+interface WakeData extends WakeDataLocal, WakeDataWeather {}
+
+type CsvArray = Array<ValueOf<WakeData>>
+
+async function getLocalData(): Promise<WakeDataLocal> {
   if (!(await isOnline())) {
     console.log('Weather Offline')
     Deno.exit()
@@ -22,27 +45,49 @@ async function getLocalData() {
   const airwaterData = await airwaterResponse.text()
 
   const regex = /(?<=.*temp>).*(?=<\/)/gm
-  const [airtemp, watertemp] = airwaterData.match(regex) || []
+  let [airtempC, watertempC] = airwaterData.match(regex) || []
+  airtempC = airtempC || ''
 
-  return { airtemp, watertemp }
+  return { airtempC, watertempC }
 }
 
-async function getWeatherData() {
-  const wttrResponse = await fetch('https://wttr.in/?format=j1')
+async function getWeatherData(): Promise<WakeDataWeather> {
+  const city: string = config?.data.api.wttr_city || ''
+
+  const wttrResponse = await fetch(`https://wttr.in/${city}?format=j1`)
   const wttrData = await wttrResponse.json()
-  const wttr = wttrData.current_condition[0]
 
-  return { desc: wttr.weatherDesc[0].value, windspeed: wttr.windspeedKmph }
+  const current_condition = wttrData.current_condition[0]
+  const weather = wttrData.weather[0]
+
+  return {
+    cloudcover: current_condition.cloudcover,
+    desc: current_condition.weatherDesc[0].value,
+    sunrise: weather.astronomy[0].sunrise,
+    sunset: weather.astronomy[0].sunset,
+    uvIndex: current_condition.uvIndex,
+    visibilityKm: current_condition.visibility,
+    windspeedKmph: current_condition.windspeedKmph,
+  }
 }
 
-async function saveDataToFile({ airtemp, watertemp, windspeed, desc }) {
-  const csvSeparator = ';'
-
+async function saveDataToFile(wakeData: WakeData) {
   const now = new Date()
   const date = now.toISOString().slice(0, 10)
   const time = now.toTimeString().slice(0, 8)
   const isoString = `${date} ${time}`
-  const data = [isoString, airtemp, watertemp, windspeed, desc]
+  const data: CsvArray = [
+    isoString,
+    wakeData.airtempC,
+    wakeData.watertempC,
+    wakeData.windspeedKmph,
+    wakeData.desc,
+    wakeData.sunrise,
+    wakeData.sunset,
+    wakeData.uvIndex,
+    wakeData.visibilityKm,
+    wakeData.cloudcover,
+  ]
 
   const outPath = config?.data.forecast_csv
   if (!outPath) {
@@ -51,11 +96,15 @@ async function saveDataToFile({ airtemp, watertemp, windspeed, desc }) {
   }
 
   const dataOutResponse = await Deno.readTextFile(outPath)
-  const dataOutData = csvParse(dataOutResponse, { separator: csvSeparator })
+  const dataOutData: CsvArray[] = csvParse(dataOutResponse, {
+    separator: csvSeparator,
+  })
 
   dataOutData.push(data)
 
-  const dataOutPrepare = csvStringify(dataOutData, {
+  const dataSet: CsvArray[] = removeDuplicatedCsvLines(dataOutData)
+
+  const dataOutPrepare = csvStringify(dataSet, {
     separator: csvSeparator,
     headers: false,
   })
@@ -63,13 +112,36 @@ async function saveDataToFile({ airtemp, watertemp, windspeed, desc }) {
   await Deno.writeTextFile(outPath, dataOutPrepare)
 }
 
-async function main() {
-  const { airtemp, watertemp } = await getLocalData()
-  const { desc, windspeed } = await getWeatherData()
+function removeDuplicatedCsvLines(csv: CsvArray[]) {
+  const headerRow = csv[0]
+  const cleanRows = [headerRow]
 
-  saveDataToFile({ airtemp, desc, watertemp, windspeed })
+  function joiner(inner_row: CsvArray) {
+    return inner_row.slice(1).join(csvSeparator)
+  }
 
-  return { airtemp, desc, watertemp, windspeed }
+  csv.forEach(row => {
+    const search = joiner(row)
+
+    const exists = cleanRows.map(row => joiner(row)).includes(search)
+
+    if (!exists) {
+      cleanRows.push(row)
+    }
+  })
+
+  return cleanRows
+}
+
+async function main(): Promise<WakeData> {
+  const localData = await getLocalData()
+  const weatherData = await getWeatherData()
+
+  const data = { ...localData, ...weatherData }
+
+  saveDataToFile(data)
+
+  return data
 }
 
 export default main

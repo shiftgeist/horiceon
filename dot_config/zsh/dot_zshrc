@@ -51,6 +51,6 @@ zinit light Aloxaf/fzf-tab
 zinit ice compile'(pure|async).zsh' pick'async.zsh' src'pure.zsh'
 zinit light sindresorhus/pure
 
-zinit snippet "${XDG_CONFIG_HOME:-$HOME/.config}/.aliases"
-zinit snippet "${XDG_CONFIG_HOME:-$HOME/.config}/.functions"
+[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/.aliases" ] && zinit snippet "${XDG_CONFIG_HOME:-$HOME/.config}/.aliases"
+[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/.functions" ] && zinit snippet "${XDG_CONFIG_HOME:-$HOME/.config}/.functions"
 [ -f "$HOME/.extras" ] && zinit light "$HOME/.extras"

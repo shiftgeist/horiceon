@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# install helper
+
 set -e
 
 main() {
@@ -45,8 +47,9 @@ Commands:
 
   pkg-arch          arch packages
   pkg-code          vscode extensions
-  pkg-deb           debian packages
+  pkg-deb-cli       debian cli packages
   pkg-deb-node      setup nodejs package debian source ([version] optional, eg. '18', default '18')
+  pkg-deb-ui        debian ui packages
   pkg-flatpak       flatpak packages
   pkg-go            go packages
   pkg-npm           npm global packages
@@ -105,37 +108,73 @@ Commands:
         # code --install-extension "EXTENSION_ID"                               # TOPIC
         code --install-extension "dracula-theme.theme-dracula"                  # theme
         code --install-extension "editorconfig.editorconfig"                    # lint
-        code --install-extension "gruntfuggly.todo-tree"                        # productivity
-        code --install-extension "lokalise.i18n-ally"                           # utility
+        code --install-extension "kshetline.ligatures-limited"                  # utility
         code --install-extension "maattdd.gitless"                              # git
         code --install-extension "naumovs.color-highlight"                      # utility
         code --install-extension "ow.vscode-subword-navigation"                 # utility
         code --install-extension "simonsiefke.prettier-vscode"                  # lint
         code --install-extension "streetsidesoftware.code-spell-checker-german" # lint
         code --install-extension "streetsidesoftware.code-spell-checker"        # lint
-        code --install-extension "wdhongtw.gpg-indicator"                       # misc
         code --install-extension "yzhang.markdown-all-in-one"                   # markdown
         code --install-extension "zengxingxin.sort-js-object-keys"              # utility
         ;;
-    pkg-deb)
-        sudo apt-get install tmux flameshot ghostwriter zsh telnet git vim htop nload dstat net-tools rofi git-merge-changelog nodejs network-manager wicd-client lua5.3
+    pkg-deb-cli)
+        sudo apt-get install \
+            dstat \
+            git \
+            git-merge-changelog \
+            htop \
+            lua5.4 \
+            net-tools \
+            network-manager \
+            nload \
+            nodejs \
+            telnet \
+            tmux \
+            vim \
+            zsh \
         ;;
     pkg-deb-node)
         if [ "$3" ]; then
             NODE_VERSION="$3"
         else
-            NODE_VERSION="18"
+            NODE_VERSION="20"
         fi
         curl -fsSL "https://deb.nodesource.com/setup_$NODE_VERSION.x" | sudo -E bash -
         ;;
+    pkg-deb-ui)
+        sudo apt-get install \
+            flameshot \
+            rofi \
+            wicd-client \
+        ;;
     pkg-flatpak)
-        flatpak install --noninteractive com.spotify.Client
+        flatpak install --noninteractive \
+            com.spotify.Client
         ;;
     pkg-go)
-        go get -u github.com/cosmtrek/air github.com/nektos/act github.com/xxxserxxx/gotop/cmd/gotop github.com/yudai/gotty github.com/mikefarah/yq/v4@latest
+        go get -u \
+            github.com/cosmtrek/air \
+            github.com/mikefarah/yq/v4@latest \
+            github.com/nektos/act \
+            github.com/xxxserxxx/gotop/cmd/gotop \
+            github.com/yudai/gotty \
         ;;
     pkg-npm)
-        npm i -g diff-so-fancy doctoc imagemin imagemin-webp js-beautify jscpd markdownlint-cli npm npm-check-updates prettier semver tinypng-cli ts-node
+        npm i -g \
+            diff-so-fancy \
+            doctoc \
+            imagemin \
+            imagemin-webp \
+            js-beautify \
+            jscpd \
+            markdownlint-cli \
+            npm \
+            npm-check-updates \
+            prettier \
+            semver \
+            tinypng-cli \
+            ts-node
         ;;
     *)
         cli_help_packages

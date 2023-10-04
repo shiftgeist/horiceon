@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# script to remove color from background
+
 bg_color="White"
 fg_color="#000"
 input="$1"

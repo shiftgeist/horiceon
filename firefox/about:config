@@ -1,3 +1,4 @@
 accessibility.typeaheadfind.enablesound = false            # disable beeping on search results
+browser.uidensity = 1                                      # compact design
 toolkit.legacyUserProfileCustomizations.stylesheets = true # enable profile customise $PROFILE/chrome/*
 ui.key.menuAccessKeyFocuses = false                        # disable alt opening menu

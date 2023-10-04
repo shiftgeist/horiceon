@@ -1,12 +1,11 @@
 [user]
-  name = "{{ .git.name }}"
-  email = "{{ .git.email }}"
+  name = "PUT_NAME_HERE"
+  email = "PUT_EMAIL_HERE"
 
 [github]
-  user = shiftgeist
+  user = PUT_USERNAME_HERE
 
 [core]
-  excludesfile = ~/.config/git/ignore
   pager = diff-so-fancy | less --tabs=4 -RFX
 
 [diff-so-fancy]

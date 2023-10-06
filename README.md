@@ -5,10 +5,10 @@
 
 Personal configuration files and scripts.
 
-## starring
+## What's included?
 
 - Shell: zsh + zinit
-- Font: Akinson Hyperlegible + [Dank Mono](https://philpl.gumroad.com/l/dank-mono)
+- Font: Atkinson Hyperlegible + [Dank Mono](https://philpl.gumroad.com/l/dank-mono)
 - Theme: Dracula
 - Configs:
   VSCode

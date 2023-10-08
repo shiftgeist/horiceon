@@ -1,22 +1,22 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 __npm_set_tag() {
   if [ -f "package.json" ]; then
     jq ".version=\"$1\"" package.json >package.json.tmp
     mv package.json.tmp package.json
   fi
-  __npm_install_lock_file
+  __npm_command install
 }
 
-__npm_install_lock_file() {
-  if [ -f "package-lock.json" ]; then
-    npm install
-  fi
-  if [ -f "pnpm-lock.yaml" ]; then
-    pnpm install
-  fi
-  if [ -f "yarn.lock" ]; then
-    yarn install
+__npm_command() {
+  if [[ -f bun.lockb ]]; then
+    command bun "$@"
+  elif [[ -f pnpm-lock.yaml ]]; then
+    command pnpm "$@"
+  elif [[ -f yarn.lock ]]; then
+    command yarn "$@"
+  else
+    command npm "$@"
   fi
 }
 

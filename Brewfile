@@ -5,7 +5,9 @@ tap "homebrew/cask"
 # 'brew install'
 brew "bat"
 brew "eza"
+brew "fzf"
 brew "gh"
+brew "go"
 brew "gifski"
 brew "git"
 brew "imagemagick"
@@ -15,6 +17,7 @@ brew "node"
 brew "python"
 brew "watchman"
 brew "webp"
+brew "python3"
 
 # 'brew install --cask'
 # cask "figma-agent" # Font installers for Figma.app

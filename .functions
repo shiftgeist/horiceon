@@ -20,6 +20,8 @@ __npm_command() {
   fi
 }
 
+alias dev="__npm_command run dev"
+
 # We wrap in a local function instead of exporting the variable directly in
 # order to avoid interfering with manually-run git commands by the user.
 __git() {

@@ -1,7 +1,4 @@
-#!/usr/bin/env bash
-
-# dependencies
-# git jq bc jq vim docker xsel tar
+# #!/usr/bin/env bash
 
 # Easier navigation: .., ..., ...., ....., ~ and -
 alias ..="cd .."
@@ -11,65 +8,49 @@ alias ....="cd ../../.."
 alias .....="cd ../../../.."
 alias ......="cd ../../../../.."
 
-if which eza > /dev/null 2>&1; then
+# Open any files marked as “modified” in your default editor.
+alias changed='open `git status --porcelain | sed -ne "s/^ M //p"`'
+
+# Replace ls with eza
+# https://github.com/eza-community/eza
+if command -v eza &> /dev/null; then
   alias ls="eza"
+
+  # Long form, groups, mark file types, file size
+  alias l="eza -lgF --icons"
+  alias ll="l"
+
+  # Long form, groups, mark file types, order by last modified
+  alias lt="eza -lgF -s oldest --icons"
+
+  # Long form, groups, list all except . and ..., mark file types, file size
+  alias la="eza -lgaF --icons"
+
+  # Long form, groups, list all except . and ..., mark file types, order by last modified, file size
+  alias lat="eza -lgAF -s oldest --icons"
+
+  # List only directories, groups, mark file types
+  alias lsd="eza -lgFD --icons"
 fi
 
-# npm
-alias dev="__npm_command run dev"
-
-# ---
-# OLD
-# ---
-
-# general
-
-alias select-file="xsel -b <"
-alias dir-size="du -sk * | sort -n"
-
-alias untar="tar xvf"
-alias untargz="tar zxvf"
-alias untarxz="tar xf"
-alias untarbz2="tar xjf"
-alias ungz="gzip -d"
-alias un7z="7za e"
-
-alias zsh-debug="zprof > zprof-out.txt && less zprof-out.txt && rm zprof-out.txt"
-
-# system
-
-alias syslog-crit="sudo dmesg -w -l err,warn"
-alias syslog="sudo dmesg -w"
-alias ports="netstat -tulpn"
-alias mountcol="mount | column -t"
-alias getownip="curl ifconfig.me"
-alias curl-json="curl --header 'Content-Type:application/json'"
-alias calc="bc -ql"
-alias network-active="nmcli device status"
-alias audio-active="pacmd list-sinks | grep -e 'name:' -e 'index' -e 'Speakers'"
-
-# apps
-alias obsidian="/usr/bin/flatpak run --branch=stable --arch=x86_64 --command=obsidian.sh --file-forwarding md.obsidian.Obsidian @@u %u @@"
-
-# command line
-
-alias vimz="fc"
-alias json="jq"
-
-# list
-
-if command -v exa >/dev/null; then
-  alias ls="exa"
+# Replace cat with bat
+# https://github.com/sharkdp/bat
+if command -v bat &> /dev/null; then
+  alias cat="bat -p"
 fi
-alias la="ls -lah"
 
-# kitty
+# Always enable colored `grep` output
+# Note: `GREP_OPTIONS="--color=auto"` is deprecated, hence the alias usage.
+alias grep="grep --color=auto"
+alias fgrep="fgrep --color=auto"
+alias egrep="egrep --color=auto"
 
-alias icat="kitty +kitten icat"
+# Get week number
+alias week="date +%V"
 
-# python
+# IP addresses
+alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
 
-alias pyfind="find . -name '*.py'"
-alias pygrep="grep -nr --include='*.py'" # lookup text in python files
-
-
+# Merge PDF files, preserving hyperlinks
+# Usage: `mergepdf input{1,2,3}.pdf`
+alias mergepdf="gs -q -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -sOutputFile=_merged.pdf"

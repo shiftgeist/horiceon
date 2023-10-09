@@ -1,29 +1,34 @@
-#!/bin/sh
+# ~/.profile: executed by the command interpreter for login shells.
+# This file is not read by bash(1), if ~/.bash_profile or ~/.bash_login
+# exists.
+# see /usr/share/doc/bash/examples/startup-files for examples.
+# the files are located in the bash-doc package.
 
-[ -f "$FILE" ] && . "$HOME/.cargo/env"
+# the default umask is set in /etc/profile; for setting the umask
+# for ssh logins, install and configure the libpam-umask package.
+#umask 022
 
-export PATH="$PATH:/usr/local/go/bin/"
-export PATH="$PATH:$HOME/.cargo/bin/"
-export PATH="$PATH:$HOME/.deno/bin/"
-export PATH="$PATH:$HOME/.local/bin/"
-export PATH="$PATH:$HOME/.npm-global/bin/"
-export PATH="$PATH:$HOME/bin/"
-export PATH="$PATH:$HOME/go/bin/"
+# if running bash
+if [ -n "$BASH_VERSION" ]; then
+    # include .bashrc if it exists
+    if [ -f "$HOME/.bashrc" ]; then
+	. "$HOME/.bashrc"
+    fi
+fi
 
-export EDITOR="vim"
-export PAGER="less"
-export TERMINAL="kitty"
+# if running zsh
+if [ -n "$ZSH_VERSION" ]; then
+    # include .zshrc if it exists
+    if [ -f "$HOME/.zshrc" ]; then
+	. "$HOME/.zshrc"
+    fi
+fi
 
-TTY="$(tty)"
-export GPG_TTY="$TTY"
+# set PATH
+export PATH=$HOME/.local/bin:$PATH
+export PATH=$HOME/.npm-global/bin:$PATH
+export PATH=$HOME/.deno/bin:$PATH
+export PATH=$HOME/.bun/bin:$PATH
 
-export XDG_CONFIG_HOME="$HOME/.config"
-export XDG_DATA_HOME="$HOME/.local/share"
-export XDG_DATA_DIRS="$XDG_DATA_DIRS:/var/lib/flatpak/exports/share:$HOME/.local/share/flatpak/exports/share"
-export XDG_CACHE_HOME="$HOME/.cache"
-
-export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
-export PROFILE="$ZDOTDIR/.zshrc"
-
-# Start graphical server on tty1 if not already running.
-[ "$(tty)" = "/dev/tty1" ] && ! pgrep -f "Xorg" && exec startx
+# brew
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"

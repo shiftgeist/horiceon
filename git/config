@@ -42,11 +42,8 @@
   pls = pull --autostash
   pu = push
   st = status
-  push-tdm = !git push --tags && git co develop && git push && git co master && git push
-  push-up = !git push --set-upstream origin "$(git rev-parse --abbrev-ref HEAD)"
+  push-up = !git push --set-upstream origin $(git rev-parse --abbrev-ref HEAD)
   reset-hard = !git reset --hard origin/$(git rev-parse --abbrev-ref HEAD)
-  common-ancestor = !git merge-base $(git rev-parse --abbrev-ref HEAD)
-  rebase-onto-common-commit-b = !git rebase --onto
 
 [merge]
   conflictStyle = diff3

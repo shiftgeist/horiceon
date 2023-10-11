@@ -55,8 +55,6 @@ fi
 
 [ -f ~/.fzf.bash ] && . ~/.fzf.bash
 
-export ERR_PNPM_NO_GLOBAL_BIN_DIR="~/.npm-global"
-
 # Setup starship prompt if unset
 if [ -z $STARSHIP_DURATION ]; then
   source <(/usr/local/bin/starship init bash --print-full-init)

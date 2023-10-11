@@ -1,39 +1,48 @@
+# ---
+# Install 'brew bundle install'
+# Match your current system configuration to your brewfile 'brew bundle --force cleanup'
+# ---
+
 # 'brew tap'
 tap "homebrew/bundle"
+tap "homebrew/cask-fonts"
 tap "homebrew/cask"
 
 # 'brew install'
 brew "bat"
+brew "docker-compose"
+brew "docker"
 brew "eza"
 brew "fzf"
 brew "gh"
-brew "go"
 brew "gifski"
 brew "git"
+brew "go"
 brew "imagemagick"
 brew "jq"
 brew "mas"
 brew "node"
-brew "python"
+brew "python@3"
 brew "watchman"
 brew "webp"
-brew "python3"
 
 # 'brew install --cask'
-# cask "figma-agent" # Font installers for Figma.app
-# cask "linear-linear" # App to manage software development and track bugs
-# cask "stats" # System monitor for the menu bar
 cask "alt-tab" # Enable Windows-like alt-tab
 cask "beekeeper-studio" # Cross platform SQL editor and database management app
-cask "docker" # Pack, ship and run any application as a lightweight container
 cask "figma" # Collaborative team software
 cask "firefox" # Web browser
+cask "font-atkinson-hyperlegible" # Font with greater legibility and readability for low vision readers (Sans)
+# cask "font-dm-mono" # ❔ (Serif)
+# cask "font-roboto-mono-nerd-font" # ❔ (Alternative Mono)
+cask "font-young-serif" # Heavy weight old style serif typeface (Serif)
 cask "insomnia" # HTTP and GraphQL Client
 cask "iterm2" # Terminal emulator as alternative to Apple's Terminal app
+# cask "linear-linear" # ❔ App to manage software development and track bugs
 cask "meetingbar" # Shows the next meeting in the menu bar
 cask "rectangle" # Move and resize windows using keyboard shortcuts or snap areas
 cask "slack" # Team communication and collaboration software
 cask "spotify" # Music streaming service
+# cask "stats" # ❔ System monitor for the menu bar
 cask "visual-studio-code" # Open-source code editor
 
 # 'mas install'

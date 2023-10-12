@@ -2,35 +2,15 @@
 
 # Easier navigation: .., ..., ...., ....., ~ and -
 alias ..="cd .."
-alias cd..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
 alias .....="cd ../../../.."
 alias ......="cd ../../../../.."
 
-# Open any files marked as “modified” in your default editor.
-alias changed='open `git status --porcelain | sed -ne "s/^ M //p"`'
-
 # Replace ls with eza
 # https://github.com/eza-community/eza
 if command -v eza &> /dev/null; then
   alias ls="eza"
-
-  # Long form, groups, mark file types, file size
-  alias l="eza -lgF --icons"
-  alias ll="l"
-
-  # Long form, groups, mark file types, order by last modified
-  alias lt="eza -lgF -s oldest --icons"
-
-  # Long form, groups, list all except . and ..., mark file types, file size
-  alias la="eza -lgaF --icons"
-
-  # Long form, groups, list all except . and ..., mark file types, order by last modified, file size
-  alias lat="eza -lgAF -s oldest --icons"
-
-  # List only directories, groups, mark file types
-  alias lsd="eza -lgFD --icons"
 fi
 
 # Replace cat with bat
@@ -45,12 +25,16 @@ alias grep="grep --color=auto"
 alias fgrep="fgrep --color=auto"
 alias egrep="egrep --color=auto"
 
-# Get week number
-alias week="date +%V"
-
 # IP addresses
 alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
 
 # Merge PDF files, preserving hyperlinks
 # Usage: `mergepdf input{1,2,3}.pdf`
 alias mergepdf="gs -q -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -sOutputFile=_merged.pdf"
+
+# Docker
+alias doco-d="docker compose down" # DOcker COmpose - Down
+alias do-dac="docker rm -f $(docker ps -a -q)" # DOcker - Delete All Container
+alias do-dav="docker volume rm $(docker volume ls -q)" # DOcker - Delete All Volumes
+alias doco-up="docker compose up -d" # DOcker COmpose - UP (default detached)
+alias doco-upfc="doco-d && do-dac && do-dav && doco-rd" # DOcker COmpose - UP Force Clean

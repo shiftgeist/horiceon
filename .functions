@@ -22,18 +22,12 @@ __npm_command() {
 
 alias dev="__npm_command run dev"
 
-# We wrap in a local function instead of exporting the variable directly in
-# order to avoid interfering with manually-run git commands by the user.
-__git() {
-  GIT_OPTIONAL_LOCKS=0 command git "$@"
-}
-
 git_is_repo() {
-  __git rev-parse HEAD >/dev/null 2>&1
+  git rev-parse HEAD >/dev/null 2>&1
 }
 
-gdesc() {
-  __git describe --tags "$(__git rev-list --tags --max-count=1)"
+git_version_latest() {
+  git describe --tags "$(git rev-list --tags --max-count=1)"
 }
 
 # git flow hotfix start
@@ -47,11 +41,11 @@ gfh() {
   echo "Starting hotfix $NEW_GIT_TAG"
 
   if [ -z "$NEW_GIT_TAG" ]; then
-    echo "No valid hotfix tag found after $(gdesc). Provide custom tag."
+    echo "No valid hotfix tag found after $(git_version_latest). Provide custom tag."
     return 1
   fi
 
-  if __git checkout -b "hotfix/$NEW_GIT_TAG"; then
+  if git checkout -b "hotfix/$NEW_GIT_TAG"; then
     if [ "$#" -eq 0 ]; then
       __npm_set_tag "$NEW_GIT_TAG"
     fi
@@ -65,7 +59,7 @@ gfr() {
   if [ "$#" -ne 0 ]; then
     NEW_GIT_TAG="$1"
   else
-    echo "$(gdesc) » [m]ajor, m[i]nor or [P]atch?"
+    echo "$(git_version_latest) » [m]ajor, m[i]nor or [P]atch?"
     while read -r REPLY; do
       case $REPLY in
       m | major)
@@ -84,7 +78,7 @@ gfr() {
 
   echo "Starting release $NEW_GIT_TAG"
 
-  if __git checkout -b "release/$NEW_GIT_TAG" develop; then
+  if git checkout -b "release/$NEW_GIT_TAG" develop; then
     __npm_set_tag "$NEW_GIT_TAG"
   else
     return 1
@@ -95,7 +89,7 @@ gfr() {
 gff() {
   function_name=${0##*/}
 
-  BRANCH=$(__git rev-parse --abbrev-ref HEAD)
+  BRANCH=$(git rev-parse --abbrev-ref HEAD)
   FLOW_TYPE="$(printf '%s' "$BRANCH" | cut -d '/' -f1)"
   FLOW_NAME="$(printf '%s' "$BRANCH" | cut -d '/' -f2)"
 

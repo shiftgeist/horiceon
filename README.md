@@ -27,6 +27,10 @@ alias horiceon="/usr/bin/git --git-dir=$HOME/.dotfiles --work-tree=$HOME"
 horiceon $GIT_COMMAND
 ```
 
+## Git Commits
+
+- Project commits follow the structure of [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/)
+
 [contrib]: https://github.com/shiftgeist/horiceon/graphs/contributors
 [issues]: https://github.com/shiftgeist/horiceon/issues
 [shield_contrib]: https://img.shields.io/github/contributors/shiftgeist/horiceon

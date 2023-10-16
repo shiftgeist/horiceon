@@ -61,7 +61,6 @@
   "git.autofetch": true,
   "git.confirmSync": false,
   "git.enableSmartCommit": true,
-  "git.untrackedChanges": "hidden",
   "gitlens.currentLine.enabled": false,
   "go.toolsManagement.autoUpdate": true,
   "Lua.telemetry.enable": false,

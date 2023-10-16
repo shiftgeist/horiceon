@@ -32,11 +32,15 @@ mas "iMovie", id: 408981434
 mas "Keynote", id: 409183694
 mas "Numbers", id: 409203825
 mas "Pages", id: 409201541
+vscode "ardenivanov.svelte-intellisense"
 vscode "bierner.markdown-footnotes"
+vscode "bierner.markdown-mermaid"
+vscode "bradlc.vscode-tailwindcss"
 vscode "dbaeumer.vscode-eslint"
 vscode "dracula-theme.theme-dracula"
 vscode "EditorConfig.EditorConfig"
 vscode "esbenp.prettier-vscode"
+vscode "fivethree.vscode-svelte-snippets"
 vscode "Gruntfuggly.todo-tree"
 vscode "kshetline.ligatures-limited"
 vscode "maattdd.gitless"
@@ -45,6 +49,7 @@ vscode "naumovs.color-highlight"
 vscode "ow.vscode-subword-navigation"
 vscode "streetsidesoftware.code-spell-checker"
 vscode "streetsidesoftware.code-spell-checker-german"
+vscode "svelte.svelte-vscode"
 vscode "usernamehw.todo-md"
 vscode "yzhang.markdown-all-in-one"
 vscode "zengxingxin.sort-js-object-keys"

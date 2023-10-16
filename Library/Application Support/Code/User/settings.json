@@ -70,6 +70,7 @@
   "prettier.semi": false,
   "prettier.singleQuote": true,
   "redhat.telemetry.enabled": false,
+  "svelte.enable-ts-plugin": true,
   "svgPreview.autoOpen": false,
   "telemetry.telemetryLevel": "off",
   "terminal.integrated.defaultProfile.linux": "zsh",

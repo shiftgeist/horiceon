@@ -1,6 +1,0 @@
-*.min.js diff=minjs
-*.bundle.js diff=minjs
-*.dist.js diff=minjs
-*.min.css diff=mincss
-*.bundle.css diff=minjs
-*.dist.css diff=minjs

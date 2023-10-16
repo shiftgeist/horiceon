@@ -1,0 +1,37 @@
+[user]
+	name = "PUT_NAME_HERE"
+	email = "PUT_EMAIL_HERE"
+
+[credential]
+	helper = cache --timeout=36000000
+
+[gpg]
+	program = gpg2
+
+[color]
+	ui = true
+
+[alias]
+	br = branch --sort=-committerdate
+	co = checkout
+	lo = log --oneline --decorate --graph --all
+	pl = pull
+	pls = pull --autostash
+	pu = push
+	st = status
+	push-up = !git push --set-upstream origin $(git rev-parse --abbrev-ref HEAD)
+	reset-hard = !git reset --hard origin/$(git rev-parse --abbrev-ref HEAD)
+	rice = !git --git-dir=$HOME/code/horiceon --work-tree=$HOME
+
+[merge]
+	conflictStyle = diff3
+	tool = code
+
+[mergetool "code"]
+	cmd = code --wait --merge $REMOTE $LOCAL $BASE $MERGED
+
+[pull]
+	rebase = true
+
+[init]
+	defaultBranch = main

@@ -1,11 +1,8 @@
 #!/usr/bin/env bash
 
-# Easier navigation: .., ..., ...., ....., ~ and -
-alias ..="cd .."
-alias ...="cd ../.."
-alias ....="cd ../../.."
-alias .....="cd ../../../.."
-alias ......="cd ../../../../.."
+alias dotfiles='GIT_DIR=$HOME/code/horiceon GIT_WORK_TREE=$HOME'
+
+alias horiceon="/usr/bin/git --git-dir=$HOME/code/horiceon --work-tree=$HOME"
 
 # Replace ls with eza
 # https://github.com/eza-community/eza
@@ -28,13 +25,5 @@ alias egrep="egrep --color=auto"
 # IP addresses
 alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
 
-# Merge PDF files, preserving hyperlinks
-# Usage: `mergepdf input{1,2,3}.pdf`
-alias mergepdf="gs -q -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -sOutputFile=_merged.pdf"
-
 # Docker
-alias doco-d="docker compose down" # DOcker COmpose - Down
-alias do-dac="docker rm -f $(docker ps -a -q)" # DOcker - Delete All Container
-alias do-dav="docker volume rm $(docker volume ls -q)" # DOcker - Delete All Volumes
-alias doco-up="docker compose up -d" # DOcker COmpose - UP (default detached)
-alias doco-upfc="doco-d && do-dac && do-dav && doco-rd" # DOcker COmpose - UP Force Clean
+# alias docker-compose-up-force-clean="docker compose down && docker rm -f $(docker ps -a -q) && docker volume rm $(docker volume ls -q) && docker compose up -d"

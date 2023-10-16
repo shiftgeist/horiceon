@@ -49,6 +49,7 @@
   "editor.stickyScroll.enabled": true,
   "editor.suggest.preview": true,
   "editor.tabSize": 2,
+  "explorer.confirmDelete": false,
   "explorer.confirmDragAndDrop": false,
   "explorer.sortOrder": "default",
   "extensions.ignoreRecommendations": true,
@@ -60,6 +61,7 @@
   "git.autofetch": true,
   "git.confirmSync": false,
   "git.enableSmartCommit": true,
+  "git.untrackedChanges": "hidden",
   "gitlens.currentLine.enabled": false,
   "go.toolsManagement.autoUpdate": true,
   "Lua.telemetry.enable": false,
@@ -68,11 +70,9 @@
   "prettier.semi": false,
   "prettier.singleQuote": true,
   "redhat.telemetry.enabled": false,
-  "security.allowedUNCHosts": ["wsl.localhost"],
   "svgPreview.autoOpen": false,
   "telemetry.telemetryLevel": "off",
   "terminal.integrated.defaultProfile.linux": "zsh",
-  "terminal.integrated.fontFamily": "FiraCode Nerd Font",
   "terminal.integrated.fontWeightBold": "400",
   "terminal.integrated.minimumContrastRatio": 7,
   "terminal.integrated.scrollback": 1000000,
@@ -91,5 +91,6 @@
   "volar.autoCompleteRefs": true,
   "volar.completion.preferredAttrNameCase": "auto-camel",
   "window.menuBarVisibility": "hidden",
-  "workbench.colorTheme": "Dracula"
+  "workbench.colorTheme": "Dracula",
+  "workbench.startupEditor": "none"
 }

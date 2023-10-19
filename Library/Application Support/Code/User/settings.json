@@ -1,6 +1,9 @@
 {
-  "[css][html][javascript][javascriptreact][json][jsonc][markdown][scss][shellscript][typescript][typescriptreact][vue]": {
+  "[css][html][javascript][javascriptreact][typescript][typescriptreact][json][jsonc][markdown][scss][shellscript][vue]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[css][html][javascript][typescript][json][jsonc][markdown][scss][shellscript]": {
+    "editor.formatOnSave": true
   },
   "[go]": {
     "editor.defaultFormatter": "golang.go"
@@ -33,7 +36,6 @@
   "editor.fontFamily": "DankMono Nerd Font",
   "editor.fontLigatures": true,
   "editor.fontSize": 14,
-  "editor.formatOnSave": true,
   "editor.guides.bracketPairs": true,
   "editor.inlineSuggest.enabled": true,
   "editor.minimap.enabled": false,

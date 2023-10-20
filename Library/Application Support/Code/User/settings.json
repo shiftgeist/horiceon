@@ -2,9 +2,6 @@
   "[css][html][javascript][javascriptreact][typescript][typescriptreact][json][jsonc][markdown][scss][shellscript][vue]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "[css][html][javascript][typescript][json][jsonc][markdown][scss][shellscript]": {
-    "editor.formatOnSave": true
-  },
   "[go]": {
     "editor.defaultFormatter": "golang.go"
   },
@@ -58,6 +55,14 @@
   "files.associations": {
     ".chezmoiignore": "ignore",
     "*.svg": "html"
+  },
+  "files.watcherExclude": {
+    "**/.git/objects/**": true,
+    "**/.git/subtree-cache/**": true,
+    "**/.hg/store/**": true,
+    "**/.pnpm/**": true,
+    "**/node_modules/**": true,
+    "**/node_modules/*/**": true
   },
   "git.allowForcePush": true,
   "git.autofetch": true,

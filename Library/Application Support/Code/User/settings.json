@@ -29,6 +29,7 @@
   ],
   "debug.javascript.autoAttachFilter": "onlyWithFlag",
   "docker.containers.label": "ContainerName",
+  "editor.accessibilitySupport": "off",
   "editor.cursorBlinking": "solid",
   "editor.fontFamily": "DankMono Nerd Font",
   "editor.fontLigatures": true,
@@ -68,6 +69,8 @@
   "git.autofetch": true,
   "git.confirmSync": false,
   "git.enableSmartCommit": true,
+  "githubPullRequests.createOnPublishBranch": "never",
+  "githubPullRequests.pullBranch": "never",
   "gitlens.currentLine.enabled": false,
   "go.toolsManagement.autoUpdate": true,
   "Lua.telemetry.enable": false,
@@ -80,6 +83,9 @@
   "svgPreview.autoOpen": false,
   "telemetry.telemetryLevel": "off",
   "terminal.integrated.defaultProfile.linux": "zsh",
+  "terminal.integrated.env.osx": {
+    "FIG_NEW_SESSION": "1"
+  },
   "terminal.integrated.fontWeightBold": "400",
   "terminal.integrated.minimumContrastRatio": 7,
   "terminal.integrated.scrollback": 1000000,

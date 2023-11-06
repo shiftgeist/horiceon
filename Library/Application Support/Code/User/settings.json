@@ -19,6 +19,7 @@
   },
   "cSpell.language": "en,de",
   "cSpell.userWords": [
+    "captioner",
     "esbuild",
     "Nextcloud",
     "openapi",
@@ -34,6 +35,7 @@
   "editor.fontFamily": "DankMono Nerd Font",
   "editor.fontLigatures": true,
   "editor.fontSize": 14,
+  "editor.formatOnSave": true,
   "editor.guides.bracketPairs": true,
   "editor.inlineSuggest.enabled": true,
   "editor.minimap.enabled": false,

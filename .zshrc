@@ -11,8 +11,11 @@ setopt INC_APPEND_HISTORY # adds commands as they are typed, not at shell exit
 setopt HIST_EXPIRE_DUPS_FIRST # expire duplicates first
 setopt HIST_REDUCE_BLANKS # removes blank lines from history
 
+# brew
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
 # Set Completion PATH
-export FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
+export FPATH="$(brew --prefix)/share/zsh/site-functions:$FPATH"
 
 # Completion
 autoload -U compinit; compinit
@@ -22,12 +25,9 @@ if [ -f ~/.aliases ]; then
   . ~/.aliases
 fi
 
-# brew
-eval "$(/opt/homebrew/bin/brew shellenv)"
-
 # fzf
-source "/opt/homebrew/opt/fzf/shell/completion.zsh"
-source "/opt/homebrew/opt/fzf/shell/key-bindings.zsh"
+source "$(brew --prefix)/opt/fzf/shell/completion.zsh"
+source "$(brew --prefix)/opt/fzf/shell/key-bindings.zsh"
 
 # prompt
 eval "$(starship init zsh)"

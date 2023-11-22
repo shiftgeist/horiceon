@@ -29,6 +29,7 @@ cask "figma"
 cask "firefox-developer-edition"
 cask "font-atkinson-hyperlegible"
 cask "font-young-serif"
+cask "google-chrome"
 cask "insomnia"
 cask "keepingyouawake"
 cask "keka"
@@ -46,6 +47,7 @@ mas "iMovie", id: 408981434
 mas "Keynote", id: 409183694
 mas "Numbers", id: 409203825
 mas "Pages", id: 409201541
+vscode "antfu.unocss"
 vscode "ardenivanov.svelte-intellisense"
 vscode "bierner.markdown-footnotes"
 vscode "bierner.markdown-mermaid"

@@ -20,6 +20,7 @@
   "cSpell.language": "en,de",
   "cSpell.userWords": [
     "captioner",
+    "corepack",
     "esbuild",
     "Nextcloud",
     "openapi",
@@ -105,7 +106,10 @@
   "totalTypeScript.hideBasicTips": true,
   "volar.autoCompleteRefs": true,
   "volar.completion.preferredAttrNameCase": "auto-camel",
+  "window.commandCenter": false,
   "window.menuBarVisibility": "hidden",
+  "workbench.activityBar.location": "top",
   "workbench.colorTheme": "Dracula",
+  "workbench.layoutControl.enabled": false,
   "workbench.startupEditor": "none"
 }

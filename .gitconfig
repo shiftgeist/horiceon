@@ -14,7 +14,7 @@
 [alias]
 	br = branch --sort=-committerdate
 	co = checkout
-	lo = log --oneline --decorate --graph --all
+	lo = !git log --graph --oneline --decorate $(git rev-parse --abbrev-ref HEAD) $(git config --global init.defaultBranch)
 	st = status
 	pl = pull
 	pls = pull --autostash

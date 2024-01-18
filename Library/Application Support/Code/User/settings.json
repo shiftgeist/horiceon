@@ -5,6 +5,9 @@
   "[go]": {
     "editor.defaultFormatter": "golang.go"
   },
+  "[mjml]": {
+    "editor.defaultFormatter": "mjmlio.vscode-mjml"
+  },
   "[php]": {
     "editor.defaultFormatter": "junstyle.php-cs-fixer"
   },
@@ -16,6 +19,10 @@
   },
   "[svelte]": {
     "editor.defaultFormatter": "svelte.svelte-vscode"
+  },
+  "code-runner.executorMap": {
+    "javascript": "deno run --unstable -A --unstable-sloppy-imports",
+    "typescript": "deno run --unstable -A --unstable-sloppy-imports"
   },
   "cSpell.language": "en,de",
   "cSpell.userWords": [
@@ -76,6 +83,7 @@
   "githubPullRequests.pullBranch": "never",
   "gitlens.currentLine.enabled": false,
   "go.toolsManagement.autoUpdate": true,
+  "i18n-ally.displayLanguage": "en",
   "Lua.telemetry.enable": false,
   "mergeEditor.diffAlgorithm": "experimental",
   "prettier.arrowParens": "avoid",

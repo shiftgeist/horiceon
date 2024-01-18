@@ -22,7 +22,7 @@
 	puf = push --force-with-lease
 	pushf = push --force-with-lease
 	push-up = !git push --set-upstream origin $(git rev-parse --abbrev-ref HEAD)
-	reset-hard = !git reset --hard origin/$(git rev-parse --abbrev-ref HEAD)
+	reset-hard = !git reset --hard origin/$(git rev-parse --abbrev-ref HEAD) && git clean -f -q .
 	rice = !git --git-dir=$HOME/code/horiceon --work-tree=$HOME
 
 [pull]

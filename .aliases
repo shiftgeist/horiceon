@@ -4,6 +4,8 @@ alias dotfiles='GIT_DIR=$HOME/code/horiceon GIT_WORK_TREE=$HOME'
 
 alias horiceon="/usr/bin/git --git-dir=$HOME/code/horiceon --work-tree=$HOME"
 
+alias horiceon-edit="GIT_WORK_TREE=$HOME GIT_DIR=$HOME/code/horiceon code $HOME"
+
 # Replace ls with eza
 # https://github.com/eza-community/eza
 if command -v eza &> /dev/null; then

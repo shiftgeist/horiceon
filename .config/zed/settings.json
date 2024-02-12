@@ -12,8 +12,8 @@
   },
   "theme": "Ayu Dark",
   "ui_font_family": "DankMono Nerd Font",
-  "ui_font_size": 14,
-  "buffer_font_size": 14,
+  "ui_font_size": 13,
+  "buffer_font_size": 13,
   "terminal": {
     "font_size": 13,
     "font_family": "DankMono Nerd Font"

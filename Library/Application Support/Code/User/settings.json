@@ -32,8 +32,13 @@
     "corepack",
     "esbenp",
     "esbuild",
+    "fastify",
+    "Fastify",
+    "hono",
+    "Hono",
     "iframes",
     "mjml",
+    "nanostores",
     "Nextcloud",
     "openapi",
     "openapitools",
@@ -46,6 +51,7 @@
     "vueuse"
   ],
   "debug.javascript.autoAttachFilter": "onlyWithFlag",
+  "diffEditor.codeLens": true,
   "docker.containers.label": "ContainerName",
   "editor.cursorBlinking": "solid",
   "editor.fontFamily": "DankMono Nerd Font",
@@ -87,12 +93,16 @@
   "git.openRepositoryInParentFolders": "never",
   "githubPullRequests.createOnPublishBranch": "never",
   "githubPullRequests.pullBranch": "never",
+  "gitlens.codeLens.enabled": false,
   "gitlens.currentLine.enabled": false,
+  "gitlens.defaultDateStyle": "absolute",
   "gitlens.showWelcomeOnInstall": false,
   "go.toolsManagement.autoUpdate": true,
   "i18n-ally.displayLanguage": "de",
   "Lua.telemetry.enable": false,
+  "markdown.extension.toc.levels": "2..6",
   "mergeEditor.diffAlgorithm": "advanced",
+  "playwright.reuseBrowser": true,
   "prettier.arrowParens": "avoid",
   "prettier.semi": false,
   "prettier.singleQuote": true,
@@ -124,7 +134,11 @@
   "volar.completion.preferredAttrNameCase": "auto-camel",
   "window.menuBarVisibility": "hidden",
   "workbench.activityBar.location": "top",
-  "workbench.colorTheme": "Ayu Dark Bordered",
+  "workbench.colorTheme": "Shades of Purple",
+  "workbench.editorAssociations": {
+    "git-rebase-todo": "gitlens.rebase"
+  },
   "workbench.layoutControl.enabled": false,
-  "workbench.startupEditor": "none"
+  "workbench.startupEditor": "none",
+  "zenMode.fullScreen": false
 }

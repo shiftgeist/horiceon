@@ -99,7 +99,11 @@
   "githubPullRequests.pullBranch": "never",
   "gitlens.codeLens.enabled": false,
   "gitlens.currentLine.enabled": false,
+  "gitlens.defaultDateFormat": null,
   "gitlens.defaultDateStyle": "absolute",
+  "gitlens.defaultTimeFormat": null,
+  "gitlens.graph.dateStyle": "absolute",
+  "gitlens.mode.statusBar.enabled": false,
   "gitlens.showWelcomeOnInstall": false,
   "go.toolsManagement.autoUpdate": true,
   "i18n-ally.displayLanguage": "de",
@@ -114,6 +118,7 @@
   "security.workspace.trust.untrustedFiles": "open",
   "svelte.enable-ts-plugin": true,
   "svgPreview.autoOpen": false,
+  "symbols.hidesExplorerArrows": false,
   "telemetry.telemetryLevel": "off",
   "terminal.integrated.defaultProfile.linux": "zsh",
   "terminal.integrated.enableImages": true,
@@ -141,6 +146,7 @@
   "window.menuBarVisibility": "hidden",
   "workbench.activityBar.location": "top",
   "workbench.colorTheme": "Shades of Purple",
+  "workbench.editor.empty.hint": "hidden",
   "workbench.editorAssociations": {
     "git-rebase-todo": "gitlens.rebase"
   },

@@ -7,15 +7,15 @@
 // custom settings, run the `open default settings` command
 // from the command palette or from `Zed` application menu.
 {
+  "buffer_font_size": 13,
   "features": {
     "copilot": false
   },
-  "theme": "Ayu Dark",
-  "ui_font_family": "DankMono Nerd Font",
-  "ui_font_size": 13,
-  "buffer_font_size": 13,
   "terminal": {
-    "font_size": 13,
-    "font_family": "DankMono Nerd Font"
-  }
+    "font_family": "DankMono Nerd Font",
+    "font_size": 13
+  },
+  "theme": "Catppuccin Macchiato",
+  "ui_font_family": "DankMono Nerd Font",
+  "ui_font_size": 13
 }

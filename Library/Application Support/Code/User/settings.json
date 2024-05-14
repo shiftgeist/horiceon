@@ -43,8 +43,10 @@
     "openapi",
     "openapitools",
     "pinia",
+    "preflights",
     "redhat",
     "scrollback",
+    "tailwindcss",
     "timetracker",
     "todomd",
     "typecheck",
@@ -68,6 +70,7 @@
       "column": 80
     }
   ],
+  "editor.stickyScroll.enabled": false,
   "editor.suggest.preview": true,
   "editor.tabSize": 2,
   "explorer.confirmDelete": false,
@@ -86,6 +89,7 @@
     "**/node_modules/**": true,
     "**/node_modules/*/**": true
   },
+  "foam.edit.linkReferenceDefinitions": "withExtensions",
   "git.allowForcePush": true,
   "git.autofetch": true,
   "git.confirmSync": false,
@@ -107,10 +111,12 @@
   "prettier.semi": false,
   "prettier.singleQuote": true,
   "redhat.telemetry.enabled": false,
+  "security.workspace.trust.untrustedFiles": "open",
   "svelte.enable-ts-plugin": true,
   "svgPreview.autoOpen": false,
   "telemetry.telemetryLevel": "off",
   "terminal.integrated.defaultProfile.linux": "zsh",
+  "terminal.integrated.enableImages": true,
   "terminal.integrated.env.osx": {
     "FIG_NEW_SESSION": "1"
   },
@@ -138,7 +144,9 @@
   "workbench.editorAssociations": {
     "git-rebase-todo": "gitlens.rebase"
   },
+  "workbench.iconTheme": "material-icon-theme",
   "workbench.layoutControl.enabled": false,
   "workbench.startupEditor": "none",
+  "workbench.tree.stickyScrollMaxItemCount": 2,
   "zenMode.fullScreen": false
 }

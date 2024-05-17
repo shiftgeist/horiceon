@@ -97,13 +97,10 @@
   "git.openRepositoryInParentFolders": "never",
   "githubPullRequests.createOnPublishBranch": "never",
   "githubPullRequests.pullBranch": "never",
-  "gitlens.codeLens.enabled": false,
-  "gitlens.currentLine.enabled": false,
   "gitlens.defaultDateFormat": null,
   "gitlens.defaultDateStyle": "absolute",
   "gitlens.defaultTimeFormat": null,
   "gitlens.graph.dateStyle": "absolute",
-  "gitlens.mode.statusBar.enabled": false,
   "gitlens.showWelcomeOnInstall": false,
   "go.toolsManagement.autoUpdate": true,
   "i18n-ally.displayLanguage": "de",
@@ -154,5 +151,10 @@
   "workbench.layoutControl.enabled": false,
   "workbench.startupEditor": "none",
   "workbench.tree.stickyScrollMaxItemCount": 2,
-  "zenMode.fullScreen": false
+  "zenMode.fullScreen": false,
+  "gitlens.codeLens.enabled": false,
+  "gitlens.currentLine.enabled": false,
+  "gitlens.hovers.currentLine.over": "line",
+  "gitlens.menus": false,
+  "gitlens.mode.statusBar.enabled": false
 }

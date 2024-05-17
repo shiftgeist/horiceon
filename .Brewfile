@@ -20,6 +20,7 @@ brew "mas"
 brew "openjdk"
 brew "python@3.11"
 brew "starship"
+brew "topgrade"
 brew "watch"
 cask "aldente"
 cask "arc"
@@ -54,6 +55,7 @@ mas "Keynote", id: 409183694
 mas "Meeting Owl", id: 1219076447
 mas "Numbers", id: 409203825
 mas "Pages", id: 409201541
+mas "Xcode", id: 497799835
 vscode "ahmadawais.shades-of-purple"
 vscode "antfu.unocss"
 vscode "bierner.markdown-mermaid"

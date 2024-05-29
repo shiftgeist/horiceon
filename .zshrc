@@ -8,6 +8,10 @@ if [[ ! -e "$HOME/.config/zsh/fzf-tab" ]]; then
   git clone git@github.com:Aloxaf/fzf-tab.git "$HOME/.config/zsh/fzf-tab"
 fi
 
+if [[ ! -e "$HOME/.cache/completion-for-pnpm.zsh" ]]; then
+  pnpm completion zsh > "$HOME/.cache/completion-for-pnpm.zsh"
+fi
+
 # set PATH
 export PATH=$HOME/.local/bin:$PATH
 export PATH=$HOME/.npm-global/bin:$PATH
@@ -60,6 +64,7 @@ source "$(brew --prefix)/opt/fzf/shell/key-bindings.zsh"
 source "$(brew --prefix)/opt/fzf/shell/key-bindings.zsh"
 source "$(brew --prefix)/share/zsh/site-functions"
 source "$HOME/.config/zsh/fzf-tab/fzf-tab.plugin.zsh"
+source "$HOME/.cache/completion-for-pnpm.zsh"
 
 # prompt
 eval "$(starship init zsh)"

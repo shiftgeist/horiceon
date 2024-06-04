@@ -142,12 +142,12 @@
   "volar.completion.preferredAttrNameCase": "auto-camel",
   "window.menuBarVisibility": "hidden",
   "workbench.activityBar.location": "top",
-  "workbench.colorTheme": "Shades of Purple",
+  "workbench.colorTheme": "Shades of Purple (Super Dark)",
   "workbench.editor.empty.hint": "hidden",
   "workbench.editorAssociations": {
     "git-rebase-todo": "gitlens.rebase"
   },
-  "workbench.iconTheme": "material-icon-theme",
+  "workbench.iconTheme": "symbols",
   "workbench.layoutControl.enabled": false,
   "workbench.startupEditor": "none",
   "workbench.tree.stickyScrollMaxItemCount": 2,
@@ -155,6 +155,68 @@
   "gitlens.codeLens.enabled": false,
   "gitlens.currentLine.enabled": false,
   "gitlens.hovers.currentLine.over": "line",
-  "gitlens.menus": false,
-  "gitlens.mode.statusBar.enabled": false
+  "gitlens.mode.statusBar.enabled": false,
+  "gitlens.menus": {
+    "editor": false,
+    "editorGroup": {
+      "blame": true,
+      "compare": true
+    },
+    "editorTab": {
+      "clipboard": true,
+      "compare": true,
+      "history": true,
+      "remote": true
+    },
+    "explorer": {
+      "clipboard": true,
+      "compare": true,
+      "history": true,
+      "remote": true
+    },
+    "ghpr": {
+      "worktree": true
+    },
+    "scm": {
+      "graph": true
+    },
+    "scmRepositoryInline": {
+      "graph": true,
+      "stash": false
+    },
+    "scmRepository": {
+      "authors": true,
+      "generateCommitMessage": true,
+      "patch": true,
+      "graph": false
+    },
+    "scmGroupInline": {
+      "stash": true
+    },
+    "scmGroup": {
+      "compare": true,
+      "openClose": true,
+      "patch": true,
+      "stash": true
+    },
+    "scmItemInline": {
+      "stash": false
+    },
+    "scmItem": {
+      "clipboard": true,
+      "compare": true,
+      "history": true,
+      "remote": true,
+      "share": true,
+      "stash": true
+    }
+  },
+  "git-graph.dialog.rebase.launchInteractiveRebase": true,
+  "gitlens.ai.experimental.generateCommitMessage.enabled": false,
+  "gitlens.graph.allowMultiple": false,
+  "gitlens.graph.pageItemLimit": 1,
+  "gitlens.graph.defaultItemLimit": 1,
+  "gitlens.graph.searchItemLimit": 1,
+  "gitlens.graph.scrollMarkers.enabled": false,
+  "gitlens.graph.showDetailsView": false
 }

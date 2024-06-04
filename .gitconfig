@@ -15,15 +15,16 @@
 	br = branch --sort=-committerdate
 	co = checkout
 	lo = !git log --graph --oneline --decorate $(git rev-parse --abbrev-ref HEAD) $(git config --global init.defaultBranch)
-	st = status
 	pl = pull
 	pls = pull --autostash
 	pu = push
 	puf = push --force-with-lease
-	pushf = push --force-with-lease
 	push-up = !git push --set-upstream origin $(git rev-parse --abbrev-ref HEAD)
-	reset-hard = !git reset --hard origin/$(git rev-parse --abbrev-ref HEAD) && git clean -f -q .
+	pushf = push --force-with-lease
+	reset-hardest = !git reset --hard origin/$(git rev-parse --abbrev-ref HEAD) && git clean -f -q .
+	reset-base-dev = !git reset --soft $(git merge-base dev HEAD)
 	rice = !git --git-dir=$HOME/code/horiceon --work-tree=$HOME
+	st = status
 
 [pull]
 	rebase = true

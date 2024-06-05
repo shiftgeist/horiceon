@@ -3,13 +3,21 @@ function zcompile-many() {
   for f; do zcompile -R -- "$f".zwc "$f"; done
 }
 
-# Clone and compile missing plugins
-if [[ ! -e "$HOME/.config/zsh/fzf-tab" ]]; then
-  git clone git@github.com:Aloxaf/fzf-tab.git "$HOME/.config/zsh/fzf-tab"
+XDG_CACHE="$HOME/.cache/"
+ZSH_CONFIG="$HOME/.config/zsh"
+
+# clone missing plugins
+if [[ ! -e "$ZSH_CONFIG/fzf-tab" ]]; then
+  git clone git@github.com:Aloxaf/fzf-tab.git "$ZSH_CONFIG/fzf-tab"
 fi
 
-if [[ ! -e "$HOME/.cache/completion-for-pnpm.zsh" ]]; then
-  pnpm completion zsh > "$HOME/.cache/completion-for-pnpm.zsh"
+if [[ ! -e "$ZSH_CONFIG/alias-tips" ]]; then
+  git clone git@github.com:djui/alias-tips.git "$ZSH_CONFIG/alias-tips"
+fi
+
+# compile missing plugins
+if [[ ! -e "$XDG_CACHE/completion-for-pnpm.zsh" ]]; then
+  pnpm completion zsh > "$XDG_CACHE/completion-for-pnpm.zsh"
 fi
 
 # set PATH
@@ -27,6 +35,9 @@ setopt INC_APPEND_HISTORY
 export HISTTIMEFORMAT="[%F %T] "
 setopt EXTENDED_HISTORY
 setopt HIST_FIND_NO_DUPS
+
+# backup history
+cp $HISTFILE $HISTFILE.old
 
 # shell Options
 setopt AUTO_CD # automatic directory change
@@ -63,8 +74,9 @@ source "$(brew --prefix)/opt/fzf/shell/completion.zsh"
 source "$(brew --prefix)/opt/fzf/shell/key-bindings.zsh"
 source "$(brew --prefix)/opt/fzf/shell/key-bindings.zsh"
 source "$(brew --prefix)/share/zsh/site-functions"
-source "$HOME/.config/zsh/fzf-tab/fzf-tab.plugin.zsh"
-source "$HOME/.cache/completion-for-pnpm.zsh"
+source "$ZSH_CONFIG/fzf-tab/fzf-tab.plugin.zsh"
+source "$ZSH_CONFIG/alias-tips/alias-tips.plugin.zsh"
+source "$XDG_CACHE/completion-for-pnpm.zsh"
 
 # prompt
 eval "$(starship init zsh)"

@@ -1,12 +1,14 @@
+# Zshrc helper
 function zcompile-many() {
   local f
   for f; do zcompile -R -- "$f".zwc "$f"; done
 }
 
-XDG_CACHE="$HOME/.cache/"
-ZSH_CONFIG="$HOME/.config/zsh"
+# Basic
+export XDG_CACHE="$HOME/.cache/"
+export ZSH_CONFIG="$HOME/.config/zsh"
 
-# clone missing plugins
+# Clone missing plugins
 if [[ ! -e "$ZSH_CONFIG/fzf-tab" ]]; then
   git clone git@github.com:Aloxaf/fzf-tab.git "$ZSH_CONFIG/fzf-tab"
 fi
@@ -15,61 +17,57 @@ if [[ ! -e "$ZSH_CONFIG/alias-tips" ]]; then
   git clone git@github.com:djui/alias-tips.git "$ZSH_CONFIG/alias-tips"
 fi
 
-# compile missing plugins
+# Compile missing plugins
 if [[ ! -e "$XDG_CACHE/completion-for-pnpm.zsh" ]]; then
   pnpm completion zsh > "$XDG_CACHE/completion-for-pnpm.zsh"
 fi
 
-# set PATH
+# Set PATH
 export PATH=$HOME/.local/bin:$PATH
 export PATH=$HOME/.npm-global/bin:$PATH
 export PATH=$HOME/.deno/bin:$PATH
 export PATH=$HOME/.bun/bin:$PATH
 export PATH="$(brew --prefix)/opt/openjdk/bin:$PATH"
 
-# history
-export HISTFILE=~/.zsh_history
-export HISTFILESIZE=1000000000
-export HISTSIZE=1000000000
-setopt INC_APPEND_HISTORY
-export HISTTIMEFORMAT="[%F %T] "
-setopt EXTENDED_HISTORY
-setopt HIST_FIND_NO_DUPS
+# History
+export HISTSIZE=999999999
+export SAVEHIST=$HISTSIZE
 
-# backup history
+# Options
+setopt BANG_HIST              # Treat the '!' character specially during expansion.
+setopt EXTENDED_HISTORY       # Write the history file in the ":start:elapsed;command" format.
+setopt INC_APPEND_HISTORY     # Write to the history file immediately, not when the shell exits.
+setopt SHARE_HISTORY          # Share history between all sessions.
+setopt HIST_EXPIRE_DUPS_FIRST # Expire dup event first when trimming hist
+setopt HIST_FIND_NO_DUPS      # Do not display previously found event
+setopt HIST_IGNORE_ALL_DUPS   # Delete old event if new is dup
+setopt HIST_IGNORE_DUPS       # Do not record consecutive dup events
+setopt HIST_IGNORE_SPACE      # Do not record event starting with a space
+setopt HIST_SAVE_NO_DUPS      # Do not write dup event to hist file
+setopt AUTO_CD                # automatic directory change
+setopt GLOBDOTS               # hidden files globbing
+setopt INTERACTIVE_COMMENTS   # ignore commands starting with hashtag
+setopt NO_CASE_GLOB           # case insensitive globbing
+
+# Backup history
 cp $HISTFILE $HISTFILE.old
 
-# shell Options
-setopt AUTO_CD # automatic directory change
-setopt GLOBDOTS # hidden files globbing
-setopt HIST_EXPIRE_DUPS_FIRST # expire duplicates first
-setopt HIST_REDUCE_BLANKS # removes blank lines from history
-setopt INC_APPEND_HISTORY # adds commands as they are typed, not at shell exit
-setopt INTERACTIVE_COMMENTS # ignore commands starting with hashtag
-setopt NO_CASE_GLOB # case insensitive globbing
-
-# brew
+# Brew
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
-# set Completion PATH
+# Set completion PATH
 export FPATH="$(brew --prefix)/share/zsh/site-functions:$FPATH"
 
-# user settings
+# User settings
 export GIT_SEQUENCE_EDITOR="code --wait --diff"
 export FZF_DEFAULT_OPTS="--height 90% --layout=reverse"
-# export FZF_COMPLETION_TRIGGER="*" # always trigger single asterix
-
-# aliases
-if [ -f ~/.aliases ]; then
-  . ~/.aliases
-fi
 
 # Enable the "new" completion system (compsys)
 autoload -Uz compinit && compinit
 [[ ~/.zcompdump.zwc -nt ~/.zcompdump ]] || zcompile-many ~/.zcompdump
 unfunction zcompile-many
 
-# plugins
+# Plugins
 source "$(brew --prefix)/opt/fzf/shell/completion.zsh"
 source "$(brew --prefix)/opt/fzf/shell/key-bindings.zsh"
 source "$(brew --prefix)/opt/fzf/shell/key-bindings.zsh"
@@ -78,9 +76,32 @@ source "$ZSH_CONFIG/fzf-tab/fzf-tab.plugin.zsh"
 source "$ZSH_CONFIG/alias-tips/alias-tips.plugin.zsh"
 source "$XDG_CACHE/completion-for-pnpm.zsh"
 
-# prompt
+# Aliases that should not be pet's
+alias run="pet exec"
+alias horiceon="/usr/bin/git --git-dir=$HOME/code/horiceon --work-tree=$HOME"
+
+if command -v eza &> /dev/null; then
+  alias ls="eza"
+fi
+
+if command -v bat &> /dev/null; then
+  alias cat="bat -p"
+fi
+
+# Always enable colored `grep` output
+# Note: `GREP_OPTIONS="--color=auto"` is deprecated, hence the alias usage.
+alias grep="grep --color=auto"
+alias fgrep="fgrep --color=auto"
+alias egrep="egrep --color=auto"
+
+function prev() {
+  PREV=$(fc -lrn | head -n 1)
+  sh -c "pet new `printf %q "$PREV"`"
+}
+
+# Prompt
 eval "$(starship init zsh)"
 
-# links and stuff
+# Links and stuff
 # In case of unsecure: "compaudit | xargs chmod g-w"
 # https://github.com/romkatv/zsh-bench/blob/master/configs/diy%2B%2Bfsyh/skel/.zshrc

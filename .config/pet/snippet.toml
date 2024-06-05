@@ -1,0 +1,18 @@
+
+[[Snippets]]
+  Description = "Save brewfile"
+  Output = ""
+  Tag = ["brew"]
+  command = "brew bundle dump -gf"
+
+[[Snippets]]
+  Description = "Edit rice config files"
+  Output = ""
+  Tag = ["horiceon", "rice", "config"]
+  command = "GIT_WORK_TREE=$HOME GIT_DIR=$HOME/code/horiceon code $HOME"
+
+[[Snippets]]
+  Description = "Delete merged branches"
+  Output = ""
+  Tag = ["git", "cleanup", "prune"]
+  command = "git branch --merged | grep -E -v '(^\\*|master|dev|main)' | xargs git branch -d && git pull --prune"

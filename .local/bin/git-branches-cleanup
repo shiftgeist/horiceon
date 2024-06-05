@@ -1,3 +1,0 @@
-#!/bin/sh
-
-git branch --merged | grep -E -v '(^\*|master|dev|main)' | xargs git branch -d && git pull --prune

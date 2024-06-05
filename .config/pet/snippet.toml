@@ -16,3 +16,9 @@
   Output = ""
   Tag = ["git", "cleanup", "prune"]
   command = "git branch --merged | grep -E -v '(^\\*|master|dev|main)' | xargs git branch -d && git pull --prune"
+
+[[Snippets]]
+  Description = "Start docker with clean build"
+  Output = ""
+  Tag = ["docker", "docker-compose"]
+  command = "docker compose up -d --force-recreate --build"

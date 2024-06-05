@@ -142,7 +142,7 @@
   "volar.completion.preferredAttrNameCase": "auto-camel",
   "window.menuBarVisibility": "hidden",
   "workbench.activityBar.location": "top",
-  "workbench.colorTheme": "Shades of Purple (Super Dark)",
+  "workbench.colorTheme": "Shades of Purple",
   "workbench.editor.empty.hint": "hidden",
   "workbench.editorAssociations": {
     "git-rebase-todo": "gitlens.rebase"

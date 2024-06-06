@@ -96,7 +96,7 @@ alias egrep="egrep --color=auto"
 
 function prev() {
   PREV=$(fc -lrn | head -n 1)
-  sh -c "pet new `printf %q "$PREV"`"
+  sh -c "pet new --tag `printf %q "$PREV"`"
 }
 
 # Prompt

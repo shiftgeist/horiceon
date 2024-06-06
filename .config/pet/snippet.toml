@@ -22,3 +22,15 @@
   Output = ""
   Tag = ["docker", "docker-compose"]
   command = "docker compose up -d --force-recreate --build"
+
+[[Snippets]]
+  Description = "Boot docker with clean build, env and APP_VERSION"
+  Output = ""
+  Tag = ["docker", "docker-compose"]
+  command = "APP_VERSION=$(git rev-parse --short HEAD) pnpm load-env -- docker compose up -d --force-recreate --build"
+
+[[Snippets]]
+  Description = "Migrate postgres DB"
+  Output = ""
+  Tag = ["DB", "postgres"]
+  command = "cd apps/backend && pnpm db:migrate && cd -"

@@ -22,6 +22,9 @@ if [[ ! -e "$XDG_CACHE/completion-for-pnpm.zsh" ]]; then
   pnpm completion zsh > "$XDG_CACHE/completion-for-pnpm.zsh"
 fi
 
+# Brew
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
 # Set PATH
 export PATH=$HOME/.local/bin:$PATH
 export PATH=$HOME/.npm-global/bin:$PATH
@@ -51,9 +54,6 @@ setopt NO_CASE_GLOB           # case insensitive globbing
 
 # Backup history
 cp $HISTFILE $HISTFILE.old
-
-# Brew
-eval "$(/opt/homebrew/bin/brew shellenv)"
 
 # Set completion PATH
 export FPATH="$(brew --prefix)/share/zsh/site-functions:$FPATH"

@@ -21,16 +21,22 @@
   Description = "Start docker with clean build"
   Output = ""
   Tag = ["docker", "docker-compose"]
-  command = "docker compose up -d --force-recreate --build"
-
-[[Snippets]]
-  Description = "Boot docker with clean build, env and APP_VERSION"
-  Output = ""
-  Tag = ["docker", "docker-compose"]
   command = "APP_VERSION=$(git rev-parse --short HEAD) pnpm load-env -- docker compose up -d --force-recreate --build"
 
 [[Snippets]]
-  Description = "Migrate postgres DB"
+  Description = "Reset backend prisma db"
   Output = ""
-  Tag = ["DB", "postgres"]
-  command = "cd apps/backend && pnpm db:migrate && cd -"
+  Tag = ["prisma", "backend", "database"]
+  command = "pnpm load-env -- node bin/prisma.cjs migrate reset"
+
+[[Snippets]]
+  Description = "DOCKER RESET ALL DATA"
+  Output = ""
+  Tag = ["Mandelbaum"]
+  command = "APP_VERSION=$(git rev-parse --short HEAD) pnpm load-env -- docker compose up -d --force-recreate --build && cd apps/backend && pnpm load-env -- node bin/prisma.cjs migrate reset -f && cd - && pnpm dev"
+
+[[Snippets]]
+  Description = "find process with port"
+  Output = ""
+  Tag = []
+  command = "lsof -i tcp:8080"

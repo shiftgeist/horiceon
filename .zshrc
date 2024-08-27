@@ -31,6 +31,7 @@ export PATH=$HOME/.npm-global/bin:$PATH
 export PATH=$HOME/.deno/bin:$PATH
 export PATH=$HOME/.bun/bin:$PATH
 export PATH="$(brew --prefix)/opt/openjdk/bin:$PATH"
+export PATH="$(go env GOPATH)/bin:$PATH"
 
 # History
 export HISTSIZE=999999999
@@ -99,9 +100,19 @@ function prev() {
   sh -c "pet new --tag `printf %q "$PREV"`"
 }
 
+eval "$(direnv hook zsh)"
+
 # Prompt
 eval "$(starship init zsh)"
 
 # Links and stuff
 # In case of unsecure: "compaudit | xargs chmod g-w"
 # https://github.com/romkatv/zsh-bench/blob/master/configs/diy%2B%2Bfsyh/skel/.zshrc
+
+# pnpm
+export PNPM_HOME="/Users/felix/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end

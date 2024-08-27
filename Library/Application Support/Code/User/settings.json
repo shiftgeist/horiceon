@@ -20,6 +20,10 @@
   "[svelte]": {
     "editor.defaultFormatter": "svelte.svelte-vscode"
   },
+  "[yaml]": {
+    "diffEditor.ignoreTrimWhitespace": false
+  },
+  "biome.enabled": false,
   "code-runner.executorMap": {
     "javascript": "deno run --unstable -A --unstable-sloppy-imports",
     "typescript": "deno run --unstable -A --unstable-sloppy-imports"
@@ -46,6 +50,7 @@
     "preflights",
     "redhat",
     "scrollback",
+    "spotify",
     "tailwindcss",
     "timetracker",
     "todomd",
@@ -54,6 +59,7 @@
   ],
   "debug.javascript.autoAttachFilter": "onlyWithFlag",
   "diffEditor.codeLens": true,
+  "diffEditor.ignoreTrimWhitespace": false,
   "docker.containers.label": "ContainerName",
   "editor.cursorBlinking": "solid",
   "editor.fontFamily": "DankMono Nerd Font",
@@ -90,17 +96,85 @@
     "**/node_modules/*/**": true
   },
   "foam.edit.linkReferenceDefinitions": "withExtensions",
+  "git-graph.dialog.rebase.launchInteractiveRebase": true,
   "git.allowForcePush": true,
   "git.autofetch": true,
   "git.confirmSync": false,
   "git.enableSmartCommit": true,
   "git.openRepositoryInParentFolders": "never",
+  "git.replaceTagsWhenPull": true,
   "githubPullRequests.createOnPublishBranch": "never",
   "githubPullRequests.pullBranch": "never",
+  "gitlens.ai.experimental.generateCommitMessage.enabled": false,
+  "gitlens.codeLens.enabled": false,
+  "gitlens.currentLine.enabled": false,
   "gitlens.defaultDateFormat": null,
   "gitlens.defaultDateStyle": "absolute",
   "gitlens.defaultTimeFormat": null,
+  "gitlens.graph.allowMultiple": false,
   "gitlens.graph.dateStyle": "absolute",
+  "gitlens.graph.defaultItemLimit": 1,
+  "gitlens.graph.pageItemLimit": 1,
+  "gitlens.graph.scrollMarkers.enabled": false,
+  "gitlens.graph.searchItemLimit": 1,
+  "gitlens.graph.showDetailsView": false,
+  "gitlens.hovers.currentLine.over": "line",
+  "gitlens.menus": {
+    "editor": false,
+    "editorGroup": {
+      "blame": true,
+      "compare": true
+    },
+    "editorTab": {
+      "clipboard": true,
+      "compare": true,
+      "history": true,
+      "remote": true
+    },
+    "explorer": {
+      "clipboard": true,
+      "compare": true,
+      "history": true,
+      "remote": true
+    },
+    "ghpr": {
+      "worktree": true
+    },
+    "scm": {
+      "graph": true
+    },
+    "scmGroup": {
+      "compare": true,
+      "openClose": true,
+      "patch": true,
+      "stash": true
+    },
+    "scmGroupInline": {
+      "stash": true
+    },
+    "scmItem": {
+      "clipboard": true,
+      "compare": true,
+      "history": true,
+      "remote": true,
+      "share": true,
+      "stash": true
+    },
+    "scmItemInline": {
+      "stash": false
+    },
+    "scmRepository": {
+      "authors": true,
+      "generateCommitMessage": true,
+      "graph": false,
+      "patch": true
+    },
+    "scmRepositoryInline": {
+      "graph": true,
+      "stash": false
+    }
+  },
+  "gitlens.mode.statusBar.enabled": false,
   "gitlens.showWelcomeOnInstall": false,
   "go.toolsManagement.autoUpdate": true,
   "i18n-ally.displayLanguage": "de",
@@ -151,72 +225,5 @@
   "workbench.layoutControl.enabled": false,
   "workbench.startupEditor": "none",
   "workbench.tree.stickyScrollMaxItemCount": 2,
-  "zenMode.fullScreen": false,
-  "gitlens.codeLens.enabled": false,
-  "gitlens.currentLine.enabled": false,
-  "gitlens.hovers.currentLine.over": "line",
-  "gitlens.mode.statusBar.enabled": false,
-  "gitlens.menus": {
-    "editor": false,
-    "editorGroup": {
-      "blame": true,
-      "compare": true
-    },
-    "editorTab": {
-      "clipboard": true,
-      "compare": true,
-      "history": true,
-      "remote": true
-    },
-    "explorer": {
-      "clipboard": true,
-      "compare": true,
-      "history": true,
-      "remote": true
-    },
-    "ghpr": {
-      "worktree": true
-    },
-    "scm": {
-      "graph": true
-    },
-    "scmRepositoryInline": {
-      "graph": true,
-      "stash": false
-    },
-    "scmRepository": {
-      "authors": true,
-      "generateCommitMessage": true,
-      "patch": true,
-      "graph": false
-    },
-    "scmGroupInline": {
-      "stash": true
-    },
-    "scmGroup": {
-      "compare": true,
-      "openClose": true,
-      "patch": true,
-      "stash": true
-    },
-    "scmItemInline": {
-      "stash": false
-    },
-    "scmItem": {
-      "clipboard": true,
-      "compare": true,
-      "history": true,
-      "remote": true,
-      "share": true,
-      "stash": true
-    }
-  },
-  "git-graph.dialog.rebase.launchInteractiveRebase": true,
-  "gitlens.ai.experimental.generateCommitMessage.enabled": false,
-  "gitlens.graph.allowMultiple": false,
-  "gitlens.graph.pageItemLimit": 1,
-  "gitlens.graph.defaultItemLimit": 1,
-  "gitlens.graph.searchItemLimit": 1,
-  "gitlens.graph.scrollMarkers.enabled": false,
-  "gitlens.graph.showDetailsView": false
+  "zenMode.fullScreen": false
 }

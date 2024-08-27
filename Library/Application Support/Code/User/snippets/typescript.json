@@ -33,5 +33,13 @@
 		"prefix": "setTimeout",
 		"body": ["await new Promise((res) => setTimeout(res, 5000));", "$0"],
 		"description": "Set Timeout Promise"
+	},
+	"Template Debug": {
+		"prefix": "pre",
+		"body": [
+			"<pre>{JSON.stringify($1, null, 2)}</pre>",
+			"$2"
+		],
+		"description": "Log output to console"
 	}
 }

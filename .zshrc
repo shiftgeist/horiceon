@@ -1,3 +1,5 @@
+# ZSH CONFIG
+
 # Zshrc helper
 function zcompile-many() {
   local f
@@ -71,11 +73,20 @@ unfunction zcompile-many
 # Plugins
 source "$(brew --prefix)/opt/fzf/shell/completion.zsh"
 source "$(brew --prefix)/opt/fzf/shell/key-bindings.zsh"
-source "$(brew --prefix)/opt/fzf/shell/key-bindings.zsh"
 source "$(brew --prefix)/share/zsh/site-functions"
 source "$ZSH_CONFIG/fzf-tab/fzf-tab.plugin.zsh"
 source "$ZSH_CONFIG/alias-tips/alias-tips.plugin.zsh"
 source "$XDG_CACHE/completion-for-pnpm.zsh"
+
+# Completion Settings
+# preview content or directory's content with eza when completing
+zstyle ':fzf-tab:complete:*:*' fzf-preview 'bat --color=always --style=numbers --line-range=:500 $realpath 2>/dev/null || eza -la --color=always $realpath'
+# switch group using `<` and `>`
+zstyle ':fzf-tab:*' switch-group '<' '>'
+
+# tabtab source for packages
+# uninstall by removing these lines
+[[ -f ~/.config/tabtab/zsh/__tabtab.zsh ]] && . ~/.config/tabtab/zsh/__tabtab.zsh || true
 
 # Aliases that should not be pet's
 alias run="pet exec"

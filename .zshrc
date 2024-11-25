@@ -129,3 +129,23 @@ case ":$PATH:" in
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 # pnpm end
+
+# Commands
+
+# Save brewfile
+alias brew-dump="brew bundle dump -gf"
+
+# Edit rice config files
+alias horiceon-code="GIT_WORK_TREE=$HOME GIT_DIR=$HOME/code/horiceon code $HOME"
+
+# Delete merged branches
+alias git-cleanup="git branch --merged | grep -E -v '(^\\*|master|dev|main)' | xargs git branch -d && git pull --prune"
+
+# Start docker with clean build
+alias mb-docker-dev="APP_VERSION=$(git rev-parse --short HEAD) docker compose pull && APP_VERSION=$(git rev-parse --short HEAD) pnpm load-env -- docker compose up -d --force-recreate && TURBO_UI=true pnpm dev"
+
+# find process with port
+alias check-port-8080="lsof -i tcp:8080"
+
+# Watch for git changes every N seconds
+alias git-watch="watch -n 5 -d --color 'git fetch --quiet && GIT_PAGER=bat git log --oneline --graph --all --decorate --color=always'"

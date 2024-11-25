@@ -65,6 +65,8 @@ export FPATH="$(brew --prefix)/share/zsh/site-functions:$FPATH"
 export GIT_SEQUENCE_EDITOR="code --wait --diff"
 export FZF_DEFAULT_OPTS="--height 90% --layout=reverse"
 
+zstyle ':completion:*' completer _complete _ignored _expand_alias
+
 # Enable the "new" completion system (compsys)
 autoload -Uz compinit && compinit
 [[ ~/.zcompdump.zwc -nt ~/.zcompdump ]] || zcompile-many ~/.zcompdump

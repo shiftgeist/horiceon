@@ -42,6 +42,7 @@
     "hono",
     "Hono",
     "iframes",
+    "lazyload",
     "mjml",
     "nanostores",
     "Nextcloud",
@@ -217,7 +218,7 @@
   "volar.completion.preferredAttrNameCase": "auto-camel",
   "window.menuBarVisibility": "hidden",
   "workbench.activityBar.location": "top",
-  "workbench.colorTheme": "Shades of Purple",
+  "workbench.colorTheme": "Shades of Purple (Super Dark)",
   "workbench.editor.empty.hint": "hidden",
   "workbench.editorAssociations": {
     "git-rebase-todo": "gitlens.rebase"
@@ -226,5 +227,6 @@
   "workbench.layoutControl.enabled": false,
   "workbench.startupEditor": "none",
   "workbench.tree.stickyScrollMaxItemCount": 2,
-  "zenMode.fullScreen": false
+  "git.allowNoVerifyCommit": true,
+  "git.confirmNoVerifyCommit": false
 }

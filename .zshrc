@@ -142,9 +142,12 @@ alias horiceon-code="GIT_WORK_TREE=$HOME GIT_DIR=$HOME/code/horiceon code $HOME"
 alias git-cleanup="git branch --merged | grep -E -v '(^\\*|master|dev|main)' | xargs git branch -d && git pull --prune"
 
 # Start docker with clean build
-alias mb-docker-dev="APP_VERSION=$(git rev-parse --short HEAD) docker compose pull && APP_VERSION=$(git rev-parse --short HEAD) pnpm load-env -- docker compose up -d --force-recreate && TURBO_UI=true pnpm dev"
+alias mb-docker-dev="APP_VERSION=$(git rev-parse --short HEAD) docker compose pull && APP_VERSION=$(git rev-parse --short HEAD) pnpm load-env -- docker compose up -d --force-recreate && pnpm install && TURBO_UI=true pnpm dev"
 
-# find process with port
+# Run pnpm dev with environment variables
+alias dev="TURBO_UI=true pnpm dev"
+
+# Find process with port
 alias check-port-8080="lsof -i tcp:8080"
 
 # Watch for git changes every N seconds

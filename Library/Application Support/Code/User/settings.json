@@ -100,12 +100,15 @@
   "foam.edit.linkReferenceDefinitions": "withExtensions",
   "git-graph.dialog.rebase.launchInteractiveRebase": true,
   "git.allowForcePush": true,
+  "git.allowNoVerifyCommit": true,
   "git.autofetch": true,
+  "git.confirmNoVerifyCommit": false,
   "git.confirmSync": false,
   "git.enableSmartCommit": true,
   "git.openRepositoryInParentFolders": "never",
   "git.replaceTagsWhenPull": true,
   "githubPullRequests.createOnPublishBranch": "never",
+  "githubPullRequests.fileListLayout": "flat",
   "githubPullRequests.pullBranch": "never",
   "gitlens.ai.experimental.generateCommitMessage.enabled": false,
   "gitlens.codeLens.enabled": false,
@@ -226,7 +229,5 @@
   "workbench.iconTheme": "symbols",
   "workbench.layoutControl.enabled": false,
   "workbench.startupEditor": "none",
-  "workbench.tree.stickyScrollMaxItemCount": 2,
-  "git.allowNoVerifyCommit": true,
-  "git.confirmNoVerifyCommit": false
+  "workbench.tree.stickyScrollMaxItemCount": 2
 }

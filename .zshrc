@@ -34,6 +34,7 @@ export PATH=$HOME/.deno/bin:$PATH
 export PATH=$HOME/.bun/bin:$PATH
 export PATH="$(brew --prefix)/opt/openjdk/bin:$PATH"
 export PATH="$(go env GOPATH)/bin:$PATH"
+export PATH="$HOME/Library/pnpm:$PATH"
 
 # History
 export HISTSIZE=999999999
@@ -86,12 +87,7 @@ zstyle ':fzf-tab:complete:*:*' fzf-preview 'bat --color=always --style=numbers -
 # switch group using `<` and `>`
 zstyle ':fzf-tab:*' switch-group '<' '>'
 
-# tabtab source for packages
-# uninstall by removing these lines
-[[ -f ~/.config/tabtab/zsh/__tabtab.zsh ]] && . ~/.config/tabtab/zsh/__tabtab.zsh || true
-
 # Aliases that should not be pet's
-alias run="pet exec"
 alias horiceon="/usr/bin/git --git-dir=$HOME/code/horiceon --work-tree=$HOME"
 
 if command -v eza &> /dev/null; then
@@ -102,35 +98,18 @@ if command -v bat &> /dev/null; then
   alias cat="bat -p"
 fi
 
-# Always enable colored `grep` output
-# Note: `GREP_OPTIONS="--color=auto"` is deprecated, hence the alias usage.
-alias grep="grep --color=auto"
-alias fgrep="fgrep --color=auto"
-alias egrep="egrep --color=auto"
-
-function prev() {
-  PREV=$(fc -lrn | head -n 1)
-  sh -c "pet new --tag `printf %q "$PREV"`"
-}
+if command -v yq &> /dev/null; then
+  alias jq="yq"
+fi
 
 eval "$(direnv hook zsh)"
 
 # Prompt
 eval "$(starship init zsh)"
 
-# Links and stuff
-# In case of unsecure: "compaudit | xargs chmod g-w"
-# https://github.com/romkatv/zsh-bench/blob/master/configs/diy%2B%2Bfsyh/skel/.zshrc
-
-# pnpm
-export PNPM_HOME="/Users/felix/Library/pnpm"
-case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
-esac
-# pnpm end
-
+###
 # Commands
+###
 
 # Save brewfile
 alias brew-dump="brew bundle dump -gf"

@@ -7,17 +7,24 @@
 	// "Print to console": {
 	// 	"prefix": "log",
 	// 	"body": [
-	// 		"console.log('$1');",
+	// 		"console.log('$1')",
 	// 		"$2"
 	// 	],
 	// 	"description": "Log output to console"
 	// }
 	// https://github.com/microsoft/vscode/blob/main/extensions/typescript-basics/snippets/typescript.code-snippets
 	// same ids are connected.
+	"frog": {
+		"prefix": "frog",
+		"body": [
+			"🐸📣$0"
+		],
+		"description": "frog"
+	},
 	"Log to the console": {
 		"prefix": "log",
 		"body": [
-			"console.log(`🐸📣`, $1, `$1`);",
+			"console.log(`🐸📣`, $1, `$1`)",
 			"$0"
 		],
 		"description": "Log to the console"
@@ -25,7 +32,7 @@
 	"Log warning to console": {
 		"prefix": "warn",
 		"body": [
-			"console.warn(`🐸📣`, $1, `$1`);",
+			"console.warn(`🐸📣`, $1, `$1`)",
 			"$0"
 		],
 		"description": "Log warning to the console"
@@ -33,7 +40,7 @@
 	"Log error to console": {
 		"prefix": "error",
 		"body": [
-			"console.error(`🐸📣`, $1, `$1`);",
+			"console.error(`🐸📣`, $1, `$1`)",
 			"$0"
 		],
 		"description": "Log error to the console"
@@ -41,7 +48,7 @@
 	"setTimeout Promise": {
 		"prefix": "setTimeout",
 		"body": [
-			"await new Promise((res) => setTimeout(res, 5000));",
+			"await new Promise((res) => setTimeout(res, 5000))",
 			"$0"
 		],
 		"description": "Set Timeout Promise"
@@ -60,7 +67,7 @@
 			"interface Props {",
 			"  $1: $2;",
 			"}",
-			"let { $1 }: Props = \\$props();",
+			"let { $1 }: Props = \\$props()",
 			"$3"
 		],
 		"description": "Props with interface"

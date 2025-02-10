@@ -23,11 +23,8 @@
   "[yaml]": {
     "diffEditor.ignoreTrimWhitespace": false
   },
-  "biome.enabled": false,
-  "code-runner.executorMap": {
-    "javascript": "deno run --unstable -A --unstable-sloppy-imports",
-    "typescript": "deno run --unstable -A --unstable-sloppy-imports"
-  },
+  "chat.commandCenter.enabled": false,
+  "cSpell.blockCheckingWhenTextChunkSizeGreaterThan": 1000,
   "cSpell.language": "en,de",
   "cSpell.userWords": [
     "autofetch",
@@ -39,6 +36,7 @@
     "esbuild",
     "fastify",
     "Fastify",
+    "github",
     "hono",
     "Hono",
     "iframes",
@@ -61,6 +59,8 @@
   ],
   "debug.javascript.autoAttachFilter": "onlyWithFlag",
   "diffEditor.codeLens": true,
+  "diffEditor.experimental.showMoves": true,
+  "diffEditor.experimental.useTrueInlineView": true,
   "diffEditor.ignoreTrimWhitespace": false,
   "docker.containers.label": "ContainerName",
   "editor.cursorBlinking": "solid",
@@ -97,8 +97,6 @@
     "**/node_modules/**": true,
     "**/node_modules/*/**": true
   },
-  "foam.edit.linkReferenceDefinitions": "withExtensions",
-  "git-graph.dialog.rebase.launchInteractiveRebase": true,
   "git.allowForcePush": true,
   "git.allowNoVerifyCommit": true,
   "git.autofetch": true,
@@ -109,93 +107,23 @@
   "git.openRepositoryInParentFolders": "never",
   "git.replaceTagsWhenPull": true,
   "githubPullRequests.createOnPublishBranch": "never",
+  "githubPullRequests.experimental.notificationsView": true,
   "githubPullRequests.fileListLayout": "flat",
   "githubPullRequests.pullBranch": "never",
-  "gitlens.ai.experimental.generateCommitMessage.enabled": false,
-  "gitlens.codeLens.enabled": false,
-  "gitlens.currentLine.enabled": false,
-  "gitlens.defaultDateFormat": null,
-  "gitlens.defaultDateStyle": "absolute",
-  "gitlens.defaultTimeFormat": null,
-  "gitlens.graph.allowMultiple": false,
-  "gitlens.graph.dateStyle": "absolute",
-  "gitlens.graph.defaultItemLimit": 1,
-  "gitlens.graph.pageItemLimit": 1,
-  "gitlens.graph.scrollMarkers.enabled": false,
-  "gitlens.graph.searchItemLimit": 1,
-  "gitlens.graph.showDetailsView": false,
-  "gitlens.hovers.currentLine.over": "line",
-  "gitlens.menus": {
-    "editor": false,
-    "editorGroup": {
-      "blame": true,
-      "compare": true
-    },
-    "editorTab": {
-      "clipboard": true,
-      "compare": true,
-      "history": true,
-      "remote": true
-    },
-    "explorer": {
-      "clipboard": true,
-      "compare": true,
-      "history": true,
-      "remote": true
-    },
-    "ghpr": {
-      "worktree": true
-    },
-    "scm": {
-      "graph": true
-    },
-    "scmGroup": {
-      "compare": true,
-      "openClose": true,
-      "patch": true,
-      "stash": true
-    },
-    "scmGroupInline": {
-      "stash": true
-    },
-    "scmItem": {
-      "clipboard": true,
-      "compare": true,
-      "history": true,
-      "remote": true,
-      "share": true,
-      "stash": true
-    },
-    "scmItemInline": {
-      "stash": false
-    },
-    "scmRepository": {
-      "authors": true,
-      "generateCommitMessage": true,
-      "graph": false,
-      "patch": true
-    },
-    "scmRepositoryInline": {
-      "graph": true,
-      "stash": false
-    }
-  },
-  "gitlens.mode.statusBar.enabled": false,
-  "gitlens.showWelcomeOnInstall": false,
   "go.toolsManagement.autoUpdate": true,
   "i18n-ally.displayLanguage": "de",
-  "Lua.telemetry.enable": false,
+  "markdown.extension.theming.decoration.renderLink": true,
   "markdown.extension.toc.levels": "2..6",
   "mergeEditor.diffAlgorithm": "advanced",
   "playwright.reuseBrowser": true,
   "prettier.arrowParens": "avoid",
+  "prettier.experimentalTernaries": true,
   "prettier.printWidth": 100,
   "prettier.semi": false,
   "prettier.singleQuote": true,
   "redhat.telemetry.enabled": false,
   "security.workspace.trust.untrustedFiles": "open",
   "svelte.enable-ts-plugin": true,
-  "svgPreview.autoOpen": false,
   "symbols.hidesExplorerArrows": false,
   "telemetry.telemetryLevel": "off",
   "terminal.integrated.defaultProfile.linux": "zsh",
@@ -207,24 +135,13 @@
   "terminal.integrated.minimumContrastRatio": 7,
   "terminal.integrated.scrollback": 1000000,
   "timetracker.dotTimeTrackerIndent": "  ",
-  "todomd.addCreationDate": true,
-  "todomd.autoArchiveTasks": true,
-  "todomd.completionDateIncludeTime": true,
-  "todomd.counterBadgeEnabled": true,
-  "todomd.creationDateIncludeTime": true,
-  "todomd.defaultFile": "",
-  "totalTypeScript.hiddenTips": ["passing-generics-to-types", "nonnullable-utility-type"],
-  "totalTypeScript.hideAllTips": false,
-  "totalTypeScript.hideBasicTips": true,
-  "volar.autoCompleteRefs": true,
-  "volar.completion.preferredAttrNameCase": "auto-camel",
+  "typescript.experimental.expandableHover": true,
+  "typescript.tsserver.experimental.enableProjectDiagnostics": true,
   "window.menuBarVisibility": "hidden",
   "workbench.activityBar.location": "top",
   "workbench.colorTheme": "Shades of Purple (Super Dark)",
+  "workbench.commandPalette.experimental.enableNaturalLanguageSearch": false,
   "workbench.editor.empty.hint": "hidden",
-  "workbench.editorAssociations": {
-    "git-rebase-todo": "gitlens.rebase"
-  },
   "workbench.iconTheme": "symbols",
   "workbench.layoutControl.enabled": false,
   "workbench.startupEditor": "none",

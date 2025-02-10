@@ -21,7 +21,7 @@ fi
 
 # Compile missing plugins
 if [[ ! -e "$XDG_CACHE/completion-for-pnpm.zsh" ]]; then
-  pnpm completion zsh > "$XDG_CACHE/completion-for-pnpm.zsh"
+  pnpm completion zsh >"$XDG_CACHE/completion-for-pnpm.zsh"
 fi
 
 # Brew
@@ -90,16 +90,24 @@ zstyle ':fzf-tab:*' switch-group '<' '>'
 # Aliases that should not be pet's
 alias horiceon="/usr/bin/git --git-dir=$HOME/code/horiceon --work-tree=$HOME"
 
-if command -v eza &> /dev/null; then
+if command -v eza &>/dev/null; then
   alias ls="eza"
 fi
 
-if command -v bat &> /dev/null; then
+if command -v bat &>/dev/null; then
   alias cat="bat -p"
 fi
 
-if command -v yq &> /dev/null; then
-  alias jq="yq"
+if command -v yq &>/dev/null; then
+  alias jq="yq -C"
+  alias yq="yq -C"
+fi
+
+if command -v watch &>/dev/null; then
+  alias watch="watch --color"
+
+  # Watch for git changes every N seconds
+  alias git-watch="watch -n 5 -d --color 'git fetch --quiet && GIT_PAGER=bat git log --oneline --graph --all --decorate --color=always'"
 fi
 
 eval "$(direnv hook zsh)"
@@ -121,13 +129,18 @@ alias horiceon-code="GIT_WORK_TREE=$HOME GIT_DIR=$HOME/code/horiceon code $HOME"
 alias git-cleanup="git branch --merged | grep -E -v '(^\\*|master|dev|main)' | xargs git branch -d && git pull --prune"
 
 # Start docker with clean build
-alias mb-docker-dev="APP_VERSION=$(git rev-parse --short HEAD) docker compose pull && APP_VERSION=$(git rev-parse --short HEAD) pnpm load-env -- docker compose up -d --force-recreate && pnpm install && TURBO_UI=true pnpm dev"
+function mb-docker-dev {
+  echo "Starting mb-docker-dev"
+  export APP_ENV="development"
+  export APP_VERSION="$(git rev-parse --short HEAD)"
+  docker compose pull
+  pnpm load-env -- docker compose up -d --force-recreate
+  pnpm install
+  TURBO_UI=true pnpm dev
+}
 
 # Run pnpm dev with environment variables
-alias dev="TURBO_UI=true pnpm dev"
+alias turbo-dev="TURBO_UI=true pnpm dev"
 
 # Find process with port
 alias check-port-8080="lsof -i tcp:8080"
-
-# Watch for git changes every N seconds
-alias git-watch="watch -n 5 -d --color 'git fetch --quiet && GIT_PAGER=bat git log --oneline --graph --all --decorate --color=always'"

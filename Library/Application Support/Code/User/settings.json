@@ -76,11 +76,16 @@
     {
       "color": "#21242C",
       "column": 80
+    },
+    {
+      "color": "#21242C",
+      "column": 140
     }
   ],
   "editor.stickyScroll.enabled": false,
   "editor.suggest.preview": true,
   "editor.tabSize": 2,
+  "eslint.format.enable": true,
   "explorer.confirmDelete": false,
   "explorer.confirmDragAndDrop": false,
   "explorer.sortOrder": "default",
@@ -112,6 +117,7 @@
   "githubPullRequests.pullBranch": "never",
   "go.toolsManagement.autoUpdate": true,
   "i18n-ally.displayLanguage": "de",
+  "inline-parameters.hideSingleParameters": true,
   "markdown.extension.theming.decoration.renderLink": true,
   "markdown.extension.toc.levels": "2..6",
   "mergeEditor.diffAlgorithm": "advanced",
@@ -139,11 +145,13 @@
   "typescript.tsserver.experimental.enableProjectDiagnostics": true,
   "window.menuBarVisibility": "hidden",
   "workbench.activityBar.location": "top",
-  "workbench.colorTheme": "Shades of Purple (Super Dark)",
+  "workbench.colorTheme": "Shades of Purple",
   "workbench.commandPalette.experimental.enableNaturalLanguageSearch": false,
   "workbench.editor.empty.hint": "hidden",
   "workbench.iconTheme": "symbols",
   "workbench.layoutControl.enabled": false,
   "workbench.startupEditor": "none",
-  "workbench.tree.stickyScrollMaxItemCount": 2
+  "workbench.tree.stickyScrollMaxItemCount": 3,
+  "zenMode.fullScreen": false,
+  "zenMode.showTabs": "single"
 }

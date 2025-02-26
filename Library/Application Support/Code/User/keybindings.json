@@ -24,5 +24,15 @@
     "key": "shift+cmd+t",
     "command": "-headwind.sortTailwindClasses",
     "when": "editorFocus"
+  },
+  {
+    "key": "ctrl+cmd+c",
+    "command": "workbench.action.toggleZenMode",
+    "when": "!isAuxiliaryWindowFocusedContext"
+  },
+  {
+    "key": "cmd+k z",
+    "command": "-workbench.action.toggleZenMode",
+    "when": "!isAuxiliaryWindowFocusedContext"
   }
 ]

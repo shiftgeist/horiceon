@@ -136,7 +136,7 @@ function mb-docker-dev {
   docker compose pull
   pnpm load-env -- docker compose up -d --force-recreate
   pnpm install
-  TURBO_UI=true pnpm dev
+  pnpm dev
 }
 
 # Run pnpm dev with environment variables

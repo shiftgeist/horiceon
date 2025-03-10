@@ -71,5 +71,12 @@
 			"$3"
 		],
 		"description": "Props with interface"
+	},
+	"Custom $inspect": {
+		"prefix": "$inspect",
+		"body": [
+			"$$inspect(`🐸📣 $1`, $2, `$2`)$0"
+		],
+		"description": "custom $inspect"
 	}
 }

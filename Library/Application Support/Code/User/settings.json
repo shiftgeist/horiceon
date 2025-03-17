@@ -146,7 +146,7 @@
   "typescript.updateImportsOnFileMove.enabled": "always",
   "window.menuBarVisibility": "hidden",
   "workbench.activityBar.location": "top",
-  "workbench.colorTheme": "Dracula Theme",
+  "workbench.colorTheme": "Evondev Dracula Darker Contrast New Color",
   "workbench.commandPalette.experimental.enableNaturalLanguageSearch": false,
   "workbench.editor.empty.hint": "hidden",
   "workbench.iconTheme": "symbols",

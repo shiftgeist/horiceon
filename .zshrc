@@ -110,7 +110,13 @@ if command -v watch &>/dev/null; then
   alias git-watch="watch -n 5 -d --color 'git fetch --quiet && GIT_PAGER=bat git log --oneline --graph --all --decorate --color=always'"
 fi
 
+# Env vars in directory
 eval "$(direnv hook zsh)"
+
+# Node version manager
+export NVM_DIR="$HOME/.nvm"
+[ -s "$HOMEBREW_PREFIX/opt/nvm/nvm.sh" ] && \. "$HOMEBREW_PREFIX/opt/nvm/nvm.sh"                                       # This loads nvm
+[ -s "$HOMEBREW_PREFIX/opt/nvm/etc/bash_completion.d/nvm" ] && \. "$HOMEBREW_PREFIX/opt/nvm/etc/bash_completion.d/nvm" # This loads nvm bash_completion
 
 # Prompt
 eval "$(starship init zsh)"
@@ -146,4 +152,6 @@ alias turbo-dev="TURBO_UI=true pnpm dev"
 alias check-port-8080="lsof -i tcp:8080"
 
 # Find scripts in package.json
-alias pkg-script='f() { cat package.json | yq -o=json ".scripts$1" };f'
+function pkg-script() {
+  cat package.json | yq -o=json ".scripts$1"
+}

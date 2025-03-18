@@ -117,6 +117,17 @@
   "githubPullRequests.pullBranch": "never",
   "go.toolsManagement.autoUpdate": true,
   "i18n-ally.displayLanguage": "de",
+  "indentRainbow.colors": [
+    "rgba(0, 0, 0, 0)",
+    "rgba(38, 70, 83,0.15)",
+    "rgba(42, 157, 143,0.15)",
+    "rgba(233, 196, 106, 0.15)",
+    "rgba(244, 162, 97,0.15)",
+    "rgba(231, 111, 81,0.15)",
+    "rgba(231, 111, 81,0.1)",
+    "rgba(231, 111, 81,0.05)",
+    "rgba(231, 111, 81,0.025)"
+  ],
   "inline-parameters.hideSingleParameters": true,
   "markdown.extension.theming.decoration.renderLink": true,
   "markdown.extension.toc.levels": "2..6",

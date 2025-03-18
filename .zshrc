@@ -144,3 +144,6 @@ alias turbo-dev="TURBO_UI=true pnpm dev"
 
 # Find process with port
 alias check-port-8080="lsof -i tcp:8080"
+
+# Find scripts in package.json
+alias pkg-script='f() { cat package.json | yq -o=json ".scripts$1" };f'

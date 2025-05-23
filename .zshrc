@@ -87,8 +87,20 @@ zstyle ':fzf-tab:complete:*:*' fzf-preview 'bat --color=always --style=numbers -
 # switch group using `<` and `>`
 zstyle ':fzf-tab:*' switch-group '<' '>'
 
-# Aliases that should not be pet's
+###
+# Prompt
+###
+
+if command -v starship &>/dev/null; then
+  eval "$(starship init zsh)"
+fi
+
+###
+# Aliases
+###
+
 alias horiceon="/usr/bin/git --git-dir=$HOME/code/horiceon --work-tree=$HOME"
+alias horiceon-code="GIT_WORK_TREE=$HOME GIT_DIR=$HOME/code/horiceon code $HOME"
 
 if command -v eza &>/dev/null; then
   alias ls="eza"
@@ -99,54 +111,56 @@ if command -v bat &>/dev/null; then
 fi
 
 if command -v yq &>/dev/null; then
-  alias jq="yq -C"
-  alias yq="yq -C"
+  alias jq="yq"
 fi
 
-if command -v watch &>/dev/null; then
-  alias watch="watch --color"
-
-  # Watch for git changes every N seconds
-  alias git-watch="watch -n 5 -d --color 'git fetch --quiet && GIT_PAGER=bat git log --oneline --graph --all --decorate --color=always'"
+if command -v zoxide &>/dev/null; then
+  eval "$(zoxide init zsh)"
+  alias cd="z"
 fi
 
-# Env vars in directory
-eval "$(direnv hook zsh)"
-
-# Prompt
-eval "$(starship init zsh)"
-
-###
-# Commands
-###
-
-# Save brewfile
 alias brew-dump="brew bundle dump -gf"
 
-# Edit rice config files
-alias horiceon-code="GIT_WORK_TREE=$HOME GIT_DIR=$HOME/code/horiceon code $HOME"
+alias git-cleanup-merged="git branch --merged | grep -E -v '(^\\*|master|dev|main)' | xargs git branch -d && git pull --prune"
 
-# Delete merged branches
-alias git-cleanup="git branch --merged | grep -E -v '(^\\*|master|dev|main)' | xargs git branch -d && git pull --prune"
-
-# Start docker with clean build
-function mb-docker-dev {
-  echo "Starting mb-docker-dev"
+function docker-launch {
   export APP_ENV="development"
   export APP_VERSION="$(git rev-parse --short HEAD)"
   docker compose pull
-  pnpm load-env -- docker compose up -d --force-recreate
+  pnpm load-env -- docker compose $1 up -d --force-recreate
   pnpm install
-  pnpm dev
+  TURBO_UI=true pnpm run dev
 }
 
-# Run pnpm dev with environment variables
-alias turbo-dev="TURBO_UI=true pnpm dev"
+check-port() {
+  lsof -i tcp${1:+":$1"}
+}
 
-# Find process with port
-alias check-port-8080="lsof -i tcp:8080"
+function pnpm-run() {
+  if [ "$2" = "!" ]; then
+    pnpm run "$1"
+  elif [ -n "$1" ]; then
+    cat package.json | yq -o=json -r ".scripts.$1" | bat -l sh -p
+  else
+    cat package.json | yq -o=json -r ".scripts"
+  fi
+}
 
-# Find scripts in package.json
-function pkg-script() {
-  cat package.json | yq -o=json ".scripts$1"
+kill_port() {
+  if [ "$#" -ne 1 ]; then
+    echo "Usage: kill_port <PORT>"
+    return 1
+  fi
+
+  PORT=$1
+
+  PID=$(lsof -t -i tcp:$PORT)
+
+  if [ -z "$PID" ]; then
+    echo "No process found running on port $PORT"
+    return 1
+  fi
+
+  echo "Killing process $PID running on port $PORT"
+  kill -9 $PID
 }

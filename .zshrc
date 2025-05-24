@@ -125,9 +125,13 @@ alias git-cleanup-merged="git branch --merged | grep -E -v '(^\\*|master|dev|mai
 
 function docker-launch {
   export APP_ENV="development"
-  export APP_VERSION="$(git rev-parse --short HEAD)"
+  export APP_VERSION="$(git rev-parse --short HEAD &>/dev/null)"
   docker compose pull
-  pnpm load-env -- docker compose $1 up -d --force-recreate
+  if pnpm load-env -- echo; then
+    pnpm load-env -- docker compose --profile=${1:-"infra"} up -d --force-recreate
+  else
+    docker compose --profile=${1:-"infra"} up -d --force-recreate
+  fi
   pnpm install
   TURBO_UI=true pnpm run dev
 }

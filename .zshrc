@@ -123,16 +123,21 @@ alias brew-dump="brew bundle dump -gf"
 
 alias git-cleanup-merged="git branch --merged | grep -E -v '(^\\*|master|dev|main)' | xargs git branch -d && git pull --prune"
 
-function docker-launch {
-  export APP_ENV="development"
-  export APP_VERSION="$(git rev-parse --short HEAD &>/dev/null)"
+function _docker-pull {
   docker compose pull
   if pnpm load-env -- echo; then
     pnpm load-env -- docker compose --profile=${1:-"infra"} up -d --force-recreate
   else
     docker compose --profile=${1:-"infra"} up -d --force-recreate
   fi
-  pnpm install
+}
+
+function docker-launch {
+  export APP_ENV="development"
+  export APP_VERSION="$(git rev-parse --short HEAD &>/dev/null)"
+  _docker-pull &
+  pnpm install &
+  wait
   TURBO_UI=true pnpm run dev
 }
 

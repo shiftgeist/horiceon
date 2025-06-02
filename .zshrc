@@ -119,6 +119,16 @@ if command -v zoxide &>/dev/null; then
   alias cd="z"
 fi
 
+if command -v yazi &>/dev/null; then
+  function y() {
+    local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+    yazi "$@" --cwd-file="$tmp"
+    IFS= read -r -d '' cwd <"$tmp"
+    [ -n "$cwd" ] && [ "$cwd" != "$PWD" ] && builtin cd -- "$cwd"
+    rm -f -- "$tmp"
+  }
+fi
+
 alias brew-dump="brew bundle dump -gf"
 
 alias git-cleanup-merged="git branch --merged | grep -E -v '(^\\*|master|dev|main)' | xargs git branch -d && git pull --prune"

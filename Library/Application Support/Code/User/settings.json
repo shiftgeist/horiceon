@@ -91,7 +91,7 @@
   "git.replaceTagsWhenPull": true,
   "githubPullRequests.createOnPublishBranch": "never",
   "githubPullRequests.experimental.notificationsView": true,
-  "githubPullRequests.fileListLayout": "flat",
+  "githubPullRequests.fileListLayout": "tree",
   "githubPullRequests.pullBranch": "never",
   "go.toolsManagement.autoUpdate": true,
   "i18n-ally.displayLanguage": "en",

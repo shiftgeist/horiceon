@@ -1,0 +1,8 @@
+[mgr]
+sort_by="mtime"
+sort_sensitive=false
+
+[opener]
+edit = [
+	{ run = 'code "$@"', block = true, for = "unix" },
+]

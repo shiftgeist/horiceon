@@ -15,7 +15,11 @@
     "editor.defaultFormatter": "junstyle.php-cs-fixer"
   },
   "[python]": {
-    "editor.defaultFormatter": "ms-python.python"
+    "editor.codeActionsOnSave": {
+      "source.fixAll": "explicit",
+      "source.organizeImports": "explicit"
+    },
+    "editor.defaultFormatter": "charliermarsh.ruff"
   },
   "[shellscript]": {
     "editor.defaultFormatter": "foxundermoon.shell-format"
@@ -23,8 +27,12 @@
   "[svelte]": {
     "editor.defaultFormatter": "svelte.svelte-vscode"
   },
+  "[toml]": {
+    "editor.defaultFormatter": "tamasfe.even-better-toml"
+  },
   "[yaml]": {
-    "diffEditor.ignoreTrimWhitespace": false
+    "diffEditor.ignoreTrimWhitespace": false,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "chat.commandCenter.enabled": false,
   "codemetrics.basics.CodeLensHiddenUnder": 5,
@@ -63,6 +71,7 @@
   "editor.stickyScroll.enabled": false,
   "editor.suggest.preview": true,
   "editor.tabSize": 2,
+  "errorLens.excludeBySource": ["cSpell"],
   "eslint.format.enable": true,
   "explorer.confirmDelete": false,
   "explorer.confirmDragAndDrop": false,
@@ -110,6 +119,7 @@
   "markdown.extension.theming.decoration.renderLink": true,
   "markdown.extension.toc.levels": "2..6",
   "mergeEditor.diffAlgorithm": "advanced",
+  "notebook.formatOnSave.enabled": true,
   "package-json-upgrade.majorUpgradeColorOverwrite": "#FF4747",
   "package-json-upgrade.minorUpgradeColorOverwrite": "#FFC145",
   "package-json-upgrade.patchUpgradeColorOverwrite": "#40DC99",

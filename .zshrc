@@ -102,21 +102,48 @@ fi
 alias horiceon="/usr/bin/git --git-dir=$HOME/code/horiceon --work-tree=$HOME"
 alias horiceon-code="GIT_WORK_TREE=$HOME GIT_DIR=$HOME/code/horiceon code $HOME"
 
-if command -v eza &>/dev/null; then
-  alias ls="eza"
-fi
-
 if command -v bat &>/dev/null; then
   alias cat="bat -p"
 fi
 
-if command -v yq &>/dev/null; then
-  alias jq="yq"
+if command -v cpz &>/dev/null; then
+  alias cp="cpz"
 fi
 
-if command -v zoxide &>/dev/null; then
-  eval "$(zoxide init zsh)"
-  alias cd="z"
+if command -v docker &>/dev/null; then
+  function _mba-launch {
+    docker compose pull
+    if pnpm load-env -- echo; then
+      pnpm load-env -- docker compose --profile="infra" up -d $@
+    else
+      docker compose --profile="infra" up -d $@
+    fi
+  }
+
+  function mba-launch {
+    export APP_ENV="development"
+    export APP_VERSION="$(git rev-parse --short HEAD &>/dev/null)"
+    _mba-launch &
+    pnpm install &
+    wait
+    TURBO_UI=true pnpm dev
+  }
+fi
+
+if command -v eza &>/dev/null; then
+  alias ls="eza"
+fi
+
+if command -v rmz &>/dev/null; then
+  alias rm="rmz"
+fi
+
+if command -v uv &>/dev/null; then
+  alias pip="uv pip"
+fi
+
+if command -v yq &>/dev/null; then
+  alias jq="yq"
 fi
 
 if command -v yazi &>/dev/null; then
@@ -129,29 +156,17 @@ if command -v yazi &>/dev/null; then
   }
 fi
 
+if command -v zoxide &>/dev/null; then
+  eval "$(zoxide init zsh)"
+  alias cd="z"
+  alias cdi="zi"
+fi
+
 alias brew-dump="brew bundle dump -gf"
 
 alias git-cleanup-merged="git branch --merged | grep -E -v '(^\\*|master|dev|main)' | xargs git branch -d && git pull --prune"
 
-function _docker-pull {
-  docker compose pull
-  if pnpm load-env -- echo; then
-    pnpm load-env -- docker compose --profile=${1:-"infra"} up -d --force-recreate
-  else
-    docker compose --profile=${1:-"infra"} up -d --force-recreate
-  fi
-}
-
-function docker-launch {
-  export APP_ENV="development"
-  export APP_VERSION="$(git rev-parse --short HEAD &>/dev/null)"
-  _docker-pull &
-  pnpm install &
-  wait
-  TURBO_UI=true pnpm run dev
-}
-
-check-port() {
+function check-port() {
   lsof -i tcp${1:+":$1"}
 }
 

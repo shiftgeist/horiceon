@@ -9,6 +9,7 @@ function zcompile-many() {
 # Basic
 export XDG_CACHE="$HOME/.cache/"
 export ZSH_CONFIG="$HOME/.config/zsh"
+export XDG_CACHE_HOME="${XDG_CACHE_HOME:-$HOME/.cache}"
 
 # Clone missing plugins
 if [[ ! -e "$ZSH_CONFIG/fzf-tab" ]]; then
@@ -130,8 +131,20 @@ if command -v docker &>/dev/null; then
   }
 fi
 
+if command -v glow &>/dev/null; then
+  alias glow="glow --width \"$(tput cols)\""
+fi
+
 if command -v eza &>/dev/null; then
   alias ls="eza"
+fi
+
+if command -v fd &>/dev/null; then
+  alias find="fd"
+fi
+
+if command -v ripgrep &>/dev/null; then
+  alias grep="ripgrep"
 fi
 
 if command -v rmz &>/dev/null; then
@@ -180,7 +193,7 @@ function pnpm-run() {
   fi
 }
 
-kill_port() {
+function kill_port() {
   if [ "$#" -ne 1 ]; then
     echo "Usage: kill_port <PORT>"
     return 1
@@ -197,4 +210,13 @@ kill_port() {
 
   echo "Killing process $PID running on port $PORT"
   kill -9 $PID
+}
+
+function cheatsheet_iterm2() {
+  URL='https://gist.githubusercontent.com/squarism/ae3613daf5c01a98ba3a/raw/e0b1c1c0309244400b847fc539899bcfde42f98a/iterm2.md'
+  CACHE_FILE="$XDG_CACHE_HOME/$(echo "$URL" | sha256sum | cut -d' ' -f1).md"
+
+  [[ ! -f "$CACHE_FILE" ]] && curl -sL "$URL" -o "$CACHE_FILE"
+
+  glow --pager "$CACHE_FILE"
 }

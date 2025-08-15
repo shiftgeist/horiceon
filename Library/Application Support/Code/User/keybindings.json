@@ -34,5 +34,10 @@
     "key": "cmd+k z",
     "command": "-workbench.action.toggleZenMode",
     "when": "!isAuxiliaryWindowFocusedContext"
+  },
+  {
+    "key": "cmd+b",
+    "command": "-markdown.extension.editing.toggleBold",
+    "when": "editorTextFocus && !editorReadonly && editorLangId =~ /^markdown$|^rmd$|^quarto$/"
   }
 ]

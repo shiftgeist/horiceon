@@ -1,6 +1,12 @@
 {
-  "[css][html][javascript][javascriptreact][typescript][typescriptreact][json][jsonc][markdown][scss][shellscript][vue]": {
+  "[css][html][javascript][javascriptreact][typescript][typescriptreact][json][jsonc][markdown][scss][vue]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[csv (semicolon)]": {
+    "editor.inlayHints.maximumLength": 0
+  },
+  "[csv]": {
+    "editor.inlayHints.maximumLength": 0
   },
   "[dockerfile]": {
     "editor.defaultFormatter": "ms-azuretools.vscode-containers"
@@ -11,18 +17,12 @@
   "[mjml]": {
     "editor.defaultFormatter": "mjmlio.vscode-mjml"
   },
-  "[php]": {
-    "editor.defaultFormatter": "junstyle.php-cs-fixer"
-  },
   "[python]": {
     "editor.codeActionsOnSave": {
       "source.fixAll": "explicit",
       "source.organizeImports": "explicit"
     },
     "editor.defaultFormatter": "charliermarsh.ruff"
-  },
-  "[shellscript]": {
-    "editor.defaultFormatter": "foxundermoon.shell-format"
   },
   "[svelte]": {
     "editor.defaultFormatter": "svelte.svelte-vscode"
@@ -32,18 +32,16 @@
   },
   "[yaml]": {
     "diffEditor.ignoreTrimWhitespace": false,
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": false
   },
   "chat.commandCenter.enabled": false,
-  "codemetrics.basics.CodeLensHiddenUnder": 5,
-  "codemetrics.basics.EnabledForHTML": false,
   "comments.thread.confirmOnCollapse": "never",
   "containers.containers.label": "ContainerName",
   "cSpell.blockCheckingWhenTextChunkSizeGreaterThan": 1000,
   "cSpell.language": "en,de",
   "cSpell.reportUnknownWords": false,
-  "debug.disassemblyView.showSourceCode": false,
-  "debug.javascript.autoAttachFilter": "onlyWithFlag",
+  "cSpell.userWords": ["dataviewjs", "saldo"],
   "diffEditor.codeLens": true,
   "diffEditor.experimental.showMoves": true,
   "diffEditor.experimental.useTrueInlineView": true,
@@ -72,9 +70,24 @@
   "editor.suggest.preview": true,
   "editor.tabSize": 2,
   "errorLens.excludeBySource": ["cSpell"],
+  "errorLens.messageEnabled": true,
   "eslint.format.enable": true,
   "explorer.confirmDelete": false,
   "explorer.confirmDragAndDrop": false,
+  "explorer.fileNesting.patterns": {
+    "*.db": "${capture}.${extname}-*",
+    "*.db3": "${capture}.${extname}-*",
+    "*.js": "${capture}.js.map, ${capture}.min.js, ${capture}.d.ts",
+    "*.jsx": "${capture}.js",
+    "*.s3db": "${capture}.${extname}-*",
+    "*.sdb": "${capture}.${extname}-*",
+    "*.sqlite": "${capture}.${extname}-*",
+    "*.sqlite3": "${capture}.${extname}-*",
+    "*.ts": "${capture}.js",
+    "*.tsx": "${capture}.ts",
+    "package.json": "package-lock.json, yarn.lock, pnpm-lock.yaml, bun.lockb, bun.lock",
+    "tsconfig.json": "tsconfig.*.json"
+  },
   "explorer.sortOrder": "default",
   "extensions.ignoreRecommendations": true,
   "files.associations": {
@@ -98,26 +111,22 @@
   "git.enableSmartCommit": true,
   "git.openRepositoryInParentFolders": "never",
   "git.replaceTagsWhenPull": true,
+  "githd.blameView.enabled": false,
   "github-actions.workflows.pinned.refresh.enabled": true,
   "githubLocalActions.dockerDesktopPath": "/Applications/Docker.app",
   "githubPullRequests.createOnPublishBranch": "never",
-  "githubPullRequests.experimental.notificationsView": true,
-  "githubPullRequests.fileListLayout": "tree",
+  "githubPullRequests.fileListLayout": "flat",
   "githubPullRequests.pullBranch": "never",
   "go.toolsManagement.autoUpdate": true,
   "i18n-ally.displayLanguage": "en",
-  "indentRainbow.colors": [
-    "rgba(0, 0, 0, 0)",
-    "rgba(38, 70, 83,0.15)",
-    "rgba(42, 157, 143,0.15)",
-    "rgba(233, 196, 106, 0.15)",
-    "rgba(244, 162, 97,0.15)",
-    "rgba(231, 111, 81,0.15)",
-    "rgba(231, 111, 81,0.1)",
-    "rgba(231, 111, 81,0.05)",
-    "rgba(231, 111, 81,0.025)"
-  ],
+  "inline-parameters.fontStyle": "normal",
   "inline-parameters.hideSingleParameters": true,
+  "inline-parameters.margin": "0 0.3em 0 0",
+  "inline-parameters.padding": "0.2em",
+  "inline-parameters.trailingCharacters": "",
+  "js/ts.implicitProjectConfig.checkJs": true,
+  "js/ts.implicitProjectConfig.experimentalDecorators": true,
+  "js/ts.implicitProjectConfig.target": "ESNext",
   "markdown.extension.theming.decoration.renderLink": true,
   "markdown.extension.toc.levels": "2..6",
   "mergeEditor.diffAlgorithm": "advanced",
@@ -128,15 +137,20 @@
   "package-json-upgrade.prereleaseUpgradeColorOverwrite": "#BC5EFF",
   "package-json-upgrade.skipNpmConfig": true,
   "playwright.reuseBrowser": true,
-  "prettier.arrowParens": "avoid",
-  "prettier.experimentalTernaries": true,
-  "prettier.printWidth": 100,
+  "prettier.printWidth": 120,
   "prettier.semi": false,
   "prettier.singleQuote": true,
+  "rainbow_csv.virtual_alignment_mode": "always",
   "redhat.telemetry.enabled": false,
   "security.workspace.trust.untrustedFiles": "open",
+  "shellformat.useEditorConfig": true,
   "svelte.enable-ts-plugin": true,
   "symbols.hidesExplorerArrows": false,
+  "tailwind-fold.autoFold": false,
+  "tailwind-fold.foldLengthThreshold": 24,
+  "tailwind-fold.foldStyle": "QUOTES",
+  "tailwind-fold.showTailwindImage": false,
+  "tailwind-fold.unfoldIfLineSelected": true,
   "telemetry.telemetryLevel": "off",
   "terminal.integrated.defaultProfile.linux": "zsh",
   "terminal.integrated.enableImages": true,
@@ -152,15 +166,21 @@
   "typescript.experimental.expandableHover": true,
   "typescript.tsserver.experimental.enableProjectDiagnostics": true,
   "typescript.updateImportsOnFileMove.enabled": "always",
-  "versionlens.caching.duration": 15,
+  "versionlens.deno.caching.duration": 5,
+  "versionlens.docker.caching.duration": 10,
+  "versionlens.golang.caching.duration": 5,
+  "versionlens.npm.caching.duration": 5,
+  "versionlens.pypi.caching.duration": 10,
   "versionlens.suggestions.showOnStartup": true,
   "versionlens.suggestions.showSuggestionsStats": true,
   "window.menuBarVisibility": "hidden",
-  "workbench.activityBar.location": "top",
   "workbench.colorTheme": "Evondev Dracula Darker Contrast New Color",
   "workbench.commandPalette.experimental.enableNaturalLanguageSearch": false,
   "workbench.editor.empty.hint": "hidden",
   "workbench.editor.enablePreview": false,
+  "workbench.editorAssociations": {
+    "*.svg": "default"
+  },
   "workbench.iconTheme": "symbols",
   "workbench.layoutControl.enabled": false,
   "workbench.startupEditor": "none",

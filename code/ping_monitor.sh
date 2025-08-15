@@ -1,18 +1,18 @@
 #!/bin/bash
 
 # Set the endpoint
-ENDPOINT="${1:-dns.google}"
+COMMAND="${1:-ping}"
 
 # Print TSV header
 printf "Zeitpunkt\thost\tIP\tSend\tReceived\tLoss\tmin\tavg\tmax\tstddev\n"
 
 # Function to run ping and parse results
 run_ping() {
-  local endpoint="$1"
+  local endpoint="dns.google"
   local timestamp=$(date '+%m/%d/%Y %H:%M:%S')
 
   # Run ping and capture output
-  local ping_output=$(ping -c 1000 "$endpoint" 2>&1)
+  local ping_output=$($COMMAND -i 1 -c 1920 "$endpoint" 2>&1)
 
   # Extract host and IP from first line
   local host_ip_line=$(echo "$ping_output" | head -1)

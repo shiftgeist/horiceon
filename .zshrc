@@ -102,21 +102,19 @@ fi
 
 alias horiceon="/usr/bin/git --git-dir=$HOME/code/horiceon --work-tree=$HOME"
 alias horiceon-code="GIT_WORK_TREE=$HOME GIT_DIR=$HOME/code/horiceon code $HOME"
+alias rm="trash"
 
 if command -v bat &>/dev/null; then
   alias cat="bat -p"
 fi
 
-if command -v cpz &>/dev/null; then
-  alias cp="cpz"
-fi
-
 if command -v docker &>/dev/null; then
   function _mba-launch {
-    docker compose pull
     if pnpm load-env -- echo; then
+      pnpm load-env -- docker compose --profile="infra" pull
       pnpm load-env -- docker compose --profile="infra" up -d $@
     else
+      docker compose --profile="infra" pull
       docker compose --profile="infra" up -d $@
     fi
   }
@@ -127,7 +125,7 @@ if command -v docker &>/dev/null; then
     _mba-launch &
     pnpm install &
     wait
-    TURBO_UI=true pnpm dev
+    pnpm dev
   }
 fi
 
@@ -139,16 +137,12 @@ if command -v eza &>/dev/null; then
   alias ls="eza"
 fi
 
-if command -v fd &>/dev/null; then
-  alias find="fd"
-fi
-
-if command -v ripgrep &>/dev/null; then
-  alias grep="ripgrep"
-fi
-
-if command -v rmz &>/dev/null; then
-  alias rm="rmz"
+if command -v mask &>/dev/null; then
+  mask() {
+    local args=()
+    [[ ! -f "maskfile.md" && -f "README.md" ]] && args=(--maskfile README.md)
+    command mask "${args[@]}" "$@"
+  }
 fi
 
 if command -v uv &>/dev/null; then
@@ -160,7 +154,7 @@ if command -v yq &>/dev/null; then
 fi
 
 if command -v yazi &>/dev/null; then
-  function y() {
+  y() {
     local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
     yazi "$@" --cwd-file="$tmp"
     IFS= read -r -d '' cwd <"$tmp"
@@ -179,11 +173,11 @@ alias brew-dump="brew bundle dump -gf"
 
 alias git-cleanup-merged="git branch --merged | grep -E -v '(^\\*|master|dev|main)' | xargs git branch -d && git pull --prune"
 
-function check-port() {
+check-port() {
   lsof -i tcp${1:+":$1"}
 }
 
-function pnpm-run() {
+pnpm-run() {
   if [ "$2" = "!" ]; then
     pnpm run "$1"
   elif [ -n "$1" ]; then
@@ -193,7 +187,9 @@ function pnpm-run() {
   fi
 }
 
-function kill_port() {
+alias ts-prune="pnpx knip"
+
+kill_port() {
   if [ "$#" -ne 1 ]; then
     echo "Usage: kill_port <PORT>"
     return 1
@@ -212,7 +208,7 @@ function kill_port() {
   kill -9 $PID
 }
 
-function cheatsheet_iterm2() {
+cheatsheet_iterm2() {
   URL='https://gist.githubusercontent.com/squarism/ae3613daf5c01a98ba3a/raw/e0b1c1c0309244400b847fc539899bcfde42f98a/iterm2.md'
   CACHE_FILE="$XDG_CACHE_HOME/$(echo "$URL" | sha256sum | cut -d' ' -f1).md"
 

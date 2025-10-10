@@ -10,6 +10,7 @@ puf = push --force-with-lease
 pushf = push --force-with-lease
 reset-base-dev = !git reset --soft $(git merge-base dev HEAD)
 reset-hardest = !git reset --hard origin/$(git rev-parse --abbrev-ref HEAD) && git clean -f -q .
+reset-author = !git commit --amend --reset-author --no-edit
 rice = !git --git-dir=$HOME/code/horiceon --work-tree=$HOME
 st = status
 up = !git push --set-upstream origin $(git rev-parse --abbrev-ref HEAD)

@@ -27,6 +27,7 @@ fi
 
 # Brew
 eval "$(/opt/homebrew/bin/brew shellenv)"
+COMPOSER_HOME=$(composer -n config --global home)
 
 # Set PATH
 export PATH=$HOME/.local/bin:$PATH
@@ -36,6 +37,7 @@ export PATH=$HOME/.bun/bin:$PATH
 export PATH="$(brew --prefix)/opt/openjdk/bin:$PATH"
 export PATH="$(go env GOPATH)/bin:$PATH"
 export PATH="$HOME/Library/pnpm:$PATH"
+export PATH="$COMPOSER_HOME/vendor/bin:$PATH"
 
 # History
 export HISTSIZE=999999999
@@ -103,6 +105,7 @@ fi
 alias horiceon="/usr/bin/git --git-dir=$HOME/code/horiceon --work-tree=$HOME"
 alias horiceon-code="GIT_WORK_TREE=$HOME GIT_DIR=$HOME/code/horiceon code $HOME"
 alias rm="trash"
+alias la="ls -la"
 
 if command -v bat &>/dev/null; then
   alias cat="bat -p"
@@ -169,7 +172,7 @@ if command -v zoxide &>/dev/null; then
   alias cdi="zi"
 fi
 
-alias brew-dump="brew bundle dump -gf"
+alias brew-bundle-dump="brew bundle dump -gf"
 
 alias git-cleanup-merged="git branch --merged | grep -E -v '(^\\*|master|dev|main)' | xargs git branch -d && git pull --prune"
 
@@ -215,4 +218,35 @@ cheatsheet_iterm2() {
   [[ ! -f "$CACHE_FILE" ]] && curl -sL "$URL" -o "$CACHE_FILE"
 
   glow --pager "$CACHE_FILE"
+}
+
+tool() {
+  if [ $# -lt 1 ]; then
+    echo "Usage: tool <package> [args...]"
+    return 1
+  fi
+
+  local package=$1
+  shift
+  docker run --rm -it --init -v "$(pwd)":/app -w /app alpine:latest sh -c "apk add --quiet $package && $package \"\$@\"" -- "$@"
+}
+
+command_not_found_handler() {
+  local cmd=$1
+
+  if [[ ! -t 0 ]]; then
+    echo "Command '$cmd' not found"
+    return 127
+  fi
+
+  echo
+  echo "Command '$cmd' not found. Try with alpine? [Y/n]"
+  read -k 1 run_response
+
+  if [[ $run_response == "n" || $run_response == "N" ]]; then
+    return 127
+  fi
+
+  shift
+  tool $cmd "$@"
 }

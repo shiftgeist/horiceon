@@ -1,14 +1,15 @@
 {
-  "[css][html][javascript][javascriptreact][typescript][typescriptreact][json][jsonc][markdown][scss][vue]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  "[astro]": {
+    "editor.defaultFormatter": "astro-build.astro-vscode"
   },
-  "[csv (semicolon)]": {
+  "[css][html][javascript][javascriptreact][typescript][typescriptreact][json][jsonc][markdown][scss][vue][yaml]": {
+    "AkiraVoid.formatWithCLI.command": "prettier --ignore-unknown \"{file}\"",
+    "editor.defaultFormatter": "AkiraVoid.format-with-cli"
+  },
+  "[csv][csv (semicolon)]": {
     "editor.inlayHints.maximumLength": 0
   },
-  "[csv]": {
-    "editor.inlayHints.maximumLength": 0
-  },
-  "[dockerfile]": {
+  "[dockercompose][dockerfile]": {
     "editor.defaultFormatter": "ms-azuretools.vscode-containers"
   },
   "[go]": {
@@ -17,12 +18,18 @@
   "[mjml]": {
     "editor.defaultFormatter": "mjmlio.vscode-mjml"
   },
+  "[php]": {
+    "editor.defaultFormatter": "bmewburn.vscode-intelephense-client"
+  },
   "[python]": {
     "editor.codeActionsOnSave": {
       "source.fixAll": "explicit",
       "source.organizeImports": "explicit"
     },
     "editor.defaultFormatter": "charliermarsh.ruff"
+  },
+  "[shellscript]": {
+    "editor.defaultFormatter": "mkhl.shfmt"
   },
   "[svelte]": {
     "editor.defaultFormatter": "svelte.svelte-vscode"
@@ -32,21 +39,25 @@
   },
   "[yaml]": {
     "diffEditor.ignoreTrimWhitespace": false,
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.formatOnSave": false
   },
+  "chat.agent.enabled": false,
+  "chat.checkpoints.enabled": false,
   "chat.commandCenter.enabled": false,
+  "chat.detectParticipant.enabled": false,
+  "chat.disableAIFeatures": true,
+  "chat.extensionTools.enabled": false,
   "comments.thread.confirmOnCollapse": "never",
   "containers.containers.label": "ContainerName",
+  "containers.contexts.label": "Name",
   "cSpell.blockCheckingWhenTextChunkSizeGreaterThan": 1000,
   "cSpell.language": "en,de",
-  "cSpell.reportUnknownWords": false,
+  "cSpell.unknownWords": "report-simple",
   "cSpell.userWords": ["dataviewjs", "saldo"],
   "diffEditor.codeLens": true,
   "diffEditor.experimental.showMoves": true,
   "diffEditor.experimental.useTrueInlineView": true,
   "diffEditor.ignoreTrimWhitespace": false,
-  "docker.containers.label": "ContainerName",
   "editor.cursorBlinking": "solid",
   "editor.fontFamily": "DankMono Nerd Font",
   "editor.fontLigatures": false,
@@ -69,6 +80,7 @@
   "editor.stickyScroll.enabled": false,
   "editor.suggest.preview": true,
   "editor.tabSize": 2,
+  "editor.wordWrap": "on",
   "errorLens.excludeBySource": ["cSpell"],
   "errorLens.messageEnabled": true,
   "eslint.format.enable": true,
@@ -111,19 +123,40 @@
   "git.enableSmartCommit": true,
   "git.openRepositoryInParentFolders": "never",
   "git.replaceTagsWhenPull": true,
-  "githd.blameView.enabled": false,
   "github-actions.workflows.pinned.refresh.enabled": true,
+  "github.copilot.editor.enableAutoCompletions": false,
+  "github.copilot.editor.enableCodeActions": false,
+  "github.copilot.enable": {
+    "*": false
+  },
+  "github.copilot.nextEditSuggestions.enabled": false,
+  "github.copilot.renameSuggestions.triggerAutomatically": false,
+  "githubIssues.queries": [
+    {
+      "groupBy": ["milestone"],
+      "label": "My Issues",
+      "query": "is:open assignee:${user} repo:${owner}/${repository}"
+    },
+    {
+      "label": "Created Issues",
+      "query": "author:${user} state:open repo:${owner}/${repository} sort:created-desc"
+    },
+    {
+      "label": "Recent Issues",
+      "query": "state:open repo:${owner}/${repository} sort:updated-desc"
+    }
+  ],
   "githubLocalActions.dockerDesktopPath": "/Applications/Docker.app",
   "githubPullRequests.createOnPublishBranch": "never",
   "githubPullRequests.fileListLayout": "flat",
   "githubPullRequests.pullBranch": "never",
   "go.toolsManagement.autoUpdate": true,
-  "i18n-ally.displayLanguage": "en",
   "inline-parameters.fontStyle": "normal",
   "inline-parameters.hideSingleParameters": true,
   "inline-parameters.margin": "0 0.3em 0 0",
   "inline-parameters.padding": "0.2em",
   "inline-parameters.trailingCharacters": "",
+  "intelephense.telemetry.enabled": false,
   "js/ts.implicitProjectConfig.checkJs": true,
   "js/ts.implicitProjectConfig.experimentalDecorators": true,
   "js/ts.implicitProjectConfig.target": "ESNext",
@@ -136,21 +169,15 @@
   "package-json-upgrade.patchUpgradeColorOverwrite": "#40DC99",
   "package-json-upgrade.prereleaseUpgradeColorOverwrite": "#BC5EFF",
   "package-json-upgrade.skipNpmConfig": true,
+  "php-cs-fixer.executablePath": "~/.config/composer/vendor/bin/php-cs-fixer",
   "playwright.reuseBrowser": true,
-  "prettier.printWidth": 120,
-  "prettier.semi": false,
-  "prettier.singleQuote": true,
   "rainbow_csv.virtual_alignment_mode": "always",
   "redhat.telemetry.enabled": false,
   "security.workspace.trust.untrustedFiles": "open",
   "shellformat.useEditorConfig": true,
   "svelte.enable-ts-plugin": true,
-  "symbols.hidesExplorerArrows": false,
-  "tailwind-fold.autoFold": false,
-  "tailwind-fold.foldLengthThreshold": 24,
-  "tailwind-fold.foldStyle": "QUOTES",
-  "tailwind-fold.showTailwindImage": false,
-  "tailwind-fold.unfoldIfLineSelected": true,
+  "task.allowAutomaticTasks": "off",
+  "telemetry.feedback.enabled": false,
   "telemetry.telemetryLevel": "off",
   "terminal.integrated.defaultProfile.linux": "zsh",
   "terminal.integrated.enableImages": true,
@@ -163,6 +190,8 @@
   "terminal.integrated.minimumContrastRatio": 7,
   "terminal.integrated.scrollback": 1000000,
   "timetracker.dotTimeTrackerIndent": "  ",
+  "todo-tree.filtering.excludeGlobs": ["**/node_modules/*/**", "**/.*/*/**"],
+  "todo-tree.general.statusBar": "tags",
   "typescript.experimental.expandableHover": true,
   "typescript.tsserver.experimental.enableProjectDiagnostics": true,
   "typescript.updateImportsOnFileMove.enabled": "always",
@@ -181,8 +210,8 @@
   "workbench.editorAssociations": {
     "*.svg": "default"
   },
-  "workbench.iconTheme": "symbols",
   "workbench.layoutControl.enabled": false,
+  "workbench.productIconTheme": "icons-carbon",
   "workbench.startupEditor": "none",
   "workbench.tree.stickyScrollMaxItemCount": 3,
   "zenMode.fullScreen": false,

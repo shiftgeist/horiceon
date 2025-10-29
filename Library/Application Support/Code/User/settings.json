@@ -37,6 +37,9 @@
   "[toml]": {
     "editor.defaultFormatter": "tamasfe.even-better-toml"
   },
+  "[twig]": {
+    "editor.defaultFormatter": "mblode.twig-language-2"
+  },
   "[yaml]": {
     "diffEditor.ignoreTrimWhitespace": false,
     "editor.formatOnSave": false
@@ -81,6 +84,9 @@
   "editor.suggest.preview": true,
   "editor.tabSize": 2,
   "editor.wordWrap": "on",
+  "emmet.includeLanguages": {
+    "twig": "html"
+  },
   "errorLens.excludeBySource": ["cSpell"],
   "errorLens.messageEnabled": true,
   "eslint.format.enable": true,
@@ -104,6 +110,7 @@
   "extensions.ignoreRecommendations": true,
   "files.associations": {
     ".chezmoiignore": "ignore",
+    "*.html": "twig",
     "*.svg": "html"
   },
   "files.watcherExclude": {
@@ -117,6 +124,7 @@
   "git.allowForcePush": true,
   "git.allowNoVerifyCommit": true,
   "git.autofetch": true,
+  "git.blame.editorDecoration.enabled": false,
   "git.blame.statusBarItem.enabled": true,
   "git.confirmNoVerifyCommit": false,
   "git.confirmSync": false,
@@ -150,6 +158,10 @@
   "githubPullRequests.createOnPublishBranch": "never",
   "githubPullRequests.fileListLayout": "flat",
   "githubPullRequests.pullBranch": "never",
+  "gitlens.codeLens.enabled": false,
+  "gitlens.currentLine.enabled": false,
+  "gitlens.hovers.currentLine.over": "line",
+  "gitlens.statusBar.enabled": false,
   "go.toolsManagement.autoUpdate": true,
   "inline-parameters.fontStyle": "normal",
   "inline-parameters.hideSingleParameters": true,
@@ -193,7 +205,7 @@
   "todo-tree.filtering.excludeGlobs": ["**/node_modules/*/**", "**/.*/*/**"],
   "todo-tree.general.statusBar": "tags",
   "typescript.experimental.expandableHover": true,
-  "typescript.tsserver.experimental.enableProjectDiagnostics": true,
+  "typescript.experimental.useTsgo": true,
   "typescript.updateImportsOnFileMove.enabled": "always",
   "versionlens.deno.caching.duration": 5,
   "versionlens.docker.caching.duration": 10,
@@ -203,6 +215,7 @@
   "versionlens.suggestions.showOnStartup": true,
   "versionlens.suggestions.showSuggestionsStats": true,
   "window.menuBarVisibility": "hidden",
+  "window.newWindowProfile": "Default",
   "workbench.colorTheme": "Evondev Dracula Darker Contrast New Color",
   "workbench.commandPalette.experimental.enableNaturalLanguageSearch": false,
   "workbench.editor.empty.hint": "hidden",

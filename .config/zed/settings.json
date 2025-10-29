@@ -7,6 +7,7 @@
 // custom settings, run the `open default settings` command
 // from the command palette or from `Zed` application menu.
 {
+  "icon_theme": "Catppuccin Latte",
   "buffer_font_size": 13,
   "features": {
     "copilot": false
@@ -15,7 +16,7 @@
     "font_family": "DankMono Nerd Font",
     "font_size": 13
   },
-  "theme": "Catppuccin Macchiato",
+  "theme": "Catppuccin Mocha - No Italics",
   "ui_font_family": "DankMono Nerd Font",
-  "ui_font_size": 13
+  "ui_font_size": 15
 }

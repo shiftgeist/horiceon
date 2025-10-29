@@ -1,17 +1,20 @@
 [alias]
 br = branch --sort=-committerdate
 co = checkout
-lo = !git log --graph --oneline --decorate $(git rev-parse --abbrev-ref HEAD)
-loa = !git log --graph --oneline --decorate $(git rev-parse --abbrev-ref HEAD) $(git config --global init.defaultBranch)
+list-wt = status -uall --porcelain
+lo = "!f() { git log --graph --oneline --decorate ${1:-$(git rev-parse --abbrev-ref HEAD)}; }; f"
+nuke = "!f() { git branch -d \"$@\" && git push origin --delete \"$@\"; }; f"
 pl = pull
 pls = pull --autostash
 pu = push
 puf = push --force-with-lease
-pushf = push --force-with-lease
+reset-author = "!f() { \
+  original_author=\"$(git log -1 --format='%an <%ae>')\"; \
+  original_message=\"$(git log -1 --format=%B)\"; \
+  git commit --amend --reset-author --only -m \"$original_message\" -m \"Co-authored-by: $original_author\"; \
+}; f"
 reset-base-dev = !git reset --soft $(git merge-base dev HEAD)
 reset-hardest = !git reset --hard origin/$(git rev-parse --abbrev-ref HEAD) && git clean -f -q .
-reset-author = !git commit --amend --reset-author --no-edit
-rice = !git --git-dir=$HOME/code/horiceon --work-tree=$HOME
 st = status
 up = !git push --set-upstream origin $(git rev-parse --abbrev-ref HEAD)
 

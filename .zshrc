@@ -106,6 +106,7 @@ alias horiceon="/usr/bin/git --git-dir=$HOME/code/horiceon --work-tree=$HOME"
 alias horiceon-code="GIT_WORK_TREE=$HOME GIT_DIR=$HOME/code/horiceon code $HOME"
 alias rm="trash"
 alias la="ls -la"
+alias grepf='fzf -f'
 
 if command -v bat &>/dev/null; then
   alias cat="bat -p"

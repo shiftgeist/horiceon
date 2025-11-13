@@ -1,9 +1,11 @@
 [alias]
 br = branch --sort=-committerdate
+br-cleanup-merged = !git branch --merged | grep -E -v '(^\\*|master|dev|main)' | xargs git branch -d && git pull --prune
+br-nuke = "!f() { git branch -d \"$@\" && git push origin --delete \"$@\"; }; f"
+br-nuke-all = !git branch | grep -E -v '(^\\*|master|dev|main)' | xargs git branch -D && git pull --prune
 co = checkout
-list-wt = status -uall --porcelain
 lo = "!f() { git log --graph --oneline --decorate ${1:-$(git rev-parse --abbrev-ref HEAD)}; }; f"
-nuke = "!f() { git branch -d \"$@\" && git push origin --delete \"$@\"; }; f"
+ls-worktree = status -uall --porcelain
 pl = pull
 pls = pull --autostash
 pu = push

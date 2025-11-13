@@ -27,7 +27,6 @@ fi
 
 # Brew
 eval "$(/opt/homebrew/bin/brew shellenv)"
-COMPOSER_HOME=$(composer -n config --global home)
 
 # Set PATH
 export PATH=$HOME/.local/bin:$PATH
@@ -70,6 +69,7 @@ export GIT_SEQUENCE_EDITOR="code --wait --diff"
 export FZF_DEFAULT_OPTS="--height 90% --layout=reverse"
 
 zstyle ':completion:*' completer _complete _ignored _expand_alias
+zstyle ':completion:*:git-checkout:*' sort false
 
 # Enable the "new" completion system (compsys)
 autoload -Uz compinit && compinit
@@ -113,6 +113,8 @@ if command -v bat &>/dev/null; then
 fi
 
 if command -v docker &>/dev/null; then
+  alias docekr=docker
+
   function _mba-launch {
     if pnpm load-env -- echo; then
       pnpm load-env -- docker compose --profile="infra" pull
@@ -173,9 +175,7 @@ if command -v zoxide &>/dev/null; then
   alias cdi="zi"
 fi
 
-alias brew-bundle-dump="brew bundle dump -gf"
-
-alias git-cleanup-merged="git branch --merged | grep -E -v '(^\\*|master|dev|main)' | xargs git branch -d && git pull --prune"
+alias brew-bundle-dump="brew bundle dump --global --force"
 
 check-port() {
   lsof -i tcp${1:+":$1"}

@@ -1,0 +1,28 @@
+[tools]
+bun = "latest"
+deno = "latest"
+node = "latest"
+"npm:npq" = "latest"
+"npm:prettier" = "latest"
+"npm:sort-package-json" = "latest"
+"npm:zx" = "latest"
+
+[settings]
+always_keep_download = true
+disable_backends = ["asdf", "pipx"]
+experimental = true
+idiomatic_version_file_enable_tools = [
+  "node",
+  "python",
+  "go",
+  "terraform",
+  "yarn",
+]
+legacy_version_file = true
+npm.bun = true
+
+[hooks]
+postinstall = 'npx corepack enable && corepack prepare'
+
+[env]
+_.path = ['{{config_root}}./node_modules/.bin']

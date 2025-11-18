@@ -1,4 +1,5 @@
 # ZSH CONFIG
+# zmodload zsh/zprof # Debug
 
 # Zshrc helper
 function zcompile-many() {
@@ -16,10 +17,6 @@ if [[ ! -e "$ZSH_CONFIG/fzf-tab" ]]; then
   git clone git@github.com:Aloxaf/fzf-tab.git "$ZSH_CONFIG/fzf-tab"
 fi
 
-if [[ ! -e "$ZSH_CONFIG/alias-tips" ]]; then
-  git clone git@github.com:djui/alias-tips.git "$ZSH_CONFIG/alias-tips"
-fi
-
 # Compile missing plugins
 if [[ ! -e "$XDG_CACHE/completion-for-pnpm.zsh" ]]; then
   pnpm completion zsh >"$XDG_CACHE/completion-for-pnpm.zsh"
@@ -30,13 +27,7 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 
 # Set PATH
 export PATH=$HOME/.local/bin:$PATH
-export PATH=$HOME/.npm-global/bin:$PATH
-export PATH=$HOME/.deno/bin:$PATH
-export PATH=$HOME/.bun/bin:$PATH
-export PATH="$(brew --prefix)/opt/openjdk/bin:$PATH"
-export PATH="$(go env GOPATH)/bin:$PATH"
-export PATH="$HOME/Library/pnpm:$PATH"
-export PATH="$COMPOSER_HOME/vendor/bin:$PATH"
+export PATH=$HOME/.local/share/mise/installs/go/latest/bin:$PATH
 
 # History
 export HISTSIZE=999999999
@@ -59,7 +50,7 @@ setopt INTERACTIVE_COMMENTS   # ignore commands starting with hashtag
 setopt NO_CASE_GLOB           # case insensitive globbing
 
 # Backup history
-cp $HISTFILE $HISTFILE.old
+# cp $HISTFILE $HISTFILE.old
 
 # Set completion PATH
 export FPATH="$(brew --prefix)/share/zsh/site-functions:$FPATH"
@@ -106,7 +97,9 @@ alias horiceon="/usr/bin/git --git-dir=$HOME/code/horiceon --work-tree=$HOME"
 alias horiceon-code="GIT_WORK_TREE=$HOME GIT_DIR=$HOME/code/horiceon code $HOME"
 alias rm="trash"
 alias la="ls -la"
-alias grepf='fzf -f'
+alias grepf="fzf -f"
+alias npm="npq-hero"
+alias pnpm="NPQ_PKG_MGR=pnpm npq-hero"
 
 if command -v bat &>/dev/null; then
   alias cat="bat -p"
@@ -149,6 +142,10 @@ if command -v mask &>/dev/null; then
     [[ ! -f "maskfile.md" && -f "README.md" ]] && args=(--maskfile README.md)
     command mask "${args[@]}" "$@"
   }
+fi
+
+if command -v mise &>/dev/null; then
+  eval "$(mise activate zsh)"
 fi
 
 if command -v uv &>/dev/null; then
@@ -251,3 +248,5 @@ command_not_found_handler() {
   shift
   tool $cmd "$@"
 }
+
+# zprof # Debug performance (keep @ bottom)

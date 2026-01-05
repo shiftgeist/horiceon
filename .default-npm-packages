@@ -1,0 +1,5 @@
+@typescript-eslint/parser
+eslint
+prettier-eslint
+typescript
+vue-eslint-parser

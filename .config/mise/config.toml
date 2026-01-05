@@ -1,11 +1,15 @@
 [tools]
-bun = "latest"
 deno = "latest"
+dprint = "latest"
 node = "latest"
+bun = "latest"
+uv = "latest"
+"npm:eslint" = "latest"
 "npm:npq" = "latest"
 "npm:prettier" = "latest"
 "npm:sort-package-json" = "latest"
 "npm:zx" = "latest"
+"npm:corepack" = "latest"
 
 [settings]
 always_keep_download = true
@@ -19,7 +23,9 @@ idiomatic_version_file_enable_tools = [
   "yarn",
 ]
 legacy_version_file = true
-npm.bun = true
+
+[settings.npm]
+bun = true
 
 [hooks]
 postinstall = 'npx corepack enable && corepack prepare'

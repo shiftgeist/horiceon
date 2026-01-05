@@ -3,8 +3,7 @@
     "editor.defaultFormatter": "astro-build.astro-vscode"
   },
   "[css][html][javascript][javascriptreact][typescript][typescriptreact][json][jsonc][markdown][scss][vue][yaml]": {
-    "AkiraVoid.formatWithCLI.command": "prettier --ignore-unknown \"{file}\"",
-    "editor.defaultFormatter": "AkiraVoid.format-with-cli"
+    "editor.defaultFormatter": "dprint.dprint"
   },
   "[csv][csv (semicolon)]": {
     "editor.inlayHints.maximumLength": 0
@@ -61,6 +60,8 @@
   "diffEditor.experimental.showMoves": true,
   "diffEditor.experimental.useTrueInlineView": true,
   "diffEditor.ignoreTrimWhitespace": false,
+  "dprint.experimentalLsp": true,
+  "dprint.path": "~/.local/share/mise/installs/dprint/latest/dprint",
   "editor.cursorBlinking": "solid",
   "editor.fontFamily": "DankMono Nerd Font",
   "editor.fontLigatures": false,

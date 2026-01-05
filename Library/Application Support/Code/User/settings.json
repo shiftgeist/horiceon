@@ -71,22 +71,22 @@
   "editor.inlineSuggest.enabled": true,
   "editor.minimap.enabled": false,
   "editor.quickSuggestionsDelay": 0,
-  "editor.rulers": [
-    {
-      "color": "#21242C",
-      "column": 80
-    },
-    {
-      "color": "#21242C",
-      "column": 140
-    }
-  ],
+  "editor.rulers": [{
+    "color": "#21242C",
+    "column": 80
+  }, {
+    "color": "#21242C",
+    "column": 140
+  }],
   "editor.stickyScroll.enabled": false,
   "editor.suggest.preview": true,
   "editor.tabSize": 2,
   "editor.wordWrap": "on",
   "emmet.includeLanguages": {
     "twig": "html"
+  },
+  "emojisense.languages": {
+    "*": true
   },
   "errorLens.excludeBySource": ["cSpell"],
   "errorLens.messageEnabled": true,
@@ -126,7 +126,7 @@
   "git.allowNoVerifyCommit": true,
   "git.autofetch": true,
   "git.blame.editorDecoration.enabled": false,
-  "git.blame.statusBarItem.enabled": true,
+  "git.blame.statusBarItem.enabled": false,
   "git.confirmNoVerifyCommit": false,
   "git.confirmSync": false,
   "git.enableSmartCommit": true,
@@ -140,21 +140,17 @@
   },
   "github.copilot.nextEditSuggestions.enabled": false,
   "github.copilot.renameSuggestions.triggerAutomatically": false,
-  "githubIssues.queries": [
-    {
-      "groupBy": ["milestone"],
-      "label": "My Issues",
-      "query": "is:open assignee:${user} repo:${owner}/${repository}"
-    },
-    {
-      "label": "Created Issues",
-      "query": "author:${user} state:open repo:${owner}/${repository} sort:created-desc"
-    },
-    {
-      "label": "Recent Issues",
-      "query": "state:open repo:${owner}/${repository} sort:updated-desc"
-    }
-  ],
+  "githubIssues.queries": [{
+    "groupBy": ["milestone"],
+    "label": "My Issues",
+    "query": "is:open assignee:${user} repo:${owner}/${repository}"
+  }, {
+    "label": "Created Issues",
+    "query": "author:${user} state:open repo:${owner}/${repository} sort:created-desc"
+  }, {
+    "label": "Recent Issues",
+    "query": "state:open repo:${owner}/${repository} sort:updated-desc"
+  }],
   "githubLocalActions.dockerDesktopPath": "/Applications/Docker.app",
   "githubPullRequests.createOnPublishBranch": "never",
   "githubPullRequests.fileListLayout": "flat",
@@ -188,8 +184,10 @@
   "playwright.reuseBrowser": true,
   "rainbow_csv.virtual_alignment_mode": "always",
   "redhat.telemetry.enabled": false,
+  "scm.defaultViewMode": "tree",
   "security.workspace.trust.untrustedFiles": "open",
   "shellformat.useEditorConfig": true,
+  "sqliteViewer.maxFileSize": 4000,
   "svelte.enable-ts-plugin": true,
   "task.allowAutomaticTasks": "off",
   "telemetry.feedback.enabled": false,
@@ -208,6 +206,7 @@
   "timetracker.dotTimeTrackerIndent": "  ",
   "todo-tree.filtering.excludeGlobs": ["**/node_modules/*/**", "**/.*/*/**"],
   "todo-tree.general.statusBar": "tags",
+  "todo-tree.general.tags": ["BUG", "HACK", "FIXME", "TODO", "XXX", "[ ]", "[x]", "MARK", "BOOKMARK"],
   "typescript.experimental.expandableHover": true,
   "typescript.experimental.useTsgo": false,
   "typescript.updateImportsOnFileMove.enabled": "always",

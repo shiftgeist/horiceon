@@ -59,27 +59,29 @@ export FPATH="$(brew --prefix)/share/zsh/site-functions:$FPATH"
 export GIT_SEQUENCE_EDITOR="code --wait --diff"
 export FZF_DEFAULT_OPTS="--height 90% --layout=reverse"
 
+# Completion Settings
 zstyle ':completion:*' completer _complete _ignored _expand_alias
 zstyle ':completion:*:git-checkout:*' sort false
+# preview content or directory's content with eza when completing
+zstyle ':fzf-tab:complete:*:*' fzf-preview 'bat --color=always --style=numbers --line-range=:500 $realpath 2>/dev/null || eza -la --color=always $realpath'
+# switch group using `<` and `>`
+zstyle ':fzf-tab:*' switch-group '<' '>'
 
 # Enable the "new" completion system (compsys)
 autoload -Uz compinit && compinit
 [[ ~/.zcompdump.zwc -nt ~/.zcompdump ]] || zcompile-many ~/.zcompdump
 unfunction zcompile-many
 
+###
 # Plugins
+###
+
 source "$(brew --prefix)/opt/fzf/shell/completion.zsh"
 source "$(brew --prefix)/opt/fzf/shell/key-bindings.zsh"
 source "$(brew --prefix)/share/zsh/site-functions"
 source "$ZSH_CONFIG/fzf-tab/fzf-tab.plugin.zsh"
 source "$ZSH_CONFIG/alias-tips/alias-tips.plugin.zsh"
 source "$XDG_CACHE/completion-for-pnpm.zsh"
-
-# Completion Settings
-# preview content or directory's content with eza when completing
-zstyle ':fzf-tab:complete:*:*' fzf-preview 'bat --color=always --style=numbers --line-range=:500 $realpath 2>/dev/null || eza -la --color=always $realpath'
-# switch group using `<` and `>`
-zstyle ':fzf-tab:*' switch-group '<' '>'
 
 ###
 # Prompt
@@ -93,21 +95,20 @@ fi
 # Aliases
 ###
 
+alias finder="open"
+alias grepf="fzf -f"
 alias horiceon="/usr/bin/git --git-dir=$HOME/code/horiceon --work-tree=$HOME"
 alias horiceon-code="GIT_WORK_TREE=$HOME GIT_DIR=$HOME/code/horiceon code $HOME"
-alias rm="trash"
 alias la="ls -la"
-alias grepf="fzf -f"
-alias npm="npq-hero"
-alias pnpm="NPQ_PKG_MGR=pnpm npq-hero"
+alias npms="npq-hero"
+alias pnpms="NPQ_PKG_MGR=pnpm npq-hero"
+alias rm="trash"
 
 if command -v bat &>/dev/null; then
   alias cat="bat -p"
 fi
 
 if command -v docker &>/dev/null; then
-  alias docekr=docker
-
   function _mba-launch {
     if pnpm load-env -- echo; then
       pnpm load-env -- docker compose --profile="infra" pull
@@ -154,6 +155,16 @@ fi
 
 if command -v yq &>/dev/null; then
   alias jq="yq"
+
+  pnpm-run() {
+    if [ "$2" = "!" ]; then
+      pnpm run "$1"
+    elif [ -n "$1" ]; then
+      yq -o=json ".scripts | with_entries(select(.key | test(\"$1\")))" package.json | bat -l json -p
+    else
+      yq -o=json ".scripts" package.json
+    fi
+  }
 fi
 
 if command -v yazi &>/dev/null; then
@@ -176,16 +187,6 @@ alias brew-bundle-dump="brew bundle dump --global --force"
 
 check-port() {
   lsof -i tcp${1:+":$1"}
-}
-
-pnpm-run() {
-  if [ "$2" = "!" ]; then
-    pnpm run "$1"
-  elif [ -n "$1" ]; then
-    cat package.json | yq -o=json -r ".scripts.$1" | bat -l sh -p
-  else
-    cat package.json | yq -o=json -r ".scripts"
-  fi
 }
 
 alias ts-prune="pnpx knip"

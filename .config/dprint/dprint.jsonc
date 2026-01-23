@@ -1,11 +1,14 @@
 {
   "$schema": "https://dprint.dev/schemas/v0.json",
   "indentWidth": 2,
+  "lineWidth": 100,
   "typescript": {
-    "semiColons": "asi",
+    // https://dprint.dev/plugins/typescript/config/
     "quoteStyle": "preferSingle",
+    "trailingCommas": "never",
   },
   "json": {
+    // https://dprint.dev/plugins/json/config/
   },
   "markdown": {
   },
@@ -20,14 +23,44 @@
   "malva": {
   },
   "markup": {
+    // https://dprint.dev/plugins/markup_fmt/config/
+    "scriptIndent": true,
   },
   "yaml": {
   },
   "graphql": {
   },
+  "exec": {
+    "cwd": "${configDir}",
+
+    "lineWidth": 120,
+    "indentWidth": 2,
+    "useTabs": false,
+    "cacheKey": "1",
+    "timeout": 30,
+
+    "commands": [{
+      "command": "rustfmt --edition 2024",
+      "exts": ["rs"],
+      "cacheKeyFiles": [
+        "rustfmt.toml",
+        "rust-toolchain.toml",
+      ],
+    }, {
+      // TODO: Shell formatter does not work
+      "command": "shfmt",
+      "exts": ["sh", "zshrc", "zsh"],
+      "cacheKeyFiles": [],
+    }],
+  },
   "excludes": [
     "**/node_modules",
-    "**/*-lock.json",
+    "**/build",
+    "**/.svelte-kit",
+    "**/package",
+    "**/*-lock.yaml",
+    "**/yaml.lock",
+    "**/.DS_Store",
   ],
   "plugins": [
     "https://plugins.dprint.dev/typescript-0.95.13.wasm",
@@ -41,5 +74,6 @@
     "https://plugins.dprint.dev/g-plane/markup_fmt-v0.25.3.wasm",
     "https://plugins.dprint.dev/g-plane/pretty_yaml-v0.5.1.wasm",
     "https://plugins.dprint.dev/g-plane/pretty_graphql-v0.2.3.wasm",
+    "https://plugins.dprint.dev/exec-0.6.0.json@a054130d458f124f9b5c91484833828950723a5af3f8ff2bd1523bd47b83b364",
   ],
 }

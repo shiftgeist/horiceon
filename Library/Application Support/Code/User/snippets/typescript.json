@@ -1,78 +1,74 @@
 {
-	// Place your snippets for typescript here. Each snippet is defined under a snippet name and has a prefix, body and 
-	// description. The prefix is what is used to trigger the snippet and the body will be expanded and inserted. Possible variables are:
-	// $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. Placeholders with the 
-	// same ids are connected.
-	// Example:
-	// "Print to console": {
-	// 	"prefix": "log",
-	// 	"body": [
-	// 		"console.log('$1')",
-	// 		"$2"
-	// 	],
-	// 	"description": "Log output to console"
-	// }
-	// https://github.com/microsoft/vscode/blob/main/extensions/typescript-basics/snippets/typescript.code-snippets
-	// same ids are connected.
-	"frog": {
-		"prefix": "frog",
-		"body": [
-			"🐸📣$0"
-		],
-		"description": "frog"
-	},
-	"Log to the console": {
-		"prefix": "log",
-		"body": [
-			"console.log(`🐸📣`, $1, `$1`)$0",
-		],
-		"description": "Log to the console"
-	},
-	"Log warning to console": {
-		"prefix": "warn",
-		"body": [
-			"console.warn(`🐸📣`, $1, `$1`)$0"
-		],
-		"description": "Log warning to the console"
-	},
-	"Log error to console": {
-		"prefix": "error",
-		"body": [
-			"console.error(`🐸📣`, $1, `$1`)$0"
-		],
-		"description": "Log error to the console"
-	},
-	"setTimeout Promise": {
-		"prefix": "setTimeout",
-		"body": [
-			"await new Promise((res) => setTimeout(res, 5000))$0"
-		],
-		"description": "Set Timeout Promise"
-	},
-	"Template Debug": {
-		"prefix": "pre",
-		"body": [
-			"<pre>{JSON.stringify($1, null, 2)}</pre>",
-			"$2"
-		],
-		"description": "Log output to console"
-	},
-	"Svelte Props": {
-		"prefix": "$props",
-		"body": [
-			"interface Props {",
-			"  $1: $2;",
-			"}",
-			"let { $1 }: Props = \\$props()",
-			"$3"
-		],
-		"description": "Props with interface"
-	},
-	"Custom $inspect": {
-		"prefix": "$inspect",
-		"body": [
-			"$$inspect(`🐸📣 $1`, $2, `$2`)$0"
-		],
-		"description": "custom $inspect"
-	}
+  // Place your snippets for typescript here. Each snippet is defined under a snippet name and has a prefix, body and
+  // description. The prefix is what is used to trigger the snippet and the body will be expanded and inserted. Possible variables are:
+  // $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. Placeholders with the
+  // same ids are connected.
+  // https://github.com/microsoft/vscode/blob/main/extensions/typescript-basics/snippets/typescript.code-snippets
+  // same ids are connected.
+  "frog": {
+    "prefix": "frog",
+    "body": [
+      "🐸📣$0"
+    ],
+    "description": "frog"
+  },
+  "Log to the console": {
+    "prefix": "log",
+    "body": [
+      "console.log(`🐸📣`, $1, `$1`)$0",
+    ]
+  },
+  "Log to the console with stringify": {
+    "prefix": "logj",
+    "body": [
+      "console.log(`🐸📣`, JSON.stringify($1), `JSON.stringify($1)`)$0",
+    ]
+  },
+  "Log warning to console": {
+    "prefix": "warn",
+    "body": [
+      "console.warn(`🐸📣`, $1, `$1`)$0"
+    ],
+    "description": "Log warning to the console"
+  },
+  "Log error to console": {
+    "prefix": "error",
+    "body": [
+      "console.error(`🐸📣`, $1, `$1`)$0"
+    ],
+    "description": "Log error to the console"
+  },
+  "setTimeout Promise": {
+    "prefix": "setTimeout",
+    "body": [
+      "await new Promise((res) => setTimeout(res, 5000))$0"
+    ],
+    "description": "Set Timeout Promise"
+  },
+  "Template Debug": {
+    "prefix": "pre",
+    "body": [
+      "<pre>{JSON.stringify($1, null, 2)}</pre>",
+      "$2"
+    ],
+    "description": "Log output to console"
+  },
+  "Svelte Props": {
+    "prefix": "$props",
+    "body": [
+      "interface Props {",
+      "  $1: $2;",
+      "}",
+      "let { $1 }: Props = \\$props()",
+      "$3"
+    ],
+    "description": "Props with interface"
+  },
+  "Custom $inspect": {
+    "prefix": "$inspect",
+    "body": [
+      "$$inspect(`🐸📣 $1`, $2, `$2`)$0"
+    ],
+    "description": "custom $inspect"
+  }
 }

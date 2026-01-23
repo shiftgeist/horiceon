@@ -2,7 +2,7 @@
   "[astro]": {
     "editor.defaultFormatter": "astro-build.astro-vscode"
   },
-  "[css][html][javascript][javascriptreact][typescript][typescriptreact][json][jsonc][markdown][scss][vue][yaml]": {
+  "[css][html][javascript][javascriptreact][typescript][typescriptreact][markdown][scss][vue][yaml][json][jsonc][jsonl][svelte][vue][python]": {
     "editor.defaultFormatter": "dprint.dprint"
   },
   "[csv][csv (semicolon)]": {
@@ -24,14 +24,13 @@
     "editor.codeActionsOnSave": {
       "source.fixAll": "explicit",
       "source.organizeImports": "explicit"
-    },
-    "editor.defaultFormatter": "charliermarsh.ruff"
+    }
+  },
+  "[rust]": {
+    "editor.defaultFormatter": "rust-lang.rust-analyzer"
   },
   "[shellscript]": {
     "editor.defaultFormatter": "mkhl.shfmt"
-  },
-  "[svelte]": {
-    "editor.defaultFormatter": "svelte.svelte-vscode"
   },
   "[toml]": {
     "editor.defaultFormatter": "tamasfe.even-better-toml"
@@ -53,42 +52,62 @@
   "containers.containers.label": "ContainerName",
   "containers.contexts.label": "Name",
   "cSpell.blockCheckingWhenTextChunkSizeGreaterThan": 1000,
+  "cSpell.diagnosticLevel": "Hint",
   "cSpell.language": "en,de",
   "cSpell.unknownWords": "report-simple",
-  "cSpell.userWords": ["dataviewjs", "saldo"],
+  "cSpell.userWords": [
+    "dataviewjs",
+    "horiceon",
+    "saldo"
+  ],
+  "darkSynthwave84.disableGlow": true,
   "diffEditor.codeLens": true,
   "diffEditor.experimental.showMoves": true,
   "diffEditor.experimental.useTrueInlineView": true,
   "diffEditor.ignoreTrimWhitespace": false,
   "dprint.experimentalLsp": true,
   "dprint.path": "~/.local/share/mise/installs/dprint/latest/dprint",
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": "explicit",
+    "source.removeUnused.ts": "never",
+    "source.removeUnusedImports": "never"
+  },
   "editor.cursorBlinking": "solid",
   "editor.fontFamily": "DankMono Nerd Font",
-  "editor.fontLigatures": false,
+  "editor.fontLigatures": true,
   "editor.fontSize": 13,
   "editor.formatOnSave": true,
   "editor.guides.bracketPairs": "active",
   "editor.inlineSuggest.enabled": true,
   "editor.minimap.enabled": false,
   "editor.quickSuggestionsDelay": 0,
-  "editor.rulers": [{
-    "color": "#21242C",
-    "column": 80
-  }, {
-    "color": "#21242C",
-    "column": 140
-  }],
+  "editor.renderWhitespace": "selection",
+  "editor.rulers": [
+    {
+      "color": "#21242C",
+      "column": 80
+    },
+    {
+      "color": "#21242C",
+      "column": 140
+    }
+  ],
+  "editor.snippetSuggestions": "top",
   "editor.stickyScroll.enabled": false,
   "editor.suggest.preview": true,
   "editor.tabSize": 2,
   "editor.wordWrap": "on",
   "emmet.includeLanguages": {
+    "svem": "html",
     "twig": "html"
   },
   "emojisense.languages": {
     "*": true
   },
-  "errorLens.excludeBySource": ["cSpell"],
+  "errorLens.enabled": true,
+  "errorLens.excludeBySource": [
+    "cSpell"
+  ],
   "errorLens.messageEnabled": true,
   "eslint.format.enable": true,
   "explorer.confirmDelete": false,
@@ -132,29 +151,7 @@
   "git.enableSmartCommit": true,
   "git.openRepositoryInParentFolders": "never",
   "git.replaceTagsWhenPull": true,
-  "github-actions.workflows.pinned.refresh.enabled": true,
-  "github.copilot.editor.enableAutoCompletions": false,
-  "github.copilot.editor.enableCodeActions": false,
-  "github.copilot.enable": {
-    "*": false
-  },
-  "github.copilot.nextEditSuggestions.enabled": false,
-  "github.copilot.renameSuggestions.triggerAutomatically": false,
-  "githubIssues.queries": [{
-    "groupBy": ["milestone"],
-    "label": "My Issues",
-    "query": "is:open assignee:${user} repo:${owner}/${repository}"
-  }, {
-    "label": "Created Issues",
-    "query": "author:${user} state:open repo:${owner}/${repository} sort:created-desc"
-  }, {
-    "label": "Recent Issues",
-    "query": "state:open repo:${owner}/${repository} sort:updated-desc"
-  }],
   "githubLocalActions.dockerDesktopPath": "/Applications/Docker.app",
-  "githubPullRequests.createOnPublishBranch": "never",
-  "githubPullRequests.fileListLayout": "flat",
-  "githubPullRequests.pullBranch": "never",
   "gitlens.codeLens.enabled": false,
   "gitlens.currentLine.enabled": false,
   "gitlens.hovers.currentLine.over": "line",
@@ -175,11 +172,6 @@
   "markdown.extension.toc.levels": "2..6",
   "mergeEditor.diffAlgorithm": "advanced",
   "notebook.formatOnSave.enabled": true,
-  "package-json-upgrade.majorUpgradeColorOverwrite": "#FF4747",
-  "package-json-upgrade.minorUpgradeColorOverwrite": "#FFC145",
-  "package-json-upgrade.patchUpgradeColorOverwrite": "#40DC99",
-  "package-json-upgrade.prereleaseUpgradeColorOverwrite": "#BC5EFF",
-  "package-json-upgrade.skipNpmConfig": true,
   "php-cs-fixer.executablePath": "~/.config/composer/vendor/bin/php-cs-fixer",
   "playwright.reuseBrowser": true,
   "rainbow_csv.virtual_alignment_mode": "always",
@@ -187,8 +179,8 @@
   "scm.defaultViewMode": "tree",
   "security.workspace.trust.untrustedFiles": "open",
   "shellformat.useEditorConfig": true,
-  "sqliteViewer.maxFileSize": 4000,
   "svelte.enable-ts-plugin": true,
+  "svelte.plugin.svelte.runesLegacyModeCodeLens.enable": false,
   "task.allowAutomaticTasks": "off",
   "telemetry.feedback.enabled": false,
   "telemetry.telemetryLevel": "off",
@@ -204,22 +196,28 @@
   "terminal.integrated.scrollback": 1000000,
   "terminal.integrated.tabs.enabled": false,
   "timetracker.dotTimeTrackerIndent": "  ",
-  "todo-tree.filtering.excludeGlobs": ["**/node_modules/*/**", "**/.*/*/**"],
+  "todo-tree.filtering.excludeGlobs": [
+    "**/node_modules/*/**",
+    "**/.*/*/**"
+  ],
   "todo-tree.general.statusBar": "tags",
-  "todo-tree.general.tags": ["BUG", "HACK", "FIXME", "TODO", "XXX", "[ ]", "[x]", "MARK", "BOOKMARK"],
+  "todo-tree.general.tags": [
+    "BUG",
+    "HACK",
+    "FIXME",
+    "TODO",
+    "XXX",
+    "[ ]",
+    "[x]",
+    "MARK",
+    "BOOKMARK"
+  ],
   "typescript.experimental.expandableHover": true,
   "typescript.experimental.useTsgo": false,
   "typescript.updateImportsOnFileMove.enabled": "always",
-  "versionlens.deno.caching.duration": 5,
-  "versionlens.docker.caching.duration": 10,
-  "versionlens.golang.caching.duration": 5,
-  "versionlens.npm.caching.duration": 5,
-  "versionlens.pypi.caching.duration": 10,
-  "versionlens.suggestions.showOnStartup": true,
-  "versionlens.suggestions.showSuggestionsStats": true,
   "window.menuBarVisibility": "hidden",
   "window.newWindowProfile": "Default",
-  "workbench.colorTheme": "Evondev Dracula Darker Contrast New Color (fixed)",
+  "workbench.colorTheme": "Ayu Monokai",
   "workbench.commandPalette.experimental.enableNaturalLanguageSearch": false,
   "workbench.editor.empty.hint": "hidden",
   "workbench.editor.enablePreview": false,

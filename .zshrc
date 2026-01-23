@@ -1,13 +1,36 @@
 # ZSH CONFIG
 # zmodload zsh/zprof # Debug
 
+# Basic requirements: curl, docker, git, lsof
+
+###
 # Zshrc helper
-function zcompile-many() {
+###
+function _zcompile-many() {
   local f
   for f; do zcompile -R -- "$f".zwc "$f"; done
 }
 
-# Basic
+function _check-commands() {
+  local missing=()
+
+  for cmd in "$@"; do
+    if ! command -v "$cmd" &>/dev/null; then
+      missing+=("$cmd")
+    fi
+  done
+
+  if [ ${#missing[@]} -gt 0 ]; then
+    echo "Missing commands: ${missing[*]}"
+    return 1
+  fi
+
+  return 0
+}
+
+###
+# Basics
+###
 export XDG_CACHE="$HOME/.cache/"
 export ZSH_CONFIG="$HOME/.config/zsh"
 export XDG_CACHE_HOME="${XDG_CACHE_HOME:-$HOME/.cache}"
@@ -69,8 +92,8 @@ zstyle ':fzf-tab:*' switch-group '<' '>'
 
 # Enable the "new" completion system (compsys)
 autoload -Uz compinit && compinit
-[[ ~/.zcompdump.zwc -nt ~/.zcompdump ]] || zcompile-many ~/.zcompdump
-unfunction zcompile-many
+[[ ~/.zcompdump.zwc -nt ~/.zcompdump ]] || _zcompile-many ~/.zcompdump
+unfunction _zcompile-many
 
 ###
 # Plugins
@@ -82,116 +105,78 @@ source "$(brew --prefix)/share/zsh/site-functions"
 source "$ZSH_CONFIG/fzf-tab/fzf-tab.plugin.zsh"
 source "$ZSH_CONFIG/alias-tips/alias-tips.plugin.zsh"
 source "$XDG_CACHE/completion-for-pnpm.zsh"
+source "$HOME/.cargo/env"
 
 ###
-# Prompt
+# Internals
 ###
 
-if command -v starship &>/dev/null; then
+if _check-commands starship; then
   eval "$(starship init zsh)"
 fi
 
+function _tool() {
+  if [ $# -lt 1 ]; then
+    echo "Usage: tool <package> [args...]"
+    return 1
+  fi
+
+  local package=$1
+  shift
+  docker run --rm -it --init -v "$(pwd)":/app -w /app alpine:latest sh -c "apk add --quiet $package && $package \"\$@\"" -- "$@"
+}
+
+function command_not_found_handler() {
+  local cmd=$1
+
+  if [[ ! -t 0 ]]; then
+    echo "Command '$cmd' not found"
+    return 127
+  fi
+
+  echo
+  echo "Command '$cmd' not found. Try with alpine? [Y/n]"
+  read -k 1 run_response
+
+  if [[ $run_response == "n" || $run_response == "N" ]]; then
+    return 127
+  fi
+
+  shift
+  _check-commands docker && _tool $cmd "$@"
+}
+
 ###
-# Aliases
+# User space
 ###
 
+alias "..."="cd ../.."
+alias "...."="cd ../../.."
+alias clipboard="pbcopy"
+alias copy="pbcopy"
 alias finder="open"
 alias grepf="fzf -f"
 alias horiceon="/usr/bin/git --git-dir=$HOME/code/horiceon --work-tree=$HOME"
-alias horiceon-code="GIT_WORK_TREE=$HOME GIT_DIR=$HOME/code/horiceon code $HOME"
 alias la="ls -la"
-alias npms="npq-hero"
-alias pnpms="NPQ_PKG_MGR=pnpm npq-hero"
+alias now="date +%s"
 alias rm="trash"
-
-if command -v bat &>/dev/null; then
-  alias cat="bat -p"
-fi
-
-if command -v docker &>/dev/null; then
-  function _mba-launch {
-    if pnpm load-env -- echo; then
-      pnpm load-env -- docker compose --profile="infra" pull
-      pnpm load-env -- docker compose --profile="infra" up -d $@
-    else
-      docker compose --profile="infra" pull
-      docker compose --profile="infra" up -d $@
-    fi
-  }
-
-  function mba-launch {
-    export APP_ENV="development"
-    export APP_VERSION="$(git rev-parse --short HEAD &>/dev/null)"
-    _mba-launch &
-    pnpm install &
-    wait
-    pnpm dev
-  }
-fi
-
-if command -v glow &>/dev/null; then
-  alias glow="glow --width \"$(tput cols)\""
-fi
-
-if command -v eza &>/dev/null; then
-  alias ls="eza"
-fi
-
-if command -v mask &>/dev/null; then
-  mask() {
-    local args=()
-    [[ ! -f "maskfile.md" && -f "README.md" ]] && args=(--maskfile README.md)
-    command mask "${args[@]}" "$@"
-  }
-fi
-
-if command -v mise &>/dev/null; then
-  eval "$(mise activate zsh)"
-fi
-
-if command -v uv &>/dev/null; then
-  alias pip="uv pip"
-fi
-
-if command -v yq &>/dev/null; then
-  alias jq="yq"
-
-  pnpm-run() {
-    if [ "$2" = "!" ]; then
-      pnpm run "$1"
-    elif [ -n "$1" ]; then
-      yq -o=json ".scripts | with_entries(select(.key | test(\"$1\")))" package.json | bat -l json -p
-    else
-      yq -o=json ".scripts" package.json
-    fi
-  }
-fi
-
-if command -v yazi &>/dev/null; then
-  y() {
-    local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
-    yazi "$@" --cwd-file="$tmp"
-    IFS= read -r -d '' cwd <"$tmp"
-    [ -n "$cwd" ] && [ "$cwd" != "$PWD" ] && builtin cd -- "$cwd"
-    rm -f -- "$tmp"
-  }
-fi
-
-if command -v zoxide &>/dev/null; then
-  eval "$(zoxide init zsh)"
-  alias cd="z"
-  alias cdi="zi"
-fi
-
+alias timestamp="date +%s"
 alias brew-bundle-dump="brew bundle dump --global --force"
 
-check-port() {
+function cheat {
+  curl "cht.sh/$1" | less -R
+}
+alias example="cheat"
+alias expl="cheat"
+alias explain="cheat"
+alias tldr="cheat"
+alias help="cheat"
+
+function check-port() {
   lsof -i tcp${1:+":$1"}
 }
 
-alias ts-prune="pnpx knip"
-
-kill_port() {
+function kill_port() {
   if [ "$#" -ne 1 ]; then
     echo "Usage: kill_port <PORT>"
     return 1
@@ -210,7 +195,7 @@ kill_port() {
   kill -9 $PID
 }
 
-cheatsheet_iterm2() {
+function cheatsheet_iterm2() {
   URL='https://gist.githubusercontent.com/squarism/ae3613daf5c01a98ba3a/raw/e0b1c1c0309244400b847fc539899bcfde42f98a/iterm2.md'
   CACHE_FILE="$XDG_CACHE_HOME/$(echo "$URL" | sha256sum | cut -d' ' -f1).md"
 
@@ -219,35 +204,114 @@ cheatsheet_iterm2() {
   glow --pager "$CACHE_FILE"
 }
 
-tool() {
-  if [ $# -lt 1 ]; then
-    echo "Usage: tool <package> [args...]"
-    return 1
-  fi
+if _check-commands bat; then
+  alias cat="bat -p"
+fi
 
-  local package=$1
-  shift
-  docker run --rm -it --init -v "$(pwd)":/app -w /app alpine:latest sh -c "apk add --quiet $package && $package \"\$@\"" -- "$@"
-}
+if _check-commands code; then
+  export VISUAL="code"
 
-command_not_found_handler() {
-  local cmd=$1
+  alias horiceon-code="GIT_WORK_TREE=$HOME GIT_DIR=$HOME/code/horiceon code $HOME"
+fi
 
-  if [[ ! -t 0 ]]; then
-    echo "Command '$cmd' not found"
-    return 127
-  fi
+if ! _check-commands cargo; then
+  curl https://sh.rustup.rs -sSf | sh
+fi
 
-  echo
-  echo "Command '$cmd' not found. Try with alpine? [Y/n]"
-  read -k 1 run_response
+if _check-commands glow; then
+  alias glow="glow --width \"$(tput cols)\""
+fi
 
-  if [[ $run_response == "n" || $run_response == "N" ]]; then
-    return 127
-  fi
+if _check-commands eza; then
+  alias exa="eza"
+  alias ls="eza"
+fi
 
-  shift
-  tool $cmd "$@"
-}
+if _check-commands mask; then
+  function mask() {
+    local args=()
+    [[ ! -f "maskfile.md" && -f "README.md" ]] && args=(--maskfile README.md)
+    command mask "${args[@]}" "$@"
+  }
+fi
+
+if _check-commands mise; then
+  eval "$(mise activate zsh)"
+fi
+
+if _check-commands npq-hero; then
+  alias npm-check="npq-hero"
+  alias pnpm-check="NPQ_PKG_MGR=pnpm npq-hero"
+  alias yarn-check="NPQ_PKG_MGR=yarn npq-hero"
+fi
+
+if _check-commands pnpm; then
+  alias D="pnpm run dev"
+  alias B="pnpm run build"
+  alias ts-prune="pnpx knip"
+
+  function _mba-launch {
+    if pnpm load-env -- echo; then
+      pnpm load-env -- docker compose --profile="infra" pull
+      pnpm load-env -- docker compose --profile="infra" up -d $@
+    else
+      docker compose --profile="infra" pull
+      docker compose --profile="infra" up -d $@
+    fi
+  }
+
+  function mba-launch {
+    export APP_ENV="development"
+    export APP_VERSION="$(git rev-parse --short HEAD)"
+    _mba-launch &
+    pnpm install &
+    wait
+    pnpm dev
+  }
+fi
+
+if _check-commands trivy; then
+  alias trivy-scan="trivy fs --scanners=vuln,misconfig --list-all-pkgs --severity=CRITICAL,HIGH,MEDIUM,LOW,UNKNOWN --skip-dirs=.build,.dart_tool,.egg-info,.egg,.git,.hg,.svn,.venv,.whl,bin,build,deps,node_modules,obj,pods,target,vendor,venv --exit-code=0 --format=json --output=results.json ."
+fi
+
+if _check-commands uv; then
+  alias pip="uv pip"
+fi
+
+if _check-commands vim; then
+  export EDITOR="vim"
+fi
+
+if _check-commands yq; then
+  alias jq="yq"
+fi
+
+if _check-commands yq bat pnpm; then
+  function pnpm-run() {
+    if [ "$2" = "!" ]; then
+      pnpm run "$1"
+    elif [ -n "$1" ]; then
+      yq -o=json ".scripts | with_entries(select(.key | test(\"$1\")))" package.json | bat -l json -p
+    else
+      yq -o=json ".scripts" package.json
+    fi
+  }
+fi
+
+if _check-commands yazi; then
+  function y() {
+    local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+    yazi "$@" --cwd-file="$tmp"
+    IFS= read -r -d '' cwd <"$tmp"
+    [ -n "$cwd" ] && [ "$cwd" != "$PWD" ] && builtin cd -- "$cwd"
+    rm -f -- "$tmp"
+  }
+fi
+
+if _check-commands zoxide; then
+  eval "$(zoxide init zsh)"
+  alias cd="z"
+  alias cdi="zi"
+fi
 
 # zprof # Debug performance (keep @ bottom)

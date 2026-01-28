@@ -115,15 +115,32 @@ if _check-commands starship; then
   eval "$(starship init zsh)"
 fi
 
-function _tool() {
-  if [ $# -lt 1 ]; then
-    echo "Usage: tool <package> [args...]"
+function alpine() {
+  function _help() {
+    echo "Usage: alpine [--pkg=PKG] <binary> [args...]"
+    echo "Example: 'alpine --pkg=android-tools adb pair 192.168.172.123:45678 123456'"
+  }
+
+  local package=$1
+
+  if [[ "$1" == --pkg=* ]]; then
+    package="${1#--pkg=}"
+    shift
+  elif [[ "$1" == --pkg ]]; then
+    echo "Error: --pkg requires a value (use --pkg=VALUE)\n"
+    _help
     return 1
   fi
 
-  local package=$1
+  if [ $# -lt 1 ]; then
+    _help
+    return 1
+  fi
+
+  local bin=$1
   shift
-  docker run --rm -it --init -v "$(pwd)":/app -w /app alpine:latest sh -c "apk add --quiet $package && $package \"\$@\"" -- "$@"
+
+  docker run --rm -it --init -v "$(pwd)":/app -w /app alpine:latest sh -c "apk add --quiet $package && $bin \"\$@\"" -- "$@"
 }
 
 function command_not_found_handler() {
@@ -143,7 +160,7 @@ function command_not_found_handler() {
   fi
 
   shift
-  _check-commands docker && _tool $cmd "$@"
+  _check-commands docker && alpine $cmd "$@"
 }
 
 ###
@@ -290,10 +307,20 @@ if _check-commands yq bat pnpm; then
   function pnpm-run() {
     if [ "$2" = "!" ]; then
       pnpm run "$1"
-    elif [ -n "$1" ]; then
-      yq -o=json ".scripts | with_entries(select(.key | test(\"$1\")))" package.json | bat -l json -p
-    else
+      return
+    fi
+
+    if [ -z "$1" ]; then
       yq -o=json ".scripts" package.json
+      return
+    fi
+
+    matches=$(yq -o=json ".scripts | with_entries(select(.key | test(\"$1\")))" package.json)
+
+    if [ $(echo "$matches" | jq 'length') -eq 1 ]; then
+      pnpm run $(echo "$matches" | jq -r 'keys[0]')
+    else
+      echo "$matches" | bat -l json -p
     fi
   }
 fi

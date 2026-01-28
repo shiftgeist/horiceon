@@ -178,7 +178,6 @@ alias la="ls -la"
 alias now="date +%s"
 alias rm="trash"
 alias timestamp="date +%s"
-alias brew-bundle-dump="brew bundle dump --global --force"
 
 function cheat {
   curl "cht.sh/$1" | less -R
@@ -223,6 +222,19 @@ function cheatsheet_iterm2() {
 
 if _check-commands bat; then
   alias cat="bat -p"
+fi
+
+if _check-commands brew; then
+  function brew-bundle-dump() {
+    brew bundle dump --global --force
+    local excludeList="awscli microsoft-teams"
+    brew bundle remove --global awscli microsoft-teams
+    echo "Brewfile dumped and filtered"
+  }
+
+  alias brew-up="brew upgrade && mise up"
+  alias mise-up="brew upgrade && mise up"
+  alias brew-recover="brew bundle install --global"
 fi
 
 if _check-commands code; then
@@ -285,6 +297,10 @@ if _check-commands pnpm; then
     wait
     pnpm dev
   }
+fi
+
+if _check-commands scrcpy; then
+  alias android-remote="scrcpy"
 fi
 
 if _check-commands trivy; then

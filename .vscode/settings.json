@@ -3,6 +3,9 @@
   "git.untrackedChanges": "hidden",
   "conventionalCommits.scopes": [
     "brew",
-    "vscode"
+    "claude",
+    "mise",
+    "vscode",
+    "zsh"
   ]
 }

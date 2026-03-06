@@ -1,0 +1,22 @@
+{
+  "model": "opus",
+  "permissions": {
+    "allow": [
+      "cat:*",
+      "dprint fmt:*",
+      "fd:*",
+      "find:*",
+      "fzf:*",
+      "git diff:*",
+      "git log:*",
+      "git status:*",
+      "ls:*",
+      "rg:*",
+      "rga:*",
+      "trivy-scan:*",
+      "yq:*",
+      "Edit ~/.claude/CLAUDE.md",
+      "Read ~/.claude/CLAUDE.md"
+    ]
+  }
+}

@@ -2,17 +2,11 @@
   "[astro]": {
     "editor.defaultFormatter": "astro-build.astro-vscode"
   },
-  "[css][html][javascript][javascriptreact][typescript][typescriptreact][markdown][scss][vue][yaml][json][jsonc][jsonl][svelte][vue][python]": {
+  "[css][dockercompose][dockerfile][go][html][javascript][javascriptreact][json][jsonc][markdown][python][rust][sass][scss][shellscript][svelte][toml][typescript][typescriptreact][vue][vue][yaml]": {
     "editor.defaultFormatter": "dprint.dprint"
   },
   "[csv][csv (semicolon)]": {
     "editor.inlayHints.maximumLength": 0
-  },
-  "[dockercompose][dockerfile]": {
-    "editor.defaultFormatter": "ms-azuretools.vscode-containers"
-  },
-  "[go]": {
-    "editor.defaultFormatter": "golang.go"
   },
   "[mjml]": {
     "editor.defaultFormatter": "mjmlio.vscode-mjml"
@@ -26,21 +20,11 @@
       "source.organizeImports": "explicit"
     }
   },
-  "[rust]": {
-    "editor.defaultFormatter": "rust-lang.rust-analyzer"
-  },
-  "[shellscript]": {
-    "editor.defaultFormatter": "mkhl.shfmt"
-  },
-  "[toml]": {
-    "editor.defaultFormatter": "tamasfe.even-better-toml"
-  },
   "[twig]": {
     "editor.defaultFormatter": "mblode.twig-language-2"
   },
   "[yaml]": {
-    "diffEditor.ignoreTrimWhitespace": false,
-    "editor.formatOnSave": false
+    "diffEditor.ignoreTrimWhitespace": false
   },
   "chat.agent.enabled": false,
   "chat.checkpoints.enabled": false,
@@ -51,8 +35,12 @@
   "comments.thread.confirmOnCollapse": "never",
   "containers.containers.label": "ContainerName",
   "containers.contexts.label": "Name",
+  "conventionalCommits.autoCommit": false,
+  "conventionalCommits.gitmoji": false,
+  "conventionalCommits.promptBody": false,
   "cSpell.blockCheckingWhenTextChunkSizeGreaterThan": 1000,
   "cSpell.diagnosticLevel": "Hint",
+  "cSpell.enabled": false,
   "cSpell.language": "en,de",
   "cSpell.unknownWords": "report-simple",
   "cSpell.userWords": [
@@ -69,8 +57,8 @@
   "dprint.path": "~/.local/share/mise/installs/dprint/latest/dprint",
   "editor.codeActionsOnSave": {
     "source.organizeImports": "explicit",
-    "source.removeUnused.ts": "never",
-    "source.removeUnusedImports": "never"
+    "source.removeUnused.ts": "explicit",
+    "source.removeUnusedImports": "explicit"
   },
   "editor.cursorBlinking": "solid",
   "editor.fontFamily": "DankMono Nerd Font",
@@ -92,7 +80,6 @@
       "column": 140
     }
   ],
-  "editor.snippetSuggestions": "top",
   "editor.stickyScroll.enabled": false,
   "editor.suggest.preview": true,
   "editor.tabSize": 2,
@@ -145,7 +132,7 @@
   "git.allowNoVerifyCommit": true,
   "git.autofetch": true,
   "git.blame.editorDecoration.enabled": false,
-  "git.blame.statusBarItem.enabled": false,
+  "git.blame.statusBarItem.enabled": true,
   "git.confirmNoVerifyCommit": false,
   "git.confirmSync": false,
   "git.enableSmartCommit": true,
@@ -165,6 +152,7 @@
   "inline-parameters.padding": "0.2em",
   "inline-parameters.trailingCharacters": "",
   "intelephense.telemetry.enabled": false,
+  "js/ts.experimental.useTsgo": true,
   "js/ts.implicitProjectConfig.checkJs": true,
   "js/ts.implicitProjectConfig.experimentalDecorators": true,
   "js/ts.implicitProjectConfig.target": "ESNext",
@@ -179,6 +167,7 @@
   "scm.defaultViewMode": "tree",
   "security.workspace.trust.untrustedFiles": "open",
   "shellformat.useEditorConfig": true,
+  "simpleBrowser.useIntegratedBrowser": true,
   "svelte.enable-ts-plugin": true,
   "svelte.plugin.svelte.runesLegacyModeCodeLens.enable": false,
   "task.allowAutomaticTasks": "off",
@@ -186,6 +175,7 @@
   "telemetry.telemetryLevel": "off",
   "terminal.integrated.defaultProfile.linux": "zsh",
   "terminal.integrated.enableImages": true,
+  "terminal.integrated.enableKittyKeyboardProtocol": true,
   "terminal.integrated.enableMultiLinePasteWarning": "never",
   "terminal.integrated.env.osx": {
     "FIG_NEW_SESSION": "1"
@@ -209,21 +199,18 @@
     "XXX",
     "[ ]",
     "[x]",
-    "MARK",
     "BOOKMARK"
   ],
-  "typescript.experimental.expandableHover": true,
-  "typescript.experimental.useTsgo": false,
-  "typescript.updateImportsOnFileMove.enabled": "always",
-  "window.menuBarVisibility": "hidden",
+  "todo-tree.tree.scanMode": "workspace",
+  "vs-kubernetes": {
+    "vs-kubernetes.suppress-helm-not-found-alerts": true
+  },
+  "window.menuBarVisibility": "hidden", // windows
   "window.newWindowProfile": "Default",
   "workbench.colorTheme": "Ayu Monokai",
   "workbench.commandPalette.experimental.enableNaturalLanguageSearch": false,
   "workbench.editor.empty.hint": "hidden",
   "workbench.editor.enablePreview": false,
-  "workbench.editorAssociations": {
-    "*.svg": "default"
-  },
   "workbench.layoutControl.enabled": false,
   "workbench.startupEditor": "none",
   "workbench.tree.stickyScrollMaxItemCount": 3,

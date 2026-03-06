@@ -63,7 +63,6 @@ cask "spotify"
 cask "trex"
 cask "viscosity"
 cask "visual-studio-code"
-cask "zed"
 cask "zen"
 cask "zen@twilight"
 mas "Bitwarden", id: 1352778147

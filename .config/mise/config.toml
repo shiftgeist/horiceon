@@ -1,8 +1,9 @@
 [tools]
+bun = "latest"
 deno = "latest"
 dprint = "latest"
+go = "latest"
 node = "latest"
-bun = "latest"
 uv = "latest"
 "npm:eslint" = "latest"
 "npm:npq" = "latest"
@@ -10,6 +11,7 @@ uv = "latest"
 "npm:sort-package-json" = "latest"
 "npm:zx" = "latest"
 "npm:corepack" = "latest"
+"npm:@typescript/native-preview" = "latest"
 
 [settings]
 always_keep_download = true

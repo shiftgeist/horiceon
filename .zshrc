@@ -34,6 +34,7 @@ function _check-commands() {
 export XDG_CACHE="$HOME/.cache/"
 export ZSH_CONFIG="$HOME/.config/zsh"
 export XDG_CACHE_HOME="${XDG_CACHE_HOME:-$HOME/.cache}"
+export AUTOSOURCE=1
 
 # Clone missing plugins
 if [[ ! -e "$ZSH_CONFIG/fzf-tab" ]]; then
@@ -143,25 +144,27 @@ function alpine() {
   docker run --rm -it --init -v "$(pwd)":/app -w /app alpine:latest sh -c "apk add --quiet $package && $bin \"\$@\"" -- "$@"
 }
 
-function command_not_found_handler() {
-  local cmd=$1
+if _check-commands docker; then
+  function command_not_found_handler() {
+    local cmd=$1
 
-  if [[ ! -t 0 ]]; then
-    echo "Command '$cmd' not found"
-    return 127
-  fi
+    if [[ ! -t 0 ]]; then
+      echo "Command '$cmd' not found"
+      return 127
+    fi
 
-  echo
-  echo "Command '$cmd' not found. Try with alpine? [Y/n]"
-  read -k 1 run_response
+    echo
+    echo "Command '$cmd' not found. Try with alpine? [Y/n]"
+    read -k 1 run_response
 
-  if [[ $run_response == "n" || $run_response == "N" ]]; then
-    return 127
-  fi
+    if [[ $run_response == "n" || $run_response == "N" ]]; then
+      return 127
+    fi
 
-  shift
-  _check-commands docker && alpine $cmd "$@"
-}
+    shift
+    alpine $cmd "$@"
+  }
+fi
 
 ###
 # User space
@@ -228,12 +231,13 @@ if _check-commands brew; then
   function brew-bundle-dump() {
     brew bundle dump --global --force
     local excludeList="awscli microsoft-teams"
-    brew bundle remove --global awscli microsoft-teams
+    brew bundle remove --global awscli microsoft-teams gemini-cli
     echo "Brewfile dumped and filtered"
+    if _check-commands mise; then
+      mise up # for good measures
+    fi
   }
 
-  alias brew-up="brew upgrade && mise up"
-  alias mise-up="brew upgrade && mise up"
   alias brew-recover="brew bundle install --global"
 fi
 
@@ -266,6 +270,13 @@ fi
 
 if _check-commands mise; then
   eval "$(mise activate zsh)"
+
+  alias corepack="~/.local/share/mise/installs/npm-corepack/latest/bin/corepack"
+fi
+
+if _check-commands brew; then
+  alias brew-up="brew upgrade && mise up"
+  alias mise-up="brew upgrade && mise up"
 fi
 
 if _check-commands npq-hero; then
@@ -275,8 +286,10 @@ if _check-commands npq-hero; then
 fi
 
 if _check-commands pnpm; then
-  alias D="pnpm run dev"
-  alias B="pnpm run build"
+  alias B="pnpm build"
+  alias D="pnpm dev"
+  alias T="pnpm test"
+  alias I="pnpm install"
   alias ts-prune="pnpx knip"
 
   function _mba-launch {
@@ -317,12 +330,17 @@ fi
 
 if _check-commands yq; then
   alias jq="yq"
-fi
 
-if _check-commands yq bat pnpm; then
-  function pnpm-run() {
+  function run() {
+    pm="pnpm"
+
+    if [ "$1" = "npm" ] || [ "$1" = "pnpm" ] || [ "$1" = "bun" ]; then
+      pm="$1"
+      shift
+    fi
+
     if [ "$2" = "!" ]; then
-      pnpm run "$1"
+      $pm run "$1"
       return
     fi
 
@@ -331,10 +349,10 @@ if _check-commands yq bat pnpm; then
       return
     fi
 
-    matches=$(yq -o=json ".scripts | with_entries(select(.key | test(\"$1\")))" package.json)
+    matches=$(yq -o=json ".scripts | with_entries(select(.key | test(\"(?i)$1\")))" package.json)
 
     if [ $(echo "$matches" | jq 'length') -eq 1 ]; then
-      pnpm run $(echo "$matches" | jq -r 'keys[0]')
+      $pm run $(echo "$matches" | jq -r 'keys[0]')
     else
       echo "$matches" | bat -l json -p
     fi

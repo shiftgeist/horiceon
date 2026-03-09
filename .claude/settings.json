@@ -1,22 +1,22 @@
 {
-  "model": "opus",
   "permissions": {
     "allow": [
-      "cat:*",
-      "dprint fmt:*",
-      "fd:*",
-      "find:*",
-      "fzf:*",
-      "git diff:*",
-      "git log:*",
-      "git status:*",
-      "ls:*",
-      "rg:*",
-      "rga:*",
-      "trivy-scan:*",
-      "yq:*",
-      "Edit ~/.claude/CLAUDE.md",
-      "Read ~/.claude/CLAUDE.md"
+      "Bash(cat:*)",
+      "Bash(dprint fmt:*)",
+      "Bash(fd:*)",
+      "Bash(find:*)",
+      "Bash(fzf:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(git status:*)",
+      "Bash(ls:*)",
+      "Bash(rg:*)",
+      "Bash(rga:*)",
+      "Bash(trivy-scan:*)",
+      "Bash(yq:*)",
+      "Edit(~/.claude/CLAUDE.md)",
+      "Read(~/.claude/CLAUDE.md)"
     ]
-  }
+  },
+  "model": "opus"
 }

@@ -7,25 +7,25 @@
 # Zshrc helper
 ###
 function _zcompile-many() {
-  local f
-  for f; do zcompile -R -- "$f".zwc "$f"; done
+	local f
+	for f; do zcompile -R -- "$f".zwc "$f"; done
 }
 
 function _check-commands() {
-  local missing=()
+	local missing=()
 
-  for cmd in "$@"; do
-    if ! command -v "$cmd" &>/dev/null; then
-      missing+=("$cmd")
-    fi
-  done
+	for cmd in "$@"; do
+		if ! command -v "$cmd" &>/dev/null; then
+			missing+=("$cmd")
+		fi
+	done
 
-  if [ ${#missing[@]} -gt 0 ]; then
-    echo "Missing commands: ${missing[*]}"
-    return 1
-  fi
+	if [ ${#missing[@]} -gt 0 ]; then
+		echo "Missing commands: ${missing[*]}"
+		return 1
+	fi
 
-  return 0
+	return 0
 }
 
 ###
@@ -38,12 +38,12 @@ export AUTOSOURCE=1
 
 # Clone missing plugins
 if [[ ! -e "$ZSH_CONFIG/fzf-tab" ]]; then
-  git clone git@github.com:Aloxaf/fzf-tab.git "$ZSH_CONFIG/fzf-tab"
+	git clone git@github.com:Aloxaf/fzf-tab.git "$ZSH_CONFIG/fzf-tab"
 fi
 
 # Compile missing plugins
 if [[ ! -e "$XDG_CACHE/completion-for-pnpm.zsh" ]]; then
-  pnpm completion zsh >"$XDG_CACHE/completion-for-pnpm.zsh"
+	pnpm completion zsh >"$XDG_CACHE/completion-for-pnpm.zsh"
 fi
 
 # Brew
@@ -113,57 +113,57 @@ source "$HOME/.cargo/env"
 ###
 
 if _check-commands starship; then
-  eval "$(starship init zsh)"
+	eval "$(starship init zsh)"
 fi
 
 function alpine() {
-  function _help() {
-    echo "Usage: alpine [--pkg=PKG] <binary> [args...]"
-    echo "Example: 'alpine --pkg=android-tools adb pair 192.168.172.123:45678 123456'"
-  }
+	function _help() {
+		echo "Usage: alpine [--pkg=PKG] <binary> [args...]"
+		echo "Example: 'alpine --pkg=android-tools adb pair 192.168.172.123:45678 123456'"
+	}
 
-  local package=$1
+	local package=$1
 
-  if [[ "$1" == --pkg=* ]]; then
-    package="${1#--pkg=}"
-    shift
-  elif [[ "$1" == --pkg ]]; then
-    echo "Error: --pkg requires a value (use --pkg=VALUE)\n"
-    _help
-    return 1
-  fi
+	if [[ "$1" == --pkg=* ]]; then
+		package="${1#--pkg=}"
+		shift
+	elif [[ "$1" == --pkg ]]; then
+		echo "Error: --pkg requires a value (use --pkg=VALUE)\n"
+		_help
+		return 1
+	fi
 
-  if [ $# -lt 1 ]; then
-    _help
-    return 1
-  fi
+	if [ $# -lt 1 ]; then
+		_help
+		return 1
+	fi
 
-  local bin=$1
-  shift
+	local bin=$1
+	shift
 
-  docker run --rm -it --init -v "$(pwd)":/app -w /app alpine:latest sh -c "apk add --quiet $package && $bin \"\$@\"" -- "$@"
+	docker run --rm -it --init -v "$(pwd)":/app -w /app alpine:latest sh -c "apk add --quiet $package && $bin \"\$@\"" -- "$@"
 }
 
 if _check-commands docker; then
-  function command_not_found_handler() {
-    local cmd=$1
+	function command_not_found_handler() {
+		local cmd=$1
 
-    if [[ ! -t 0 ]]; then
-      echo "Command '$cmd' not found"
-      return 127
-    fi
+		if [[ ! -t 0 ]]; then
+			echo "Command '$cmd' not found"
+			return 127
+		fi
 
-    echo
-    echo "Command '$cmd' not found. Try with alpine? [Y/n]"
-    read -k 1 run_response
+		echo
+		echo "Command '$cmd' not found. Try with alpine? [Y/n]"
+		read -k 1 run_response
 
-    if [[ $run_response == "n" || $run_response == "N" ]]; then
-      return 127
-    fi
+		if [[ $run_response == "n" || $run_response == "N" ]]; then
+			return 127
+		fi
 
-    shift
-    alpine $cmd "$@"
-  }
+		shift
+		alpine $cmd "$@"
+	}
 fi
 
 ###
@@ -183,7 +183,7 @@ alias rm="trash"
 alias timestamp="date +%s"
 
 function cheat {
-  curl "cht.sh/$1" | less -R
+	curl "cht.sh/$1" | less -R
 }
 alias example="cheat"
 alias expl="cheat"
@@ -192,187 +192,187 @@ alias tldr="cheat"
 alias help="cheat"
 
 function check-port() {
-  lsof -i tcp${1:+":$1"}
+	lsof -i tcp${1:+":$1"}
 }
 
 function kill_port() {
-  if [ "$#" -ne 1 ]; then
-    echo "Usage: kill_port <PORT>"
-    return 1
-  fi
+	if [ "$#" -ne 1 ]; then
+		echo "Usage: kill_port <PORT>"
+		return 1
+	fi
 
-  PORT=$1
+	PORT=$1
 
-  PID=$(lsof -t -i tcp:$PORT)
+	PID=$(lsof -t -i tcp:$PORT)
 
-  if [ -z "$PID" ]; then
-    echo "No process found running on port $PORT"
-    return 1
-  fi
+	if [ -z "$PID" ]; then
+		echo "No process found running on port $PORT"
+		return 1
+	fi
 
-  echo "Killing process $PID running on port $PORT"
-  kill -9 $PID
+	echo "Killing process $PID running on port $PORT"
+	kill -9 $PID
 }
 
 function cheatsheet_iterm2() {
-  URL='https://gist.githubusercontent.com/squarism/ae3613daf5c01a98ba3a/raw/e0b1c1c0309244400b847fc539899bcfde42f98a/iterm2.md'
-  CACHE_FILE="$XDG_CACHE_HOME/$(echo "$URL" | sha256sum | cut -d' ' -f1).md"
+	URL='https://gist.githubusercontent.com/squarism/ae3613daf5c01a98ba3a/raw/e0b1c1c0309244400b847fc539899bcfde42f98a/iterm2.md'
+	CACHE_FILE="$XDG_CACHE_HOME/$(echo "$URL" | sha256sum | cut -d' ' -f1).md"
 
-  [[ ! -f "$CACHE_FILE" ]] && curl -sL "$URL" -o "$CACHE_FILE"
+	[[ ! -f "$CACHE_FILE" ]] && curl -sL "$URL" -o "$CACHE_FILE"
 
-  glow --pager "$CACHE_FILE"
+	glow --pager "$CACHE_FILE"
 }
 
 if _check-commands bat; then
-  alias cat="bat -p"
+	alias cat="bat -p"
 fi
 
 if _check-commands brew; then
-  function brew-bundle-dump() {
-    brew bundle dump --global --force
-    local excludeList="awscli microsoft-teams"
-    brew bundle remove --global awscli microsoft-teams gemini-cli
-    echo "Brewfile dumped and filtered"
-    if _check-commands mise; then
-      mise up # for good measures
-    fi
-  }
+	function brew-bundle-dump() {
+		brew bundle dump --global --force
+		local excludeList="awscli microsoft-teams"
+		brew bundle remove --global awscli microsoft-teams gemini-cli
+		echo "Brewfile dumped and filtered"
+		if _check-commands mise; then
+			mise up # for good measures
+		fi
+	}
 
-  alias brew-recover="brew bundle install --global"
+	alias brew-recover="brew bundle install --global"
 fi
 
 if _check-commands code; then
-  export VISUAL="code"
+	export VISUAL="code"
 
-  alias horiceon-code="GIT_WORK_TREE=$HOME GIT_DIR=$HOME/code/horiceon code $HOME"
+	alias horiceon-code="GIT_WORK_TREE=$HOME GIT_DIR=$HOME/code/horiceon code $HOME"
 fi
 
 if ! _check-commands cargo; then
-  curl https://sh.rustup.rs -sSf | sh
+	curl https://sh.rustup.rs -sSf | sh
 fi
 
 if _check-commands glow; then
-  alias glow="glow --width \"$(tput cols)\""
+	alias glow="glow --width \"$(tput cols)\""
 fi
 
 if _check-commands eza; then
-  alias exa="eza"
-  alias ls="eza"
+	alias exa="eza"
+	alias ls="eza"
 fi
 
 if _check-commands mask; then
-  function mask() {
-    local args=()
-    [[ ! -f "maskfile.md" && -f "README.md" ]] && args=(--maskfile README.md)
-    command mask "${args[@]}" "$@"
-  }
+	function mask() {
+		local args=()
+		[[ ! -f "maskfile.md" && -f "README.md" ]] && args=(--maskfile README.md)
+		command mask "${args[@]}" "$@"
+	}
 fi
 
 if _check-commands mise; then
-  eval "$(mise activate zsh)"
+	eval "$(mise activate zsh)"
 
-  alias corepack="~/.local/share/mise/installs/npm-corepack/latest/bin/corepack"
+	alias corepack="~/.local/share/mise/installs/npm-corepack/latest/bin/corepack"
 fi
 
 if _check-commands brew; then
-  alias brew-up="brew upgrade && mise up"
-  alias mise-up="brew upgrade && mise up"
+	alias brew-up="brew upgrade && mise up"
+	alias mise-up="brew upgrade && mise up"
 fi
 
 if _check-commands npq-hero; then
-  alias npm-check="npq-hero"
-  alias pnpm-check="NPQ_PKG_MGR=pnpm npq-hero"
-  alias yarn-check="NPQ_PKG_MGR=yarn npq-hero"
+	alias npm-check="npq-hero"
+	alias pnpm-check="NPQ_PKG_MGR=pnpm npq-hero"
+	alias yarn-check="NPQ_PKG_MGR=yarn npq-hero"
 fi
 
 if _check-commands pnpm; then
-  alias B="pnpm build"
-  alias D="pnpm dev"
-  alias T="pnpm test"
-  alias I="pnpm install"
-  alias ts-prune="pnpx knip"
+	alias B="pnpm build"
+	alias D="pnpm dev"
+	alias T="pnpm test"
+	alias I="pnpm install"
+	alias ts-prune="pnpx knip"
 
-  function _mba-launch {
-    if pnpm load-env -- echo; then
-      pnpm load-env -- docker compose --profile="infra" pull
-      pnpm load-env -- docker compose --profile="infra" up -d $@
-    else
-      docker compose --profile="infra" pull
-      docker compose --profile="infra" up -d $@
-    fi
-  }
+	function _mba-launch {
+		if pnpm load-env -- echo; then
+			pnpm load-env -- docker compose --profile="infra" pull
+			pnpm load-env -- docker compose --profile="infra" up -d $@
+		else
+			docker compose --profile="infra" pull
+			docker compose --profile="infra" up -d $@
+		fi
+	}
 
-  function mba-launch {
-    export APP_ENV="development"
-    export APP_VERSION="$(git rev-parse --short HEAD)"
-    _mba-launch &
-    pnpm install &
-    wait
-    pnpm dev
-  }
+	function mba-launch {
+		export APP_ENV="development"
+		export APP_VERSION="$(git rev-parse --short HEAD)"
+		_mba-launch &
+		pnpm install &
+		wait
+		pnpm dev
+	}
 fi
 
 if _check-commands scrcpy; then
-  alias android-remote="scrcpy"
+	alias android-remote="scrcpy"
 fi
 
 if _check-commands trivy; then
-  alias trivy-scan="trivy fs --scanners=vuln,misconfig --list-all-pkgs --severity=CRITICAL,HIGH,MEDIUM,LOW,UNKNOWN --skip-dirs=.build,.dart_tool,.egg-info,.egg,.git,.hg,.svn,.venv,.whl,bin,build,deps,node_modules,obj,pods,target,vendor,venv --exit-code=0 --format=json --output=results.json ."
+	alias trivy-scan="trivy fs --scanners=vuln,misconfig --list-all-pkgs --severity=CRITICAL,HIGH,MEDIUM,LOW,UNKNOWN --skip-dirs=.build,.dart_tool,.egg-info,.egg,.git,.hg,.svn,.venv,.whl,bin,build,deps,node_modules,obj,pods,target,vendor,venv --exit-code=0 --format=json --output=results.json ."
 fi
 
 if _check-commands uv; then
-  alias pip="uv pip"
+	alias pip="uv pip"
 fi
 
 if _check-commands vim; then
-  export EDITOR="vim"
+	export EDITOR="vim"
 fi
 
 if _check-commands yq; then
-  alias jq="yq"
+	alias jq="yq"
 
-  function run() {
-    pm="pnpm"
+	function run() {
+		pm="pnpm"
 
-    if [ "$1" = "npm" ] || [ "$1" = "pnpm" ] || [ "$1" = "bun" ]; then
-      pm="$1"
-      shift
-    fi
+		if [ "$1" = "npm" ] || [ "$1" = "pnpm" ] || [ "$1" = "bun" ]; then
+			pm="$1"
+			shift
+		fi
 
-    if [ "$2" = "!" ]; then
-      $pm run "$1"
-      return
-    fi
+		if [ "$2" = "!" ]; then
+			$pm run "$1"
+			return
+		fi
 
-    if [ -z "$1" ]; then
-      yq -o=json ".scripts" package.json
-      return
-    fi
+		if [ -z "$1" ]; then
+			yq -o=json ".scripts" package.json
+			return
+		fi
 
-    matches=$(yq -o=json ".scripts | with_entries(select(.key | test(\"(?i)$1\")))" package.json)
+		matches=$(yq -o=json ".scripts | with_entries(select(.key | test(\"(?i)$1\")))" package.json)
 
-    if [ $(echo "$matches" | jq 'length') -eq 1 ]; then
-      $pm run $(echo "$matches" | jq -r 'keys[0]')
-    else
-      echo "$matches" | bat -l json -p
-    fi
-  }
+		if [ $(echo "$matches" | jq 'length') -eq 1 ]; then
+			$pm run $(echo "$matches" | jq -r 'keys[0]')
+		else
+			echo "$matches" | bat -l json -p
+		fi
+	}
 fi
 
 if _check-commands yazi; then
-  function y() {
-    local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
-    yazi "$@" --cwd-file="$tmp"
-    IFS= read -r -d '' cwd <"$tmp"
-    [ -n "$cwd" ] && [ "$cwd" != "$PWD" ] && builtin cd -- "$cwd"
-    rm -f -- "$tmp"
-  }
+	function y() {
+		local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+		yazi "$@" --cwd-file="$tmp"
+		IFS= read -r -d '' cwd <"$tmp"
+		[ -n "$cwd" ] && [ "$cwd" != "$PWD" ] && builtin cd -- "$cwd"
+		rm -f -- "$tmp"
+	}
 fi
 
 if _check-commands zoxide; then
-  eval "$(zoxide init zsh)"
-  alias cd="z"
-  alias cdi="zi"
+	eval "$(zoxide init zsh)"
+	alias cd="z"
+	alias cdi="zi"
 fi
 
 # zprof # Debug performance (keep @ bottom)

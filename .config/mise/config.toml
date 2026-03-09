@@ -1,17 +1,17 @@
 [tools]
-bun = "latest"
-deno = "latest"
 dprint = "latest"
-go = "latest"
 node = "latest"
+deno = "latest"
+bun = "latest"
+go = "latest"
 uv = "latest"
+# python = "3" # via brew (dependency)
 "npm:eslint" = "latest"
 "npm:npq" = "latest"
 "npm:prettier" = "latest"
 "npm:sort-package-json" = "latest"
 "npm:zx" = "latest"
 "npm:corepack" = "latest"
-"npm:@typescript/native-preview" = "latest"
 
 [settings]
 always_keep_download = true
@@ -27,7 +27,7 @@ idiomatic_version_file_enable_tools = [
 legacy_version_file = true
 
 [settings.npm]
-bun = true
+package_manager = "bun"
 
 [hooks]
 postinstall = 'npx corepack enable && corepack prepare'

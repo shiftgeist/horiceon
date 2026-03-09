@@ -64,7 +64,6 @@ cask "trex"
 cask "viscosity"
 cask "visual-studio-code"
 cask "zen"
-cask "zen@twilight"
 mas "Bitwarden", id: 1352778147
 mas "DaVinci Resolve", id: 571213070
 mas "GarageBand", id: 682658836

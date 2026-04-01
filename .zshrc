@@ -41,13 +41,17 @@ if [[ ! -e "$ZSH_CONFIG/fzf-tab" ]]; then
 	git clone git@github.com:Aloxaf/fzf-tab.git "$ZSH_CONFIG/fzf-tab"
 fi
 
+if [[ ! -e "$ZSH_CONFIG/alias-tips" ]]; then
+	git clone https://github.com/djui/alias-tips.git "$ZSH_CONFIG/alias-tips"
+fi
+
 # Compile missing plugins
 if [[ ! -e "$XDG_CACHE/completion-for-pnpm.zsh" ]]; then
 	pnpm completion zsh >"$XDG_CACHE/completion-for-pnpm.zsh"
 fi
 
 # Brew
-eval "$(/opt/homebrew/bin/brew shellenv)"
+eval "$(brew shellenv)"
 
 # Set PATH
 export PATH=$HOME/.local/bin:$PATH
@@ -109,6 +113,20 @@ source "$XDG_CACHE/completion-for-pnpm.zsh"
 source "$HOME/.cargo/env"
 
 ###
+# WSL setups
+###
+
+if [[ -e /mnt/c/Users/user && ! -e ~/c ]]; then
+	ln -s /mnt/c/Users/user/ ~/c
+fi
+
+if [[ -e /mnt/c/Users/user ]]; then
+	function windows-sync() {
+		cp -r ~/Library/Application\ Support/Code /mnt/c/Users/user/AppData/Roaming
+	}
+fi
+
+###
 # Internals
 ###
 
@@ -144,6 +162,10 @@ function alpine() {
 	docker run --rm -it --init -v "$(pwd)":/app -w /app alpine:latest sh -c "apk add --quiet $package && $bin \"\$@\"" -- "$@"
 }
 
+if _check-commands apt-get; then
+	alias apt-setup="sudo apt-get install trash-cli"
+fi
+
 if _check-commands docker; then
 	function command_not_found_handler() {
 		local cmd=$1
@@ -176,7 +198,7 @@ alias clipboard="pbcopy"
 alias copy="pbcopy"
 alias finder="open"
 alias grepf="fzf -f"
-alias horiceon="/usr/bin/git --git-dir=$HOME/code/horiceon --work-tree=$HOME"
+alias horiceon="/usr/bin/git --git-dir=$HOME/.dotfiles --work-tree=$HOME"
 alias la="ls -la"
 alias now="date +%s"
 alias rm="trash"
@@ -244,7 +266,7 @@ fi
 if _check-commands code; then
 	export VISUAL="code"
 
-	alias horiceon-code="GIT_WORK_TREE=$HOME GIT_DIR=$HOME/code/horiceon code $HOME"
+	alias horiceon-code="GIT_WORK_TREE=$HOME GIT_DIR=$HOME/.dotfiles code $HOME"
 fi
 
 if ! _check-commands cargo; then

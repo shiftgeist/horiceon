@@ -11,7 +11,6 @@ Origin: https://news.ycombinator.com/item?id=11071754
 
 You can replicate your home directory on a new machine using the following command:
 
-
 ### Option A: Clean Home Directory
 
 ```sh
@@ -31,8 +30,12 @@ horiceon checkout -- . # get the actual files
 
 ```sh
 source ~/.zshrc
+apt-setup
 brew-recover
 mise up
+
+# For WSL
+windows-sync
 ```
 
 ## Usage

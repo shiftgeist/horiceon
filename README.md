@@ -11,19 +11,33 @@ Origin: https://news.ycombinator.com/item?id=11071754
 
 You can replicate your home directory on a new machine using the following command:
 
-```shell
-git clone --separate-git-dir=~/.dotfiles git@github.com:shiftgeist/horiceon.git ~
 
-# Without a clean home directory
+### Option A: Clean Home Directory
+
+```sh
+git clone --separate-git-dir=~/.dotfiles git@github.com:shiftgeist/horiceon.git ~
+```
+
+### Option B
+
+```shell
 git clone --separate-git-dir=$HOME/.dotfiles git@github.com:shiftgeist/horiceon.git $HOME/dotfiles-tmp
-cp ~/dotfiles-tmp/.gitmodules ~  # If you use Git submodules
 rm -r ~/dotfiles-tmp/
 alias horiceon="/usr/bin/git --git-dir=$HOME/.dotfiles --work-tree=$HOME"
+horiceon checkout -- . # get the actual files
+```
+
+## Tool Setup
+
+```sh
+source ~/.zshrc
+brew-recover
+mise up
 ```
 
 ## Usage
 
-```shell
+```sh
 horiceon $GIT_COMMAND
 ```
 

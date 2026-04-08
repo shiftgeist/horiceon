@@ -42,13 +42,17 @@ if [[ ! -e "$ZSH_CONFIG/fzf-tab" ]]; then
 	git clone git@github.com:Aloxaf/fzf-tab.git "$ZSH_CONFIG/fzf-tab"
 fi
 
+if [[ ! -e "$ZSH_CONFIG/alias-tips" ]]; then
+	git clone https://github.com/djui/alias-tips.git "$ZSH_CONFIG/alias-tips"
+fi
+
 # Compile missing plugins
 if [[ ! -e "$XDG_CACHE/completion-for-pnpm.zsh" ]]; then
 	pnpm completion zsh >"$XDG_CACHE/completion-for-pnpm.zsh"
 fi
 
 # Brew
-eval "$(/opt/homebrew/bin/brew shellenv)"
+eval "$(brew shellenv)"
 
 # Set PATH
 export PATH=$HOME/.local/bin:$PATH
@@ -184,7 +188,7 @@ alias clipboard="pbcopy"
 alias copy="pbcopy"
 alias finder="open"
 alias grepf="fzf -f"
-alias horiceon="/usr/bin/git --git-dir=$HOME/code/horiceon --work-tree=$HOME"
+alias horiceon="/usr/bin/git --git-dir=$HOME/.dotfiles --work-tree=$HOME"
 alias la="ls -la"
 alias now="date +%s"
 alias rm="trash"
@@ -270,7 +274,7 @@ fi
 if _check-commands code; then
 	export VISUAL="code"
 
-	alias horiceon-code="GIT_WORK_TREE=$HOME GIT_DIR=$HOME/code/horiceon code $HOME"
+	alias horiceon-code="GIT_WORK_TREE=$HOME GIT_DIR=$HOME/.dotfiles code $HOME"
 fi
 
 if _check-commands glow; then
@@ -401,6 +405,26 @@ if _check-commands zoxide; then
 	eval "$(zoxide init zsh)"
 	alias cd="z"
 	alias cdi="zi"
+fi
+
+###
+# WSL setups
+###
+
+IS_WSL=$([[ -f /proc/version ]] && grep -qi microsoft /proc/version && echo true)
+
+if [[ $IS_WSL ]]; then
+	function horiceon-sync() {
+		cp -r ~/Library/Application\ Support/Code /mnt/c/Users/user/AppData/Roaming
+	}
+
+	if [[ ! -e ~/c ]]; then
+		ln -s /mnt/c/Users/user/ $c_drive
+	fi
+
+	if [[ $(command -v apt-get) ]]; then
+		alias apt-setup="sudo apt-get install trash-cli"
+	fi
 fi
 
 # zprof # Debug performance (keep @ bottom)

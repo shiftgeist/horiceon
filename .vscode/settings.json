@@ -1,11 +1,17 @@
 {
-  "git.ignoreLimitWarning": true,
-  "git.untrackedChanges": "hidden",
   "conventionalCommits.scopes": [
     "brew",
     "claude",
     "mise",
     "vscode",
     "zsh"
-  ]
+  ],
+  "files.exclude": {
+    "**/.dotfiles": true,
+    "**/.local/share/Trash": true,
+    "**/.vscode-server": true,
+    "**/c": true
+  },
+  "git.ignoreLimitWarning": true,
+  "git.untrackedChanges": "hidden"
 }

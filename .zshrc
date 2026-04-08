@@ -35,6 +35,7 @@ export XDG_CACHE="$HOME/.cache/"
 export ZSH_CONFIG="$HOME/.config/zsh"
 export XDG_CACHE_HOME="${XDG_CACHE_HOME:-$HOME/.cache}"
 export AUTOSOURCE=1
+export WORDCHARS='*?_-.[]~=&;!#$%^(){}<>' # where not to stop for word navigation
 
 # Clone missing plugins
 if [[ ! -e "$ZSH_CONFIG/fzf-tab" ]]; then
@@ -92,6 +93,7 @@ zstyle ':fzf-tab:complete:*:*' fzf-preview 'bat --color=always --style=numbers -
 zstyle ':fzf-tab:*' switch-group '<' '>'
 
 # Enable the "new" completion system (compsys)
+fpath=("/Users/felix/.zsh/completions" $fpath)
 autoload -Uz compinit && compinit
 [[ ~/.zcompdump.zwc -nt ~/.zcompdump ]] || _zcompile-many ~/.zcompdump
 unfunction _zcompile-many
@@ -107,6 +109,12 @@ source "$ZSH_CONFIG/fzf-tab/fzf-tab.plugin.zsh"
 source "$ZSH_CONFIG/alias-tips/alias-tips.plugin.zsh"
 source "$XDG_CACHE/completion-for-pnpm.zsh"
 source "$HOME/.cargo/env"
+
+###
+# Keybinds
+###
+
+bindkey -e # emacs mode
 
 ###
 # Internals
@@ -190,6 +198,11 @@ alias expl="cheat"
 alias explain="cheat"
 alias tldr="cheat"
 alias help="cheat"
+function til() {
+	target=$(date -j -f "%H:%M" "$1" "+%s")
+	now=$(date +%s)
+	sleep $((target - now))
+}
 
 function check-port() {
 	lsof -i tcp${1:+":$1"}
@@ -229,9 +242,8 @@ fi
 
 if _check-commands brew; then
 	function brew-bundle-dump() {
-		brew bundle dump --global --force
-		local excludeList="awscli microsoft-teams"
-		brew bundle remove --global awscli microsoft-teams gemini-cli
+		brew bundle dump --global --force --no-go
+		brew bundle remove --global awscli microsoft-teams gemini-cli mistral-vibe
 		echo "Brewfile dumped and filtered"
 		if _check-commands mise; then
 			mise up # for good measures
@@ -241,14 +253,19 @@ if _check-commands brew; then
 	alias brew-recover="brew bundle install --global"
 fi
 
+if ! _check-commands cargo; then
+	curl https://sh.rustup.rs -sSf | sh
+fi
+
+if _check-commands claude; then
+	alias claude="claude --model sonnet --effort medium"
+	alias claude-max="claude --model opus --effort medium"
+fi
+
 if _check-commands code; then
 	export VISUAL="code"
 
 	alias horiceon-code="GIT_WORK_TREE=$HOME GIT_DIR=$HOME/code/horiceon code $HOME"
-fi
-
-if ! _check-commands cargo; then
-	curl https://sh.rustup.rs -sSf | sh
 fi
 
 if _check-commands glow; then
@@ -272,11 +289,12 @@ if _check-commands mise; then
 	eval "$(mise activate zsh)"
 
 	alias corepack="~/.local/share/mise/installs/npm-corepack/latest/bin/corepack"
+	alias continues="pnpx continues dump ${1:-claude} ./out --limit 1 --preset full"
 fi
 
 if _check-commands brew; then
-	alias brew-up="brew upgrade && mise up"
-	alias mise-up="brew upgrade && mise up"
+	alias brew-up="brew upgrade && brew upgrade beekeeper-studio blender bruno cyberduck figma gimp helium-browser iterm2 keepingyouawake lens obs obsidian spotify visual-studio-code zen && mise up"
+	alias mise-up="brew-up"
 fi
 
 if _check-commands npq-hero; then
@@ -357,6 +375,10 @@ if _check-commands yq; then
 			echo "$matches" | bat -l json -p
 		fi
 	}
+
+	function curl-pretty {
+		curl -s $@ | yq -P
+	}
 fi
 
 if _check-commands yazi; then
@@ -370,6 +392,7 @@ if _check-commands yazi; then
 fi
 
 if _check-commands zoxide; then
+	export _ZO_DOCTOR=0
 	eval "$(zoxide init zsh)"
 	alias cd="z"
 	alias cdi="zi"

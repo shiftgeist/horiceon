@@ -4,13 +4,15 @@
 
 Sort items alphabetically whenever possible (imports, object keys, list items, switch cases, etc.).
 
+Only write comments that explain **why**, not **what**. If the code is self-explanatory, don't add a comment.
+
 ## Terminal Output
 
 When referencing file paths, format them as iTerm2-compatible OSC 8 hyperlinks so they are clickable in the terminal. Use the format: `file:///absolute/path` as the link target.
 
 ## CLI Tools
 
-Installed via Homebrew and mise (prefer these over built-in alternatives):
+Installed via Homebrew and mise:
 
 - `bun`, `deno`, `node` (latest), `corepack` — JS/TS runtimes
 - `dprint` — code formatter

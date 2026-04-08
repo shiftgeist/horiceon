@@ -1,22 +1,42 @@
 {
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "autoUpdatesChannel": "stable",
   "permissions": {
     "allow": [
-      "Bash(cat:*)",
-      "Bash(dprint fmt:*)",
-      "Bash(fd:*)",
-      "Bash(find:*)",
-      "Bash(fzf:*)",
-      "Bash(git diff:*)",
-      "Bash(git log:*)",
-      "Bash(git status:*)",
-      "Bash(ls:*)",
-      "Bash(rg:*)",
-      "Bash(rga:*)",
-      "Bash(trivy-scan:*)",
-      "Bash(yq:*)",
+      "Bash(buildin cd *)",
+      "Bash(cat **)",
+      "Bash(cd * && cat *)",
+      "Bash(cd * && grep *)",
+      "Bash(dprint fmt *)",
+      "Bash(fd *)",
+      "Bash(find *)",
+      "Bash(fzf *)",
+      "Bash(git diff *)",
+      "Bash(git log *)",
+      "Bash(git status *)",
+      "Bash(pnpm * test *)",
+      "Bash(grep **)",
+      "Bash(head **)",
+      "Bash(ls **)",
+      "Bash(mkdir **)",
+      "Bash(rg *)",
+      "Bash(rga *)",
+      "Bash(trivy-scan *)",
+      "Bash(wc -c *)",
+      "Bash(yq *)",
       "Edit(~/.claude/CLAUDE.md)",
       "Read(~/.claude/CLAUDE.md)"
+    ],
+    "ask": [
+      "Bash(rm *)"
+    ],
+    "deny": [
+      "Bash(git reset*)"
     ]
   },
-  "model": "opus"
+  "statusLine": {
+    "command": "~/.claude/statusline.sh",
+    "padding": 0,
+    "type": "command"
+  }
 }

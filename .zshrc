@@ -253,10 +253,6 @@ if _check-commands brew; then
 	alias brew-recover="brew bundle install --global"
 fi
 
-if ! _check-commands cargo; then
-	curl https://sh.rustup.rs -sSf | sh
-fi
-
 if _check-commands claude; then
 	alias claude="claude --model sonnet --effort medium"
 	alias claude-max="claude --model opus --effort medium"

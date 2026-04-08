@@ -1,17 +1,20 @@
 [tools]
-dprint = "latest"
-node = "latest"
-deno = "latest"
-bun = "latest"
-go = "latest"
-uv = "latest"
-# python = "3" # via brew (dependency)
+"bun" = "latest"
+"deno" = "latest"
+"dprint" = "latest"
+"go:mvdan.cc/sh/v3/cmd/shfmt" = "latest"
+"go" = "latest"
+"node" = "latest"
+"npm:@fission-ai/openspec" = "latest"
+"npm:corepack" = "latest"
 "npm:eslint" = "latest"
 "npm:npq" = "latest"
 "npm:prettier" = "latest"
 "npm:sort-package-json" = "latest"
 "npm:zx" = "latest"
-"npm:corepack" = "latest"
+# "python" = "3" # via brew
+"rust" = "latest"
+"uv" = "latest"
 
 [settings]
 always_keep_download = true

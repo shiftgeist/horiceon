@@ -178,8 +178,6 @@
   "terminal.external.osxExec": "iTerm.app",
   "terminal.integrated.defaultProfile.linux": "zsh",
   "terminal.integrated.defaultProfile.osx": "zsh",
-  "terminal.integrated.enableImages": true,
-  "terminal.integrated.enableKittyKeyboardProtocol": true,
   "terminal.integrated.enableMultiLinePasteWarning": "never",
   "terminal.integrated.enableVisualBell": true,
   "terminal.integrated.env.osx": {

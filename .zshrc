@@ -3,6 +3,9 @@
 
 # Basic requirements: curl, docker, git, lsof
 
+# Brew
+eval "$(/opt/homebrew/bin/brew shellenv zsh)"
+
 ###
 # Zshrc helper
 ###
@@ -31,6 +34,7 @@ function _check-commands() {
 ###
 # Basics
 ###
+RICE_HOME="$HOME/.dotfiles"
 export XDG_CACHE="$HOME/.cache/"
 export ZSH_CONFIG="$HOME/.config/zsh"
 export XDG_CACHE_HOME="${XDG_CACHE_HOME:-$HOME/.cache}"
@@ -50,9 +54,6 @@ fi
 if [[ ! -e "$XDG_CACHE/completion-for-pnpm.zsh" ]]; then
 	pnpm completion zsh >"$XDG_CACHE/completion-for-pnpm.zsh"
 fi
-
-# Brew
-eval "$(brew shellenv)"
 
 # Set PATH
 export PATH=$HOME/.local/bin:$PATH
@@ -78,11 +79,8 @@ setopt GLOBDOTS               # hidden files globbing
 setopt INTERACTIVE_COMMENTS   # ignore commands starting with hashtag
 setopt NO_CASE_GLOB           # case insensitive globbing
 
-# Backup history
-# cp $HISTFILE $HISTFILE.old
-
 # Set completion PATH
-export FPATH="$(brew --prefix)/share/zsh/site-functions:$FPATH"
+FPATH="$(brew --prefix)/share/zsh/site-functions:$HOME/.zsh/completions:$FPATH"
 
 # User settings
 export GIT_SEQUENCE_EDITOR="code --wait --diff"
@@ -97,7 +95,6 @@ zstyle ':fzf-tab:complete:*:*' fzf-preview 'bat --color=always --style=numbers -
 zstyle ':fzf-tab:*' switch-group '<' '>'
 
 # Enable the "new" completion system (compsys)
-fpath=("/Users/felix/.zsh/completions" $fpath)
 autoload -Uz compinit && compinit
 [[ ~/.zcompdump.zwc -nt ~/.zcompdump ]] || _zcompile-many ~/.zcompdump
 unfunction _zcompile-many
@@ -188,7 +185,7 @@ alias clipboard="pbcopy"
 alias copy="pbcopy"
 alias finder="open"
 alias grepf="fzf -f"
-alias horiceon="/usr/bin/git --git-dir=$HOME/.dotfiles --work-tree=$HOME"
+alias horiceon="/usr/bin/git --git-dir=$RICE_HOME --work-tree=$HOME"
 alias la="ls -la"
 alias now="date +%s"
 alias rm="trash"
@@ -274,7 +271,7 @@ fi
 if _check-commands code; then
 	export VISUAL="code"
 
-	alias horiceon-code="GIT_WORK_TREE=$HOME GIT_DIR=$HOME/.dotfiles code $HOME"
+	alias horiceon-code='GIT_DIR="$RICE_HOME" GIT_WORK_TREE="$HOME" code "$HOME"'
 fi
 
 if _check-commands glow; then
@@ -298,7 +295,10 @@ if _check-commands mise; then
 	eval "$(mise activate zsh)"
 
 	alias corepack="~/.local/share/mise/installs/npm-corepack/latest/bin/corepack"
-	alias continues="pnpx continues dump ${1:-claude} ./out --limit 1 --preset full"
+
+	function continues() {
+		pnpx continues dump ${1:-claude} ./out --limit 1 --preset full
+	}
 fi
 
 if _check-commands brew; then

@@ -43,9 +43,12 @@
   "lineWidth": 100,
   "typescript": {
     // https://dprint.dev/plugins/typescript/config/
+    "$schema": "https://plugins.dprint.dev/dprint/dprint-plugin-typescript/latest/schema.json",
+    "preferSingleLine": true,
+    "quoteProps": "asNeeded",
     "quoteStyle": "preferSingle",
     "trailingCommas": "never",
-    "quoteProps": "asNeeded",
+    "preferHanging": true,
   },
   "json": {
     // https://dprint.dev/plugins/json/config/

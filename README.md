@@ -22,8 +22,9 @@ git clone --separate-git-dir=~/.dotfiles git@github.com:shiftgeist/horiceon.git 
 ```shell
 git clone --separate-git-dir=$HOME/.dotfiles git@github.com:shiftgeist/horiceon.git $HOME/dotfiles-tmp
 rm -r ~/dotfiles-tmp/
-alias horiceon="/usr/bin/git --git-dir=$HOME/.dotfiles --work-tree=$HOME"
+git --git-dir=$HOME/.dotfiles --work-tree=$HOME
 horiceon checkout -- . # get the actual files
+source ~/.zshrc
 ```
 
 ## Tool Setup

@@ -190,6 +190,8 @@ alias la="ls -la"
 alias now="date +%s"
 alias rm="trash"
 alias timestamp="date +%s"
+alias backup="tmutil snapshot" # Restore: hold power → Options -> Restore from Time Machine
+alias backup-list="tmutil listlocalsnapshots /"
 
 function cheat {
 	curl "cht.sh/$1" | less -R

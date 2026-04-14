@@ -2,7 +2,7 @@
 "bun" = "latest"
 "deno" = "latest"
 "dprint" = "latest"
-"go:mvdan.cc/sh/v3/cmd/shfmt" = "latest"
+"go:mvdan.cc/sh/v3/cmd/shfmt" = "v3.13.1"
 "go" = "latest"
 "node" = "latest"
 "npm:@fission-ai/openspec" = "latest"

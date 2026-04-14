@@ -3,8 +3,11 @@
 
 # Basic requirements: curl, docker, git, lsof
 
+IS_WSL=$([[ -f /proc/version ]] && grep -qi microsoft /proc/version && echo true)
+
 # Brew
-eval "$(/opt/homebrew/bin/brew shellenv zsh)"
+test -d /home/linuxbrew/.linuxbrew && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+test -d /opt/homebrew/bin/brew && eval "$(/opt/homebrew/bin/brew shellenv zsh)"
 
 ###
 # Zshrc helper
@@ -262,11 +265,13 @@ if _check-commands brew; then
 		fi
 	}
 
-	alias brew-recover="brew bundle install --global"
+	alias brew-up="brew upgrade && mise up"
+	alias mise-up="brew-up"
+	alias brew-recover="brew bundle install --global && mise up"
 fi
 
 if _check-commands claude; then
-	alias claude="claude --model sonnet --effort medium"
+	alias claude="claude --model sonnet --effort high"
 	alias claude-max="claude --model opus --effort medium"
 fi
 
@@ -301,11 +306,6 @@ if _check-commands mise; then
 	function continues() {
 		pnpx continues dump ${1:-claude} ./out --limit 1 --preset full
 	}
-fi
-
-if _check-commands brew; then
-	alias brew-up="brew upgrade && brew upgrade beekeeper-studio blender bruno cyberduck figma gimp helium-browser iterm2 keepingyouawake lens obs obsidian spotify visual-studio-code zen && mise up"
-	alias mise-up="brew-up"
 fi
 
 if _check-commands npq-hero; then
@@ -412,8 +412,6 @@ fi
 ###
 # WSL setups
 ###
-
-IS_WSL=$([[ -f /proc/version ]] && grep -qi microsoft /proc/version && echo true)
 
 if [[ $IS_WSL ]]; then
 	function horiceon-sync() {

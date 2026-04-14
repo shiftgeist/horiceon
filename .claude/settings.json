@@ -1,6 +1,5 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
-  "autoUpdatesChannel": "stable",
   "permissions": {
     "allow": [
       "Bash(buildin cd *)",
@@ -27,16 +26,17 @@
       "Edit(~/.claude/CLAUDE.md)",
       "Read(~/.claude/CLAUDE.md)"
     ],
-    "ask": [
-      "Bash(rm *)"
-    ],
     "deny": [
       "Bash(git reset*)"
+    ],
+    "ask": [
+      "Bash(rm *)"
     ]
   },
   "statusLine": {
+    "type": "command",
     "command": "~/.claude/statusline.sh",
-    "padding": 0,
-    "type": "command"
-  }
+    "padding": 0
+  },
+  "autoUpdatesChannel": "stable"
 }

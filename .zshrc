@@ -265,9 +265,26 @@ if _check-commands brew; then
 		fi
 	}
 
-	alias brew-up="brew upgrade && mise up"
-	alias mise-up="brew-up"
 	alias brew-recover="brew bundle install --global && mise up"
+	alias brew-up="brew upgrade && mise up && brew upgrade \
+  beekeeper-studio \
+  blender \
+  bruno \
+  cyberduck \
+  figma \
+  gimp \
+  helium-browser \
+  iterm2 \
+  keepingyouawake \
+  lens \
+  obs \
+  obsidian \
+  orion \
+  spotify \
+  visual-studio-code \
+  zen \
+  && echo 'brew & mise upgraded'"
+	alias mise-up="brew-up"
 fi
 
 if _check-commands claude; then
@@ -312,6 +329,10 @@ if _check-commands npq-hero; then
 	alias npm-check="npq-hero"
 	alias pnpm-check="NPQ_PKG_MGR=pnpm npq-hero"
 	alias yarn-check="NPQ_PKG_MGR=yarn npq-hero"
+fi
+
+if _check-commands ncdu; then
+	alias ncdu="ncdu --delete-command rmz"
 fi
 
 if _check-commands pnpm; then

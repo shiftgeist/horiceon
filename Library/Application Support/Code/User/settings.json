@@ -28,8 +28,24 @@
   },
   "chat.commandCenter.enabled": false,
   "chat.detectParticipant.enabled": false,
+  "chat.editing.confirmEditRequestRemoval": false,
+  "chat.editing.explainChanges.enabled": true,
+  "chat.planAgent.defaultModel": "Claude Sonnet 4.6 (copilot)",
   "chat.requestQueuing.defaultAction": "queue",
+  "chat.restoreLastPanelSession": true,
+  "chat.tools.urls.autoApprove": {
+    "https://*.gov": true,
+    "https://code.visualstudio.com": true,
+    "https://cve.gov": true,
+    "https://github.com/microsoft/vscode/*": true,
+    "https://github.com/microsoft/vscode/wiki/*": true,
+    "https://learn.microsoft.com": {
+      "approveRequest": false,
+      "approveResponse": true
+    }
+  },
   "chat.viewSessions.orientation": "stacked",
+  "claudeCode.preferredLocation": "panel",
   "comments.thread.confirmOnCollapse": "never",
   "containers.containers.label": "ContainerName",
   "containers.contexts.label": "Name",
@@ -71,11 +87,11 @@
   "editor.renderWhitespace": "selection",
   "editor.rulers": [
     {
-      "color": "#21242C",
+      "color": "#00000016",
       "column": 80
     },
     {
-      "color": "#21242C",
+      "color": "#00000024",
       "column": 140
     }
   ],
@@ -127,6 +143,7 @@
     "**/node_modules/**": true,
     "**/node_modules/*/**": true
   },
+  "git.addAICoAuthor": "off",
   "git.allowForcePush": true,
   "git.allowNoVerifyCommit": true,
   "git.autofetch": true,
@@ -202,6 +219,7 @@
     "BOOKMARK"
   ],
   "todo-tree.tree.scanMode": "workspace",
+  "trivy.binaryPath": "/opt/homebrew/bin/trivy",
   "vs-kubernetes": {
     "vs-kubernetes.suppress-helm-not-found-alerts": true
   },
@@ -213,6 +231,7 @@
   "workbench.editor.enablePreview": false,
   "workbench.fontAliasing": "antialiased",
   "workbench.layoutControl.enabled": false,
+  "workbench.preferredLightColorTheme": "Light 2026",
   "workbench.preferredDarkColorTheme": "Ayu Dark",
   "workbench.startupEditor": "none",
   "workbench.tree.stickyScrollMaxItemCount": 3,

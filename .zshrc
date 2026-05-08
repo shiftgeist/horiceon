@@ -258,38 +258,33 @@ fi
 if _check-commands brew; then
 	function brew-bundle-dump() {
 		brew bundle dump --global --force --no-go
-		brew bundle remove --global awscli microsoft-teams gemini-cli mistral-vibe
+		brew bundle remove --global awscli claude-code gemini-cli microsoft-teams mistral-vibe
 		echo "Brewfile dumped and filtered"
-		if _check-commands mise; then
-			mise up # for good measures
-		fi
 	}
 
 	alias brew-recover="brew bundle install --global && mise up"
-	alias brew-up="brew upgrade && mise up && brew upgrade \
+	alias brew-up-apps="brew upgrade \
+  affinity \
+  android-platform-tools \
   beekeeper-studio \
   blender \
   bruno \
   cyberduck \
   figma \
-  gimp \
+  gram \
   helium-browser \
   iterm2 \
-  keepingyouawake \
   lens \
+  microsoft-teams \
   obs \
   obsidian \
   orion \
+  slack \
   spotify \
   visual-studio-code \
-  zen \
-  && echo 'brew & mise upgraded'"
-	alias mise-up="brew-up"
-fi
-
-if _check-commands claude; then
-	alias claude="claude --model sonnet --effort high"
-	alias claude-max="claude --model opus --effort medium"
+  zen"
+	alias brew-up="brew upgrade && brew-up-apps"
+	alias brew-up-all="brew upgrade --greedy && mise up"
 fi
 
 if _check-commands code; then
@@ -319,10 +314,6 @@ if _check-commands mise; then
 	eval "$(mise activate zsh)"
 
 	alias corepack="~/.local/share/mise/installs/npm-corepack/latest/bin/corepack"
-
-	function continues() {
-		pnpx continues dump ${1:-claude} ./out --limit 1 --preset full
-	}
 fi
 
 if _check-commands npq-hero; then
@@ -341,25 +332,6 @@ if _check-commands pnpm; then
 	alias T="pnpm test"
 	alias I="pnpm install"
 	alias ts-prune="pnpx knip"
-
-	function _mba-launch {
-		if pnpm load-env -- echo; then
-			pnpm load-env -- docker compose --profile="infra" pull
-			pnpm load-env -- docker compose --profile="infra" up -d $@
-		else
-			docker compose --profile="infra" pull
-			docker compose --profile="infra" up -d $@
-		fi
-	}
-
-	function mba-launch {
-		export APP_ENV="development"
-		export APP_VERSION="$(git rev-parse --short HEAD)"
-		_mba-launch &
-		pnpm install &
-		wait
-		pnpm dev
-	}
 fi
 
 if _check-commands scrcpy; then

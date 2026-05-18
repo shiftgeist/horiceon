@@ -4,7 +4,7 @@
 "dprint" = "latest"
 "go:mvdan.cc/sh/v3/cmd/shfmt" = "v3.13.1"
 "go" = "latest"
-"node" = "latest"
+node = "latest"
 "npm:@fission-ai/openspec" = "latest"
 "npm:corepack" = "latest"
 "npm:eslint" = "latest"
@@ -12,7 +12,7 @@
 "npm:prettier" = "latest"
 "npm:sort-package-json" = "latest"
 "npm:zx" = "latest"
-# "python" = "3" # via brew
+"python" = "3"
 "rust" = "latest"
 "uv" = "latest"
 
@@ -28,9 +28,6 @@ idiomatic_version_file_enable_tools = [
   "yarn",
 ]
 legacy_version_file = true
-
-[settings.npm]
-package_manager = "bun"
 
 [hooks]
 postinstall = 'npx corepack enable && corepack prepare'

@@ -193,8 +193,6 @@ alias la="ls -la"
 alias now="date +%s"
 alias rm="trash"
 alias timestamp="date +%s"
-alias backup="tmutil snapshot" # Restore: hold power → Options -> Restore from Time Machine
-alias backup-list="tmutil listlocalsnapshots /"
 
 function cheat {
 	curl "cht.sh/$1" | less -R
@@ -257,28 +255,21 @@ fi
 
 if _check-commands brew; then
 	function brew-bundle-dump() {
-		brew bundle dump --global --force --no-go
-		brew bundle remove --global awscli claude-code gemini-cli microsoft-teams mistral-vibe
+		brew bundle dump --global --force --no-go --no-npm --describe
+		brew bundle remove --global awscli claude-code claudebar gemini-cli microsoft-teams mistral-vibe
 		echo "Brewfile dumped and filtered"
 	}
 
 	alias brew-recover="brew bundle install --global && mise up"
 	alias brew-up-apps="brew upgrade \
   affinity \
-  android-platform-tools \
   beekeeper-studio \
   blender \
   bruno \
   cyberduck \
   figma \
-  gram \
-  helium-browser \
   iterm2 \
-  lens \
-  microsoft-teams \
-  obs \
   obsidian \
-  orion \
   slack \
   spotify \
   visual-studio-code \
@@ -302,28 +293,8 @@ if _check-commands eza; then
 	alias ls="eza"
 fi
 
-if _check-commands mask; then
-	function mask() {
-		local args=()
-		[[ ! -f "maskfile.md" && -f "README.md" ]] && args=(--maskfile README.md)
-		command mask "${args[@]}" "$@"
-	}
-fi
-
 if _check-commands mise; then
 	eval "$(mise activate zsh)"
-
-	alias corepack="~/.local/share/mise/installs/npm-corepack/latest/bin/corepack"
-fi
-
-if _check-commands npq-hero; then
-	alias npm-check="npq-hero"
-	alias pnpm-check="NPQ_PKG_MGR=pnpm npq-hero"
-	alias yarn-check="NPQ_PKG_MGR=yarn npq-hero"
-fi
-
-if _check-commands ncdu; then
-	alias ncdu="ncdu --delete-command rmz"
 fi
 
 if _check-commands pnpm; then
@@ -332,14 +303,6 @@ if _check-commands pnpm; then
 	alias T="pnpm test"
 	alias I="pnpm install"
 	alias ts-prune="pnpx knip"
-fi
-
-if _check-commands scrcpy; then
-	alias android-remote="scrcpy"
-fi
-
-if _check-commands trivy; then
-	alias trivy-scan="trivy fs --scanners=vuln,misconfig --list-all-pkgs --severity=CRITICAL,HIGH,MEDIUM,LOW,UNKNOWN --skip-dirs=.build,.dart_tool,.egg-info,.egg,.git,.hg,.svn,.venv,.whl,bin,build,deps,node_modules,obj,pods,target,vendor,venv --exit-code=0 --format=json --output=results.json ."
 fi
 
 if _check-commands uv; then
@@ -382,16 +345,6 @@ if _check-commands yq; then
 
 	function curl-pretty {
 		curl -s $@ | yq -P
-	}
-fi
-
-if _check-commands yazi; then
-	function y() {
-		local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
-		yazi "$@" --cwd-file="$tmp"
-		IFS= read -r -d '' cwd <"$tmp"
-		[ -n "$cwd" ] && [ "$cwd" != "$PWD" ] && builtin cd -- "$cwd"
-		rm -f -- "$tmp"
 	}
 fi
 

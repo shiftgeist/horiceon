@@ -1,93 +1,79 @@
-brew "act"
+# Clone of cat(1) with syntax highlighting and Git integration
 brew "bat"
+# Resource monitor. C++ version and continuation of bashtop and bpytop
 brew "btop"
+# GNU File, Shell, and Text utilities
 brew "coreutils"
+# Embeddable SQL OLAP Database Management System
 brew "duckdb"
-brew "duti"
+# Run arbitrary commands when files change
 brew "entr"
+# Modern, maintained replacement for ls
 brew "eza"
+# Simple, fast and user-friendly alternative to find
 brew "fd"
-brew "ffmpeg"
-brew "fuc"
+# Command-line fuzzy finder written in Go
 brew "fzf"
-brew "gh"
-brew "ghostscript"
-brew "git"
-brew "git-gui"
+# Render markdown on the CLI
 brew "glow"
-brew "gnupg"
+# Command-line benchmarking tool
 brew "hyperfine"
-brew "icu4c@76"
-brew "ifstat"
+# Tools and libraries to manipulate images in select formats
 brew "imagemagick"
-brew "iperf3"
-brew "k6"
-brew "llama.cpp"
+# Mac App Store command-line interface
 brew "mas"
-brew "mask"
+# Polyglot runtime manager (asdf rust clone)
 brew "mise"
-brew "mole"
-brew "mprocs"
-brew "mtr"
+# NCurses Disk Usage
 brew "ncdu"
-brew "pandoc"
-brew "podman"
-brew "prettyping"
+# Wrapper around ripgrep that adds multiple rich file types
 brew "ripgrep-all"
-brew "scrcpy"
+# Cross-shell prompt for astronauts
 brew "starship"
-brew "tig"
+# Vulnerability scanner for container images, file systems, and Git repos
 brew "trivy"
-brew "watch"
-brew "yazi"
+# Process YAML, JSON, XML, CSV and properties documents from the CLI
 brew "yq"
-brew "yt-dlp"
+# Shell extension to navigate your filesystem faster
 brew "zoxide"
+# Image editing and design software
 cask "affinity"
-cask "aldente"
-cask "android-platform-tools"
+# Cross platform SQL editor and database management app
 cask "beekeeper-studio"
+# 3D creation suite
 cask "blender"
+# Open source IDE for exploring and testing APIs
 cask "bruno"
-cask "cavalry"
-cask "claudebar"
+# Server and cloud storage browser
 cask "cyberduck"
-cask "darkmodebuddy"
+# Collaborative team software
 cask "figma"
-cask "font-atkinson-hyperlegible"
-cask "font-young-serif"
-cask "gram"
-cask "helium-browser"
+# Terminal emulator as alternative to Apple's Terminal app
 cask "iterm2"
+# Tool to prevent the system from going into sleep mode
 cask "keepingyouawake"
-cask "lens"
-cask "linearmouse"
+# Clipboard manager
 cask "maccy"
-cask "obs"
+# Knowledge base that works on top of a local folder of plain text Markdown files
 cask "obsidian"
+# Replacement for Docker Desktop
 cask "orbstack"
-cask "orion"
+# Move and resize windows using keyboard shortcuts or snap areas
 cask "rectangle"
+# File sync and share software
 cask "resilio-sync"
+# Team communication and collaboration software
 cask "slack"
+# Music streaming service
 cask "spotify"
-cask "swiftbar"
+# Easy to use text extraction tool
 cask "trex"
-cask "viscosity"
+# Open-source code editor
 cask "visual-studio-code"
-cask "zen"
 mas "Bitwarden", id: 1352778147
 mas "DaVinci Resolve", id: 571213070
-mas "GarageBand", id: 682658836
 mas "Gifski", id: 1351639930
-mas "iMovie", id: 408981434
-mas "Keynote", id: 409183694
-mas "Little Snitch Mini", id: 1629008763
-mas "Meeting Owl", id: 1219076447
-mas "Numbers", id: 409203825
-mas "Pages", id: 409201541
-mas "Userscripts", id: 1463298887
-mas "Xcode", id: 497799835
+mas "uBlock Origin Lite", id: 6745342698
 vscode "aquasecurityofficial.trivy-vulnerability-scanner"
 vscode "astro-build.astro-vscode"
 vscode "beerush.svem"
@@ -99,8 +85,8 @@ vscode "denoland.vscode-deno"
 vscode "dprint.dprint"
 vscode "editorconfig.editorconfig"
 vscode "fill-labs.dependi"
+vscode "github.copilot-chat"
 vscode "gruntfuggly.todo-tree"
-vscode "hansu.git-graph-2"
 vscode "heybourn.headwind"
 vscode "kortina.vscode-markdown-notes"
 vscode "letmaik.git-tree-compare"
@@ -108,15 +94,12 @@ vscode "lokalise.i18n-ally"
 vscode "maattdd.gitless"
 vscode "mechatroner.rainbow-csv"
 vscode "ms-azure-devops.azure-pipelines"
-vscode "ms-azuretools.vscode-containers"
-vscode "ms-kubernetes-tools.vscode-kubernetes-tools"
 vscode "naumovs.color-highlight"
 vscode "ow.vscode-subword-navigation"
 vscode "redhat.vscode-yaml"
 vscode "svelte.svelte-vscode"
 vscode "tamasfe.even-better-toml"
 vscode "teabyii.ayu"
-vscode "tomoki1207.pdf"
 vscode "typescriptteam.native-preview"
 vscode "unifiedjs.vscode-mdx"
 vscode "vivaxy.vscode-conventional-commits"

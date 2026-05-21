@@ -12,6 +12,12 @@ test -d /opt/homebrew/bin/brew && eval "$(/opt/homebrew/bin/brew shellenv zsh)"
 ###
 # Zshrc helper
 ###
+
+preexec() {
+  local after="${1##*|}"
+  [[ "$after" =~ ^[[:space:]]*copy([[:space:]]|$) ]] && _last_cmd="${1%|*}" || _last_cmd="$1"
+}
+
 function _zcompile-many() {
 	local f
 	for f; do zcompile -R -- "$f".zwc "$f"; done
@@ -184,8 +190,6 @@ fi
 
 alias "..."="cd ../.."
 alias "...."="cd ../../.."
-alias clipboard="pbcopy"
-alias copy="pbcopy"
 alias finder="open"
 alias grepf="fzf -f"
 alias horiceon="/usr/bin/git --git-dir=$RICE_HOME --work-tree=$HOME"
@@ -295,6 +299,7 @@ fi
 
 if _check-commands mise; then
 	eval "$(mise activate zsh)"
+	echo "mise active"
 fi
 
 if _check-commands pnpm; then
@@ -303,6 +308,25 @@ if _check-commands pnpm; then
 	alias T="pnpm test"
 	alias I="pnpm install"
 	alias ts-prune="pnpx knip"
+fi
+
+if _check-commands pbcopy pbcopy; then
+	function copy() {
+		local include_cmd=false
+		[[ "$1" == "-c" ]] && include_cmd=true
+
+		local content=$(cat)
+		printf '%s\n' "$content"
+
+		if $include_cmd; then
+			printf '%s\n%s\n' "$_last_cmd" "$content" | pbcopy
+		else
+			printf '%s\n' "$content" | pbcopy
+		fi
+	}
+
+	alias clipboard="copy"
+	alias paste="pbpaste"
 fi
 
 if _check-commands uv; then

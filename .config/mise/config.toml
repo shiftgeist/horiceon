@@ -1,9 +1,9 @@
 [tools]
-"bun" = "latest"
-"deno" = "latest"
-"dprint" = "latest"
+bun = "latest"
+deno = "latest"
+dprint = "latest"
 "go:mvdan.cc/sh/v3/cmd/shfmt" = "v3.13.1"
-"go" = "latest"
+go = "latest"
 node = "latest"
 "npm:@fission-ai/openspec" = "latest"
 "npm:corepack" = "latest"
@@ -12,9 +12,8 @@ node = "latest"
 "npm:prettier" = "latest"
 "npm:sort-package-json" = "latest"
 "npm:zx" = "latest"
-"python" = "3"
-"rust" = "latest"
-"uv" = "latest"
+python = "3"
+uv = "latest"
 
 [settings]
 always_keep_download = true
@@ -29,8 +28,9 @@ idiomatic_version_file_enable_tools = [
 ]
 legacy_version_file = true
 
-[hooks]
-postinstall = 'npx corepack enable && corepack prepare'
+# use in projects
+# [hooks]
+# postinstall = 'npx corepack enable && corepack prepare'
 
 [env]
 _.path = ['{{config_root}}./node_modules/.bin']

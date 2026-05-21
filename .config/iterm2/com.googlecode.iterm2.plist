@@ -24,16 +24,6 @@
 	<integer>128000</integer>
 	<key>AitermURL</key>
 	<string>https://api.openai.com/v1/responses</string>
-	<key>AppleAntiAliasingThreshold</key>
-	<integer>1</integer>
-	<key>ApplePressAndHoldEnabled</key>
-	<false/>
-	<key>AppleScrollAnimationEnabled</key>
-	<integer>0</integer>
-	<key>AppleSmoothFixedFontsSizeThreshold</key>
-	<integer>1</integer>
-	<key>AppleWindowTabbingMode</key>
-	<string>manual</string>
 	<key>Default Bookmark Guid</key>
 	<string>7E0D0BAE-ABB1-40B7-90FB-91B5C545ABD1</string>
 	<key>Default Browser Profile Guid</key>
@@ -900,6 +890,8 @@
 			</dict>
 			<key>Guid</key>
 			<string>7E0D0BAE-ABB1-40B7-90FB-91B5C545ABD1</string>
+			<key>Hide After Opening</key>
+			<false/>
 			<key>Horizontal Spacing</key>
 			<real>1</real>
 			<key>Icon</key>
@@ -1049,8 +1041,12 @@
 			<true/>
 			<key>Normal Font</key>
 			<string>DankMonoNF-Regular 12</string>
+			<key>Open Toolbelt</key>
+			<false/>
 			<key>Option Key Sends</key>
 			<integer>0</integer>
+			<key>Prevent Opening in a Tab</key>
+			<false/>
 			<key>Prompt Before Closing 2</key>
 			<false/>
 			<key>Right Option Key Sends</key>
@@ -1173,6 +1169,8 @@
 	</array>
 	<key>PerPaneBackgroundImage</key>
 	<true/>
+	<key>PlaceTabsInTitlebarAccessoryInFullScreen</key>
+	<true/>
 	<key>PointerActions</key>
 	<dict>
 		<key>Button,1,1,,</key>
@@ -1206,8 +1204,12 @@
 			<string>kNextWindowPointerAction</string>
 		</dict>
 	</dict>
+	<key>SeparateWindowTitlePerTab</key>
+	<true/>
 	<key>ShowPaneTitles</key>
 	<false/>
+	<key>ShowWindowTitleWhenTabBarInvisible</key>
+	<true/>
 	<key>SoundForEsc</key>
 	<false/>
 	<key>SplitPaneDimmingAmount</key>

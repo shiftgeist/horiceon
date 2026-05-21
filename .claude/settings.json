@@ -41,5 +41,6 @@
     "command": "~/.claude/statusline.sh",
     "padding": 0
   },
-  "autoUpdatesChannel": "stable"
+  "autoUpdatesChannel": "stable",
+  "theme": "auto"
 }

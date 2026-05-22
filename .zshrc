@@ -197,6 +197,7 @@ alias la="ls -la"
 alias now="date +%s"
 alias rm="trash"
 alias timestamp="date +%s"
+alias la="ls -la"
 
 function cheat {
 	curl "cht.sh/$1" | less -R
@@ -251,6 +252,39 @@ function cheatsheet_iterm2() {
 	[[ ! -f "$CACHE_FILE" ]] && curl -sL "$URL" -o "$CACHE_FILE"
 
 	glow --pager "$CACHE_FILE"
+}
+
+function alias-suggest() {
+  local noise='awk|sort|head'
+
+  fc -l 1 |
+    # Drop the leading history event number.
+    sed -E 's/^[[:space:]]*[0-9]+[[:space:]]*//' |
+    # Split pipelines into separate command segments and unescape.
+    sed -E 's/\\n/ /g; s/ \| /\n/g; s/\\//g' |
+    # Trim surrounding whitespace, drop blank lines.
+    awk 'NF { $1=$1; print }' |
+    # Keep lines that look like a command invocation...
+    grep -E '^[a-zA-Z/~.]' |
+    # ...excluding noise commands and any leftover pipelines...
+    grep -Ev "^($noise) " |
+    grep -v '|' |
+    # ...and excluding assignments or quoted strings.
+    awk '$1 !~ /["=]/ && $1 ~ /[a-z]/' |
+    # Normalize: expand the leading command word so `g status` and
+    # `git status` (where g=git) contribute to the same count.
+    while read -r line; do
+      local cmd="${line%% *}"
+      local rest="${line#"$cmd"}"
+      print -r -- "${aliases[$cmd]:-$cmd}$rest"
+    done |
+    # Count identical commands, keep repeats, most frequent first.
+    sort | uniq -c | awk '$1 > 1' | sort -rn |
+    # Suggest only commands not already covered by an alias or function.
+    while read -r count command args; do
+      (( ${+aliases[$command]} || ${+functions[$command]} )) && continue
+      printf '%3d  %s\n' "$count" "$command $args"
+    done
 }
 
 if _check-commands bat; then

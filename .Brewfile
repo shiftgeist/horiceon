@@ -1,3 +1,4 @@
+tap "homebrew/core"
 # Clone of cat(1) with syntax highlighting and Git integration
 brew "bat"
 # Resource monitor. C++ version and continuation of bashtop and bpytop
@@ -46,8 +47,12 @@ cask "blender"
 cask "bruno"
 # Server and cloud storage browser
 cask "cyberduck"
+# Multi-platform multi-messaging app
+cask "ferdium"
 # Collaborative team software
 cask "figma"
+# Chromium-based web browser
+cask "helium-browser"
 # Terminal emulator as alternative to Apple's Terminal app
 cask "iterm2"
 # Tool to prevent the system from going into sleep mode
@@ -70,10 +75,11 @@ cask "spotify"
 cask "trex"
 # Open-source code editor
 cask "visual-studio-code"
+# Gecko based web browser
+cask "zen"
 mas "Bitwarden", id: 1352778147
 mas "DaVinci Resolve", id: 571213070
 mas "Gifski", id: 1351639930
-mas "uBlock Origin Lite", id: 6745342698
 vscode "aquasecurityofficial.trivy-vulnerability-scanner"
 vscode "astro-build.astro-vscode"
 vscode "beerush.svem"
@@ -85,7 +91,7 @@ vscode "denoland.vscode-deno"
 vscode "dprint.dprint"
 vscode "editorconfig.editorconfig"
 vscode "fill-labs.dependi"
-vscode "github.copilot-chat"
+vscode "golang.go"
 vscode "gruntfuggly.todo-tree"
 vscode "heybourn.headwind"
 vscode "kortina.vscode-markdown-notes"

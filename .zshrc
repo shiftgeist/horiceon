@@ -310,7 +310,6 @@ if _check-commands brew; then
   obsidian \
   slack \
   spotify \
-  visual-studio-code \
   zen"
 	alias brew-up="brew upgrade && brew-up-apps"
 	alias brew-up-all="brew upgrade --greedy && mise up"
@@ -320,6 +319,10 @@ if _check-commands code; then
 	export VISUAL="code"
 
 	alias horiceon-code='GIT_DIR="$RICE_HOME" GIT_WORK_TREE="$HOME" code "$HOME"'
+fi
+
+if [[ ! -e "$HOME/code/cli-continues" ]]; then
+	alias continues="node $HOME/code/cli-continues/dist/cli.js"
 fi
 
 if _check-commands glow; then

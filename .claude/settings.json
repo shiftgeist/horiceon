@@ -42,5 +42,6 @@
     "padding": 0
   },
   "autoUpdatesChannel": "stable",
-  "theme": "auto"
+  "theme": "auto",
+  "agentPushNotifEnabled": true
 }

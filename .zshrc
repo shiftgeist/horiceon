@@ -43,6 +43,7 @@ function _check-commands() {
 ###
 # Basics
 ###
+
 RICE_HOME="$HOME/.dotfiles"
 export XDG_CACHE="$HOME/.cache/"
 export ZSH_CONFIG="$HOME/.config/zsh"
@@ -69,24 +70,19 @@ export PATH=$HOME/.local/bin:$PATH
 export PATH=$HOME/.local/share/mise/installs/go/latest/bin:$PATH
 
 # History
-export HISTSIZE=999999999
+export HISTSIZE=200000 # 5y of 100 commands/day
 export SAVEHIST=$HISTSIZE
 
 # Options
-setopt BANG_HIST              # Treat the '!' character specially during expansion.
-setopt EXTENDED_HISTORY       # Write the history file in the ":start:elapsed;command" format.
-setopt INC_APPEND_HISTORY     # Write to the history file immediately, not when the shell exits.
-setopt SHARE_HISTORY          # Share history between all sessions.
-setopt HIST_EXPIRE_DUPS_FIRST # Expire dup event first when trimming hist
-setopt HIST_FIND_NO_DUPS      # Do not display previously found event
-setopt HIST_IGNORE_ALL_DUPS   # Delete old event if new is dup
-setopt HIST_IGNORE_DUPS       # Do not record consecutive dup events
-setopt HIST_IGNORE_SPACE      # Do not record event starting with a space
-setopt HIST_SAVE_NO_DUPS      # Do not write dup event to hist file
 setopt AUTO_CD                # automatic directory change
+setopt BANG_HIST              # treat the '!' character specially during expansion.
+setopt EXTENDED_HISTORY       # write the history file in the ":start:elapsed;command" format.
 setopt GLOBDOTS               # hidden files globbing
+setopt HIST_FIND_NO_DUPS      # only skips dupes during Ctrl+R search
+setopt INC_APPEND_HISTORY     # write to the history file immediately, not when the shell exits.
 setopt INTERACTIVE_COMMENTS   # ignore commands starting with hashtag
 setopt NO_CASE_GLOB           # case insensitive globbing
+setopt SHARE_HISTORY          # share history between all sessions.
 
 # Set completion PATH
 FPATH="$(brew --prefix)/share/zsh/site-functions:$HOME/.zsh/completions:$FPATH"
@@ -279,12 +275,7 @@ function alias-suggest() {
       print -r -- "${aliases[$cmd]:-$cmd}$rest"
     done |
     # Count identical commands, keep repeats, most frequent first.
-    sort | uniq -c | awk '$1 > 1' | sort -rn |
-    # Suggest only commands not already covered by an alias or function.
-    while read -r count command args; do
-      (( ${+aliases[$command]} || ${+functions[$command]} )) && continue
-      printf '%3d  %s\n' "$count" "$command $args"
-    done
+    sort | uniq -c | awk '$1 > 1' | sort -rn
 }
 
 if _check-commands bat; then

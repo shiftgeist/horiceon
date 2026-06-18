@@ -34,6 +34,10 @@
 	<false/>
 	<key>HotkeyMigratedFromSingleToMulti</key>
 	<true/>
+	<key>NeverWarnAboutShortLivedSessions_7E0D0BAE-ABB1-40B7-90FB-91B5C545ABD1</key>
+	<true/>
+	<key>NeverWarnAboutShortLivedSessions_7E0D0BAE-ABB1-40B7-90FB-91B5C545ABD1_selection</key>
+	<integer>0</integer>
 	<key>New Bookmarks</key>
 	<array>
 		<dict>
@@ -1230,5 +1234,7 @@
 	<false/>
 	<key>VisualIndicatorForEsc</key>
 	<false/>
+	<key>findMode_iTerm</key>
+	<integer>0</integer>
 </dict>
 </plist>

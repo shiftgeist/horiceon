@@ -278,6 +278,16 @@ function alias-suggest() {
     sort | uniq -c | awk '$1 > 1' | sort -rn
 }
 
+_cli_continues="$HOME/code/cli-continues"
+
+if [[ ! -e "$_cli_continues/dist/cli.js" ]]; then
+  [[ ! -d "$_cli_continues" ]] && git clone git@github.com:shiftgeist/cli-continues.git "$_cli_continues"
+  (cd "$_cli_continues" && pnpm install && pnpm run build)
+fi
+
+alias continues="node $_cli_continues/dist/cli.js"
+alias continues-dump="continues dump ./sessions --preset full --limit 1"
+
 if _check-commands bat; then
 	alias cat="bat -p"
 fi
@@ -285,7 +295,7 @@ fi
 if _check-commands brew; then
 	function brew-bundle-dump() {
 		brew bundle dump --global --force --no-go --no-npm --describe
-		brew bundle remove --global awscli claude-code claudebar gemini-cli microsoft-teams mistral-vibe ladybird
+		brew bundle remove --global awscli antigravity-cli claude-code claudebar gemini-cli microsoft-teams mistral-vibe ladybird
 		echo "Brewfile dumped and filtered"
 	}
 
@@ -309,11 +319,7 @@ fi
 if _check-commands code; then
 	export VISUAL="code"
 
-	alias horiceon-code='GIT_DIR="$RICE_HOME" GIT_WORK_TREE="$HOME" code "$HOME"'
-fi
-
-if [[ ! -e "$HOME/code/cli-continues" ]]; then
-	alias continues="node $HOME/code/cli-continues/dist/cli.js"
+	alias horiceon-code='GIT_DIR="$RICE_HOME" GIT_WORK_TREE="$HOME" code --disable-extensions "$HOME"'
 fi
 
 if _check-commands glow; then
@@ -323,6 +329,10 @@ fi
 if _check-commands eza; then
 	alias exa="eza"
 	alias ls="eza"
+fi
+
+if _check-commands fd; then
+	alias fda="fd --unrestricted --full-path"
 fi
 
 if _check-commands mise; then
@@ -359,6 +369,7 @@ fi
 
 if _check-commands uv; then
 	alias pip="uv pip"
+	alias bestllm="uvx whichllm@latest --profile coding"
 fi
 
 if _check-commands vim; then

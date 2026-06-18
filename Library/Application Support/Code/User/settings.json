@@ -8,6 +8,9 @@
   "[csv][csv (semicolon)]": {
     "editor.inlayHints.maximumLength": 0
   },
+  "[go]": {
+    "editor.defaultFormatter": "golang.go"
+  },
   "[mjml]": {
     "editor.defaultFormatter": "mjmlio.vscode-mjml"
   },
@@ -129,6 +132,7 @@
     "tsconfig.json": "tsconfig.*.json"
   },
   "explorer.sortOrder": "default",
+  "extensions.autoUpdateDelay": 7,
   "extensions.ignoreRecommendations": true,
   "files.associations": {
     ".chezmoiignore": "ignore",
@@ -199,6 +203,7 @@
   "simpleBrowser.useIntegratedBrowser": true,
   "svelte.enable-ts-plugin": true,
   "svelte.plugin.svelte.runesLegacyModeCodeLens.enable": false,
+  "tailwindCSS.sortOnSave": true,
   "task.allowAutomaticTasks": "off",
   "telemetry.feedback.enabled": false,
   "telemetry.telemetryLevel": "off",
@@ -228,6 +233,7 @@
     "[x]",
     "BOOKMARK"
   ],
+  "todo-tree.ripgrep.ripgrep": "/opt/homebrew/bin/rg",
   "todo-tree.tree.scanMode": "workspace",
   "trivy.binaryPath": "/opt/homebrew/bin/trivy",
   "vs-kubernetes": {
@@ -236,6 +242,7 @@
   "window.autoDetectColorScheme": true,
   "window.menuBarVisibility": "hidden", // windows
   "window.newWindowProfile": "Default",
+  "workbench.browser.searchEngine": "duckduckgo",
   "workbench.commandPalette.experimental.enableNaturalLanguageSearch": false,
   "workbench.editor.empty.hint": "hidden",
   "workbench.editor.enablePreview": false,

@@ -294,7 +294,7 @@ fi
 
 if _check-commands brew; then
 	function brew-bundle-dump() {
-		brew bundle dump --global --force --no-go --no-npm --describe
+		brew bundle dump --global --force --no-go --no-npm
 		brew bundle remove --global awscli antigravity-cli claude-code claudebar gemini-cli microsoft-teams mistral-vibe ladybird
 		echo "Brewfile dumped and filtered"
 	}

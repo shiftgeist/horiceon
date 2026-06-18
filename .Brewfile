@@ -21,6 +21,8 @@ brew "glow"
 brew "hyperfine"
 # Tools and libraries to manipulate images in select formats
 brew "imagemagick"
+# LLM inference in C/C++
+brew "llama.cpp"
 # Mac App Store command-line interface
 brew "mas"
 # Polyglot runtime manager (asdf rust clone)
@@ -29,6 +31,8 @@ brew "mise"
 brew "ncdu"
 # Wrapper around ripgrep that adds multiple rich file types
 brew "ripgrep-all"
+# Easy and Repeatable Kubernetes Development
+brew "skaffold"
 # Cross-shell prompt for astronauts
 brew "starship"
 # Vulnerability scanner for container images, file systems, and Git repos
@@ -47,8 +51,6 @@ cask "blender"
 cask "bruno"
 # Server and cloud storage browser
 cask "cyberduck"
-# Multi-platform multi-messaging app
-cask "ferdium"
 # Collaborative team software
 cask "figma"
 # Chromium-based web browser
@@ -61,10 +63,16 @@ cask "keepingyouawake"
 cask "localsend"
 # Clipboard manager
 cask "maccy"
+# Controls and monitors all fans on Apple computers
+cask "macs-fan-control"
+# Meeting transcription and analysis application
+cask "meetily"
 # Knowledge base that works on top of a local folder of plain text Markdown files
 cask "obsidian"
 # Replacement for Docker Desktop
 cask "orbstack"
+# Install games and apps compiled for Microsoft Windows
+cask "porting-kit"
 # Move and resize windows using keyboard shortcuts or snap areas
 cask "rectangle"
 # File sync and share software

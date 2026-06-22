@@ -1,1 +1,13 @@
+*.apk diff=zip
+*.db diff=sqlite
+*.heic diff=image
+*.jar diff=zip
+*.jpeg diff=image
+*.jpg diff=image
+*.json diff=json
+*.min.json diff=json
 *.plist diff=plist
+*.png diff=image
+*.sqlite diff=sqlite
+*.sqlite3 diff=sqlite
+*.zip diff=zip

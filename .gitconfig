@@ -19,6 +19,7 @@ reset-base-dev = !git reset --soft $(git merge-base dev HEAD)
 reset-hardest = !git reset --hard origin/$(git rev-parse --abbrev-ref HEAD) && git clean -f -q .
 st = status
 up = !git push --set-upstream origin $(git rev-parse --abbrev-ref HEAD)
+whoami = !git config --global user.name && git config --global user.email
 
 [color]
 ui = true
@@ -35,3 +36,9 @@ defaultBranch = main
 [user]
 name = "PUT_NAME_HERE"
 email = "PUT_EMAIL_HERE"
+
+[includeIf "hasconfig:remote.*.url:https://*dev.azure.com/**"]
+path = ~/.gitconfig-Azure-DevOps
+
+[includeIf "hasconfig:remote.*.url:git@ssh.dev.azure.com:v3/**"]
+path = ~/.gitconfig-Azure-DevOps

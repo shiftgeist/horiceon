@@ -4,7 +4,7 @@ br-cleanup-merged = !git branch --merged | grep -E -v '(^\\*|master|dev|main)' |
 br-nuke = "!f() { git branch -d \"$@\" && git push origin --delete \"$@\"; }; f"
 br-nuke-all = !git branch | grep -E -v '(^\\*|master|dev|main)' | xargs git branch -D && git pull --prune
 co = checkout
-lo = "!f() { git log --graph --oneline --decorate ${1:-$(git rev-parse --abbrev-ref HEAD)}; }; f"
+lo = "!f() { git log --graph --format='%h %C(auto)%d%C(reset) %s %C(dim)(%an, %ar)%C(reset)' ${1:-$(git rev-parse --abbrev-ref HEAD)}; }; f"
 ls-worktree = status -uall --porcelain
 pl = pull
 pls = pull --autostash

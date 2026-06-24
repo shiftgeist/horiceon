@@ -4,7 +4,6 @@
 *.jar diff=zip
 *.jpeg diff=image
 *.jpg diff=image
-*.json diff=json
 *.min.json diff=json
 *.plist diff=plist
 *.png diff=image

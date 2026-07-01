@@ -1,4 +1,4 @@
-#!/usr/bin/env -S bun --env-file=/Users/felix/.horiceon/.env
+#!/usr/bin/env -S /Users/felix/.local/share/mise/installs/bun/latest/bin/bun --env-file=/Users/felix/.horiceon/.env
 
 declare const process: any;
 

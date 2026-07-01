@@ -349,10 +349,6 @@ if _check-commands mise; then
 fi
 
 if _check-commands pnpm; then
-	alias B="pnpm build"
-	alias D="pnpm dev"
-	alias T="pnpm test"
-	alias I="pnpm install"
 	alias ts-prune="pnpx knip"
 fi
 
@@ -387,36 +383,87 @@ fi
 if _check-commands yq; then
 	alias jq="yq"
 
-	function run() {
-		pm="pnpm"
-
-		if [ "$1" = "npm" ] || [ "$1" = "pnpm" ] || [ "$1" = "bun" ]; then
-			pm="$1"
-			shift
-		fi
-
-		if [ "$2" = "!" ]; then
-			$pm run "$1"
-			return
-		fi
-
-		if [ -z "$1" ]; then
-			yq -o=json ".scripts" package.json
-			return
-		fi
-
-		matches=$(yq -o=json ".scripts | with_entries(select(.key | test(\"(?i)$1\")))" package.json)
-
-		if [ $(echo "$matches" | jq 'length') -eq 1 ]; then
-			$pm run $(echo "$matches" | jq -r 'keys[0]')
-		else
-			echo "$matches" | bat -l json -p
-		fi
-	}
-
 	function curl-pretty {
 		curl -s $@ | yq -P
 	}
+
+	function run() {
+		# --- tool detection (overridable as first arg) ---
+		local tool
+
+		if [ "$1" = "npm" ] || [ "$1" = "pnpm" ] || [ "$1" = "bun" ] || [ "$1" = "mise" ] || [ "$1" = "make" ]; then
+			tool="$1"
+			shift
+		elif [ -f ".mise.toml" ]; then
+			tool="mise"
+		elif [ -f "Makefile" ]; then
+			tool="make"
+		elif [ -f "package.json" ]; then
+			if [ -f "pnpm-lock.yaml" ]; then
+				tool="pnpm"
+			elif [ -f "bun.lockb" ]; then
+				tool="bun"
+			else
+				tool="npm"
+			fi
+		else
+			echo "No recognized project file found (.mise.toml / Makefile / package.json)"
+			return 1
+		fi
+
+		# --- list tasks/scripts when called with no args ---
+		if [ -z "$1" ]; then
+			case "$tool" in
+			mise) mise tasks ls ;;
+			make) make -qp 2>/dev/null | grep -E '^[a-zA-Z][a-zA-Z0-9_-]*:' | cut -d: -f1 | sort ;;
+			*) yq -o=json ".scripts" package.json ;;
+			esac
+			return
+		fi
+
+		# --- exact run with trailing ! (e.g. `run build !`) ---
+		if [ "$2" = "!" ]; then
+			case "$tool" in
+			mise) mise run "$1" ;;
+			make) make "$1" ;;
+			*) $tool run "$1" ;;
+			esac
+			return
+		fi
+
+		# --- fuzzy match for node package managers ---
+		if [ "$tool" = "pnpm" ] || [ "$tool" = "npm" ] || [ "$tool" = "bun" ]; then
+			local matches
+			matches=$(yq -o=json ".scripts | with_entries(select(.key | test(\"(?i)$1\")))" package.json)
+			local count
+			count=$(echo "$matches" | jq 'length')
+
+			if [ "$count" -eq 0 ]; then
+				echo "No scripts matching '$1'"
+				return 1
+			elif [ "$count" -eq 1 ]; then
+				local script
+				script=$(echo "$matches" | jq -r 'keys[0]')
+				echo "Running $script with $tool"
+				sleep 0.3
+				$tool run "$script"
+			else
+				echo "$matches" | bat -l json -p
+			fi
+			return
+		fi
+
+		# --- mise / make: pass through directly ---
+		case "$tool" in
+		mise) mise run "$1" ;;
+		make) make "$1" ;;
+		esac
+	}
+
+	alias B="run build"
+	alias D="run dev"
+	alias T="run test"
+	alias I="run install"
 fi
 
 if _check-commands zoxide; then

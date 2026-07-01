@@ -2,7 +2,15 @@
 
 declare const process: any;
 
-const POSITIVE_POWER_MEANS: "charging" | "discharging" = "discharging";
+// const outputJson = process.argv.includes("--json");
+
+enum BatteryStatus {
+  Charging = "charging",
+  Discharging = "discharging",
+  Idle = "idle",
+}
+
+const POSITIVE_POWER_MEANS: BatteryStatus.Charging | BatteryStatus.Discharging = BatteryStatus.Discharging;
 const IDLE_THRESHOLD_WATTS = 10;
 
 interface SemsEnvelope<T> {
@@ -41,7 +49,8 @@ const SEMS_STATION_ID = requireEnv("SEMS_STATION_ID");
 function requireEnv(name: string): string {
   const value = process.env[name];
   if (!value) {
-    console.error(`Missing required env var: ${name}`);
+    const msg = `Missing required env var: ${name}`;
+    console.error(msg);
     process.exit(1);
   }
   return value;
@@ -51,13 +60,13 @@ function parseNumber(value: string | number): number {
   return typeof value === "number" ? value : parseFloat(value);
 }
 
-function flip(status: "charging" | "discharging"): "charging" | "discharging" {
-  return status === "charging" ? "discharging" : "charging";
+function flip(status: BatteryStatus.Charging | BatteryStatus.Discharging): BatteryStatus.Charging | BatteryStatus.Discharging {
+  return status === BatteryStatus.Charging ? BatteryStatus.Discharging : BatteryStatus.Charging;
 }
 
-function getBatteryStatus(batteryPowerWatts: number): "charging" | "discharging" | "idle" {
+function getBatteryStatus(batteryPowerWatts: number): BatteryStatus {
   if (Math.abs(batteryPowerWatts) < IDLE_THRESHOLD_WATTS) {
-    return "idle";
+    return BatteryStatus.Idle;
   }
 
   const isPositivePower = batteryPowerWatts > 0;
@@ -106,8 +115,7 @@ async function main() {
 
   const inverter = monitorDetail.inverter[0];
   if (!inverter) {
-    console.error("No inverter data returned for this station.");
-    process.exit(1);
+    throw new Error("No inverter data returned for this station.");
   }
 
   const soc = parseNumber(inverter.invert_full.soc);
@@ -116,12 +124,11 @@ async function main() {
   const batteryPowerWatts = batteryVoltage * batteryCurrent;
   const status = getBatteryStatus(batteryPowerWatts);
 
-  console.log(`Battery SOC:    ${soc}%`);
-  console.log(`Battery power:  ${batteryPowerWatts.toFixed(0)} W`);
-  console.log(`Status:         ${status}`);
+  console.log(`🔋${status === BatteryStatus.Idle ? '😴' : (status === BatteryStatus.Charging ? '📈' : '📉')} ${soc}%`);
 }
 
 main().catch((error) => {
-  console.error(error instanceof Error ? error.message : error);
+  const msg = error instanceof Error ? error.message : String(error);
+  console.error(msg);
   process.exit(1);
 });

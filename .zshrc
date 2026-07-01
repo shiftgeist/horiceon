@@ -68,6 +68,7 @@ fi
 # Set PATH
 export PATH=$HOME/.local/bin:$PATH
 export PATH=$HOME/.local/share/mise/installs/go/latest/bin:$PATH
+export PATH=$HOME/.horiceon/bin:$PATH
 
 # History
 export HISTSIZE=200000 # 5y of 100 commands/day

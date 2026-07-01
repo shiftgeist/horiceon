@@ -66,6 +66,7 @@
     "saldo"
   ],
   "darkSynthwave84.disableGlow": true,
+  "deno.path": "~/.local/share/mise/installs/deno/latest/bin/deno",
   "diffEditor.codeLens": true,
   "diffEditor.experimental.showMoves": true,
   "diffEditor.experimental.useTrueInlineView": true,
@@ -169,6 +170,7 @@
   "gitTreeCompare.iconsMinimal": true,
   "go.toolsManagement.autoUpdate": true,
   "headwind.runOnSave": true,
+  "inline-parameters.enabled": false,
   "inline-parameters.fontStyle": "normal",
   "inline-parameters.hideSingleParameters": true,
   "inline-parameters.margin": "0 0.3em 0 0",

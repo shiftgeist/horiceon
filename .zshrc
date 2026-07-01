@@ -14,8 +14,8 @@ test -d /opt/homebrew/bin/brew && eval "$(/opt/homebrew/bin/brew shellenv zsh)"
 ###
 
 preexec() {
-  local after="${1##*|}"
-  [[ "$after" =~ ^[[:space:]]*copy([[:space:]]|$) ]] && _last_cmd="${1%|*}" || _last_cmd="$1"
+	local after="${1##*|}"
+	[[ "$after" =~ ^[[:space:]]*copy([[:space:]]|$) ]] && _last_cmd="${1%|*}" || _last_cmd="$1"
 }
 
 function _zcompile-many() {
@@ -74,15 +74,15 @@ export HISTSIZE=200000 # 5y of 100 commands/day
 export SAVEHIST=$HISTSIZE
 
 # Options
-setopt AUTO_CD                # automatic directory change
-setopt BANG_HIST              # treat the '!' character specially during expansion.
-setopt EXTENDED_HISTORY       # write the history file in the ":start:elapsed;command" format.
-setopt GLOBDOTS               # hidden files globbing
-setopt HIST_FIND_NO_DUPS      # only skips dupes during Ctrl+R search
-setopt INC_APPEND_HISTORY     # write to the history file immediately, not when the shell exits.
-setopt INTERACTIVE_COMMENTS   # ignore commands starting with hashtag
-setopt NO_CASE_GLOB           # case insensitive globbing
-setopt SHARE_HISTORY          # share history between all sessions.
+setopt AUTO_CD              # automatic directory change
+setopt BANG_HIST            # treat the '!' character specially during expansion.
+setopt EXTENDED_HISTORY     # write the history file in the ":start:elapsed;command" format.
+setopt GLOBDOTS             # hidden files globbing
+setopt HIST_FIND_NO_DUPS    # only skips dupes during Ctrl+R search
+setopt INC_APPEND_HISTORY   # write to the history file immediately, not when the shell exits.
+setopt INTERACTIVE_COMMENTS # ignore commands starting with hashtag
+setopt NO_CASE_GLOB         # case insensitive globbing
+setopt SHARE_HISTORY        # share history between all sessions.
 
 # Set completion PATH
 FPATH="$(brew --prefix)/share/zsh/site-functions:$HOME/.zsh/completions:$FPATH"
@@ -281,8 +281,8 @@ function alias-suggest() {
 _cli_continues="$HOME/code/cli-continues"
 
 if [[ ! -e "$_cli_continues/dist/cli.js" ]]; then
-  [[ ! -d "$_cli_continues" ]] && git clone git@github.com:shiftgeist/cli-continues.git "$_cli_continues"
-  (cd "$_cli_continues" && pnpm install && pnpm run build)
+	[[ ! -d "$_cli_continues" ]] && git clone git@github.com:shiftgeist/cli-continues.git "$_cli_continues"
+	(cd "$_cli_continues" && pnpm install && pnpm run build)
 fi
 
 alias continues="node $_cli_continues/dist/cli.js"
@@ -314,6 +314,14 @@ if _check-commands brew; then
   zen"
 	alias brew-up="brew upgrade && brew-up-apps"
 	alias brew-up-all="brew upgrade --greedy && mise up"
+
+	alias ladybird-setup="brew create https://github.com/LadybirdBrowser/ladybird/archive/refs/heads/master.zip --set-name ladybird --set-version HEAD && brew edit ladybird" # sorry no formula code available
+	if [ -d /opt/homebrew/opt/ladybird/.brew/ladybird.rb ]; then
+		alias ladybird-install="HOMEBREW_NO_INSTALL_FROM_API=1 brew install --build-from-source ladybird"
+		alias ladybird-update="HOMEBREW_NO_INSTALL_FROM_API=1 brew upgrade --fetch-HEAD ladybird"
+		alias ladybird-make-app="sudo rm -rf /Applications/Ladybird.app && sudo cp -R /opt/homebrew/opt/ladybird/bundle/Ladybird.app /Applications/Ladybird.app"
+		alias ladybird-reinstall="HOMEBREW_NO_INSTALL_FROM_API=1 brew reinstall --build-from-source ladybird"
+	fi
 fi
 
 if _check-commands code; then

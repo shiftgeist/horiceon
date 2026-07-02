@@ -14,6 +14,7 @@ node = "latest"
 "npm:zx" = "latest"
 python = "3"
 uv = "latest"
+"npm:cpd" = "latest"
 
 [settings]
 always_keep_download = true

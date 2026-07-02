@@ -2,7 +2,7 @@
   "[astro]": {
     "editor.defaultFormatter": "astro-build.astro-vscode"
   },
-  "[css][dockercompose][dockerfile][go][html][javascript][javascriptreact][json][jsonc][markdown][python][rust][sass][scss][shellscript][svelte][toml][typescript][typescriptreact][vue][vue][yaml]": {
+  "[css][dockercompose][dockerfile][html][javascript][javascriptreact][json][jsonc][markdown][python][rust][sass][scss][shellscript][svelte][toml][typescript][typescriptreact][vue][vue][yaml]": {
     "editor.defaultFormatter": "dprint.dprint"
   },
   "[csv][csv (semicolon)]": {
@@ -181,6 +181,7 @@
   "js/ts.implicitProjectConfig.checkJs": true,
   "js/ts.implicitProjectConfig.experimentalDecorators": true,
   "js/ts.implicitProjectConfig.target": "ESNext",
+  "js/ts.tsserver.experimental.enableProjectDiagnostics": false,
   "json.schemaDownload.trustedDomains": {
     "https://developer.microsoft.com/json-schemas/": true,
     "https://dprint.dev/schemas/v0.json": true,

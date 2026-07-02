@@ -5,6 +5,7 @@
 # <swiftbar.version>1.0</swiftbar.version>
 # <swiftbar.author>Felix</swiftbar.author>
 # <swiftbar.desc>Monitors GoodWe home battery status via SEMS portal</swiftbar.desc>
+# <swiftbar.schedule>*/5 8-18 * * 1-5</swiftbar.schedule>
 
 BATTERY_SCRIPT="/Users/felix/.horiceon/bin/sems-battery"
 
@@ -19,3 +20,6 @@ if [ $? -ne 0 ] || [ -z "$DATA" ]; then
 fi
 
 echo "${DATA}"
+echo "---"
+echo "Last Updated: $(date)"
+echo "Update now | refresh"

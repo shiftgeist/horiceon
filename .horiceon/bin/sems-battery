@@ -2,16 +2,7 @@
 
 declare const process: any;
 
-// const outputJson = process.argv.includes("--json");
-
-enum BatteryStatus {
-  Charging = "charging",
-  Discharging = "discharging",
-  Idle = "idle",
-}
-
-const POSITIVE_POWER_MEANS: BatteryStatus.Charging | BatteryStatus.Discharging = BatteryStatus.Discharging;
-const IDLE_THRESHOLD_WATTS = 10;
+const outputBar = process.argv.includes("--bar");
 
 interface SemsEnvelope<T> {
   hasError: boolean;
@@ -60,17 +51,10 @@ function parseNumber(value: string | number): number {
   return typeof value === "number" ? value : parseFloat(value);
 }
 
-function flip(status: BatteryStatus.Charging | BatteryStatus.Discharging): BatteryStatus.Charging | BatteryStatus.Discharging {
-  return status === BatteryStatus.Charging ? BatteryStatus.Discharging : BatteryStatus.Charging;
-}
-
-function getBatteryStatus(batteryPowerWatts: number): BatteryStatus {
-  if (Math.abs(batteryPowerWatts) < IDLE_THRESHOLD_WATTS) {
-    return BatteryStatus.Idle;
-  }
-
-  const isPositivePower = batteryPowerWatts > 0;
-  return isPositivePower ? POSITIVE_POWER_MEANS : flip(POSITIVE_POWER_MEANS);
+function scaleToBar(value: number, min: number, max: number, chars: string[]) {
+  const ratio = (value - min) / (max - min);
+  const index = Math.max(0, Math.min(chars.length - 1, Math.floor(ratio * chars.length)));
+  return chars[index];
 }
 
 async function login(): Promise<{ apiBaseUrl: string; token: LoginToken }> {
@@ -121,10 +105,18 @@ async function main() {
   const soc = parseNumber(inverter.invert_full.soc);
   const batteryVoltage = parseNumber(inverter.invert_full.vbattery1);
   const batteryCurrent = parseNumber(inverter.invert_full.ibattery1);
-  const batteryPowerWatts = batteryVoltage * batteryCurrent;
-  const status = getBatteryStatus(batteryPowerWatts);
+  const batteryPowerWatts = Math.round(batteryVoltage * batteryCurrent * 100) / 100;
+  const kW = Math.round(batteryPowerWatts / 100) / 10;
+  const iconsBattery = scaleToBar(soc, 0, 100, ['🪫', '🪫', ...Array.from<string>({ length: 9 - 3 }).fill('🔋'), '🔌⛽']);
+  const iconsWatts = scaleToBar(kW, -8, 8, ['--', '-', '', '', '', '+', '++'])
 
-  console.log(`🔋${status === BatteryStatus.Idle ? '😴' : (status === BatteryStatus.Charging ? '📈' : '📉')} ${soc}%`);
+  console.log(`${iconsWatts}${iconsBattery} ${soc}%`);
+  if (outputBar) {
+    console.log('---');
+    console.log(`${batteryPowerWatts}W`);
+    console.log(`Last Updated: ${new Date().toISOString()} | refresh=true`);
+    console.log(`Station ↗️ | href=https://www.semsportal.com/powerstation/PowerStatusSnMin/${SEMS_STATION_ID}`);
+  }
 }
 
 main().catch((error) => {

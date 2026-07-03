@@ -2,7 +2,7 @@
 
 BATTERY_SCRIPT="/Users/felix/.horiceon/bin/sems-battery"
 
-DATA=$($BATTERY_SCRIPT 2>/dev/null)
+DATA=$($BATTERY_SCRIPT --bar 2>/dev/null)
 
 if [ $? -ne 0 ] || [ -z "$DATA" ]; then
   echo "⚠️ Error | color=red"
@@ -13,5 +13,3 @@ if [ $? -ne 0 ] || [ -z "$DATA" ]; then
 fi
 
 echo "${DATA}"
-echo "---"
-echo "Last Updated: $(date) | refresh=true"

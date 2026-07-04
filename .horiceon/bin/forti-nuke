@@ -1,0 +1,57 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+DAEMON_DIR="/Library/LaunchDaemons"
+AGENT_DIR="/Library/LaunchAgents"
+STAGING="/tmp/forti-plists-staging"
+GUI_UID=$(id -u)
+
+echo "→ Staging plists..."
+mkdir -p "$STAGING/daemons" "$STAGING/agents"
+sudo mv "$DAEMON_DIR"/com.fortinet.*.plist "$STAGING/daemons/" 2>/dev/null || true
+sudo mv "$AGENT_DIR"/com.fortinet.*.plist  "$STAGING/agents/"  2>/dev/null || true
+
+echo "→ Booting out system services..."
+for svc in \
+  com.fortinet.epctrl \
+  com.fortinet.fctservctl2 \
+  com.fortinet.config \
+  com.fortinet.vpnctl \
+  com.fortinet.fctwf \
+  com.fortinet.fctwf2 \
+  com.fortinet.ztnafw \
+  com.fortinet.forticlient.fctdnsd \
+  com.fortinet.forticlient.macos.PrivilegedHelper \
+  com.fortinet.fctctl
+do
+  sudo launchctl bootout system/$svc 2>/dev/null && echo "  ✓ $svc" || echo "  - $svc (not loaded)"
+done
+
+echo "→ Booting out user agents..."
+for svc in \
+  com.fortinet.fortiagent \
+  com.fortinet.forticlient.FortiClientAgent \
+  com.fortinet.forticlient.fortitray \
+  com.fortinet.credential_store \
+  com.fortinet.fct_launcher \
+  com.fortinet.fctappfw2 \
+  com.fortinet.forticlient.ztagent
+do
+  launchctl bootout gui/$GUI_UID/$svc 2>/dev/null && echo "  ✓ $svc" || echo "  - $svc (not loaded)"
+done
+
+echo "→ Killing watchdogs first..."
+sudo pkill -9 -f "epctrl"      2>/dev/null || true
+sudo pkill -9 -f "fctservctl2" 2>/dev/null || true
+sleep 0.5
+
+echo "→ Killing everything else..."
+sudo pkill -9 -f "[Ff]orti" 2>/dev/null || true
+
+echo "→ Restoring plists for next boot..."
+sudo mv "$STAGING/daemons/"*.plist "$DAEMON_DIR/" 2>/dev/null || true
+sudo mv "$STAGING/agents/"*.plist  "$AGENT_DIR/"  2>/dev/null || true
+sudo rmdir "$STAGING/daemons" "$STAGING/agents" "$STAGING"
+
+remaining=$(pgrep -f "[Ff]orti" 2>/dev/null | wc -l | tr -d ' ')
+echo "✓ Done. Remaining FortiClient processes: $remaining"

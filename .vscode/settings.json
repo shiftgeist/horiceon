@@ -7,11 +7,39 @@
     "zsh"
   ],
   "files.exclude": {
+    "**/.aws": true,
+    "**/.cache": true,
+    "**/.cargo": true,
     "**/.dotfiles": true,
+    "**/.local": true,
     "**/.local/share/Trash": true,
+    "**/.npm": true,
+    "**/.rustup": true,
+    "**/.Trash": true,
     "**/.vscode-server": true,
-    "**/c": true
+    "**/.vscode/extensions": true,
+    "**/Applications": true,
+    "**/c": true,
+    "**/code": true,
+    "**/go/pkg": true,
+    "**/Library/Accessibility": true,
+    "**/Library/Account": true,
+    "**/Library/Apple*": true,
+    "**/Library/Application Scripts": true,
+    "**/Library/Assistant": true,
+    "**/Library/Audio": true,
+    "**/Library/Caches": true,
+    "**/Library/com.apple.*": true,
+    "**/Library/Containers": true,
+    "**/Library/Finance": true,
+    "**/Library/Group Containers": true,
+    "**/Library/Logs": true,
+    "**/Library/pnpm": true,
+    "**/Library/Preferences": true,
+    "**/Library/Translation": true,
+    "**/Library/WebKit": true
   },
   "git.ignoreLimitWarning": true,
-  "git.untrackedChanges": "hidden"
+  "git.untrackedChanges": "hidden",
+  "search.maxResults": 200
 }

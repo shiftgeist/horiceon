@@ -1,11 +1,26 @@
-#!/usr/local/bin/deno run --allow-env --allow-read --allow-sys --allow-net
+#!/usr/local/bin/deno run --allow-env --allow-read --allow-sys --allow-net --allow-run
 
 import { load } from "jsr:@std/dotenv@0.225.7";
+import { execSync } from "node:child_process";
 import { homedir } from "node:os";
 
 const env = await load({ envPath: `${homedir()}/.horiceon/.env` });
 
-const outputBar = process.env.SWIFTBAR === '1'
+const outputBar = process.env.SWIFTBAR === "1";
+const ignoreLowPower = process.env.LOWPOWER === "0";
+
+try {
+  const output = execSync("pmset -g").toString();
+  const isLowPowerMode = output.replaceAll(" ", "").includes("lowpowermode1");
+
+  if (isLowPowerMode && !ignoreLowPower) {
+    console.log(`💤`);
+    process.exit(0);
+  }
+} catch {
+  console.log(`Error in lowpowermode check`);
+  process.exit(0);
+}
 
 interface SemsEnvelope<T> {
   hasError: boolean;
@@ -56,19 +71,29 @@ function parseNumber(value: string | number): number {
 
 function scaleToBar(value: number, min: number, max: number, chars: string[]) {
   const ratio = (value - min) / (max - min);
-  const index = Math.max(0, Math.min(chars.length - 1, Math.floor(ratio * chars.length)));
+  const index = Math.max(
+    0,
+    Math.min(chars.length - 1, Math.floor(ratio * chars.length)),
+  );
   return chars[index];
 }
 
 async function login(): Promise<{ apiBaseUrl: string; token: LoginToken }> {
-  const response = await fetch("https://www.semsportal.com/api/v2/Common/CrossLogin", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Token: JSON.stringify({ version: "v2.1.0", client: "ios", language: "en" }),
+  const response = await fetch(
+    "https://www.semsportal.com/api/v2/Common/CrossLogin",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Token: JSON.stringify({
+          version: "v2.1.0",
+          client: "ios",
+          language: "en",
+        }),
+      },
+      body: JSON.stringify({ account: SEMS_ACCOUNT, pwd: SEMS_PASSWORD }),
     },
-    body: JSON.stringify({ account: SEMS_ACCOUNT, pwd: SEMS_PASSWORD }),
-  });
+  );
 
   const body: SemsEnvelope<LoginToken> = await response.json();
   if (body.hasError || !body.api) {
@@ -78,15 +103,21 @@ async function login(): Promise<{ apiBaseUrl: string; token: LoginToken }> {
   return { apiBaseUrl: body.api, token: body.data };
 }
 
-async function fetchMonitorDetail(apiBaseUrl: string, token: LoginToken): Promise<MonitorDetail> {
-  const response = await fetch(`${apiBaseUrl}v2/PowerStation/GetMonitorDetailByPowerstationId`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Token: JSON.stringify(token),
+async function fetchMonitorDetail(
+  apiBaseUrl: string,
+  token: LoginToken,
+): Promise<MonitorDetail> {
+  const response = await fetch(
+    `${apiBaseUrl}v2/PowerStation/GetMonitorDetailByPowerstationId`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Token: JSON.stringify(token),
+      },
+      body: JSON.stringify({ powerStationId: SEMS_STATION_ID }),
     },
-    body: JSON.stringify({ powerStationId: SEMS_STATION_ID }),
-  });
+  );
 
   const body: SemsEnvelope<MonitorDetail> = await response.json();
   if (body.hasError) {
@@ -108,19 +139,34 @@ async function main() {
   const soc = parseNumber(inverter.invert_full.soc);
   const batteryVoltage = parseNumber(inverter.invert_full.vbattery1);
   const batteryCurrent = parseNumber(inverter.invert_full.ibattery1);
-  const batteryPowerWatts = Math.round(batteryVoltage * batteryCurrent * 100) / 100;
+  const batteryPowerWatts = Math.round(batteryVoltage * batteryCurrent * 100) /
+    100;
   const kW = Math.round(batteryPowerWatts / 100) / 10;
-  const iconsBattery = scaleToBar(soc, 10, 100, ['⬛️', '🟥', '🟧', '🟨', '⬜', '🟦', '🟩', '❇️', '🔌⛽']);
-  const iconsWatts = scaleToBar(kW, -8, 8, ['▼', '', '▲'])
+  const iconsBattery = scaleToBar(soc, 10, 100, [
+    "⬛️",
+    "🟥",
+    "🟧",
+    "🟨",
+    "⬜",
+    "🟦",
+    "🟩",
+    "❇️",
+    "🔌⛽",
+  ]);
+  const iconsWatts = scaleToBar(kW, -8, 8, ["▼", "", "▲"]);
 
   if (outputBar) {
     console.log(`${iconsBattery}${iconsWatts}`);
-    console.log('---');
-    console.log(`${soc}% (${kW > 0 ? '+' : ''}${kW}kW)`);
+    console.log("---");
+    console.log(`${soc}% (${kW > 0 ? "+" : ""}${kW}kW)`);
     console.log(`Last Updated: ${new Date().toISOString()} | refresh=true`);
-    console.log(`Station ↗️ | href=https://www.semsportal.com/powerstation/PowerStatusSnMin/${SEMS_STATION_ID}`);
+    console.log(
+      `Station ↗️ | href=https://www.semsportal.com/powerstation/PowerStatusSnMin/${SEMS_STATION_ID}`,
+    );
   } else {
-    console.log(`${iconsBattery}${iconsWatts} ${soc}% (${kW > 0 ? '+' : ''}${kW}kW)`);
+    console.log(
+      `${iconsBattery}${iconsWatts} ${soc}% (${kW > 0 ? "+" : ""}${kW}kW)`,
+    );
   }
 }
 

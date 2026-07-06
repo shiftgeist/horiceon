@@ -96,9 +96,18 @@ export FZF_DEFAULT_OPTS="--height 90% --layout=reverse"
 zstyle ':completion:*' completer _complete _ignored _expand_alias
 zstyle ':completion:*:git-checkout:*' sort false
 # preview content or directory's content with eza when completing
-zstyle ':fzf-tab:complete:*:*' fzf-preview 'bat --color=always --style=numbers --line-range=:500 $realpath 2>/dev/null || eza -la --color=always $realpath'
-# switch group using `<` and `>`
-zstyle ':fzf-tab:*' switch-group '<' '>'
+zstyle ':fzf-tab:complete:*:*' fzf-preview '
+  if [[ -f "$realpath" ]]; then
+    bat --color=always --style=numbers --line-range=:500 "$realpath" 2>/dev/null \
+      || file --brief "$realpath"
+  elif [[ -d "$realpath" ]]; then
+    eza -la --color=always "$realpath"
+  elif [[ -n "$desc" ]]; then
+    echo "$word -- $desc" | fold -s -w "${FZF_PREVIEW_COLUMNS:-80}"
+  fi
+'
+# zstyle ':fzf-tab:*' continuous-trigger tab # chain completions: cd /usr/[TAB] -> pick dir -> TAB again without re-typing
+zstyle ':fzf-tab:*' switch-group '<' '>' # switch group using `<` and `>`
 
 # Enable the "new" completion system (compsys)
 autoload -Uz compinit && compinit

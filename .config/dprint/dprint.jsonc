@@ -23,8 +23,6 @@
   "dockerfile": {
     // https://dprint.dev/plugins/dockerfile/config/
   },
-  "ruff": {
-  },
   "jupyter": {
   },
   "malva": {
@@ -38,6 +36,7 @@
     "quotes": "preferSingle",
   },
   "graphql": {
+    // https://dprint.dev/plugins/pretty_graphql/config
   },
   "go-shfmt": {
     "associations": [
@@ -55,6 +54,9 @@
       "**/.zshrc",
     ],
   },
+  "exec": {
+    // https://github.com/dprint/dprint-plugin-exec/
+  },
   "excludes": [
     ".cargo_home",
     ".git",
@@ -64,21 +66,24 @@
     "**/build",
     "**/node_modules",
     "**/package",
+    "**/vendor",
     "**/yaml.lock",
     "gh-pages",
     "target",
   ],
   "plugins": [
+    "https://github.com/mridang/dprint-go/releases/download/v1.4.0/gofmt.wasm",
     "https://github.com/mridang/dprint-go/releases/download/v1.4.0/shfmt.wasm",
-    "https://plugins.dprint.dev/exec-0.6.0.json@a054130d458f124f9b5c91484833828950723a5af3f8ff2bd1523bd47b83b364",
-    "https://plugins.dprint.dev/g-plane/malva-v0.15.2.wasm",
-    "https://plugins.dprint.dev/g-plane/markup_fmt-v0.26.0.wasm",
+    "https://plugins.dprint.dev/dockerfile-0.4.1.wasm",
+    "https://plugins.dprint.dev/exec-0.7.2.json@6c30bd00dfb176774ece412d0fbf149478269ecc92c55ab2d6f4116938ed993e",
+    "https://plugins.dprint.dev/g-plane/malva-v0.16.0.wasm",
+    "https://plugins.dprint.dev/g-plane/markup_fmt-v0.27.3.wasm",
     "https://plugins.dprint.dev/g-plane/pretty_graphql-v0.2.3.wasm",
     "https://plugins.dprint.dev/g-plane/pretty_yaml-v0.6.0.wasm",
-    "https://plugins.dprint.dev/json-0.21.3.wasm",
-    "https://plugins.dprint.dev/jupyter-0.2.1.wasm",
-    "https://plugins.dprint.dev/markdown-0.21.1.wasm",
+    "https://plugins.dprint.dev/json-0.22.0.wasm",
+    "https://plugins.dprint.dev/jupyter-0.2.3.wasm",
+    "https://plugins.dprint.dev/markdown-0.22.1.wasm",
     "https://plugins.dprint.dev/toml-0.7.0.wasm",
-    "https://plugins.dprint.dev/typescript-0.96.0.wasm",
-  ],
+    "https://plugins.dprint.dev/typescript-0.96.1.wasm"
+  ]
 }

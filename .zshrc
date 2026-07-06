@@ -428,77 +428,81 @@ if _check-commands yq; then
 		curl -s $@ | yq -P
 	}
 
-	function run() {
-		# --- tool detection (overridable as first arg) ---
-		local tool
+	function _run_exec_task() {
+		local tool="$1" name="$2"
+		case "$tool" in
+		make) make "$name" ;;
+		*) "$tool" run "$name" ;;
+		esac
+	}
 
-		if [ "$1" = "npm" ] || [ "$1" = "pnpm" ] || [ "$1" = "bun" ] || [ "$1" = "mise" ] || [ "$1" = "make" ]; then
+	function _run_list_tasks() {
+		case "$1" in
+		deno) deno run 2>&1 | awk '/^- / { print $2 }' ;;
+		make) grep '^[[:alnum:]_.-][[:alnum:]_.-]*:' Makefile | cut -d: -f1 | grep -v '^\.PHONY$' | sort -u ;;
+		mise) mise tasks ls --name-only ;;
+		*) yq '.scripts // {} | keys | .[]' package.json ;;
+		esac
+	}
+
+	function run() {
+		local tool
+		case "$1" in
+		deno | npm | pnpm | bun | mise | make)
 			tool="$1"
 			shift
-		elif [ -f ".mise.toml" ]; then
-			tool="mise"
-		elif [ -f "Makefile" ]; then
-			tool="make"
-		elif [ -f "package.json" ]; then
-			if [ -f "pnpm-lock.yaml" ]; then
-				tool="pnpm"
-			elif [ -f "bun.lockb" ]; then
-				tool="bun"
+			;;
+		*)
+			if [ -f ".mise.toml" ] || [ -f "mise.toml" ]; then
+				tool="mise"
+			elif [ -f "Makefile" ]; then
+				tool="make"
+			elif [ -f "package.json" ]; then
+				if [ -f "pnpm-lock.yaml" ]; then
+					tool="pnpm"
+				elif [ -f "deno.json" ]; then
+					tool="deno"
+				elif [ -f "bun.lockb" ] || [ -f "bun.lock" ]; then
+					tool="bun"
+				else
+					tool="npm"
+				fi
 			else
-				tool="npm"
-			fi
-		else
-			echo "No recognized project file found (.mise.toml / Makefile / package.json)"
-			return 1
-		fi
-
-		# --- list tasks/scripts when called with no args ---
-		if [ -z "$1" ]; then
-			case "$tool" in
-			mise) mise tasks ls ;;
-			make) make -qp 2>/dev/null | grep -E '^[a-zA-Z][a-zA-Z0-9_-]*:' | cut -d: -f1 | sort ;;
-			*) yq -o=json ".scripts" package.json ;;
-			esac
-			return
-		fi
-
-		# --- exact run with trailing ! (e.g. `run build !`) ---
-		if [ "$2" = "!" ]; then
-			case "$tool" in
-			mise) mise run "$1" ;;
-			make) make "$1" ;;
-			*) $tool run "$1" ;;
-			esac
-			return
-		fi
-
-		# --- fuzzy match for node package managers ---
-		if [ "$tool" = "pnpm" ] || [ "$tool" = "npm" ] || [ "$tool" = "bun" ]; then
-			local matches
-			matches=$(yq -o=json ".scripts | with_entries(select(.key | test(\"(?i)$1\")))" package.json)
-			local count
-			count=$(echo "$matches" | jq 'length')
-
-			if [ "$count" -eq 0 ]; then
-				echo "No scripts matching '$1'"
+				echo "No recognized project file found (mise.toml / Makefile / package.json)"
 				return 1
-			elif [ "$count" -eq 1 ]; then
-				local script
-				script=$(echo "$matches" | jq -r 'keys[0]')
-				echo "Running $script with $tool"
-				sleep 0.3
-				$tool run "$script"
-			else
-				echo "$matches" | bat -l json -p
 			fi
+			;;
+		esac
+
+		local task="$1" names
+		names=$(_run_list_tasks "$tool")
+
+		if [ -z "$task" ]; then
+			echo "$names"
 			return
 		fi
 
-		# --- mise / make: pass through directly ---
-		case "$tool" in
-		mise) mise run "$1" ;;
-		make) make "$1" ;;
-		esac
+		# exact match: run directly
+		if echo "$names" | grep -qxF -- "$task"; then
+			_run_exec_task "$tool" "$task"
+			return
+		fi
+
+		# fuzzy match
+		local matches count
+		matches=$(echo "$names" | grep -iE -- "$task")
+		count=$(echo "$matches" | grep -c .)
+
+		if [ "$count" -eq 0 ]; then
+			echo "No tasks matching '$task'"
+			return 1
+		elif [ "$count" -eq 1 ]; then
+			echo "Running $matches with $tool"
+			sleep 0.3
+			_run_exec_task "$tool" "$matches"
+		else
+			echo "$matches"
+		fi
 	}
 
 	alias B="run build"

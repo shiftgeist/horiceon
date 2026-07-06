@@ -1,6 +1,11 @@
-#!/usr/bin/env -S /Users/felix/.local/share/mise/installs/bun/latest/bin/bun --env-file=/Users/felix/.horiceon/.env
+#!/usr/local/bin/deno run --allow-env --allow-read --allow-sys --allow-net
 
-const outputBar = process.argv.includes("--bar");
+import { load } from "jsr:@std/dotenv@0.225.7";
+import { homedir } from "node:os";
+
+const env = await load({ envPath: `${homedir()}/.horiceon/.env` });
+
+const outputBar = process.env.SWIFTBAR === '1'
 
 interface SemsEnvelope<T> {
   hasError: boolean;
@@ -36,7 +41,7 @@ const SEMS_PASSWORD = requireEnv("SEMS_PASSWORD");
 const SEMS_STATION_ID = requireEnv("SEMS_STATION_ID");
 
 function requireEnv(name: string): string {
-  const value = process.env[name];
+  const value = env[name];
   if (!value) {
     const msg = `Missing required env var: ${name}`;
     console.error(msg);
@@ -105,7 +110,7 @@ async function main() {
   const batteryCurrent = parseNumber(inverter.invert_full.ibattery1);
   const batteryPowerWatts = Math.round(batteryVoltage * batteryCurrent * 100) / 100;
   const kW = Math.round(batteryPowerWatts / 100) / 10;
-  const iconsBattery = scaleToBar(soc, 10, 100, ['⬛️', '🟫', '🟥', '🟧', '🟨', '⏺️', '⬜', '🟦', '🟩', '❇️', '🔌⛽']);
+  const iconsBattery = scaleToBar(soc, 10, 100, ['⬛️', '🟥', '🟧', '🟨', '⬜', '🟦', '🟩', '❇️', '🔌⛽']);
   const iconsWatts = scaleToBar(kW, -8, 8, ['▼', '💤', '▲'])
 
   if (outputBar) {

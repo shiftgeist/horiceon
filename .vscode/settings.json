@@ -6,6 +6,7 @@
     "vscode",
     "zsh"
   ],
+  "deno.enable": true,
   "files.exclude": {
     "**/.aws": true,
     "**/.cache": true,

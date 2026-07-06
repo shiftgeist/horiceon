@@ -111,7 +111,7 @@ async function main() {
   const batteryPowerWatts = Math.round(batteryVoltage * batteryCurrent * 100) / 100;
   const kW = Math.round(batteryPowerWatts / 100) / 10;
   const iconsBattery = scaleToBar(soc, 10, 100, ['⬛️', '🟥', '🟧', '🟨', '⬜', '🟦', '🟩', '❇️', '🔌⛽']);
-  const iconsWatts = scaleToBar(kW, -8, 8, ['▼', '💤', '▲'])
+  const iconsWatts = scaleToBar(kW, -8, 8, ['▼', '', '▲'])
 
   if (outputBar) {
     console.log(`${iconsBattery}${iconsWatts}`);

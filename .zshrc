@@ -40,6 +40,15 @@ function _check-commands() {
 	return 0
 }
 
+function _ask() {
+	local prompt="$1"
+	local response
+
+	echo "$prompt (y/N) "
+	read -r response
+	[[ "$response" == [yY] ]] && return 0 || return 1
+}
+
 ###
 # Basics
 ###
@@ -322,7 +331,7 @@ if _check-commands brew; then
   slack \
   spotify \
   zen"
-	alias brew-up="brew upgrade && brew-up-apps"
+	alias brew-up="brew upgrade && brew-up-apps && mise up"
 	alias brew-up-all="brew upgrade --greedy && mise up"
 
 	alias ladybird-setup="brew create https://github.com/LadybirdBrowser/ladybird/archive/refs/heads/master.zip --set-name ladybird --set-version HEAD && brew edit ladybird" # sorry no formula code available
@@ -337,7 +346,7 @@ fi
 if _check-commands code; then
 	export VISUAL="code"
 
-	alias horiceon-code='GIT_DIR="$RICE_HOME" GIT_WORK_TREE="$HOME" code --disable-extensions "$HOME"'
+	alias horiceon-code='GIT_DIR="$RICE_HOME" GIT_WORK_TREE="$HOME" code "$HOME"'
 fi
 
 if _check-commands glow; then
@@ -355,7 +364,29 @@ fi
 
 if _check-commands mise; then
 	eval "$(mise activate zsh)"
-	echo "mise active"
+
+	check_files=(
+		/usr/local/bin/bun
+		/usr/local/bin/deno
+		/usr/local/bin/dprint
+		/usr/local/bin/go
+		/usr/local/bin/node
+	)
+	for target in "${check_files[@]}"; do
+		[[ -e "$target" ]] && continue
+
+		source="$HOME/.local/share/mise/shims/$(basename "$target")"
+
+		if [[ ! -e "$source" ]]; then
+			echo "No source found for $target at $source, skipping." >&2
+			continue
+		fi
+
+		if _ask "$target is missing. Create symlink for /usr/local/bin (sudo required in next step)?"; then
+			sudo ln -s "$source" "$target"
+			echo "Linked $target -> $source"
+		fi
+	done
 fi
 
 if _check-commands pnpm; then

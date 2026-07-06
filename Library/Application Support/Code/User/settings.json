@@ -66,14 +66,14 @@
     "saldo"
   ],
   "darkSynthwave84.disableGlow": true,
-  "deno.path": "~/.local/share/mise/installs/deno/latest/bin/deno",
+  "deno.path": "/usr/local/bin/deno",
   "diffEditor.codeLens": true,
   "diffEditor.experimental.showMoves": true,
   "diffEditor.experimental.useTrueInlineView": true,
   "diffEditor.ignoreTrimWhitespace": false,
   "diffEditor.renderSideBySide": true,
   "dprint.experimentalLsp": true,
-  "dprint.path": "~/.local/share/mise/installs/dprint/latest/dprint",
+  "dprint.path": "/usr/local/bin/dprint",
   "editor.codeActionsOnSave": {
     "source.organizeImports": "explicit",
     "source.removeUnused.ts": "explicit",

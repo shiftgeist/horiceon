@@ -1,7 +1,12 @@
 #!/usr/local/bin/deno run --allow-env --allow-read --allow-sys --allow-net --allow-run
 
+// why deno?
+// A: hashbang script exec works
+// B: buildin dotenv
+// C: temporal support
+// D: root level async
+
 import { load } from "jsr:@std/dotenv@0.225.7";
-import { execSync } from "node:child_process";
 import { homedir } from "node:os";
 
 const env = await load({ envPath: `${homedir()}/.horiceon/.env` });
@@ -10,7 +15,11 @@ const outputBar = process.env.SWIFTBAR === "1";
 const ignoreLowPower = process.env.LOWPOWER === "0";
 
 try {
-  const output = execSync("pmset -g").toString();
+  const { stdout } = await Deno.spawnAndWait("pmset", {
+    args: ["-g"],
+  });
+  const output = new TextDecoder().decode(stdout).trim();
+
   const isLowPowerMode = output.replaceAll(" ", "").includes("lowpowermode1");
 
   if (isLowPowerMode && !ignoreLowPower) {
@@ -150,8 +159,7 @@ async function main() {
     "⬜",
     "🟦",
     "🟩",
-    "❇️",
-    "🔌⛽",
+    "⛽❇️",
   ]);
   const iconsWatts = scaleToBar(kW, -8, 8, ["▼", "", "▲"]);
 
@@ -159,7 +167,7 @@ async function main() {
     console.log(`${iconsBattery}${iconsWatts}`);
     console.log("---");
     console.log(`${soc}% (${kW > 0 ? "+" : ""}${kW}kW)`);
-    console.log(`Last Updated: ${new Date().toISOString()} | refresh=true`);
+    console.log(`Last Updated: ${Temporal.Now.plainDateTimeISO()} | refresh=true`);
     console.log(
       `Station ↗️ | href=https://www.semsportal.com/powerstation/PowerStatusSnMin/${SEMS_STATION_ID}`,
     );

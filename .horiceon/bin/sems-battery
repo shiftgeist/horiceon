@@ -1,15 +1,20 @@
 #!/usr/local/bin/deno run --allow-env --allow-read --allow-sys --allow-net --allow-run
 
-// why deno?
-// A: hashbang script exec works
-// B: buildin dotenv
-// C: temporal support
-// D: root level async
-
 import { load } from "jsr:@std/dotenv@0.225.7";
+import { z } from 'jsr:@zod/zod@4.4.3/v4';
 import { homedir } from "node:os";
 
-const env = await load({ envPath: `${homedir()}/.horiceon/.env` });
+const envSchema = z.object({
+  SEMS_ACCOUNT: z.string(),
+  SEMS_PASSWORD: z.string(),
+  SEMS_STATION_ID: z.string(),
+})
+
+const env = await load({ envPath: `${homedir()}/.horiceon/.env` }).then(rawEnv => {
+  const parsed = envSchema.safeParse(rawEnv)
+  if (parsed.error) throw parsed.error;
+  return parsed.data;
+})
 
 const outputBar = process.env.SWIFTBAR === "1";
 const ignoreLowPower = process.env.LOWPOWER === "0";
@@ -31,6 +36,8 @@ try {
   process.exit(0);
 }
 
+const NOISE_FILTER_W = 10
+
 interface SemsEnvelope<T> {
   hasError: boolean;
   code: number;
@@ -48,35 +55,32 @@ interface LoginToken {
   language: string;
 }
 
-interface InverterSummary {
-  invert_full: {
-    soc: string | number;
-    vbattery1: string | number;
-    ibattery1: string | number;
-  };
+interface PowerFlowGet {
+  powerflow: PowerFlow;
 }
 
-interface MonitorDetail {
-  inverter: InverterSummary[];
+function parseWStrToKW(value: string): number {
+  return Math.round(parseFloat(value) / 10) / 100;
 }
 
-const SEMS_ACCOUNT = requireEnv("SEMS_ACCOUNT");
-const SEMS_PASSWORD = requireEnv("SEMS_PASSWORD");
-const SEMS_STATION_ID = requireEnv("SEMS_STATION_ID");
-
-function requireEnv(name: string): string {
-  const value = env[name];
-  if (!value) {
-    const msg = `Missing required env var: ${name}`;
-    console.error(msg);
-    process.exit(1);
-  }
-  return value;
+function noiseFilter(val: number): number | string {
+  return val < NOISE_FILTER_W ? '??' : val;
 }
 
-function parseNumber(value: string | number): number {
-  return typeof value === "number" ? value : parseFloat(value);
+function parseKwText(val: number) {
+  return `${val > 0 ? "+" : ""}${val}kW`
 }
+
+const PowerFlowSchema = z.object({
+  pv: z.string().transform(parseWStrToKW),
+  bettery: z.string().transform(parseWStrToKW),
+  betteryStatus: z.number(), // -1=discharging, 1=charging, 3=charging ?
+  load: z.string().transform(parseWStrToKW).transform(noiseFilter),
+  loadStatus: z.number(),
+  grid: z.string().transform(parseWStrToKW),
+  soc: z.number(),
+})
+type PowerFlow = z.infer<typeof PowerFlowSchema>
 
 function scaleToBar(value: number, min: number, max: number, chars: string[]) {
   const ratio = (value - min) / (max - min);
@@ -100,7 +104,7 @@ async function login(): Promise<{ apiBaseUrl: string; token: LoginToken }> {
           language: "en",
         }),
       },
-      body: JSON.stringify({ account: SEMS_ACCOUNT, pwd: SEMS_PASSWORD }),
+      body: JSON.stringify({ account: env.SEMS_ACCOUNT, pwd: env.SEMS_PASSWORD }),
     },
   );
 
@@ -112,69 +116,54 @@ async function login(): Promise<{ apiBaseUrl: string; token: LoginToken }> {
   return { apiBaseUrl: body.api, token: body.data };
 }
 
-async function fetchMonitorDetail(
+async function getPowerflow(
   apiBaseUrl: string,
   token: LoginToken,
-): Promise<MonitorDetail> {
+): Promise<PowerFlow> {
   const response = await fetch(
-    `${apiBaseUrl}v2/PowerStation/GetMonitorDetailByPowerstationId`,
+    `${apiBaseUrl}v2/PowerStation/GetPowerflow`,
     {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         Token: JSON.stringify(token),
       },
-      body: JSON.stringify({ powerStationId: SEMS_STATION_ID }),
+      body: JSON.stringify({ PowerStationId: env.SEMS_STATION_ID }),
     },
   );
 
-  const body: SemsEnvelope<MonitorDetail> = await response.json();
+  const body: SemsEnvelope<PowerFlowGet> = await response.json();
   if (body.hasError) {
     throw new Error(`Fetching inverter data failed: ${body.msg}`);
   }
 
-  return body.data;
+
+  const parse = PowerFlowSchema.safeParse(body.data.powerflow)
+  if (parse.error) throw parse.error;
+
+  return parse.data;
 }
 
 async function main() {
   const { apiBaseUrl, token } = await login();
-  const monitorDetail = await fetchMonitorDetail(apiBaseUrl, token);
+  const pf = await getPowerflow(apiBaseUrl, token);
 
-  const inverter = monitorDetail.inverter[0];
-  if (!inverter) {
-    throw new Error("No inverter data returned for this station.");
-  }
+  const charge = pf.bettery * pf.betteryStatus
 
-  const soc = parseNumber(inverter.invert_full.soc);
-  const batteryVoltage = parseNumber(inverter.invert_full.vbattery1);
-  const batteryCurrent = parseNumber(inverter.invert_full.ibattery1);
-  const batteryPowerWatts = Math.round(batteryVoltage * batteryCurrent * 100) /
-    100;
-  const kW = Math.round(batteryPowerWatts / 100) / 10;
-  const iconsBattery = scaleToBar(soc, 10, 100, [
-    "⬛️",
-    "🟥",
-    "🟧",
-    "🟨",
-    "⬜",
-    "🟦",
-    "🟩",
-    "⛽❇️",
-  ]);
-  const iconsWatts = scaleToBar(kW, -8, 8, ["▼", "", "▲"]);
+  const iconsBattery = scaleToBar(pf.soc, 10, 95, ["🟥", "🟧", "🟨", "⬜", "🟦", "🟩", "⛽❇️"]);
+  const iconsWatts = scaleToBar(pf.betteryStatus, -1, 1, ["▼", "", "▲"]);
 
-  if (outputBar) {
-    console.log(`${iconsBattery}${iconsWatts}`);
-    console.log("---");
-    console.log(`${soc}% (${kW > 0 ? "+" : ""}${kW}kW)`);
-    console.log(`Last Updated: ${Temporal.Now.plainDateTimeISO()} | refresh=true`);
-    console.log(
-      `Station ↗️ | href=https://www.semsportal.com/powerstation/PowerStatusSnMin/${SEMS_STATION_ID}`,
-    );
-  } else {
-    console.log(
-      `${iconsBattery}${iconsWatts} ${soc}% (${kW > 0 ? "+" : ""}${kW}kW)`,
-    );
+  console.log(`${iconsBattery}${iconsWatts}`);
+  console.log("---");
+  console.log(`☀️ ${pf.pv}kW`);
+  console.log(`${pf.soc}% (${parseKwText(charge)} = ${pf.bettery} * ${pf.betteryStatus})`);
+  console.log(`Load ${pf.load} ${pf.loadStatus}`);
+
+  console.log(`Last Updated: ${Temporal.Now.plainTimeISO().toString({ smallestUnit: 'minute' })} | refresh=true`);
+  console.log(`Station ↗️ | href=https://www.semsportal.com/powerstation/PowerStatusSnMin/${env.SEMS_STATION_ID}`);
+
+  if (!outputBar) {
+    console.log(JSON.stringify(pf, null, 2));
   }
 }
 

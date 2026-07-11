@@ -318,7 +318,8 @@ if _check-commands brew; then
 		echo "Brewfile dumped and filtered"
 	}
 
-	alias brew-recover="brew bundle install --global && mise up"
+	alias mise-up="cd $HOME && mise up"
+	alias brew-recover="brew bundle install --global && mise-up"
 	alias brew-up-apps="brew upgrade \
   affinity \
   beekeeper-studio \
@@ -331,8 +332,8 @@ if _check-commands brew; then
   slack \
   spotify \
   zen"
-	alias brew-up="brew upgrade && brew-up-apps && mise up"
-	alias brew-up-all="brew upgrade --greedy && mise up"
+	alias brew-up="brew upgrade && brew-up-apps && mise-up"
+	alias brew-up-all="brew upgrade --greedy && mise-up"
 
 	alias ladybird-setup="brew create https://github.com/LadybirdBrowser/ladybird/archive/refs/heads/master.zip --set-name ladybird --set-version HEAD && brew edit ladybird" # sorry no formula code available
 	if [ -d /opt/homebrew/opt/ladybird/.brew/ladybird.rb ]; then

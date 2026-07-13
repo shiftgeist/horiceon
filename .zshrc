@@ -3,8 +3,6 @@
 
 # Basic requirements: curl, docker, git, lsof
 
-IS_WSL=$([[ -f /proc/version ]] && grep -qi microsoft /proc/version && echo true)
-
 # Brew
 test -d /home/linuxbrew/.linuxbrew && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 test -d /opt/homebrew/bin/brew && eval "$(/opt/homebrew/bin/brew shellenv zsh)"
@@ -48,6 +46,57 @@ function _ask() {
 	read -r response
 	[[ "$response" == [yY] ]] && return 0 || return 1
 }
+
+function _link-if-missing() {
+	local source="$1"
+	local target="$2"
+
+	[[ -e "$target" ]] && return 0
+
+	if [[ ! -e "$source" ]]; then
+		echo "No source found for $target at $source, skipping." >&2
+		return 1
+	fi
+
+	_ask "$target is missing. Create symlink (sudo required in next step)?" || return 0
+
+	sudo ln -s "$source" "$target"
+	echo "Linked $target -> $source"
+}
+
+function _detect_platform() {
+	case "$(uname -s)" in
+	Darwin)
+		echo "macos"
+		;;
+	Linux)
+		if grep -qi microsoft /proc/version 2>/dev/null; then
+			echo "wsl"
+		else
+			echo "linux"
+		fi
+		;;
+	MINGW* | MSYS* | CYGWIN*)
+		echo "windows"
+		;;
+	*)
+		echo "unknown"
+		;;
+	esac
+}
+
+function _detect_linux_distro() {
+	[[ -f /etc/alpine-release ]] && echo "alpine" && return
+	echo "debian"
+}
+
+PLATFORM="$(_detect_platform)"
+LINUX_DISTRO=""
+[[ "$PLATFORM" == "linux" ]] && LINUX_DISTRO="$(_detect_linux_distro)"
+
+if _check-commands starship; then
+	eval "$(starship init zsh)"
+fi
 
 ###
 # Basics
@@ -142,12 +191,110 @@ source "$HOME/.cargo/env"
 bindkey -e # emacs mode
 
 ###
-# Internals
+# User space
 ###
 
-if _check-commands starship; then
-	eval "$(starship init zsh)"
-fi
+alias "..."="cd ../.."
+alias "...."="cd ../../.."
+alias finder="open"
+alias grepf="fzf -f"
+alias horiceon="/usr/bin/git --git-dir=$RICE_HOME --work-tree=$HOME"
+alias la="ls -la"
+alias now="date +%s"
+alias rm="trash"
+alias timestamp="date +%s"
+alias la="ls -la"
+
+case "$PLATFORM" in
+macos)
+	alias open-file='open'
+	alias install='brew install'
+	alias clipboard='pbcopy'
+	alias pasteboard='pbpaste'
+	;;
+wsl)
+	alias open-file='explorer.exe'
+	alias install='sudo apt-get install'
+	alias clipboard='clip.exe'
+	alias pasteboard='powershell.exe -NoProfile -Command Get-Clipboard | tr -d "\r"'
+	;;
+linux)
+	alias open-file='xdg-open'
+
+	case "$LINUX_DISTRO" in
+	alpine) alias install='sudo apk add' ;;
+	debian) alias install='sudo apt-get install' ;;
+	esac
+
+	if command -v xclip &>/dev/null; then
+		alias clipboard='xclip -selection clipboard'
+		alias pasteboard='xclip -selection clipboard -o'
+	elif command -v wl-copy &>/dev/null; then
+		alias clipboard='wl-copy'
+		alias pasteboard='wl-paste'
+	fi
+	;;
+esac
+
+function cheat {
+	curl "cht.sh/$1" | less -R
+}
+alias example="cheat"
+alias expl="cheat"
+alias explain="cheat"
+alias tldr="cheat"
+alias help="cheat"
+function til() {
+	target=$(date -j -f "%H:%M" "$1" "+%s")
+	now=$(date +%s)
+	sleep $((target - now))
+}
+
+function check-port() {
+	lsof -i tcp${1:+":$1"}
+}
+
+function kill_port() {
+	if [ "$#" -ne 1 ]; then
+		echo "Usage: kill_port <PORT>"
+		return 1
+	fi
+
+	PORT=$1
+
+	PID=$(lsof -t -i tcp:$PORT)
+
+	if [ -z "$PID" ]; then
+		echo "No process found running on port $PORT"
+		return 1
+	fi
+
+	echo "Killing process $PID running on port $PORT"
+	kill -9 $PID
+}
+
+function copy() {
+	local include_cmd=false
+	[[ "$1" == "-c" ]] && include_cmd=true
+
+	local content=$(cat)
+	printf '%s\n' "$content"
+
+	if $include_cmd; then
+		printf '%s\n%s\n' "$_last_cmd" "$content" | clipboard
+	else
+		printf '%s\n' "$content" | clipboard
+	fi
+}
+
+function wind {
+	key="wind_speed_180m"
+	json=$(curl -s "https://api.open-meteo.com/v1/forecast?latitude=$1&longitude=$2&current=$key&wind_speed_unit=kmh&models=best_match&timezone=auto")
+	wind=$(echo "$json" | yq -P ".current.$key")
+	unit=$(echo "$json" | yq -P ".current_units.$key")
+
+	echo "$wind $unit"
+}
 
 function alpine() {
 	function _help() {
@@ -199,102 +346,32 @@ if _check-commands docker; then
 	}
 fi
 
-###
-# User space
-###
-
-alias "..."="cd ../.."
-alias "...."="cd ../../.."
-alias finder="open"
-alias grepf="fzf -f"
-alias horiceon="/usr/bin/git --git-dir=$RICE_HOME --work-tree=$HOME"
-alias la="ls -la"
-alias now="date +%s"
-alias rm="trash"
-alias timestamp="date +%s"
-alias la="ls -la"
-
-function cheat {
-	curl "cht.sh/$1" | less -R
-}
-alias example="cheat"
-alias expl="cheat"
-alias explain="cheat"
-alias tldr="cheat"
-alias help="cheat"
-function til() {
-	target=$(date -j -f "%H:%M" "$1" "+%s")
-	now=$(date +%s)
-	sleep $((target - now))
-}
-
-function wind {
-	key="wind_speed_180m"
-	json=$(curl -s "https://api.open-meteo.com/v1/forecast?latitude=$1&longitude=$2&current=$key&wind_speed_unit=kmh&models=best_match&timezone=auto")
-	wind=$(echo "$json" | yq -P ".current.$key")
-	unit=$(echo "$json" | yq -P ".current_units.$key")
-
-	echo "$wind $unit"
-}
-
-function check-port() {
-	lsof -i tcp${1:+":$1"}
-}
-
-function kill_port() {
-	if [ "$#" -ne 1 ]; then
-		echo "Usage: kill_port <PORT>"
-		return 1
-	fi
-
-	PORT=$1
-
-	PID=$(lsof -t -i tcp:$PORT)
-
-	if [ -z "$PID" ]; then
-		echo "No process found running on port $PORT"
-		return 1
-	fi
-
-	echo "Killing process $PID running on port $PORT"
-	kill -9 $PID
-}
-
-function cheatsheet_iterm2() {
-	URL='https://gist.githubusercontent.com/squarism/ae3613daf5c01a98ba3a/raw/e0b1c1c0309244400b847fc539899bcfde42f98a/iterm2.md'
-	CACHE_FILE="$XDG_CACHE_HOME/$(echo "$URL" | sha256sum | cut -d' ' -f1).md"
-
-	[[ ! -f "$CACHE_FILE" ]] && curl -sL "$URL" -o "$CACHE_FILE"
-
-	glow --pager "$CACHE_FILE"
-}
-
 function alias-suggest() {
-  local noise='awk|sort|head'
+	local noise='awk|sort|head'
 
-  fc -l 1 |
-    # Drop the leading history event number.
-    sed -E 's/^[[:space:]]*[0-9]+[[:space:]]*//' |
-    # Split pipelines into separate command segments and unescape.
-    sed -E 's/\\n/ /g; s/ \| /\n/g; s/\\//g' |
-    # Trim surrounding whitespace, drop blank lines.
-    awk 'NF { $1=$1; print }' |
-    # Keep lines that look like a command invocation...
-    grep -E '^[a-zA-Z/~.]' |
-    # ...excluding noise commands and any leftover pipelines...
-    grep -Ev "^($noise) " |
-    grep -v '|' |
-    # ...and excluding assignments or quoted strings.
-    awk '$1 !~ /["=]/ && $1 ~ /[a-z]/' |
-    # Normalize: expand the leading command word so `g status` and
-    # `git status` (where g=git) contribute to the same count.
-    while read -r line; do
-      local cmd="${line%% *}"
-      local rest="${line#"$cmd"}"
-      print -r -- "${aliases[$cmd]:-$cmd}$rest"
-    done |
-    # Count identical commands, keep repeats, most frequent first.
-    sort | uniq -c | awk '$1 > 1' | sort -rn
+	fc -l 1 |
+		# Drop the leading history event number.
+		sed -E 's/^[[:space:]]*[0-9]+[[:space:]]*//' |
+		# Split pipelines into separate command segments and unescape.
+		sed -E 's/\\n/ /g; s/ \| /\n/g; s/\\//g' |
+		# Trim surrounding whitespace, drop blank lines.
+		awk 'NF { $1=$1; print }' |
+		# Keep lines that look like a command invocation...
+		grep -E '^[a-zA-Z/~.]' |
+		# ...excluding noise commands and any leftover pipelines...
+		grep -Ev "^($noise) " |
+		grep -v '|' |
+		# ...and excluding assignments or quoted strings.
+		awk '$1 !~ /["=]/ && $1 ~ /[a-z]/' |
+		# Normalize: expand the leading command word so `g status` and
+		# `git status` (where g=git) contribute to the same count.
+		while read -r line; do
+			local cmd="${line%% *}"
+			local rest="${line#"$cmd"}"
+			print -r -- "${aliases[$cmd]:-$cmd}$rest"
+		done |
+		# Count identical commands, keep repeats, most frequent first.
+		sort | uniq -c | awk '$1 > 1' | sort -rn
 }
 
 _cli_continues="$HOME/code/cli-continues"
@@ -366,51 +443,15 @@ fi
 if _check-commands mise; then
 	eval "$(mise activate zsh)"
 
-	check_files=(
-		/usr/local/bin/bun
-		/usr/local/bin/deno
-		/usr/local/bin/dprint
-		/usr/local/bin/go
-		/usr/local/bin/node
-	)
-	for target in "${check_files[@]}"; do
-		[[ -e "$target" ]] && continue
-
-		source="$HOME/.local/share/mise/shims/$(basename "$target")"
-
-		if [[ ! -e "$source" ]]; then
-			echo "No source found for $target at $source, skipping." >&2
-			continue
-		fi
-
-		if _ask "$target is missing. Create symlink for /usr/local/bin (sudo required in next step)?"; then
-			sudo ln -s "$source" "$target"
-			echo "Linked $target -> $source"
-		fi
-	done
+	_link-if-missing $HOME/.local/share/mise/shims/bun /usr/local/bin/bun
+	_link-if-missing $HOME/.local/share/mise/shims/deno /usr/local/bin/deno
+	_link-if-missing $HOME/.local/share/mise/shims/dprint /usr/local/bin/dprint
+	_link-if-missing $HOME/.local/share/mise/shims/go /usr/local/bin/go
+	_link-if-missing $HOME/.local/share/mise/shims/node /usr/local/bin/node
 fi
 
-if _check-commands pnpm; then
+if _check-commands pnpx; then
 	alias ts-prune="pnpx knip"
-fi
-
-if _check-commands pbcopy pbcopy; then
-	function copy() {
-		local include_cmd=false
-		[[ "$1" == "-c" ]] && include_cmd=true
-
-		local content=$(cat)
-		printf '%s\n' "$content"
-
-		if $include_cmd; then
-			printf '%s\n%s\n' "$_last_cmd" "$content" | pbcopy
-		else
-			printf '%s\n' "$content" | pbcopy
-		fi
-	}
-
-	alias clipboard="copy"
-	alias paste="pbpaste"
 fi
 
 if _check-commands uv; then
@@ -524,17 +565,18 @@ fi
 ###
 
 if [[ $IS_WSL ]]; then
-	function horiceon-sync() {
-		cp -r ~/Library/Application\ Support/Code /mnt/c/Users/user/AppData/Roaming
-	}
-
-	if [[ ! -e ~/c ]]; then
-		ln -s /mnt/c/Users/user/ $c_drive
+	if _check-commands powershell.exe; then
+		value="$(powershell.exe -NoProfile -Command "(Get-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\AppModelUnlock' -Name AllowDevelopmentWithoutDevLicense -ErrorAction SilentlyContinue).AllowDevelopmentWithoutDevLicense" 2>/dev/null | tr -d '\r')"
+		[[ "$value" == "1" ]] && DEV_MODE_ENABLED=true
+		[[ $DEV_MODE_ENABLED ]] || echo "Developer mode is turned off (System > Advanced > Section "For developers" - Developer Mode = on)"
 	fi
 
 	if [[ $(command -v apt-get) ]]; then
 		alias apt-setup="sudo apt-get install trash-cli"
 	fi
+
+	_link-if-missing /mnt/c/Users/user/ "$HOME/c/"
+	_link-if-missing "$HOME/dotfiles/vscode/settings.json" /mnt/c/Users/user/AppData/Roaming/Code/User/settings.json
 fi
 
 # zprof # Debug performance (keep @ bottom)

@@ -236,6 +236,7 @@ linux)
 	;;
 esac
 
+alias wttr="curl 'https://wttr.in/?view=v1&output=txt&no-terminal=true&emoji=plain&superquiet=true&narrow=true&days=1'"
 function cheat {
 	curl "cht.sh/$1" | less -R
 }
@@ -285,15 +286,6 @@ function copy() {
 	else
 		printf '%s\n' "$content" | clipboard
 	fi
-}
-
-function wind {
-	key="wind_speed_180m"
-	json=$(curl -s "https://api.open-meteo.com/v1/forecast?latitude=$1&longitude=$2&current=$key&wind_speed_unit=kmh&models=best_match&timezone=auto")
-	wind=$(echo "$json" | yq -P ".current.$key")
-	unit=$(echo "$json" | yq -P ".current_units.$key")
-
-	echo "$wind $unit"
 }
 
 function alpine() {

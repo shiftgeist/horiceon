@@ -1,0 +1,8 @@
+#!/bin/sh
+
+key="wind_speed_180m"
+json=$(curl -s "https://api.open-meteo.com/v1/forecast?latitude=$1&longitude=$2&current=$key&wind_speed_unit=kmh&models=dwd_icon_seamless&timezone=auto")
+wind=$(echo "$json" | yq -P ".current.$key")
+unit=$(echo "$json" | yq -P ".current_units.$key")
+
+echo "$wind $unit"

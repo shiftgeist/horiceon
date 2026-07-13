@@ -1,11 +1,11 @@
 {
-  "$schema": "https://dprint.dev/schemas/v0.json",
+  // "$schema": "https://dprint.dev/schemas/v0.json",
   "indentWidth": 2,
   "useTabs": false,
   "lineWidth": 100,
   "typescript": {
     // https://dprint.dev/plugins/typescript/config/
-    "$schema": "https://plugins.dprint.dev/dprint/dprint-plugin-typescript/latest/schema.json",
+    // "$schema": "https://plugins.dprint.dev/dprint/dprint-plugin-typescript/latest/schema.json",
     "preferSingleLine": true,
     "quoteProps": "asNeeded",
     "quoteStyle": "preferSingle",
@@ -84,6 +84,7 @@
     "https://plugins.dprint.dev/jupyter-0.2.3.wasm",
     "https://plugins.dprint.dev/markdown-0.22.1.wasm",
     "https://plugins.dprint.dev/toml-0.7.0.wasm",
-    "https://plugins.dprint.dev/typescript-0.96.1.wasm"
+    "https://plugins.dprint.dev/typescript-0.96.1.wasm",
+    "https://plugins.dprint.dev/scop/shebang-0.0.1.wasm"
   ]
 }

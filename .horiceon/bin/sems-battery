@@ -15,7 +15,7 @@ const envSchema = z.object({
 
 const env = await load({ envPath: `${homedir()}/.horiceon/.env` }).then(
   (rawEnv) => {
-    const parsed = envSchema.safeParse(rawEnv);
+    const parsed = envSchema.safeParse(Object.assign(process.env, rawEnv));
     if (parsed.error) throw parsed.error;
     return parsed.data;
   },
@@ -24,8 +24,7 @@ const env = await load({ envPath: `${homedir()}/.horiceon/.env` }).then(
 const flags = parseArgs(Deno.args, {
   boolean: ["json", "debug", "bar"],
 });
-
-const outputBar = env.SWIFTBAR || flags.bar;
+flags.bar = flags.bar || env.SWIFTBAR || false
 
 const controller = new AbortController();
 setTimeout(() => controller.abort(), 5000);
@@ -83,7 +82,8 @@ const PowerFlowSchema = z.object({
   ...v,
   t: {
     ...v.t,
-    delta: v.t.battery + v.t.load + v.t.pv,
+    delta1: v.t.battery + v.t.load + v.t.pv,
+    delta2: parseWStrToKW((v.t.battery + v.t.load + v.t.pv) * 1000 + ''),
   },
 }));
 type PowerFlow = z.infer<typeof PowerFlowSchema>;
@@ -180,18 +180,13 @@ async function main() {
     "",
     "▲",
   ]);
-  const iconLoad = scaleToBar(pf.t.load, 0, 1, [
-    "▼",
-    "",
-    "▲",
-  ]);
 
   if (flags.json) {
     console.log(JSON.stringify(pf, null, 2));
     return;
   }
 
-  if (outputBar) {
+  if (flags.bar) {
     console.log(`${iconsBattery}${iconsBatteryChange}`);
     console.log("---");
     console.log(`☀️ ${pf.pv}kW`);
@@ -200,7 +195,7 @@ async function main() {
         parseKwText(pf.t.battery)
       } = ${pf.bettery} * ${pf.betteryStatus})`,
     );
-    console.log(`Load ${parseKwText(pf.t.load)} ${pf.load} ${pf.loadStatus}`);
+    console.log(`Load ${parseKwText(pf.t.load)}`);
 
     console.log(
       `Last Updated: ${

@@ -1,42 +1,34 @@
-#!/usr/local/bin/deno run --allow-env --allow-read --allow-sys --allow-net --allow-run
+#!/usr/bin/env -S deno run --allow-env --allow-read --allow-sys --allow-net --allow-run
 
+import { parseArgs } from "jsr:@std/cli@1.0.32/parse-args";
 import { load } from "jsr:@std/dotenv@0.225.7";
-import { z } from 'jsr:@zod/zod@4.4.3/v4';
+import { z } from "jsr:@zod/zod@4.4.3/v4";
 import { homedir } from "node:os";
+import process from "node:process";
 
 const envSchema = z.object({
   SEMS_ACCOUNT: z.string(),
   SEMS_PASSWORD: z.string(),
   SEMS_STATION_ID: z.string(),
-})
+  SWIFTBAR: z.coerce.boolean().optional(),
+});
 
-const env = await load({ envPath: `${homedir()}/.horiceon/.env` }).then(rawEnv => {
-  const parsed = envSchema.safeParse(rawEnv)
-  if (parsed.error) throw parsed.error;
-  return parsed.data;
-})
+const env = await load({ envPath: `${homedir()}/.horiceon/.env` }).then(
+  (rawEnv) => {
+    const parsed = envSchema.safeParse(rawEnv);
+    if (parsed.error) throw parsed.error;
+    return parsed.data;
+  },
+);
 
-const outputBar = process.env.SWIFTBAR === "1";
-const ignoreLowPower = process.env.LOWPOWER === "0";
+const flags = parseArgs(Deno.args, {
+  boolean: ["json", "debug", "bar"],
+});
 
-try {
-  const { stdout } = await Deno.spawnAndWait("pmset", {
-    args: ["-g"],
-  });
-  const output = new TextDecoder().decode(stdout).trim();
+const outputBar = env.SWIFTBAR || flags.bar;
 
-  const isLowPowerMode = output.replaceAll(" ", "").includes("lowpowermode1");
-
-  if (isLowPowerMode && !ignoreLowPower) {
-    console.log(`💤`);
-    process.exit(0);
-  }
-} catch {
-  console.log(`Error in lowpowermode check`);
-  process.exit(0);
-}
-
-const NOISE_FILTER_W = 10
+const controller = new AbortController();
+setTimeout(() => controller.abort(), 5000);
 
 interface SemsEnvelope<T> {
   hasError: boolean;
@@ -59,28 +51,42 @@ interface PowerFlowGet {
   powerflow: PowerFlow;
 }
 
+function round(value: number): number {
+  return Math.round(value * 1000) / 1000;
+}
+
 function parseWStrToKW(value: string): number {
-  return Math.round(parseFloat(value) / 10) / 100;
+  return round(parseFloat(value) / 1000);
 }
 
-function noiseFilter(val: number): number | string {
-  return val < NOISE_FILTER_W ? '??' : val;
-}
-
-function parseKwText(val: number) {
-  return `${val > 0 ? "+" : ""}${val}kW`
+function parseKwText(val: number, showPlus = false) {
+  return `${val > 0 && showPlus ? "+" : ""}${val}kW`;
 }
 
 const PowerFlowSchema = z.object({
   pv: z.string().transform(parseWStrToKW),
+  pvStatus: z.number(),
   bettery: z.string().transform(parseWStrToKW),
   betteryStatus: z.number(), // -1=discharging, 1=charging, 3=charging ?
-  load: z.string().transform(parseWStrToKW).transform(noiseFilter),
-  loadStatus: z.number(),
+  load: z.string().transform(parseWStrToKW),
+  loadStatus: z.number(), // -1, 1
   grid: z.string().transform(parseWStrToKW),
   soc: z.number(),
-})
-type PowerFlow = z.infer<typeof PowerFlowSchema>
+}).transform((v) => ({
+  ...v,
+  t: {
+    battery: v.bettery * v.betteryStatus,
+    load: v.load * v.loadStatus,
+    pv: v.pv * v.pvStatus,
+  },
+})).transform((v) => ({
+  ...v,
+  t: {
+    ...v.t,
+    delta: v.t.battery + v.t.load + v.t.pv,
+  },
+}));
+type PowerFlow = z.infer<typeof PowerFlowSchema>;
 
 function scaleToBar(value: number, min: number, max: number, chars: string[]) {
   const ratio = (value - min) / (max - min);
@@ -96,6 +102,7 @@ async function login(): Promise<{ apiBaseUrl: string; token: LoginToken }> {
     "https://www.semsportal.com/api/v2/Common/CrossLogin",
     {
       method: "POST",
+      signal: controller.signal,
       headers: {
         "Content-Type": "application/json",
         Token: JSON.stringify({
@@ -104,13 +111,20 @@ async function login(): Promise<{ apiBaseUrl: string; token: LoginToken }> {
           language: "en",
         }),
       },
-      body: JSON.stringify({ account: env.SEMS_ACCOUNT, pwd: env.SEMS_PASSWORD }),
+      body: JSON.stringify({
+        account: env.SEMS_ACCOUNT,
+        pwd: env.SEMS_PASSWORD,
+      }),
     },
   );
 
   const body: SemsEnvelope<LoginToken> = await response.json();
   if (body.hasError || !body.api) {
     throw new Error(`Login failed: ${body.msg}`);
+  }
+
+  if (flags.debug) {
+    console.log("CrossLogin:", JSON.stringify(body.data, null, 2));
   }
 
   return { apiBaseUrl: body.api, token: body.data };
@@ -124,6 +138,7 @@ async function getPowerflow(
     `${apiBaseUrl}v2/PowerStation/GetPowerflow`,
     {
       method: "POST",
+      signal: controller.signal,
       headers: {
         "Content-Type": "application/json",
         Token: JSON.stringify(token),
@@ -137,8 +152,11 @@ async function getPowerflow(
     throw new Error(`Fetching inverter data failed: ${body.msg}`);
   }
 
+  if (flags.debug) {
+    console.log("GetPowerflow:", JSON.stringify(body.data.powerflow, null, 2));
+  }
 
-  const parse = PowerFlowSchema.safeParse(body.data.powerflow)
+  const parse = PowerFlowSchema.safeParse(body.data.powerflow);
   if (parse.error) throw parse.error;
 
   return parse.data;
@@ -148,23 +166,60 @@ async function main() {
   const { apiBaseUrl, token } = await login();
   const pf = await getPowerflow(apiBaseUrl, token);
 
-  const charge = pf.bettery * pf.betteryStatus
+  const iconsBattery = scaleToBar(pf.soc, 10, 95, [
+    "🟥",
+    "🟧",
+    "🟨",
+    "⬜",
+    "🟦",
+    "🟩",
+    "⛽❇️",
+  ]);
+  const iconsBatteryChange = scaleToBar(pf.betteryStatus, -1, 1, [
+    "▼",
+    "",
+    "▲",
+  ]);
+  const iconLoad = scaleToBar(pf.t.load, 0, 1, [
+    "▼",
+    "",
+    "▲",
+  ]);
 
-  const iconsBattery = scaleToBar(pf.soc, 10, 95, ["🟥", "🟧", "🟨", "⬜", "🟦", "🟩", "⛽❇️"]);
-  const iconsWatts = scaleToBar(pf.betteryStatus, -1, 1, ["▼", "", "▲"]);
-
-  console.log(`${iconsBattery}${iconsWatts}`);
-  console.log("---");
-  console.log(`☀️ ${pf.pv}kW`);
-  console.log(`${pf.soc}% (${parseKwText(charge)} = ${pf.bettery} * ${pf.betteryStatus})`);
-  console.log(`Load ${pf.load} ${pf.loadStatus}`);
-
-  console.log(`Last Updated: ${Temporal.Now.plainTimeISO().toString({ smallestUnit: 'minute' })} | refresh=true`);
-  console.log(`Station ↗️ | href=https://www.semsportal.com/powerstation/PowerStatusSnMin/${env.SEMS_STATION_ID}`);
-
-  if (!outputBar) {
+  if (flags.json) {
     console.log(JSON.stringify(pf, null, 2));
+    return;
   }
+
+  if (outputBar) {
+    console.log(`${iconsBattery}${iconsBatteryChange}`);
+    console.log("---");
+    console.log(`☀️ ${pf.pv}kW`);
+    console.log(
+      `${pf.soc}% (${
+        parseKwText(pf.t.battery)
+      } = ${pf.bettery} * ${pf.betteryStatus})`,
+    );
+    console.log(`Load ${parseKwText(pf.t.load)} ${pf.load} ${pf.loadStatus}`);
+
+    console.log(
+      `Last Updated: ${
+        Temporal.Now.plainTimeISO().toString({ smallestUnit: "minute" })
+      } | refresh=true`,
+    );
+    console.log(
+      `Station ↗️ | href=https://www.semsportal.com/powerstation/PowerStatusSnMin/${env.SEMS_STATION_ID}`,
+    );
+    return;
+  }
+
+  console.log(
+    `☀️ ${
+      parseKwText(pf.pv)
+    } -> 🔋 ${iconsBattery}${iconsBatteryChange} ${pf.soc}% (${
+      parseKwText(pf.t.battery)
+    }) -> 🏠 ${parseKwText(pf.t.load)}`,
+  );
 }
 
 main().catch((error) => {

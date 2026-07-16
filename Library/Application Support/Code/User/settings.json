@@ -249,6 +249,7 @@
   "workbench.commandPalette.experimental.enableNaturalLanguageSearch": false,
   "workbench.editor.empty.hint": "hidden",
   "workbench.editor.enablePreview": false,
+  "workbench.experimental.modernUI": true,
   "workbench.fontAliasing": "antialiased",
   "workbench.layoutControl.enabled": false,
   "workbench.preferredDarkColorTheme": "Ayu Dark",

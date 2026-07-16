@@ -3,22 +3,25 @@ br = branch --sort=-committerdate
 br-cleanup-merged = !git branch --merged | grep -E -v '(^\\*|master|dev|main)' | xargs git branch -d && git pull --prune
 br-nuke = "!f() { git branch -d \"$@\" && git push origin --delete \"$@\"; }; f"
 br-nuke-all = !git branch | grep -E -v '(^\\*|master|dev|main)' | xargs git branch -D && git pull --prune
+brn = rev-parse --abbrev-ref HEAD
 co = checkout
-lo = "!f() { git log --graph --format='%h %C(auto)%d%C(reset) %s %C(dim)(%an, %ar)%C(reset)' ${1:-$(git rev-parse --abbrev-ref HEAD)}; }; f"
+lo = "!f() { git log --graph --format='%h %C(auto)%d%C(reset) %s %C(dim)(%an, %ar)%C(reset)' ${1:-$(git brn)}; }; f"
 ls-worktree = status -uall --porcelain
 pl = pull
 pls = pull --autostash
 pu = push
 puf = push --force-with-lease
+rem = remote --verbose
 reset-author = "!f() { \
   original_author=\"$(git log -1 --format='%an <%ae>')\"; \
   original_message=\"$(git log -1 --format=%B)\"; \
   git commit --amend --reset-author --only -m \"$original_message\" -m \"Co-authored-by: $original_author\"; \
 }; f"
-reset-base-dev = !git reset --soft $(git merge-base dev HEAD)
-reset-hardest = !git reset --hard origin/$(git rev-parse --abbrev-ref HEAD) && git clean -f -q .
-st = status
-up = !git push --set-upstream origin $(git rev-parse --abbrev-ref HEAD)
+reset-base-main = !git reset --soft $(git merge-base main HEAD)
+reset-base-main-hard = !git reset --hard $(git merge-base main HEAD)
+reset-hardest = !git reset --hard origin/$(git brn) && git clean -f -q .
+st = status --untracked-files=no
+up = !git push --set-upstream origin $(git brn)
 whoami = !git config --global user.name && git config --global user.email
 
 [color]

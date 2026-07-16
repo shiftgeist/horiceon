@@ -81,10 +81,14 @@ cask "resilio-sync"
 cask "slack"
 # Music streaming service
 cask "spotify"
+# Menu bar customization tool
+cask "swiftbar"
 # Easy to use text extraction tool
 cask "trex"
 # Open-source code editor
 cask "visual-studio-code"
+# Menu bar app for USB-C cable diagnostics
+cask "whatcable"
 # Gecko based web browser
 cask "zen"
 mas "Bitwarden", id: 1352778147

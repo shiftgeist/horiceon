@@ -1,11 +1,16 @@
 {
-  // "$schema": "https://dprint.dev/schemas/v0.json",
   "indentWidth": 2,
   "useTabs": false,
   "lineWidth": 100,
+  "followSymlinks": true,
+  "useHashbangs": true,
+  "hashbangs": {
+    "#!/usr/bin/env -S deno run": "ts",
+    "#!/usr/bin/env bash": "sh",
+    "#!/usr/bin/env node": "js"
+  },
   "typescript": {
     // https://dprint.dev/plugins/typescript/config/
-    // "$schema": "https://plugins.dprint.dev/dprint/dprint-plugin-typescript/latest/schema.json",
     "preferSingleLine": true,
     "quoteProps": "asNeeded",
     "quoteStyle": "preferSingle",

@@ -437,9 +437,14 @@ if _check-commands mise; then
 
 	_link-if-missing $HOME/.local/share/mise/shims/bun /usr/local/bin/bun
 	_link-if-missing $HOME/.local/share/mise/shims/deno /usr/local/bin/deno
-	_link-if-missing $HOME/.local/share/mise/shims/dprint /usr/local/bin/dprint
 	_link-if-missing $HOME/.local/share/mise/shims/go /usr/local/bin/go
 	_link-if-missing $HOME/.local/share/mise/shims/node /usr/local/bin/node
+
+	if [[ -e "$HOME/code/dprint/target/release/dprint" ]]; then
+		_link-if-missing $HOME/code/dprint/target/release/dprint /usr/local/bin/dprint
+	else;
+		_link-if-missing $HOME/.local/share/mise/shims/dprint /usr/local/bin/dprint
+	fi
 fi
 
 if _check-commands pnpx; then

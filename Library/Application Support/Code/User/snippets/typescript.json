@@ -21,7 +21,7 @@
   "Log to the console with stringify": {
     "prefix": "logj",
     "body": [
-      "console.log(`🐸📣`, JSON.stringify($1), `JSON.stringify($1)`)$0",
+      "console.log(JSON.stringify($2, null, 2), `$2`)$0",
     ]
   },
   "Log warning to console": {

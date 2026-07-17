@@ -1,1 +1,164 @@
-../bar/sems-battery.6m.ts
+#!/usr/bin/env -S deno run --allow-env --allow-read --allow-sys --allow-net --allow-run
+
+import { parseArgs } from 'jsr:@std/cli@1.0.32/parse-args';
+import { load } from 'jsr:@std/dotenv@0.225.7';
+import { z } from 'jsr:@zod/zod@4.4.3/v4';
+import { homedir } from 'node:os';
+import process from 'node:process';
+
+const envSchema = z.object({ SEMS_ACCOUNT: z.string(), SEMS_PASSWORD: z.string(),
+  SEMS_STATION_ID: z.string(), SWIFTBAR: z.coerce.boolean().optional() });
+
+const env = await load({ envPath: `${homedir()}/.horiceon/.env` }).then((rawEnv) => {
+  const parsed = envSchema.safeParse(Object.assign(process.env, rawEnv));
+  if (parsed.error) throw parsed.error;
+  return parsed.data;
+});
+
+const flags = parseArgs(Deno.args, { boolean: ['json', 'debug', 'bar'] });
+flags.bar = flags.bar || env.SWIFTBAR || false;
+
+const controller = new AbortController();
+setTimeout(() => controller.abort(), 5000);
+
+interface SemsEnvelope<T> {
+  hasError: boolean;
+  code: number;
+  msg: string;
+  data: T;
+  api?: string;
+}
+
+interface LoginToken {
+  uid: string;
+  timestamp: number;
+  token: string;
+  client: string;
+  version: string;
+  language: string;
+}
+
+interface PowerFlowGet {
+  powerflow: PowerFlow;
+}
+
+function round(value: number): number {
+  return Math.round(value * 1000) / 1000;
+}
+
+function parseWStrToKW(value: string): number {
+  return round(parseFloat(value) / 1000);
+}
+
+function parseKwText(val: number, showPlus = false) {
+  return `${val > 0 && showPlus ? '+' : ''}${val}kW`;
+}
+
+const PowerFlowSchema = z.object({
+  pv: z.string().transform(parseWStrToKW),
+  pvStatus: z.number(),
+  bettery: z.string().transform(parseWStrToKW),
+  betteryStatus: z.number(), // -1=discharging, 1=charging, 3=charging ?
+  load: z.string().transform(parseWStrToKW),
+  loadStatus: z.number(), // -1, 1
+  grid: z.string().transform(parseWStrToKW),
+  soc: z.number()
+}).transform((v) => ({ ...v,
+  t: { battery: v.bettery * v.betteryStatus, load: v.load * v.loadStatus, pv: v.pv * v.pvStatus } })
+).transform((v) => ({ ...v,
+  t: { ...v.t, delta1: v.t.battery + v.t.load + v.t.pv,
+    delta2: parseWStrToKW((v.t.battery + v.t.load + v.t.pv) * 1000 + '') } })
+);
+type PowerFlow = z.infer<typeof PowerFlowSchema>;
+
+function scaleToBar(value: number, min: number, max: number, chars: string[]) {
+  const ratio = (value - min) / (max - min);
+  const index = Math.max(0, Math.min(chars.length - 1, Math.floor(ratio * chars.length)));
+  return chars[index];
+}
+
+async function login(): Promise<{ apiBaseUrl: string; token: LoginToken }> {
+  const response = await fetch('https://www.semsportal.com/api/v2/Common/CrossLogin', {
+    method: 'POST',
+    signal: controller.signal,
+    headers: { 'Content-Type': 'application/json',
+      Token: JSON.stringify({ version: 'v2.1.0', client: 'ios', language: 'en' }) },
+    body: JSON.stringify({ account: env.SEMS_ACCOUNT, pwd: env.SEMS_PASSWORD })
+  });
+
+  const body: SemsEnvelope<LoginToken> = await response.json();
+  if (body.hasError || !body.api) {
+    throw new Error(`Login failed: ${body.msg}`);
+  }
+
+  if (flags.debug) {
+    console.log('CrossLogin:', JSON.stringify(body.data, null, 2));
+  }
+
+  return { apiBaseUrl: body.api, token: body.data };
+}
+
+async function getPowerflow(apiBaseUrl: string, token: LoginToken): Promise<PowerFlow> {
+  const response = await fetch(`${apiBaseUrl}v2/PowerStation/GetPowerflow`, { method: 'POST',
+    signal: controller.signal,
+    headers: { 'Content-Type': 'application/json', Token: JSON.stringify(token) },
+    body: JSON.stringify({ PowerStationId: env.SEMS_STATION_ID }) });
+
+  const body: SemsEnvelope<PowerFlowGet> = await response.json();
+  if (body.hasError) {
+    throw new Error(`Fetching inverter data failed: ${body.msg}`);
+  }
+
+  if (flags.debug) {
+    console.log('GetPowerflow:', JSON.stringify(body.data.powerflow, null, 2));
+  }
+
+  const parse = PowerFlowSchema.safeParse(body.data.powerflow);
+  if (parse.error) throw parse.error;
+
+  return parse.data;
+}
+
+async function main() {
+  const { apiBaseUrl, token } = await login();
+  const pf = await getPowerflow(apiBaseUrl, token);
+
+  const iconsBattery = scaleToBar(pf.soc, 10, 99, ['🟥', '🟧', '🟨', '⬜', '🟦', '🟩', '⛽❇️']);
+  const iconsBatteryChange = scaleToBar(pf.betteryStatus, -1, 1, ['▼', '', '▲']);
+
+  if (flags.json) {
+    console.log(JSON.stringify(pf, null, 2));
+    return;
+  }
+
+  if (flags.bar) {
+    console.log(`${iconsBattery}${iconsBatteryChange}`);
+    console.log('---');
+    console.log(`☀️ ${pf.pv}kW`);
+    console.log(`${pf.soc}% (${parseKwText(pf.t.battery)} = ${pf.bettery} * ${pf.betteryStatus})`);
+    console.log(`Load ${parseKwText(pf.t.load)}`);
+
+    console.log(
+      `Last Updated: ${
+        Temporal.Now.plainTimeISO().toString({ smallestUnit: 'minute' })
+      } | refresh=true`
+    );
+    console.log(
+      `Station ↗️ | href=https://www.semsportal.com/powerstation/PowerStatusSnMin/${env.SEMS_STATION_ID}`
+    );
+    return;
+  }
+
+  console.log(
+    `☀️ ${parseKwText(pf.pv)} -> 🔋 ${iconsBattery}${iconsBatteryChange} ${pf.soc}% (${
+      parseKwText(pf.t.battery)
+    }) -> 🏠 ${parseKwText(pf.t.load)}`
+  );
+}
+
+main().catch((error) => {
+  console.log(`⛔`);
+  const msg = error instanceof Error ? error.message : String(error);
+  console.error(msg);
+  process.exit(1);
+});

@@ -1,1 +1,121 @@
-../bar/temp-mean.2h.ts
+#!/usr/bin/env -S deno run --allow-env --allow-read --allow-sys --allow-net --allow-run
+
+const start = performance.now();
+
+import { parseArgs } from 'jsr:@std/cli@1.0.32/parse-args';
+import { load } from 'jsr:@std/dotenv@0.225.7';
+import { z } from 'jsr:@zod/zod@4.4.3/v4';
+import { homedir } from 'node:os';
+import process from 'node:process';
+
+function scaleToBar(value: number, min: number, max: number, chars: string[]) {
+  const ratio = (value - min) / (max - min);
+  const index = Math.max(0, Math.min(chars.length - 1, Math.floor(ratio * chars.length)));
+  return chars[index];
+}
+
+function splitBySizes<T>(array: T[], sizes: number[]): T[][] {
+  let start = 0;
+  return sizes.map(size => {
+    const part = array.slice(start, start + size);
+    start += size;
+    return part;
+  });
+}
+
+function debugLog(input: unknown, name: string) {
+  if (flags.debug) {
+    console.log(`=== ${name} ===`);
+    console.log(input);
+    console.log();
+  }
+}
+
+const envSchema = z.object({ LAT: z.string(), LON: z.string(),
+  SWIFTBAR: z.coerce.boolean().optional() });
+
+const env = await load({ envPath: `${homedir()}/.horiceon/.env` }).then((rawEnv) => {
+  const parsed = envSchema.safeParse(Object.assign(process.env, rawEnv));
+  if (parsed.error) throw parsed.error;
+  return parsed.data;
+});
+
+const argsSchema = z.object({ lat: z.string(), lon: z.string(), pastDays: z.string().default('7'),
+  futureDays: z.string().default('7'), help: z.boolean(), json: z.boolean(), debug: z.boolean(),
+  bar: z.boolean(), _: z.array(z.union([z.string(), z.number()])) });
+
+const rawFlags = parseArgs(Deno.args, { string: ['lat', 'lon', 'pastDays', 'futureDays'],
+  boolean: ['help', 'json', 'debug', 'bar'] });
+
+const flags = argsSchema.parse({ ...rawFlags, lat: rawFlags.lat ?? env.LAT,
+  lon: rawFlags.lon ?? env.LON, bar: Boolean(rawFlags.bar || env.SWIFTBAR) });
+
+const forecastSchema = z.object({
+  daily: z.object({ temperature_2m_mean: z.array(z.number().or(z.null())).transform(v =>
+    v.filter(el =>
+      typeof el === 'number'
+    )
+  ) }),
+  daily_units: z.object({ temperature_2m_mean: z.string() })
+});
+
+const url = new URL('https://api.open-meteo.com/v1/forecast');
+url.searchParams.set('latitude', flags.lat);
+url.searchParams.set('longitude', flags.lon);
+url.searchParams.set('daily', 'temperature_2m_mean');
+url.searchParams.set('models', 'dwd_icon_seamless');
+url.searchParams.set('timezone', 'auto');
+url.searchParams.set('past_days', flags.pastDays);
+url.searchParams.set('forecast_days', flags.futureDays);
+
+const controller = new AbortController();
+setTimeout(() => controller.abort(), 20000);
+
+let response;
+try {
+  response = await fetch(url, { signal: controller.signal });
+  debugLog(response, `response`);
+} catch (err) {
+  console.log(`?? °C`);
+  console.log('---');
+  console.log((err as DOMException).name);
+  process.exit(1);
+}
+const forecast = forecastSchema.parse(await response.json());
+debugLog(JSON.stringify(forecast, null, 2), `forecast`);
+
+const unit = forecast.daily_units.temperature_2m_mean;
+
+const [past, future] = splitBySizes(forecast.daily.temperature_2m_mean,
+  [flags.pastDays, flags.futureDays].map(Number));
+debugLog(JSON.stringify(past, null, 2), `pastTempMean`);
+debugLog(JSON.stringify(future, null, 2), `futureTempMean`);
+const [today, ...futureWithoutToday] = future;
+
+const lastWeekAvg = Math.round(past.reduce((p, c) => p + c) / past.length * 10) / 10;
+const nextWeekAvg =
+  Math.round(futureWithoutToday.reduce((pre, cur) => pre + cur) / futureWithoutToday.length * 10)
+  / 10;
+const nextChangesIcon = scaleToBar(nextWeekAvg - lastWeekAvg, -1, 1, ['▼', '⬩', '▲']);
+
+const now = Temporal.Now.plainDateISO();
+
+console.log(`${today} ${unit}${nextChangesIcon}`);
+console.log('---');
+future.forEach((temp, i) => {
+  const date = now.add({ days: i });
+  const name = date.toLocaleString('en-US', { weekday: 'short', day: '2-digit', month: '2-digit' });
+  const dateColor = name.match(/Sat|Sun/g) ? 'green' : '';
+  const toWeekColor = scaleToBar(temp, 16, 26, ['blue', 'lightblue', 'initial', 'orange', 'red']);
+  console.log(`%c${name} %c${temp.toFixed(1)} %c${unit}`, `color: ${dateColor}`, `color: initial`,
+    `color: ${toWeekColor}`);
+});
+console.log('---');
+console.log(`Last Week: ${lastWeekAvg} ${unit}`);
+console.log(`This Week: ${nextWeekAvg} ${unit}`);
+console.log('---');
+console.log(
+  `Last updated: ${Temporal.Now.plainTimeISO().toString({ smallestUnit: 'minute' })} | refresh=true`
+);
+console.log(`${(performance.now() - start).toFixed(2)}ms`);
+process.exit(0);

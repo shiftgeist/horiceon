@@ -137,7 +137,7 @@ async function main() {
     console.log(`☀️ ${pf.pv}kW`);
     console.log(`${pf.soc}% (${parseKwText(pf.t.battery)} = ${pf.bettery} * ${pf.betteryStatus})`);
     console.log(`Load ${parseKwText(pf.t.load)}`);
-
+    console.log('---');
     console.log(
       `Last Updated: ${
         Temporal.Now.plainTimeISO().toString({ smallestUnit: 'minute' })

@@ -74,6 +74,7 @@ const flags = argsSchema.parse({
 });
 
 if (flags.help) {
+  // TODO
 }
 
 const forecastSchema = z.object({
@@ -113,7 +114,7 @@ try {
   response = await fetch(url, { signal: controller.signal });
   debugLog(response, `response`);
 } catch (err) {
-  console.log(`?? °C`);
+  console.log(`... °C`);
   seperator();
   console.log((err as DOMException).name);
   process.exit(0);

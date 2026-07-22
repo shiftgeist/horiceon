@@ -136,11 +136,12 @@ const lastWeekAvg = Math.round(past.reduce((p, c) => p + c) / past.length * 10) 
 const nextWeekAvg =
   Math.round(futureWithoutToday.reduce((pre, cur) => pre + cur) / futureWithoutToday.length * 10)
   / 10;
-const nextChangesIcon = scaleToBar(nextWeekAvg - lastWeekAvg, -1, 1, ['▼', '⬩', '▲']);
+const weekChangesIcon = scaleToBar(nextWeekAvg - lastWeekAvg, -1, 1, ['▼', '⬩', '▲']);
+const nextChangesIcon = scaleToBar(nextWeekAvg - today, -1, 1, ['▼', '⬩', '▲']);
 
 const now = Temporal.Now.plainDateISO();
 
-console.log(`${today} ${unit} ${nextChangesIcon}`);
+console.log(`${today.toFixed(1)} ${unit} ${nextChangesIcon}`);
 seperator();
 future.forEach((temp, i) => {
   const date = now.add({ days: i });
@@ -169,7 +170,7 @@ future.forEach((temp, i) => {
 });
 seperator();
 console.log(`Last Week: ${lastWeekAvg} ${unit}`);
-console.log(`This Week: ${nextWeekAvg} ${unit}`);
+console.log(`This Week: ${nextWeekAvg} ${unit} ${weekChangesIcon}`);
 seperator();
 console.log(
   `Last updated: ${Temporal.Now.plainTimeISO().toString({ smallestUnit: 'seconds' })}${

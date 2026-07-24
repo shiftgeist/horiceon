@@ -462,6 +462,7 @@ fi
 
 if _check-commands yq; then
 	alias jq="yq"
+	alias yq-combine="yq ea '[.]'"
 
 	function curl-pretty {
 		curl -s $@ | yq -P

@@ -326,15 +326,15 @@ if _check-commands docker; then
 		fi
 
 		echo
-		echo "Command '$cmd' not found. Try with alpine? [Y/n]"
+		echo "Command '$cmd' not found. Try with alpine? [y/N]"
 		read -k 1 run_response
 
-		if [[ $run_response == "n" || $run_response == "N" ]]; then
-			return 127
+		if [[ $run_response == "y" || $run_response == "Y" ]]; then
+			shift
+			alpine $cmd "$@"
 		fi
 
-		shift
-		alpine $cmd "$@"
+		return 127
 	}
 fi
 

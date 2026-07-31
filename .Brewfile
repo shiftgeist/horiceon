@@ -15,6 +15,8 @@ brew "eza"
 brew "fd"
 # Command-line fuzzy finder written in Go
 brew "fzf"
+# Interpreter for PostScript and PDF
+brew "ghostscript"
 # Render markdown on the CLI
 brew "glow"
 # Command-line benchmarking tool
@@ -29,6 +31,8 @@ brew "mas"
 brew "mise"
 # NCurses Disk Usage
 brew "ncdu"
+# Terminal slideshow tool
+brew "presenterm"
 # Wrapper around ripgrep that adds multiple rich file types
 brew "ripgrep-all"
 # Easy and Repeatable Kubernetes Development

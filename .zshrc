@@ -129,19 +129,24 @@ export PATH=$HOME/.local/share/mise/installs/go/latest/bin:$PATH
 export PATH=$HOME/.horiceon/bin:$PATH
 
 # History
-export HISTSIZE=200000 # 5y of 100 commands/day
+export HISTSIZE=100000 # 7y of 100 commands/day
 export SAVEHIST=$HISTSIZE
 
 # Options
-setopt AUTO_CD              # automatic directory change
-setopt BANG_HIST            # treat the '!' character specially during expansion.
-setopt EXTENDED_HISTORY     # write the history file in the ":start:elapsed;command" format.
-setopt GLOBDOTS             # hidden files globbing
-setopt HIST_FIND_NO_DUPS    # only skips dupes during Ctrl+R search
-setopt INC_APPEND_HISTORY   # write to the history file immediately, not when the shell exits.
-setopt INTERACTIVE_COMMENTS # ignore commands starting with hashtag
-setopt NO_CASE_GLOB         # case insensitive globbing
-setopt SHARE_HISTORY        # share history between all sessions.
+# https://zsh.sourceforge.io/Doc/Release/Options.html
+setopt AUTO_CD              	# automatic directory change
+setopt BANG_HIST            	# perform textual history expansion, csh-style, treating the character ‘!’ specially
+setopt EXTENDED_HISTORY     	# write the history file in the ":start:elapsed;command" format.
+setopt GLOBDOTS             	# hidden files globbing
+setopt HIST_EXPIRE_DUPS_FIRST	# trim dupes first if history is full
+setopt HIST_FIND_NO_DUPS			# do not display previously found command
+setopt HIST_IGNORE_SPACE      # do not save if line starts with space
+setopt HIST_NO_FUNCTIONS      # do not save function commands
+setopt HIST_REDUCE_BLANKS     # strip superfluous blanks
+setopt INC_APPEND_HISTORY   	# write to the history file immediately, not when the shell exits.
+setopt INTERACTIVE_COMMENTS 	# ignore commands starting with hashtag
+setopt NO_CASE_GLOB         	# case insensitive globbing
+setopt SHARE_HISTORY        	# share history between all sessions.
 
 # Set completion PATH
 FPATH="$(brew --prefix)/share/zsh/site-functions:$HOME/.zsh/completions:$FPATH"

@@ -474,7 +474,9 @@ if _check-commands yq; then
 	}
 
 	function _run_exec_task() {
-		local tool="$1" name="$2"
+		local tool="$1"
+		local name="$2"
+
 		case "$tool" in
 		make) make "$name" ;;
 		*) "$tool" run "$name" ;;
@@ -483,15 +485,19 @@ if _check-commands yq; then
 
 	function _run_list_tasks() {
 		case "$1" in
-		deno) deno run 2>&1 | awk '/^- / { print $2 }' ;;
+		deno) (deno help 2>&1 | awk '/^    [a-z]/ && !/:$/ { print $1 }'; deno run 2>&1 | awk '/^- / { print $2 }') | sort -u ;;
 		make) grep '^[[:alnum:]_.-][[:alnum:]_.-]*:' Makefile | cut -d: -f1 | grep -v '^\.PHONY$' | sort -u ;;
-		mise) mise tasks ls --name-only ;;
-		*) yq '.scripts // {} | keys | .[]' package.json ;;
+		mise) (mise help 2>&1 | awk '/^  [a-z]/ { print $1 }'; mise tasks ls --name-only) | sort -u ;;
+		npm) (npm help 2>&1 | awk '/All commands:/,/^[^ ]/ {print}' | tr ',' '\n' | awk '/^[a-z]/ {print}'; yq -r '.scripts // {} | keys | .[]' package.json) | sort -u ;;
+		pnpm) (pnpm help --all 2>&1 | awk '/^[[:space:]]*[a-z]/ { if ($2 ~ /^[A-Z]/ || NF == 1) print $1 }'; yq -r '.scripts // {} | keys | .[]' package.json) | sort -u ;;
+		bun) (bun help 2>&1 | awk '/^  [a-z]/ {print $1}'; yq -r '.scripts // {} | keys | .[]' package.json) | sort -u ;;
+		*) yq -r '.scripts // {} | keys | .[]' package.json ;;
 		esac
 	}
 
 	function run() {
 		local tool
+
 		case "$1" in
 		deno | npm | pnpm | bun | mise | make)
 			tool="$1"
@@ -519,8 +525,8 @@ if _check-commands yq; then
 			;;
 		esac
 
-		local task="$1" names
-		names=$(_run_list_tasks "$tool")
+		local task="$1"
+		local names=$(_run_list_tasks "$tool")
 
 		if [ -z "$task" ]; then
 			echo "$names"

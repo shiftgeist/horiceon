@@ -33,8 +33,8 @@
   "chat.detectParticipant.enabled": false,
   "chat.editing.confirmEditRequestRemoval": false,
   "chat.editing.explainChanges.enabled": true,
-  "chat.planAgent.defaultModel": "Claude Sonnet 4.6 (copilot)",
-  "chat.requestQueuing.defaultAction": "queue",
+  "chat.planAgent.defaultModel": "Claude Sonnet 5 (copilot)",
+  "chat.requestQueuing.defaultAction": "steer",
   "chat.restoreLastPanelSession": true,
   "chat.tools.urls.autoApprove": {
     "https://*.gov": true,
@@ -87,6 +87,9 @@
   "editor.guides.bracketPairs": "active",
   "editor.inlineSuggest.enabled": false,
   "editor.minimap.enabled": false,
+  "editor.pasteAs.preferences": [
+    "text.plain"
+  ],
   "editor.quickSuggestionsDelay": 0,
   "editor.renderWhitespace": "selection",
   "editor.rulers": [
@@ -249,11 +252,13 @@
   "workbench.commandPalette.experimental.enableNaturalLanguageSearch": false,
   "workbench.editor.empty.hint": "hidden",
   "workbench.editor.enablePreview": false,
+  "workbench.editor.useModal": "off",
   "workbench.experimental.modernUI": true,
   "workbench.fontAliasing": "antialiased",
   "workbench.layoutControl.enabled": false,
   "workbench.preferredDarkColorTheme": "Ayu Dark",
   "workbench.preferredLightColorTheme": "Light 2026",
+  "workbench.secondarySideBar.defaultVisibility": "hidden",
   "workbench.startupEditor": "none",
   "workbench.tree.stickyScrollMaxItemCount": 3,
   "zenMode.fullScreen": false,

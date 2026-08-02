@@ -1,7 +1,9 @@
 # ZSH CONFIG
-# zmodload zsh/zprof # Debug
+# Required: curl, docker, git, lsof
+# zmodload zsh/zprof # Debug performance (keep @ start)
 
-# Basic requirements: curl, docker, git, lsof
+export DEBUG=false
+$DEBUG && echo "DEBUG MODE ENABLED"
 
 # Brew
 test -d /home/linuxbrew/.linuxbrew && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
@@ -478,18 +480,20 @@ if _check-commands yq; then
 		local name="$2"
 
 		case "$tool" in
+		deno) deno ${=name} ;;
 		make) make "$name" ;;
+		pnpm) pnpm "$name" ;;
 		*) "$tool" run "$name" ;;
 		esac
 	}
 
 	function _run_list_tasks() {
 		case "$1" in
-		deno) (deno help 2>&1 | awk '/^    [a-z]/ && !/:$/ { print $1 }'; deno run 2>&1 | awk '/^- / { print $2 }') | sort -u ;;
+		deno) (NO_COLOR=1 deno help 2>&1 | awk '/^    [a-z]/ && !/:$/ { print $1 }'; NO_COLOR=1 deno run 2>&1 | awk '/^- / { print "run " $2 }') | sort -u ;;
 		make) grep '^[[:alnum:]_.-][[:alnum:]_.-]*:' Makefile | cut -d: -f1 | grep -v '^\.PHONY$' | sort -u ;;
 		mise) (mise help 2>&1 | awk '/^  [a-z]/ { print $1 }'; mise tasks ls --name-only) | sort -u ;;
 		npm) (npm help 2>&1 | awk '/All commands:/,/^[^ ]/ {print}' | tr ',' '\n' | awk '/^[a-z]/ {print}'; yq -r '.scripts // {} | keys | .[]' package.json) | sort -u ;;
-		pnpm) (pnpm help --all 2>&1 | awk '/^[[:space:]]*[a-z]/ { if ($2 ~ /^[A-Z]/ || NF == 1) print $1 }'; yq -r '.scripts // {} | keys | .[]' package.json) | sort -u ;;
+		pnpm) (pnpm help -a | sed -nE '/^Options:/q; s/^[[:space:]]*([[:alnum:]-]+, )?([[:alnum:]-]+)[[:space:]]{2,}.*/\2/p'; yq -r '.scripts // {} | keys | .[]' package.json) | sort -u ;;
 		bun) (bun help 2>&1 | awk '/^  [a-z]/ {print $1}'; yq -r '.scripts // {} | keys | .[]' package.json) | sort -u ;;
 		*) yq -r '.scripts // {} | keys | .[]' package.json ;;
 		esac
@@ -508,33 +512,37 @@ if _check-commands yq; then
 				tool="mise"
 			elif [ -f "Makefile" ]; then
 				tool="make"
+			elif [ -f "deno.json" ]; then
+				tool="deno"
 			elif [ -f "package.json" ]; then
 				if [ -f "pnpm-lock.yaml" ]; then
 					tool="pnpm"
-				elif [ -f "deno.json" ]; then
-					tool="deno"
 				elif [ -f "bun.lockb" ] || [ -f "bun.lock" ]; then
 					tool="bun"
 				else
 					tool="npm"
 				fi
 			else
-				echo "No recognized project file found (mise.toml / Makefile / package.json)"
+				echo "No recognized project file found (mise.toml / Makefile / deno.json / package.json)"
 				return 1
 			fi
 			;;
 		esac
 
+		$DEBUG && echo "Tool \"$tool\" recognized."
+
 		local task="$1"
 		local names=$(_run_list_tasks "$tool")
 
 		if [ -z "$task" ]; then
+			$DEBUG && echo "Missing match."
 			echo "$names"
 			return
 		fi
 
 		# exact match: run directly
 		if echo "$names" | grep -qxF -- "$task"; then
+			$DEBUG && echo "Found exact match. Running \"_run_exec_task "$tool" "$task"\""
 			_run_exec_task "$tool" "$task"
 			return
 		fi
@@ -548,7 +556,7 @@ if _check-commands yq; then
 			echo "No tasks matching '$task'"
 			return 1
 		elif [ "$count" -eq 1 ]; then
-			echo "Running $matches with $tool"
+			echo "Running \"$matches\" with $tool"
 			sleep 0.3
 			_run_exec_task "$tool" "$matches"
 		else

@@ -2,14 +2,49 @@
 
 const start = performance.now();
 
-import { parseArgs } from 'jsr:@std/cli@1.0.32/parse-args';
 import { load } from 'jsr:@std/dotenv@0.225.7';
-import { z } from 'jsr:@zod/zod@4.4.3/v4';
 import { homedir } from 'node:os';
 import process from 'node:process';
+import { parser } from 'npm:zod-opts@1.0.0';
+import { z } from 'npm:zod@4.4.3/v4';
 
-const defaultPastDays = '7';
-const defaultFutureDays = '7';
+const pastDaysOneOf = [1, 3, 7, 14, 31, 61];
+const pastDaysDefault = pastDaysOneOf[2];
+const futureDaysOneOf = [1, 3, 7];
+const futureDaysDefault = futureDaysOneOf[1];
+const defaultLocale = 'en-US';
+
+const envSchema = z.object({
+  LAT: z.string(),
+  LON: z.string(),
+  SWIFTBAR: z.coerce.boolean().optional()
+});
+
+const env = await load({ envPath: `${homedir()}/.horiceon/.env` }).then((rawEnv) => {
+  const parsed = envSchema.safeParse(Object.assign(process.env, rawEnv));
+  if (parsed.error) throw parsed.error;
+  return parsed.data;
+});
+
+const flags = parser()
+  .options({
+    lat: { type: z.string().default(env.LAT).describe('Target latitude') },
+    lon: { type: z.string().default(env.LON).describe('Target longitude') },
+    'past-days': {
+      type: z.number().refine(v => pastDaysOneOf.includes(v)).default(pastDaysDefault)
+        .describe(`Historical days: ${pastDaysOneOf}`)
+    },
+    'future-days': {
+      type: z.number().refine(v => futureDaysOneOf.includes(v)).default(futureDaysDefault).describe(
+        `Forecasted days: ${futureDaysOneOf}`
+      )
+    },
+    json: { type: z.boolean().default(false).describe('Output as JSON') },
+    debug: { type: z.boolean().default(false).describe('Enable debug logging') },
+    bar: { type: z.boolean().default(Boolean(env.SWIFTBAR)).describe('Show progress bar') },
+    locale: { type: z.string().default(defaultLocale).describe('Locale') }
+  })
+  .parse();
 
 function scaleToBar(value: number, min: number, max: number, chars: string[]) {
   const ratio = (value - min) / (max - min);
@@ -38,46 +73,7 @@ function seperator() {
   console.log(flags.bar ? '---' : '');
 }
 
-const envSchema = z.object({
-  LAT: z.string(),
-  LON: z.string(),
-  SWIFTBAR: z.coerce.boolean().optional()
-});
-
-const env = await load({ envPath: `${homedir()}/.horiceon/.env` }).then((rawEnv) => {
-  const parsed = envSchema.safeParse(Object.assign(process.env, rawEnv));
-  if (parsed.error) throw parsed.error;
-  return parsed.data;
-});
-
-const argsSchema = z.object({
-  lat: z.string(),
-  lon: z.string(),
-  pastDays: z.enum(['1', '3', '7', '14', '16']).default(defaultPastDays),
-  futureDays: z.enum(['1', '3', '7']).default(defaultFutureDays),
-  help: z.boolean(),
-  json: z.boolean(),
-  debug: z.boolean(),
-  bar: z.boolean()
-});
-
-const rawFlags = parseArgs(Deno.args, {
-  string: ['lat', 'lon', 'pastDays', 'futureDays'],
-  boolean: ['help', 'json', 'debug', 'bar']
-});
-
-const flags = argsSchema.parse({
-  ...rawFlags,
-  lat: rawFlags.lat ?? env.LAT,
-  lon: rawFlags.lon ?? env.LON,
-  bar: Boolean(rawFlags.bar || env.SWIFTBAR)
-});
-
-if (flags.help) {
-  // TODO
-}
-
-const forecastSchema = z.object({
+const forecastResponseSchema = z.object({
   daily: z.object({
     temperature_2m_mean: z.array(z.number().or(z.null())).transform(v =>
       v.filter(el => typeof el === 'number')
@@ -95,8 +91,8 @@ const params = new URLSearchParams({
   daily: 'temperature_2m_mean',
   models: 'dwd_icon_seamless',
   timezone: 'auto',
-  past_days: flags.pastDays,
-  forecast_days: flags.futureDays
+  past_days: String(flags['past-days']),
+  forecast_days: String(flags['future-days'])
 });
 
 const url = new URL('https://api.open-meteo.com/v1/forecast');
@@ -119,31 +115,31 @@ try {
   console.log((err as DOMException).name);
   process.exit(0);
 }
-const forecast = forecastSchema.parse(await response.json());
+const forecast = forecastResponseSchema.parse(await response.json());
 debugLog(JSON.stringify(forecast, null, 2), `forecast`);
+
+// ---
 
 const unit = forecast.daily_units.temperature_2m_mean;
 
-const [past, future] = splitBySizes(
+const [past, futureWithToday] = splitBySizes(
   forecast.daily.temperature_2m_mean,
-  [flags.pastDays, flags.futureDays].map(Number)
+  [flags['past-days'], flags['future-days']]
 );
 debugLog(JSON.stringify(past, null, 2), `pastTempMean`);
-debugLog(JSON.stringify(future, null, 2), `futureTempMean`);
-const [today, ...futureWithoutToday] = future;
+debugLog(JSON.stringify(futureWithToday, null, 2), `futureTempMean`);
+const [today, ...future] = futureWithToday;
 
 const lastWeekAvg = Math.round(past.reduce((p, c) => p + c) / past.length * 10) / 10;
-const nextWeekAvg =
-  Math.round(futureWithoutToday.reduce((pre, cur) => pre + cur) / futureWithoutToday.length * 10)
-  / 10;
-const weekChangesIcon = scaleToBar(nextWeekAvg - lastWeekAvg, -1, 1, ['▼', '⬩', '▲']);
+const nextWeekAvg = Math.round(future.reduce((pre, cur) => pre + cur) / future.length * 10) / 10;
 const nextChangesIcon = scaleToBar(nextWeekAvg - today, -1, 1, ['▼', '⬩', '▲']);
 
 const now = Temporal.Now.plainDateISO();
+const df = new Intl.DurationFormat(flags.locale, { style: 'long' });
 
 console.log(`${today.toFixed(1)} ${unit} ${nextChangesIcon}`);
 seperator();
-future.forEach((temp, i) => {
+futureWithToday.forEach((temp, i) => {
   const date = now.add({ days: i });
   const name = date.toLocaleString('en-US', { weekday: 'short', day: '2-digit', month: '2-digit' });
   const dateColor = name.match(/Sat|Sun/g) ? 'green' : '';
@@ -169,13 +165,18 @@ future.forEach((temp, i) => {
   }
 });
 seperator();
-console.log(`Last Week: ${lastWeekAvg} ${unit}`);
-console.log(`This Week: ${nextWeekAvg} ${unit} ${weekChangesIcon}`);
+
+const pastEnd = now.until(now.add({ days: flags['past-days'] }), { largestUnit: 'month' });
+console.log(`${df.format(pastEnd)}: ${lastWeekAvg} ${unit}`);
+
+const futureEnd = now.until(now.add({ days: flags['future-days'] }), { largestUnit: 'month' });
+console.log(`${df.format(futureEnd)}: ${nextWeekAvg} ${unit}`);
+
 seperator();
 console.log(
   `Last updated: ${Temporal.Now.plainTimeISO().toString({ smallestUnit: 'seconds' })}${
     flags.bar ? ' | refresh=true' : ''
   }`
 );
-console.log(`${(performance.now() - start).toFixed(2)}ms`);
+console.log(`Took ${(performance.now() - start).toFixed(2)}ms`);
 process.exit(0);

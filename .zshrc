@@ -2,9 +2,6 @@
 # Required: curl, docker, git, lsof
 # zmodload zsh/zprof # Debug performance (keep @ start)
 
-export DEBUG=false
-$DEBUG && echo "DEBUG MODE ENABLED"
-
 # Brew
 test -d /home/linuxbrew/.linuxbrew && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 test -d /opt/homebrew/bin/brew && eval "$(/opt/homebrew/bin/brew shellenv zsh)"
@@ -99,6 +96,8 @@ LINUX_DISTRO=""
 if _check-commands starship; then
 	eval "$(starship init zsh)"
 fi
+
+[[ "$TERM_PROGRAM" == "vscode" ]] && . "$(code --locate-shell-integration-path zsh)"
 
 ###
 # Basics
@@ -258,6 +257,8 @@ function til() {
 	sleep $((target - now))
 }
 
+[[ "$PLATFORM" == "macos" ]] && alias unquarantine="xattr -rd com.apple.quarantine"
+
 function check-port() {
 	lsof -i tcp${1:+":$1"}
 }
@@ -411,7 +412,7 @@ if _check-commands brew; then
 	alias brew-up="brew upgrade && brew-up-apps && mise-up"
 	alias brew-up-all="brew upgrade --greedy && mise-up"
 
-	alias ladybird-setup="brew create https://github.com/LadybirdBrowser/ladybird/archive/refs/heads/master.zip --set-name ladybird --set-version HEAD && brew edit ladybird" # sorry no formula code available
+	alias ladybird-setup="brew create https://github.com/LadybirdBrowser/ladybird/archive/refs/heads/master.zip --set-name ladybird --set-version HEAD && echo 'Run \"brew edit ladybird\" and paste your formula code.'"
 	if [ -d /opt/homebrew/opt/ladybird/.brew/ladybird.rb ]; then
 		alias ladybird-install="HOMEBREW_NO_INSTALL_FROM_API=1 brew install --build-from-source ladybird"
 		alias ladybird-update="HOMEBREW_NO_INSTALL_FROM_API=1 brew upgrade --fetch-HEAD ladybird"
@@ -470,6 +471,7 @@ fi
 if _check-commands yq; then
 	alias jq="yq"
 	alias yq-combine="yq ea '[.]'"
+	alias yqx="yq -p=xml"
 
 	function curl-pretty {
 		curl -s $@ | yq -P
@@ -487,21 +489,29 @@ if _check-commands yq; then
 		esac
 	}
 
-	function _run_list_tasks() {
+	function _run_list_all_commands() {
 		case "$1" in
-		deno) (NO_COLOR=1 deno help 2>&1 | awk '/^    [a-z]/ && !/:$/ { print $1 }'; NO_COLOR=1 deno run 2>&1 | awk '/^- / { print "run " $2 }') | sort -u ;;
-		make) grep '^[[:alnum:]_.-][[:alnum:]_.-]*:' Makefile | cut -d: -f1 | grep -v '^\.PHONY$' | sort -u ;;
-		mise) (mise help 2>&1 | awk '/^  [a-z]/ { print $1 }'; mise tasks ls --name-only) | sort -u ;;
-		npm) (npm help 2>&1 | awk '/All commands:/,/^[^ ]/ {print}' | tr ',' '\n' | awk '/^[a-z]/ {print}'; yq -r '.scripts // {} | keys | .[]' package.json) | sort -u ;;
-		pnpm) (pnpm help -a | sed -nE '/^Options:/q; s/^[[:space:]]*([[:alnum:]-]+, )?([[:alnum:]-]+)[[:space:]]{2,}.*/\2/p'; yq -r '.scripts // {} | keys | .[]' package.json) | sort -u ;;
-		bun) (bun help 2>&1 | awk '/^  [a-z]/ {print $1}'; yq -r '.scripts // {} | keys | .[]' package.json) | sort -u ;;
+		deno) (NO_COLOR=1 deno help 2>&1 | awk '/^    [a-z]/ && !/:$/ { print $1 }'; NO_COLOR=1 deno run 2>&1 | awk '/^- / { print "run " $2 }') ;;
+		make) grep '^[[:alnum:]_.-][[:alnum:]_.-]*:' Makefile | cut -d: -f1 | grep -v '^\.PHONY$' ;;
+		mise) (mise help 2>&1 | awk '/^  [a-z]/ { print $1 }'; mise tasks ls --name-only) ;;
+		npm) (npm help 2>&1 | awk '/All commands:/,/^[^ ]/ {print}' | tr ',' '\n' | awk '/^[a-z]/ {print}'; yq -r '.scripts // {} | keys | .[]' package.json) ;;
+		pnpm) (pnpm help -a | sed -nE '/^Options:/q; s/^[[:space:]]*([[:alnum:]-]+, )?([[:alnum:]-]+)[[:space:]]{2,}.*/\2/p'; yq -r '.scripts // {} | keys | .[]' package.json) ;;
+		bun) (bun help 2>&1 | awk '/^  [a-z]/ {print $1}'; yq -r '.scripts // {} | keys | .[]' package.json) ;;
 		*) yq -r '.scripts // {} | keys | .[]' package.json ;;
-		esac
+		esac | sort -u
+	}
+
+	function _run_list_project_tasks() {
+		case "$1" in
+		deno) NO_COLOR=1 deno run 2>&1 | awk '/^- / { print "run " $2 }' ;;
+		make) grep '^[[:alnum:]_.-][[:alnum:]_.-]*:' Makefile | cut -d: -f1 | grep -v '^\.PHONY$' ;;
+		mise) mise tasks ls --name-only ;;
+		*) [ -f package.json ] && yq -r '.scripts // {} | keys | .[]' package.json ;;
+		esac | sort -u
 	}
 
 	function run() {
 		local tool
-
 		case "$1" in
 		deno | npm | pnpm | bun | mise | make)
 			tool="$1"
@@ -523,26 +533,39 @@ if _check-commands yq; then
 					tool="npm"
 				fi
 			else
-				echo "No recognized project file found (mise.toml / Makefile / deno.json / package.json)"
+				echo "RUN: No recognized project file found (mise.toml / Makefile / deno.json / package.json)"
 				return 1
 			fi
 			;;
 		esac
 
-		$DEBUG && echo "Tool \"$tool\" recognized."
+		local tool_file
+		case "$tool" in
+		deno) tool_file="deno.json" ;;
+		make) tool_file="Makefile" ;;
+		mise) tool_file=".mise.toml, mise.toml" ;;
+		bun|npm|pnpm) tool_file="package.json" ;;
+		esac
 
 		local task="$1"
-		local names=$(_run_list_tasks "$tool")
+		local names=$(_run_list_project_tasks "$tool")
+
+		if [ -z "$names" ]; then
+			echo "RUN: No task available for $tool. Check $tool_file."
+			return
+		fi
 
 		if [ -z "$task" ]; then
-			$DEBUG && echo "Missing match."
+			echo "RUN: Task not given"
+			echo "Usage: run [command]\n"
+			echo "Available tasks ($tool):"
 			echo "$names"
 			return
 		fi
 
 		# exact match: run directly
 		if echo "$names" | grep -qxF -- "$task"; then
-			$DEBUG && echo "Found exact match. Running \"_run_exec_task "$tool" "$task"\""
+			echo "RUN: Found exact match. Running \"_run_exec_task "$tool" "$task"\""
 			_run_exec_task "$tool" "$task"
 			return
 		fi
@@ -553,10 +576,10 @@ if _check-commands yq; then
 		count=$(echo "$matches" | grep -c .)
 
 		if [ "$count" -eq 0 ]; then
-			echo "No tasks matching '$task'"
+			echo "RUN: No tasks matching '$task'"
 			return 1
 		elif [ "$count" -eq 1 ]; then
-			echo "Running \"$matches\" with $tool"
+			echo "RUN: Running \"$matches\" with $tool"
 			sleep 0.3
 			_run_exec_task "$tool" "$matches"
 		else

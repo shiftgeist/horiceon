@@ -1,0 +1,62 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Based on: https://github.com/hSATAC/cached_curl/blob/master/cached_curl.sh (MIT)
+CACHE_TTL_SECONDS=300
+
+function print_usage() {
+	>&2 echo "Usage: $(basename "$0") [-D] URL"
+	>&2 echo "    -D          : Print the debug message"
+}
+
+while getopts "D" OPT; do
+	case $OPT in
+	D)
+		DEBUG=true
+		;;
+	?)
+		print_usage
+		exit 1
+		;;
+	esac
+done
+
+DEBUG=${DEBUG:-false}
+if $DEBUG; then
+	set -x
+fi
+
+shift $((OPTIND - 1))
+if [ $# -ne 1 ]; then
+	print_usage
+	exit 1
+fi
+
+url=$1
+
+# detect md5 command
+command -v md5sum >/dev/null 2>&1 && MD5_CMD=md5sum
+MD5_CMD=${MD5_CMD:-md5}
+
+tmpdir="$(dirname "$(mktemp -u)")/cached_curl"
+mkdir -p "$tmpdir"
+
+md5=$(echo -n "$url" | $MD5_CMD | cut -d ' ' -f 1)
+cache_file="$tmpdir/$md5"
+
+if [ -f "$cache_file" ]; then
+	cache_mtime=$(stat -c %Y "$cache_file" 2>/dev/null || stat -f %m "$cache_file" 2>/dev/null)
+	cache_age=$(($(date +%s) - cache_mtime))
+
+	if [ "$cache_age" -lt "$CACHE_TTL_SECONDS" ]; then
+		>&2 echo "Cache hit (${cache_age}s old): $cache_file"
+		cat "$cache_file"
+		exit 0
+	fi
+fi
+
+# if interrupted mid-download, don't leave a corrupted cache file behind
+trap 'rm -f "$cache_file" >/dev/null 2>&1' INT
+
+curl -sL "$url" -o "$cache_file"
+cat "$cache_file"

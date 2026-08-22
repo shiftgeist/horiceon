@@ -20,6 +20,10 @@ function _zcompile-many() {
 	for f; do zcompile -R -- "$f".zwc "$f"; done
 }
 
+function _debug_log() {
+	[ "$DEBUG" = "true" ] && echo "DEBUG: $*" >&2
+}
+
 function _check-commands() {
 	local missing=()
 
@@ -489,6 +493,7 @@ if _check-commands yq; then
 	}
 
 	function _run_list_all_commands() {
+		_debug_log "_run_list_all_commands: tool=$1"
 		case "$1" in
 		deno) (NO_COLOR=1 deno help 2>&1 | awk '/^    [a-z]/ && !/:$/ { print $1 }'; NO_COLOR=1 deno run 2>&1 | awk '/^- / { print "run " $2 }') ;;
 		make) grep '^[[:alnum:]_.-][[:alnum:]_.-]*:' Makefile | cut -d: -f1 | grep -v '^\.PHONY$' ;;
@@ -501,6 +506,7 @@ if _check-commands yq; then
 	}
 
 	function _run_list_project_tasks() {
+		_debug_log "_run_list_project_tasks: tool=$1"
 		case "$1" in
 		deno) NO_COLOR=1 deno run 2>&1 | awk '/^- / { print "run " $2 }' ;;
 		make) grep '^[[:alnum:]_.-][[:alnum:]_.-]*:' Makefile | cut -d: -f1 | grep -v '^\.PHONY$' ;;
@@ -514,6 +520,7 @@ if _check-commands yq; then
 		case "$1" in
 		deno | npm | pnpm | bun | mise | make)
 			tool="$1"
+			_debug_log "run: explicit tool='$tool' given as \$1"
 			shift
 			;;
 		*)
@@ -532,9 +539,11 @@ if _check-commands yq; then
 					tool="npm"
 				fi
 			else
+				_debug_log "run: no project file matched"
 				echo "RUN: No recognized project file found (mise.toml / Makefile / deno.json / package.json)"
 				return 1
 			fi
+			_debug_log "run: auto-detected tool='$tool'"
 			;;
 		esac
 
@@ -547,14 +556,18 @@ if _check-commands yq; then
 		esac
 
 		local task="$1"
-		local names=$(_run_list_project_tasks "$tool")
+		_debug_log "run: task='$task' tool='$tool'"
+		local names=$(_run_list_all_commands "$tool")
+		_debug_log "run: available tasks=[$(echo "$names" | tr '\n' ' ')]"
 
 		if [ -z "$names" ]; then
+			_debug_log "run: no tasks found via $tool_file"
 			echo "RUN: No task available for $tool. Check $tool_file."
 			return
 		fi
 
 		if [ -z "$task" ]; then
+			_debug_log "run: no task argument given, listing tasks"
 			echo "RUN: Task not given"
 			echo "Usage: run [command]\n"
 			echo "Available tasks ($tool):"
@@ -564,6 +577,7 @@ if _check-commands yq; then
 
 		# exact match: run directly
 		if echo "$names" | grep -qxF -- "$task"; then
+			_debug_log "run: exact match found for '$task'"
 			echo "RUN: Found exact match. Running \"_run_exec_task "$tool" "$task"\""
 			_run_exec_task "$tool" "$task"
 			return
@@ -573,6 +587,7 @@ if _check-commands yq; then
 		local matches count
 		matches=$(echo "$names" | grep -iE -- "$task")
 		count=$(echo "$matches" | grep -c .)
+		_debug_log "run: fuzzy match count=$count matches=[$(echo "$matches" | tr '\n' ' ')]"
 
 		if [ "$count" -eq 0 ]; then
 			echo "RUN: No tasks matching '$task'"

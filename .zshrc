@@ -406,7 +406,6 @@ if _check-commands brew; then
   figma \
   iterm2 \
   obsidian \
-  slack \
   spotify \
   zen"
 	alias brew-up="brew upgrade && brew-up-apps && mise-up"

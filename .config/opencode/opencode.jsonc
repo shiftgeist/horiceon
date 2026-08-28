@@ -1,0 +1,143 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "autoshare": false,
+  "autoupdate": false,
+  "mcp": {
+    "atlassian": {
+      "enabled": false,
+      "type": "remote",
+      "url": "https://mcp.atlassian.com/v1/mcp/authv2"
+    },
+    "ddg-search": {
+      "command": [
+        "npx",
+        "-y",
+        "open-websearch@latest"
+      ],
+      "enabled": true,
+      "environment": {
+        "ALLOWED_SEARCH_ENGINES": "duckduckgo",
+        "DEFAULT_SEARCH_ENGINE": "duckduckgo",
+        "MODE": "stdio"
+      },
+      "type": "local"
+    },
+    "firefox-devtools": {
+      "command": [
+        "pnpm",
+        "dlx",
+        "@mozilla/firefox-devtools-mcp@latest",
+        "--headless",
+        "--viewport",
+        "1600x900"
+      ],
+      "enabled": false,
+      "environment": {
+        "START_URL": "about:blank"
+      },
+      "type": "local"
+    },
+    "parallel-search": {
+      "enabled": false,
+      "type": "remote",
+      "url": "https://search.parallel.ai/mcp"
+    }
+  },
+  "model": "github-copilot/claude-opus-5",
+  "permission": {
+    "bash": {
+      "*": "ask",
+      "basename *": "allow",
+      "cargo build *": "allow",
+      "cargo check *": "allow",
+      "cargo clippy *": "allow",
+      "cargo test *": "allow",
+      "cat .env*": "deny",
+      "cat *": "allow",
+      "cat ~/.ssh/*": "deny",
+      "chmod *": "deny",
+      "column *": "allow",
+      "cut *": "allow",
+      "date *": "allow",
+      "deno check *": "allow",
+      "deno fmt *": "allow",
+      "dirname *": "allow",
+      "doas *": "deny",
+      "echo *": "allow",
+      "eval *": "deny",
+      "find *": "allow",
+      "find * -delete": "deny",
+      "git branch --show-current": "allow",
+      "git branch -a --list *": "allow",
+      "git diff *": "allow",
+      "git log *": "allow",
+      "git rev-parse --abbrev-ref *": "allow",
+      "git show *": "allow",
+      "git status *": "allow",
+      "go build *": "allow",
+      "go mod tidy *": "allow",
+      "go test *": "allow",
+      "go vet *": "allow",
+      "gofmt *": "allow",
+      "grep *": "allow",
+      "head *": "allow",
+      "jq *": "allow",
+      "kill *": "deny",
+      "ls *": "allow",
+      "mkfs.*": "deny",
+      "nc *": "deny",
+      "node *": "deny",
+      "perl *": "deny",
+      "pnpm bin-paths *": "allow",
+      "pnpm build *": "allow",
+      "pnpm doctor *": "allow",
+      "pnpm exec *": "allow",
+      "pnpm fmt *": "allow",
+      "pnpm info *": "allow",
+      "pnpm install *": "allow",
+      "pnpm list *": "allow",
+      "pnpm ls *": "allow",
+      "pnpm outdated *": "allow",
+      "pnpm run *": "allow",
+      "pnpm search *": "allow",
+      "pnpm show *": "allow",
+      "pnpm test *": "allow",
+      "pnpm version *": "allow",
+      "pnpm view *": "allow",
+      "pnpm why *": "allow",
+      "python -c *": "deny",
+      "python3 -c *": "deny",
+      "readlink *": "allow",
+      "rg *": "allow",
+      "rga *": "allow",
+      "rm *": "deny",
+      "sed *": "allow",
+      "shred *": "deny",
+      "sort *": "allow",
+      "string *": "allow",
+      "strings *": "allow",
+      "su *": "deny",
+      "sudo *": "deny",
+      "tail *": "allow",
+      "timeout +": "allow",
+      "uniq *": "allow",
+      "wc *": "allow",
+      "which *": "allow",
+      "yq *": "allow"
+    },
+    "external_directory": {
+      "/tmp/*": "allow"
+    },
+    "read": {
+      "*": "allow",
+      "*/.aws/credentials": "deny",
+      "*/.config/gcloud": "deny"
+    }
+  },
+  "plugin": [
+    "@dietrichgebert/ponytail@latest",
+    "opencode-agent-memory@latest"
+  ],
+  "share": "disabled",
+  "small_model": "github-copilot/claude-sonnet-5"
+}

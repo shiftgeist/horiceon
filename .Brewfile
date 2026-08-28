@@ -19,6 +19,8 @@ brew "fzf"
 brew "ghostscript"
 # Render markdown on the CLI
 brew "glow"
+# Agent multiplexer that lives in your terminal
+brew "herdr"
 # Command-line benchmarking tool
 brew "hyperfine"
 # Tools and libraries to manipulate images in select formats
@@ -31,6 +33,8 @@ brew "mas"
 brew "mise"
 # NCurses Disk Usage
 brew "ncdu"
+# AI coding agent, built for the terminal
+brew "opencode"
 # Terminal slideshow tool
 brew "presenterm"
 # Wrapper around ripgrep that adds multiple rich file types

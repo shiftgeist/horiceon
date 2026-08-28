@@ -12,6 +12,7 @@
 "npm:zx" = "latest"
 "python" = "3"
 "uv" = "latest"
+"go:github.com/a-h/templ/cmd/templ" = "0.3.1001"
 
 [settings]
 always_keep_download = true
@@ -25,6 +26,7 @@ idiomatic_version_file_enable_tools = [
   "yarn",
 ]
 legacy_version_file = true
+minimum_release_age = "7d"
 
 # use in projects
 # [hooks]

@@ -471,6 +471,10 @@ if _check-commands vim; then
 	export EDITOR="vim"
 fi
 
+if _check-commands opencode; then
+	alias oc="opencode"
+fi
+
 if _check-commands yq; then
 	alias jq="yq"
 	alias yq-combine="yq ea '[.]'"

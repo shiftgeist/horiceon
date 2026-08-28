@@ -1,0 +1,35 @@
+[theme]
+name = "tokyo-night"
+auto_switch = false
+
+[ui]
+show_agent_labels_on_pane_borders = false
+agent_panel_sort = "priority"
+sidebar_start_collapsed = true
+sidebar_collapsed_mode = "compact"
+hide_tab_bar_when_single_tab = true
+prompt_new_tab_name = false
+
+[ui.sidebar.spaces]
+rows = [
+  ["state_icon", "workspace", "state_text"],
+  ["branch", "git_status"],
+]
+
+[ui.sidebar.agents]
+rows = [
+  ["state_icon", "agent", "state_text"],
+  ["workspace", "tab"],
+]
+
+[ui.sidebar.agents.rows_by_agent]
+opencode = [
+  ["state_icon", "terminal_title_stripped"],
+  ["state_text", "tab"],
+]
+
+[ui.sound]
+enabled = false
+
+[terminal]
+new_cwd = "follow"

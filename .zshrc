@@ -405,7 +405,7 @@ fi
 if _check-commands brew; then
 	function brew-bundle-dump() {
 		brew bundle dump --global --force --no-go --no-npm
-		brew bundle remove --global awscli antigravity-cli claude-code claudebar gemini-cli microsoft-teams mistral-vibe ladybird
+		brew bundle remove --global awscli
 		echo "Brewfile dumped and filtered"
 	}
 
@@ -477,8 +477,8 @@ if _check-commands uv; then
 	alias bestllm="uvx whichllm@latest --profile coding"
 fi
 
-if _check-commands vim; then
-	export EDITOR="vim"
+if _check-commands nvim; then
+	export EDITOR="nvim"
 fi
 
 if _check-commands opencode; then

@@ -9,9 +9,9 @@ import { parser } from 'npm:zod-opts@1.0.0';
 import { z } from 'npm:zod@4.4.3/v4';
 
 const pastDaysOneOf = [1, 3, 7, 14, 31, 61];
-const pastDaysDefault = pastDaysOneOf[2];
+const pastDaysDefault = pastDaysOneOf[3];
 const futureDaysOneOf = [1, 3, 7];
-const futureDaysDefault = futureDaysOneOf[1];
+const futureDaysDefault = futureDaysOneOf[2];
 const defaultLocale = 'en-US';
 
 const envSchema = z.object({
@@ -167,10 +167,10 @@ futureWithToday.forEach((temp, i) => {
 seperator();
 
 const pastEnd = now.until(now.add({ days: flags['past-days'] }), { largestUnit: 'month' });
-console.log(`${df.format(pastEnd)}: ${lastWeekAvg} ${unit}`);
+console.log(`Last ${df.format(pastEnd)}: ${lastWeekAvg} ${unit}`);
 
 const futureEnd = now.until(now.add({ days: flags['future-days'] }), { largestUnit: 'month' });
-console.log(`${df.format(futureEnd)}: ${nextWeekAvg} ${unit}`);
+console.log(`Next ${df.format(futureEnd)}: ${nextWeekAvg} ${unit}`);
 
 seperator();
 console.log(

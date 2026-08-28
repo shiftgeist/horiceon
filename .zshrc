@@ -211,9 +211,19 @@ alias grepf="fzf -f"
 alias horiceon="/usr/bin/git --git-dir=$RICE_HOME --work-tree=$HOME"
 alias la="ls -la"
 alias now="date +%s"
-alias rm="trash"
 alias timestamp="date +%s"
 alias la="ls -la"
+
+function rm() {
+	local args=()
+	for arg in "$@"; do
+		case "$arg" in
+			-r|-f|-rf|-fr) ;;
+			*) args+=("$arg") ;;
+		esac
+	done
+	trash "${args[@]}"
+}
 
 case "$PLATFORM" in
 macos)

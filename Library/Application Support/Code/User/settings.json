@@ -38,11 +38,15 @@
   "chat.requestQueuing.defaultAction": "steer",
   "chat.restoreLastPanelSession": true,
   "chat.tools.urls.autoApprove": {
-    "https://*.gov": true,
+    "http://0.0.0.0:*/*": true,
+    "http://127.0.0.1:*/*": true,
+    "http://localhost:*/*": true,
+    "https://*.*": true,
+    "https://*.docker.com": true,
     "https://code.visualstudio.com": true,
-    "https://cve.gov": true,
-    "https://github.com/microsoft/vscode/*": true,
+    "https://github.com": true,
     "https://github.com/microsoft/vscode/wiki/*": true,
+    "https://huggingface.co": true,
     "https://learn.microsoft.com": {
       "approveRequest": false,
       "approveResponse": true
@@ -70,8 +74,9 @@
   "deno.path": "/usr/local/bin/deno",
   "diffEditor.codeLens": true,
   "diffEditor.experimental.showMoves": true,
+  "diffEditor.experimental.showEmptyDecorations": true,
   "diffEditor.experimental.useTrueInlineView": true,
-  "diffEditor.ignoreTrimWhitespace": false,
+  "diffEditor.ignoreTrimWhitespace": true,
   "diffEditor.renderSideBySide": true,
   "dprint.experimentalLsp": true,
   "dprint.path": "/usr/local/bin/dprint",
@@ -106,7 +111,7 @@
   "editor.stickyScroll.enabled": false,
   "editor.suggest.preview": true,
   "editor.tabSize": 2,
-  "editor.wordWrap": "on",
+  "editor.wordWrap": "off",
   "emmet.includeLanguages": {
     "svem": "html",
     "twig": "html"
@@ -141,7 +146,7 @@
   "extensions.ignoreRecommendations": true,
   "files.associations": {
     ".chezmoiignore": "ignore",
-    "*.html": "twig",
+    "*.marka": "markdown",
     "*.svg": "html"
   },
   "files.watcherExclude": {
@@ -203,7 +208,6 @@
   "notebook.formatOnSave.enabled": true,
   "php-cs-fixer.executablePath": "~/.config/composer/vendor/bin/php-cs-fixer",
   "playwright.reuseBrowser": true,
-  "rainbow_csv.virtual_alignment_mode": "always",
   "redhat.telemetry.enabled": false,
   "scm.defaultViewMode": "tree",
   "security.workspace.trust.untrustedFiles": "open",
@@ -224,7 +228,8 @@
     "FIG_NEW_SESSION": "1"
   },
   "terminal.integrated.fontLigatures.enabled": true,
-  "terminal.integrated.tabs.enabled": false,
+  "terminal.integrated.initialHint": false,
+  "terminal.integrated.stickyScroll.enabled": false,
   "timetracker.dotTimeTrackerIndent": "  ",
   "todo-tree.filtering.excludeGlobs": [
     "**/node_modules/*/**",
@@ -255,6 +260,10 @@
   "workbench.editor.empty.hint": "hidden",
   "workbench.editor.enablePreview": false,
   "workbench.editor.useModal": "off",
+  "workbench.editorAssociations": {
+    "*.copilotmd": "vscode.markdown.preview.editor",
+    "*.pdf": "pdf.view"
+  },
   "workbench.experimental.modernUI": true,
   "workbench.fontAliasing": "antialiased",
   "workbench.layoutControl.enabled": false,

@@ -1,4 +1,6 @@
+tap "homebrew/cask"
 tap "homebrew/core"
+tap "jackchuka/tap"
 # Clone of cat(1) with syntax highlighting and Git integration
 brew "bat"
 # Resource monitor. C++ version and continuation of bashtop and bpytop
@@ -13,6 +15,8 @@ brew "entr"
 brew "eza"
 # Simple, fast and user-friendly alternative to find
 brew "fd"
+# Play, record, convert, and stream select audio and video codecs
+brew "ffmpeg"
 # Command-line fuzzy finder written in Go
 brew "fzf"
 # Interpreter for PostScript and PDF
@@ -25,6 +29,8 @@ brew "herdr"
 brew "hyperfine"
 # Tools and libraries to manipulate images in select formats
 brew "imagemagick"
+# Truly independent web browser
+brew "ladybird", args: ["HEAD"], link: false
 # LLM inference in C/C++
 brew "llama.cpp"
 # Mac App Store command-line interface
@@ -33,8 +39,14 @@ brew "mas"
 brew "mise"
 # NCurses Disk Usage
 brew "ncdu"
+# Ambitious Vim-fork focused on extensibility and agility
+brew "neovim"
 # AI coding agent, built for the terminal
 brew "opencode"
+# Swiss-army knife of markup format conversion
+brew "pandoc"
+# Object-relational database system
+brew "postgresql@18", link: true
 # Terminal slideshow tool
 brew "presenterm"
 # Wrapper around ripgrep that adds multiple rich file types
@@ -43,12 +55,18 @@ brew "ripgrep-all"
 brew "skaffold"
 # Cross-shell prompt for astronauts
 brew "starship"
+# Tree command, improved
+brew "tre-command"
 # Vulnerability scanner for container images, file systems, and Git repos
 brew "trivy"
 # Process YAML, JSON, XML, CSV and properties documents from the CLI
 brew "yq"
+# Feature-rich command-line audio/video downloader
+brew "yt-dlp", args: ["HEAD"]
 # Shell extension to navigate your filesystem faster
 brew "zoxide"
+# 📝 A declarative schema-based Markdown validator that helps maintain consistent documentation structure across projects.
+brew "jackchuka/tap/mdschema", trusted: true
 # Image editing and design software
 cask "affinity"
 # Cross platform SQL editor and database management app
@@ -61,6 +79,8 @@ cask "bruno"
 cask "cyberduck"
 # Collaborative team software
 cask "figma"
+# Web browser
+cask "firefox"
 # Chromium-based web browser
 cask "helium-browser"
 # Terminal emulator as alternative to Apple's Terminal app
@@ -75,18 +95,20 @@ cask "maccy"
 cask "macs-fan-control"
 # Meeting transcription and analysis application
 cask "meetily"
+# Meet, chat, call, and collaborate in just one place
+cask "microsoft-teams"
 # Knowledge base that works on top of a local folder of plain text Markdown files
 cask "obsidian"
 # Replacement for Docker Desktop
 cask "orbstack"
+# WebKit based web browser
+cask "orion"
 # Install games and apps compiled for Microsoft Windows
 cask "porting-kit"
 # Move and resize windows using keyboard shortcuts or snap areas
 cask "rectangle"
 # File sync and share software
 cask "resilio-sync"
-# Team communication and collaboration software
-cask "slack"
 # Music streaming service
 cask "spotify"
 # Menu bar customization tool
@@ -102,6 +124,8 @@ cask "zen"
 mas "Bitwarden", id: 1352778147
 mas "DaVinci Resolve", id: 571213070
 mas "Gifski", id: 1351639930
+mas "Numbers", id: 361304891
+vscode "a-h.templ"
 vscode "aquasecurityofficial.trivy-vulnerability-scanner"
 vscode "astro-build.astro-vscode"
 vscode "beerush.svem"
@@ -113,13 +137,16 @@ vscode "deepinthought.vscode-shell-snippets"
 vscode "denoland.vscode-deno"
 vscode "dprint.dprint"
 vscode "editorconfig.editorconfig"
+vscode "esbenp.prettier-vscode"
 vscode "fill-labs.dependi"
 vscode "golang.go"
 vscode "gruntfuggly.todo-tree"
+vscode "heybourn.headwind"
 vscode "kortina.vscode-markdown-notes"
 vscode "letmaik.git-tree-compare"
 vscode "lydanne.i18n-ally-next"
 vscode "maattdd.gitless"
+vscode "mathematic.vscode-pdf"
 vscode "mechatroner.rainbow-csv"
 vscode "naumovs.color-highlight"
 vscode "redhat.vscode-yaml"

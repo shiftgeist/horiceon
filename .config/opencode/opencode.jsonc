@@ -43,7 +43,7 @@
       "url": "https://search.parallel.ai/mcp"
     }
   },
-  "model": "github-copilot/claude-opus-5",
+  "model": "github-copilot/gpt-5.6-luna",
   "permission": {
     "bash": {
       "*": "ask",
@@ -138,6 +138,17 @@
     "@dietrichgebert/ponytail@latest",
     "opencode-agent-memory@latest"
   ],
+  "provider": {
+    "openai": {
+      "models": {
+        "gpt-5.6-luna": {
+          "options": {
+            "reasoningEffort": "max"
+          }
+        }
+      }
+    }
+  },
   "share": "disabled",
-  "small_model": "github-copilot/claude-sonnet-5"
+  "small_model": "github-copilot/gpt-5.6-terra"
 }

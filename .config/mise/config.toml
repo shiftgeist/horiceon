@@ -12,7 +12,8 @@
 "npm:zx" = "latest"
 "python" = "3"
 "uv" = "latest"
-"go:github.com/a-h/templ/cmd/templ" = "0.3.1001"
+"go:github.com/a-h/templ/cmd/templ" = "latest"
+"npm:@fission-ai/openspec" = "latest"
 
 [settings]
 always_keep_download = true

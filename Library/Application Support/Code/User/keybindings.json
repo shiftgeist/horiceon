@@ -4,22 +4,24 @@
     "key": "alt+s",
     "command": "-sortJsObjectKeys.sortJsObjectKeys"
   },
-  {
-    "key": "ctrl+tab",
-    "command": "workbench.action.nextEditor"
-  },
-  {
-    "key": "shift+cmd+]",
-    "command": "-workbench.action.nextEditor"
-  },
-  {
-    "key": "ctrl+shift+tab",
-    "command": "workbench.action.previousEditor"
-  },
-  {
-    "key": "shift+cmd+[",
-    "command": "-workbench.action.previousEditor"
-  },
+  // <Tab Sequence from history to side-by-side>
+  // {
+  //   "key": "ctrl+tab",
+  //   "command": "workbench.action.nextEditor"
+  // },
+  // {
+  //   "key": "shift+cmd+]",
+  //   "command": "-workbench.action.nextEditor"
+  // },
+  // {
+  //   "key": "ctrl+shift+tab",
+  //   "command": "workbench.action.previousEditor"
+  // },
+  // {
+  //   "key": "shift+cmd+[",
+  //   "command": "-workbench.action.previousEditor"
+  // },
+  // </Tab Sequence from history to side-by-side> 
   {
     "key": "shift+cmd+t",
     "command": "-headwind.sortTailwindClasses",

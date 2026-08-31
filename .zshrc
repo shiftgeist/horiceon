@@ -170,6 +170,14 @@ zstyle ':fzf-tab:complete:*:*' fzf-preview '
       || file --brief "$realpath"
   elif [[ -d "$realpath" ]]; then
     eza -la --color=always "$realpath"
+  elif [[ -n "$commands[$word]" ]]; then
+    local bin_path="$commands[$word]"
+    if file --brief --mime-type "$bin_path" 2>/dev/null | grep -q "^text/"; then
+      bat --color=always --style=numbers --line-range=:500 "$bin_path" 2>/dev/null \
+        || cat "$bin_path"
+    else
+      file --brief "$bin_path"
+    fi
   elif [[ -n "$desc" ]]; then
     echo "$word -- $desc" | fold -s -w "${FZF_PREVIEW_COLUMNS:-80}"
   fi

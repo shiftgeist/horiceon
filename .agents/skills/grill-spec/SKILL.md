@@ -123,8 +123,14 @@ Derive `<change-slug>` from the task. Commit `proposal.md` as part of the
 normal commit flow — it's documentation of the process, not disposable
 state.
 
-## Passing to review-loop
+## Stop for human review
 
-Once `proposal.md` is written and committed, hand off to the `review-loop`
-skill with the change directory (`.review-loop/<change-slug>/`) so it can
-implement and review each gate.
+Once `proposal.md` is written and committed, stop here. Do not invoke
+`review-loop` automatically. Present the proposal — gates and their
+scenarios — and ask the user to review it. Implementation starts a separate
+review cycle per gate (worker/reviewer), so this is the one point where the
+user sees and can correct the plan as a whole before any code gets written.
+Only proceed to `review-loop`, with the change directory
+(`.review-loop/<change-slug>/`), once the user explicitly approves — either
+as-is or after edits, including edits they made directly to `proposal.md`
+per the bail-out case above.

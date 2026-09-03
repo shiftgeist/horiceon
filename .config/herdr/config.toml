@@ -28,8 +28,8 @@ opencode = [
   ["state_text", "tab"],
 ]
 
-[ui.sound]
-enabled = false
+# [ui.sound]
+# enabled = false
 
 [terminal]
 new_cwd = "follow"

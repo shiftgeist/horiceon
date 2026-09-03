@@ -5,6 +5,7 @@
 "go:mvdan.cc/sh/v3/cmd/shfmt" = "v3.13.1"
 "go" = "latest"
 "node" = "latest"
+"npm:agent-browser" = "latest"
 "npm:corepack" = "latest"
 "npm:cpd" = "latest"
 "npm:npq" = "latest"

@@ -490,7 +490,8 @@ if _check-commands nvim; then
 fi
 
 if _check-commands opencode; then
-	alias oc="opencode"
+	alias oc="OPENCODE_ENABLE_EXA=1 OPENCODE_ENABLE_PARALLEL=1 opencode"
+	alias tokens="pnpx ccusage@latest opencode monthly --compact"
 fi
 
 if _check-commands yq; then

@@ -2,137 +2,188 @@
   "$schema": "https://opencode.ai/config.json",
   "autoshare": false,
   "autoupdate": false,
-  "mcp": {
-    "atlassian": {
-      "enabled": false,
-      "type": "remote",
-      "url": "https://mcp.atlassian.com/v1/mcp/authv2"
-    },
-    "ddg-search": {
-      "command": [
-        "npx",
-        "-y",
-        "open-websearch@latest"
-      ],
-      "enabled": true,
-      "environment": {
-        "ALLOWED_SEARCH_ENGINES": "duckduckgo",
-        "DEFAULT_SEARCH_ENGINE": "duckduckgo",
-        "MODE": "stdio"
-      },
-      "type": "local"
-    },
-    "firefox-devtools": {
-      "command": [
-        "pnpm",
-        "dlx",
-        "@mozilla/firefox-devtools-mcp@latest",
-        "--headless",
-        "--viewport",
-        "1600x900"
-      ],
-      "enabled": false,
-      "environment": {
-        "START_URL": "about:blank"
-      },
-      "type": "local"
-    },
-    "parallel-search": {
-      "enabled": false,
-      "type": "remote",
-      "url": "https://search.parallel.ai/mcp"
-    }
+  "compaction": {
+    "auto": true
   },
-  "model": "github-copilot/gpt-5.6-luna",
   "permission": {
     "bash": {
       "*": "ask",
+      "awk *": "allow",
       "basename *": "allow",
-      "cargo build *": "allow",
-      "cargo check *": "allow",
-      "cargo clippy *": "allow",
-      "cargo test *": "allow",
-      "cat .env*": "deny",
-      "cat *": "allow",
-      "cat ~/.ssh/*": "deny",
+      "cargo --list": "allow",
+      "cargo info *": "allow",
+      "cargo locate-project *": "allow",
+      "cargo metadata *": "allow",
+      "cargo outdated *": "allow",
+      "cargo pkgid *": "allow",
+      "cargo read-manifest *": "allow",
+      "cargo search *": "allow",
+      "cargo tree *": "allow",
+      "cargo verify-project *": "allow",
+      "cargo version": "allow",
+      "cat": "deny", // Incident: `cat > /var/folders/21/wxz9mkn96m7_pqx626f2r8p00000gn/T/opencode/mem-draft.txt << [...]`
+      "cd *": "allow",
       "chmod *": "deny",
       "column *": "allow",
+      "comm *": "allow",
       "cut *": "allow",
       "date *": "allow",
+      "deno --version": "allow",
       "deno check *": "allow",
+      "deno doc *": "allow",
+      "deno fmt --check *": "allow",
       "deno fmt *": "allow",
+      "deno info *": "allow",
+      "deno lint *": "allow",
+      "deno task --list": "allow",
+      "df *": "allow",
+      "diff *": "allow",
       "dirname *": "allow",
       "doas *": "deny",
+      "du *": "allow",
       "echo *": "allow",
+      "env": "deny",
       "eval *": "deny",
-      "find *": "allow",
+      "false": "allow",
+      "file *": "allow",
+      "fd *": "ask", // keep! same as `find *`
+      "find *": "ask", // keep! `-delete`, `-exec` too risky
       "find * -delete": "deny",
+      "find * -exec *": "deny",
+      "git blame *": "allow",
       "git branch --show-current": "allow",
       "git branch -a --list *": "allow",
+      "git cat-file *": "allow",
+      "git commit *": "deny",
+      "git describe *": "allow",
+      "git diff": "allow",
       "git diff *": "allow",
       "git log *": "allow",
+      "git ls-files *": "allow",
+      "git push *": "deny",
+      "git remote -v": "allow",
       "git rev-parse --abbrev-ref *": "allow",
       "git show *": "allow",
+      "git stash list": "allow",
+      "git stash show *": "allow",
+      "git status": "allow",
+      "git status --short": "allow",
       "git status *": "allow",
+      "git tag --list *": "allow",
+      "git tag -l *": "allow",
+      "go build -n *": "allow",
       "go build *": "allow",
+      "go doc *": "allow",
+      "go env *": "allow",
+      "go list -m -versions *": "allow",
+      "go list *": "allow",
+      "go mod download *": "allow",
+      "go mod edit -print *": "allow",
+      "go mod graph *": "allow",
       "go mod tidy *": "allow",
-      "go test *": "allow",
+      "go mod verify *": "allow",
+      "go mod why *": "allow",
+      "go version": "allow",
       "go vet *": "allow",
       "gofmt *": "allow",
       "grep *": "allow",
       "head *": "allow",
+      "hexdump *": "allow",
       "jq *": "allow",
       "kill *": "deny",
+      "less *": "allow",
       "ls *": "allow",
+      "md5sum *": "allow",
+      "mise --version": "allow",
+      "mise -v": "allow",
+      "mise config *": "allow",
+      "mise doctor *": "allow",
+      "mise env *": "allow",
+      "mise exec *": "deny",
+      "mise info *": "allow",
+      "mise latest *": "allow",
+      "mise list *": "allow",
+      "mise ls *": "allow",
+      "mise outdated *": "allow",
+      "mise r *": "allow",
+      "mise registry *": "allow",
+      "mise tasks *": "allow",
+      "mise where *": "allow",
+      "mise which *": "allow",
+      "mkdir *": "allow",
       "mkfs.*": "deny",
+      "more *": "allow",
       "nc *": "deny",
+      "node --version": "allow",
+      "node -v": "allow",
       "node *": "deny",
+      "openspec *": "allow",
       "perl *": "deny",
+      "pnpm --version": "allow",
+      "pnpm -v": "allow",
+      "pnpm *": "deny",
+      "pnpm audit": "allow",
       "pnpm bin-paths *": "allow",
-      "pnpm build *": "allow",
       "pnpm doctor *": "allow",
-      "pnpm exec *": "allow",
       "pnpm fmt *": "allow",
       "pnpm info *": "allow",
-      "pnpm install *": "allow",
+      "pnpm licenses *": "allow",
       "pnpm list *": "allow",
       "pnpm ls *": "allow",
       "pnpm outdated *": "allow",
-      "pnpm run *": "allow",
+      "pnpm pack --dry-run *": "allow",
+      "pnpm root *": "allow",
+      "pnpm run build": "allow",
+      "pnpm run test": "allow",
       "pnpm search *": "allow",
       "pnpm show *": "allow",
-      "pnpm test *": "allow",
-      "pnpm version *": "allow",
+      "pnpm store path *": "allow",
       "pnpm view *": "allow",
       "pnpm why *": "allow",
+      "printenv *": "deny",
+      "ps aux": "deny", // use pgrep -af
+      "pwd": "allow",
       "python -c *": "deny",
       "python3 -c *": "deny",
       "readlink *": "allow",
       "rg *": "allow",
       "rga *": "allow",
       "rm *": "deny",
+      "sed --in-place *": "deny",
+      "sed -i *": "deny",
       "sed *": "allow",
+      "sha256sum *": "allow",
       "shred *": "deny",
       "sort *": "allow",
-      "string *": "allow",
+      "stat *": "allow",
       "strings *": "allow",
       "su *": "deny",
       "sudo *": "deny",
       "tail *": "allow",
-      "timeout +": "allow",
+      "timeout *": "allow",
+      "tr *": "allow",
+      "tre *": "allow",
+      "tree *": "allow",
+      "true": "allow",
+      "uname *": "allow",
       "uniq *": "allow",
       "wc *": "allow",
       "which *": "allow",
+      "xxd *": "allow",
       "yq *": "allow"
     },
     "external_directory": {
-      "/tmp/*": "allow"
+      "/tmp/*": "allow",
+      "~/.config/opencode/AGENTS.md": "allow",
+      "~/.vscode/extensions/*": "allow",
+      "~/openspec/*": "allow"
     },
     "read": {
       "*": "allow",
       "*/.aws/credentials": "deny",
       "*/.config/gcloud": "deny"
-    }
+    },
+    "websearch": "allow"
   },
   "plugin": [
     "@dietrichgebert/ponytail@latest",
@@ -141,8 +192,27 @@
   "provider": {
     "openai": {
       "models": {
+        "claude-sonnet-5": {
+          "options": {
+            "reasoningEffort": "max"
+          }
+        },
         "gpt-5.6-luna": {
           "options": {
+            "reasoningEffort": "high"
+          }
+        },
+        "gpt-5.6-sol": {
+          "options": {
+            "reasoningEffort": "low"
+          }
+        },
+        "gpt-5.6-terra": {
+          "options": {
+            "limit": {
+              "context": 272000,
+              "output": 12000
+            },
             "reasoningEffort": "max"
           }
         }
@@ -150,5 +220,5 @@
     }
   },
   "share": "disabled",
-  "small_model": "github-copilot/gpt-5.6-terra"
+  "small_model": "github-copilot/claude-haiku-4.5"
 }

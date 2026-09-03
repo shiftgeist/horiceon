@@ -547,11 +547,7 @@ if _check-commands yq; then
 			shift
 			;;
 		*)
-			if [ -f ".mise.toml" ] || [ -f "mise.toml" ]; then
-				tool="mise"
-			elif [ -f "Makefile" ]; then
-				tool="make"
-			elif [ -f "deno.json" ]; then
+			if [ -f "deno.json" ]; then
 				tool="deno"
 			elif [ -f "package.json" ]; then
 				if [ -f "pnpm-lock.yaml" ]; then
@@ -561,6 +557,10 @@ if _check-commands yq; then
 				else
 					tool="npm"
 				fi
+			elif [ -f ".mise.toml" ] || [ -f "mise.toml" ]; then
+				tool="mise"
+			elif [ -f "Makefile" ]; then
+				tool="make"
 			else
 				_debug_log "run: no project file matched"
 				echo "RUN: No recognized project file found (mise.toml / Makefile / deno.json / package.json)"

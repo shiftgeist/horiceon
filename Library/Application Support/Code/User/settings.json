@@ -73,9 +73,10 @@
   "darkSynthwave84.disableGlow": true,
   "deno.path": "/usr/local/bin/deno",
   "diffEditor.codeLens": true,
-  "diffEditor.experimental.showMoves": true,
   "diffEditor.experimental.showEmptyDecorations": true,
+  "diffEditor.experimental.showMoves": true,
   "diffEditor.experimental.useTrueInlineView": true,
+  "diffEditor.hideUnchangedRegions.enabled": true,
   "diffEditor.ignoreTrimWhitespace": true,
   "diffEditor.renderSideBySide": true,
   "dprint.experimentalLsp": true,
@@ -256,6 +257,7 @@
     "vs-kubernetes.suppress-helm-not-found-alerts": true
   },
   "window.autoDetectColorScheme": true,
+  "window.density.layout": "compact",
   "window.menuBarVisibility": "hidden", // windows
   "window.newWindowProfile": "Default",
   "workbench.browser.searchEngine": "duckduckgo",

@@ -1,9 +1,6 @@
 ---
 description: Implements a task, or applies reviewer feedback to an existing implementation.
 mode: subagent
-permission:
-  edit: allow
-  bash: allow
 ---
 
 You implement exactly what is asked, nothing more.

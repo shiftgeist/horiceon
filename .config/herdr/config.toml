@@ -1,3 +1,5 @@
+onboarding = false
+
 [theme]
 name = "tokyo-night"
 auto_switch = false

@@ -14,8 +14,6 @@ Run these `view` calls first, in order:
 
 ```
 view .agents/skills/domain-modeling/SKILL.md
-view .agents/skills/domain-modeling/CONTEXT-FORMAT.md
-view .agents/skills/domain-modeling/ADR-FORMAT.md
 ```
 
 Then search for an existing `CONTEXT.md` in the repo and `view` it if found.

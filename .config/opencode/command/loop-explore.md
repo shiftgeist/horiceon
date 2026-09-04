@@ -1,5 +1,5 @@
 ---
-description: Conversationally work through the Open Questions and inline [??? ...] markers in an existing proposal.md — discuss trade-offs, take manual edits, update the file inline as decisions resolve. Use between loop-plan and loop-implement when the draft needs refinement.
+description: Conversationally work through the Open Questions and inline `???` markers in an existing proposal.md — discuss trade-offs, take manual edits, update the file inline as decisions resolve. Use between loop-plan and loop-implement when the draft needs refinement.
 metadata:
   author: shiftgeist
 ---
@@ -49,7 +49,7 @@ user brings up, in whatever order. Your job each turn:
   file on disk differs from what you last saw, re-`view` it before your
   next edit rather than working from a stale copy.
 
-- Before telling the user the proposal is READY, grep the file for `[???`
+- Before telling the user the proposal is READY, grep the file for `???`
   and check `## Open Questions` — both must be clear. If either still has
   entries, keep `## Status: DRAFT` and say plainly which scenarios or
   questions are still open, don't rely on one check alone.

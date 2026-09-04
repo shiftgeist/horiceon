@@ -50,6 +50,12 @@
       "dirname *": "allow",
       "doas *": "deny",
       "docker *": "deny",
+      "dprint check": "allow",
+      "dprint file-paths": "allow",
+      "dprint format-times": "allow",
+      "dprint incremental-state": "allow",
+      "dprint lsp": "allow",
+      "dprint resolved-config": "allow",
       "du *": "allow",
       "echo *": "allow",
       "env": "deny",
@@ -69,10 +75,12 @@
       "find * -execdir *": "deny",
       "fish *": "deny",
       "ftp *": "deny",
+      "git add *": "deny",
       "git blame *": "allow",
       "git branch --show-current": "allow",
       "git branch -a --list *": "allow",
       "git cat-file *": "allow",
+      "git check-ignore *": "allow",
       "git checkout *": "deny",
       "git cherry-pick *": "deny",
       "git clean *": "deny",
@@ -82,6 +90,7 @@
       "git diff *": "allow",
       "git log *": "allow",
       "git ls-files *": "allow",
+      "git ls-tree *": "allow",
       "git merge *": "deny",
       "git push *": "deny",
       "git rebase *": "deny",
@@ -103,7 +112,6 @@
       "go build *": "allow",
       "go doc *": "allow",
       "go env *": "allow",
-      "go list -m -versions *": "allow",
       "go list *": "allow",
       "go mod download *": "allow",
       "go mod edit -print *": "allow",
@@ -111,6 +119,7 @@
       "go mod tidy *": "allow",
       "go mod verify *": "allow",
       "go mod why *": "allow",
+      "go test *": "allow",
       "go version": "allow",
       "go vet *": "allow",
       "gofmt *": "allow",
@@ -157,6 +166,7 @@
       "perl *": "deny",
       "php *": "deny",
       "pkill *": "deny",
+      "playwright-cli *": "allow",
       "pnpm --version": "allow",
       "pnpm -v": "allow",
       "pnpm *": "deny",
@@ -171,8 +181,8 @@
       "pnpm outdated *": "allow",
       "pnpm pack --dry-run *": "allow",
       "pnpm root *": "allow",
-      "pnpm run test": "allow",
       "pnpm run *": "deny",
+      "pnpm run test": "allow",
       "pnpm search *": "allow",
       "pnpm show *": "allow",
       "pnpm store path *": "allow",
@@ -236,9 +246,8 @@
       "zsh *": "deny"
     },
     "external_directory": {
-      "/tmp/*": "allow",
       "~/.agents/skills/*": "allow",
-      "~/.config/opencode/AGENTS.md": "allow",
+      "~/.config/opencode/*": "allow",
       "~/.vscode/extensions/*": "allow",
       "~/openspec/*": "allow"
     },
@@ -253,13 +262,6 @@
     "@dietrichgebert/ponytail@latest",
     "opencode-agent-memory@latest"
   ],
-  "mcp": {
-    "playwright": {
-      "type": "local",
-      "command": ["npx", "-y", "@playwright/mcp"],
-      "enabled": true
-    }
-  },
   "provider": {
     "openai": {
       "models": {

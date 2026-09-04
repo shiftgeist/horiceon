@@ -2,10 +2,11 @@
 "bun" = "latest"
 "deno" = "latest"
 "dprint" = "latest"
+"go:github.com/a-h/templ/cmd/templ" = "latest"
 "go:mvdan.cc/sh/v3/cmd/shfmt" = "v3.13.1"
 "go" = "latest"
 "node" = "latest"
-"npm:agent-browser" = "latest"
+"npm:@playwright/cli" = "latest"
 "npm:corepack" = "latest"
 "npm:cpd" = "latest"
 "npm:npq" = "latest"
@@ -13,8 +14,6 @@
 "npm:zx" = "latest"
 "python" = "3"
 "uv" = "latest"
-"go:github.com/a-h/templ/cmd/templ" = "latest"
-"npm:@fission-ai/openspec" = "latest"
 
 [settings]
 always_keep_download = true

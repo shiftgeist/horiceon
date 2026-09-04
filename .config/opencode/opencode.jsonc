@@ -23,7 +23,7 @@
       "cargo tree *": "allow",
       "cargo verify-project *": "allow",
       "cargo version": "allow",
-      "cat": "deny", // Incident: `cat > /var/....txt << [...]`
+      "cat *": "deny", // Incident: `cat > /var/....txt << [...]`
       "cd *": "allow",
       "chgrp *": "deny",
       "chmod *": "deny",
@@ -171,8 +171,8 @@
       "pnpm outdated *": "allow",
       "pnpm pack --dry-run *": "allow",
       "pnpm root *": "allow",
-      "pnpm run build": "allow",
       "pnpm run test": "allow",
+      "pnpm run *": "deny",
       "pnpm search *": "allow",
       "pnpm show *": "allow",
       "pnpm store path *": "allow",
@@ -215,6 +215,7 @@
       "tail *": "allow",
       "tee *": "deny",
       "telnet *": "deny",
+      "test *": "allow",
       "timeout *": "allow",
       "tr *": "allow",
       "tre *": "allow",
@@ -236,6 +237,7 @@
     },
     "external_directory": {
       "/tmp/*": "allow",
+      "~/.agents/skills/*": "allow",
       "~/.config/opencode/AGENTS.md": "allow",
       "~/.vscode/extensions/*": "allow",
       "~/openspec/*": "allow"
@@ -251,12 +253,24 @@
     "@dietrichgebert/ponytail@latest",
     "opencode-agent-memory@latest"
   ],
+  "mcp": {
+    "playwright": {
+      "type": "local",
+      "command": ["npx", "-y", "@playwright/mcp"],
+      "enabled": true
+    }
+  },
   "provider": {
     "openai": {
       "models": {
         "claude-sonnet-5": {
           "options": {
-            "reasoningEffort": "max"
+            "reasoningEffort": "xhigh"
+          }
+        },
+        "gemini-3.7-flash": {
+          "options": {
+            "reasoningEffort": "high"
           }
         },
         "gpt-5.6-luna": {
@@ -275,12 +289,12 @@
               "context": 272000,
               "output": 12000
             },
-            "reasoningEffort": "max"
+            "reasoningEffort": "xhigh"
           }
         }
       }
     }
   },
   "share": "disabled",
-  "small_model": "github-copilot/claude-haiku-4.5"
+  "small_model": "github-copilot/gpt-5.6-luna"
 }

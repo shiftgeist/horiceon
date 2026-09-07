@@ -1,10 +1,35 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+if [[ $# -eq 1 && ${1-} == "--restore" ]]; then
+  RESTORE=true
+elif [[ $# -gt 0 ]]; then
+  echo "Usage: ${0##*/} [--restore]" >&2
+  exit 2
+else
+  RESTORE=false
+fi
+
 DAEMON_DIR="/Library/LaunchDaemons"
 AGENT_DIR="/Library/LaunchAgents"
 STAGING="/tmp/forti-plists-staging"
 GUI_UID=$(id -u)
+
+if $RESTORE; then
+  if [[ ! -d $STAGING ]]; then
+    echo "No staged FortiClient plists found." >&2
+    exit 1
+  fi
+
+  echo "→ Restoring and starting services..."
+  sudo mv "$STAGING/daemons/"*.plist "$DAEMON_DIR/" 2>/dev/null || true
+  sudo mv "$STAGING/agents/"*.plist "$AGENT_DIR/" 2>/dev/null || true
+  sudo rmdir "$STAGING/daemons" "$STAGING/agents" "$STAGING"
+  sudo launchctl bootstrap system "$DAEMON_DIR"/com.fortinet.*.plist 2>/dev/null || true
+  launchctl bootstrap gui/$GUI_UID "$AGENT_DIR"/com.fortinet.*.plist 2>/dev/null || true
+  echo "✓ FortiClient services restored."
+  exit
+fi
 
 echo "→ Staging plists..."
 mkdir -p "$STAGING/daemons" "$STAGING/agents"
@@ -48,10 +73,7 @@ sleep 0.5
 echo "→ Killing everything else..."
 sudo pkill -9 -f "[Ff]orti" 2>/dev/null || true
 
-echo "→ Restoring plists for next boot..."
-sudo mv "$STAGING/daemons/"*.plist "$DAEMON_DIR/" 2>/dev/null || true
-sudo mv "$STAGING/agents/"*.plist  "$AGENT_DIR/"  2>/dev/null || true
-sudo rmdir "$STAGING/daemons" "$STAGING/agents" "$STAGING"
+echo "→ Plists remain staged in $STAGING. Run with --restore to restart FortiClient."
 
 remaining=$(pgrep -f "[Ff]orti" 2>/dev/null | wc -l | tr -d ' ')
 echo "✓ Done. Remaining FortiClient processes: $remaining"

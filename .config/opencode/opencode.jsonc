@@ -166,7 +166,6 @@
       "perl *": "deny",
       "php *": "deny",
       "pkill *": "deny",
-      "playwright-cli *": "allow",
       "pnpm --version": "allow",
       "pnpm -v": "allow",
       "pnpm *": "deny",
@@ -182,7 +181,6 @@
       "pnpm pack --dry-run *": "allow",
       "pnpm root *": "allow",
       "pnpm run *": "deny",
-      "pnpm run test": "allow",
       "pnpm search *": "allow",
       "pnpm show *": "allow",
       "pnpm store path *": "allow",
@@ -259,7 +257,6 @@
     "websearch": "allow"
   },
   "plugin": [
-    "@dietrichgebert/ponytail@latest",
     "opencode-agent-memory@latest"
   ],
   "provider": {

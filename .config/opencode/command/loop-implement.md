@@ -65,39 +65,41 @@ log files, and decide when to advance or stop.
 Commit gate logs as part of the normal commit flow for each gate — they're
 documentation of the process, not disposable state.
 
-## Final UI review (once all gates have passed)
+## Final senior review (once all gates have passed)
 
-Once every gate in `proposal.md` has `STATUS: PASS`, and only if the task
-has an observable UI (skip entirely for backend-only/CLI/API-only tasks),
-run one final visual pass before reporting done:
+Once every gate in `proposal.md` has `STATUS: PASS`, run one final holistic
+review before reporting done — this catches what per-gate review can't,
+since each gate was reviewed in isolation against only its own scenarios:
 
-1. Start (or confirm running) a dev server exposing the changes, and note
-   its URL.
-2. Invoke the `ui-reviewer` subagent once, giving it the dev server URL and
-   the full `proposal.md` (all gates, all scenarios) — not a single gate's
-   scope. This is a single pass over the whole feature, not a per-gate
-   step, so don't invoke it inside the per-gate loop above.
-3. Read its `ISSUES:` output.
+1. Invoke the `senior-reviewer` subagent once, giving it the full
+   `proposal.md` (all gates, all scenarios, the `Approach` section if
+   present) and the full diff across all gates combined — not one gate's
+   diff. This is a single pass over the whole feature, not a per-gate step,
+   so don't invoke it inside the per-gate loop above.
+2. Read its `ISSUES:` output.
    - For each issue tagged `[Gate N: <slug>]`, treat it exactly like new
      requirements surfacing after a PASS — follow **Reopening a gate**
-     below for that gate, using the ui-reviewer's issue text as the reason.
+     below for that gate, using the senior-reviewer's issue text as the
+     reason.
    - For each issue tagged `UNASSIGNED`, do not guess which gate it
      belongs to or reopen anything automatically. Present it to the user
-     and ask which gate (or a new gate) it should be filed under.
+     and ask which gate (or a new gate) it should be filed under — an
+     unassigned issue may also mean the original gate decomposition itself
+     needs revisiting, not just one gate's code.
    - Ignore `NITS:` unless the user asks to address them.
-4. After any reopened gates from this pass complete (PASS again), run the
-   `ui-reviewer` once more, scoped only to the routes/scenarios affected by
-   the reopened gates, to confirm the fix — not a full re-walk of the whole
-   app. If it still fails for the same issue, treat it like any other
+3. After any reopened gates from this pass complete (PASS again), invoke
+   `senior-reviewer` once more with the full updated diff and proposal, to
+   confirm the fix didn't introduce a new cross-gate issue — not a partial
+   re-check. If it still fails for the same issue, treat it like any other
    FAIL: append to that gate's log and loop the worker again (still within
-   that gate's own 5-round budget, not the ui-reviewer's).
-5. If `ui-reviewer` returns `STATUS: PASS` with no `ISSUES:`, proceed to
-   Final report as normal.
+   that gate's own 5-round budget, not the senior-reviewer's).
+4. If `senior-reviewer` returns `STATUS: PASS` with no `ISSUES:`, proceed
+   to Final report as normal.
 
 ## Reopening a gate
 
 If the user gives new requirements for a gate that already has `STATUS:
-PASS` — or the final UI review above surfaces an issue against one:
+PASS` — or the final senior review above surfaces an issue against one:
 
 1. Determine whether this changes the gate's _scope/scenarios_ or is just
    an implementation fix within the existing scenarios.
@@ -136,6 +138,6 @@ When done (all gates passed, or a gate hard-stopped), report:
   later gates were not attempted as a result.
 - Any reopened gates, and which later gates are marked "at risk" as a
   result.
-- The final UI review outcome (PASS, or issues found and which gates they
-  were routed to / left UNASSIGNED for the user).
+- The final senior review outcome (PASS, or issues found and which gates
+  they were routed to / left UNASSIGNED for the user).
 - Files changed, grouped by gate.

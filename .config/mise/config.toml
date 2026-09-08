@@ -34,3 +34,6 @@ minimum_release_age = "7d"
 
 [env]
 _.path = ['{{config_root}}./node_modules/.bin']
+
+[tasks.install-headroom]
+run = 'uv tool install --python 3.13 "headroom-ai[all]"'

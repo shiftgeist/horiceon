@@ -489,11 +489,11 @@ if _check-commands nvim; then
 	export EDITOR="nvim"
 fi
 
-if _check-commands opencode; then
-	alias oc="OPENCODE_ENABLE_EXA=1 OPENCODE_ENABLE_PARALLEL=1 opencode"
+if _check-commands opencode headroom; then
+	alias oc="OPENCODE_ENABLE_EXA=1 OPENCODE_ENABLE_PARALLEL=1 headroom wrap opencode --copilot-subscription --no-serena"
 	
 	function tokens() {
-		pnpx ccusage@latest opencode "${@:-monthly}"
+		pnpx ccusage@latest opencode "${@:-monthly}" && headroom savings
 	}
 fi
 

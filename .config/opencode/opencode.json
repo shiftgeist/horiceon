@@ -23,7 +23,7 @@
       "cargo tree *": "allow",
       "cargo verify-project *": "allow",
       "cargo version": "allow",
-      "cat *": "deny", // Incident: `cat > /var/....txt << [...]`
+      "cat *": "deny",
       "cd *": "allow",
       "chgrp *": "deny",
       "chmod *": "deny",
@@ -188,7 +188,7 @@
       "pnpm why *": "allow",
       "podman *": "deny",
       "printenv *": "deny",
-      "ps aux": "deny", // use pgrep -af
+      "ps aux": "deny",
       "pwd": "allow",
       "python *": "deny",
       "python3 *": "deny",

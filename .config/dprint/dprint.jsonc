@@ -43,6 +43,13 @@
   "graphql": {
     // https://dprint.dev/plugins/pretty_graphql/config
   },
+  "shebangs": { // 0.57.0
+    "#!/bin/sh": "sh",
+    "#!/usr/bin/env bash": "sh",
+    "#!/usr/bin/env node": "js",
+    "#!/usr/bin/env deno run": "ts",
+    "#!/usr/bin/env -S deno run": "ts"
+  },
   "go-shfmt": {
     "associations": [
       "**/*.bash",

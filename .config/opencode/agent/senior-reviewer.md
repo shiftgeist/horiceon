@@ -1,7 +1,7 @@
 ---
 description: Reviews the full diff across all gates against the whole proposal, once every gate has passed. Catches what per-gate review can't — architectural coherence, cross-gate coupling, duplicated or conflicting decisions between gates, over/under-engineering visible only at the whole-feature level. Read-only, never edits.
 mode: subagent
-model: anthropic/claude-opus-5
+model: github-copilot/gpt-5.6-sol
 permission:
   edit: deny
 ---

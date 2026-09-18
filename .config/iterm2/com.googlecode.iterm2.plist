@@ -1247,6 +1247,12 @@
 	<false/>
 	<key>SplitPaneDimmingAmount</key>
 	<real>0.40287201457816385</real>
+	<key>StatusBarPosition</key>
+	<integer>0</integer>
+	<key>TabStyleWithAutomaticOption</key>
+	<integer>5</integer>
+	<key>TabViewType</key>
+	<integer>0</integer>
 	<key>UseBorder</key>
 	<false/>
 	<key>VisualIndicatorForEsc</key>

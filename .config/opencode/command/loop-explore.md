@@ -1,5 +1,5 @@
 ---
-description: Conversationally work through the Open Questions and inline `???` markers in an existing proposal.md — discuss trade-offs, take manual edits, update the file inline as decisions resolve. Use between loop-plan and loop-implement when the draft needs refinement.
+description: Resolve proposal questions conversationally with German as the base language. Explain each choice simply and record decisions immediately.
 metadata:
   author: shiftgeist
 ---
@@ -10,35 +10,49 @@ Proposal path: $ARGUMENTS
 
 `view` the file at the path above first.
 
-This is a conversation, not an interview script — respond to whatever the
-user brings up, in whatever order. Your job each turn:
+This is a conversation, not an interview script. Respond to the topic that
+the user raises. If the user gives no topic, start with the first unresolved
+question.
 
-- Discuss the topic the user raises (trade-offs, alternatives, why you
-  recommended what you did). Conduct this in German, keeping established
-  English Fachbegriffe in English as usual (e.g. "Encoding", "Edge Case",
-  "Race Condition", "Refactoring", "Endpoint"); switch fully to English for
-  literal code, file paths, config keys/values, log output, error messages,
-  CLI commands, or direct quotes from the codebase or docs.
+Before discussing details, show a short list of all unresolved question IDs
+and titles. Do not mix this list into the gate summary.
 
-- The moment something is decided — by the user, or by them accepting your
-  recommendation — update `proposal.md` immediately:
-  - For an inline `[??? <question> | rec: <rec>]` marker: replace the
-    entire bracketed marker with the concrete resolved text. Don't just
-    delete the marker and leave the step vague, and don't leave the
-    recommendation text dangling. E.g.
+Your job each turn:
 
-    ```gherkin
-    Then the ATM should [??? ... | rec: dispense immediately]
-    ```
+- Discuss the topic the user raises, including trade-offs, alternatives, and
+  your recommendation. Use German as the base language. Keep established
+  English terms when they are common, clearer, or part of the project's
+  vocabulary. Do not translate terms mechanically. Use exact English for
+  code, file paths, config values, logs, errors, commands, and direct quotes.
 
-    becomes
+- Explain each question as if the user has no context. Do not assume that
+  the user knows the architecture or the technical term.
+- Start with what changes for a person or system in one concrete example.
+- Explain each option and its practical consequence in separate bullets.
+- Give your recommendation and one plain reason.
+- End with one clear choice that you need from the user.
+- Discuss one question at a time unless the user groups several questions.
+- Define necessary technical terms in one short sentence. Avoid analogies
+  when a concrete example explains the point better.
 
-    ```gherkin
-    Then the ATM should dispense the cash immediately
-    ```
+- Update `proposal.md` immediately when the user decides something. An
+  accepted recommendation also counts as a decision.
+  - For a `## Offene Fragen` entry: remove the complete resolved question
+    block. Follow every link under `Betrifft` and update those gates.
+  - Update each affected scenario when the decision differs from the drafted
+    recommendation.
+  - Add or update one `## Decision Overview` row with the selected outcome,
+    its consequence, its reason, and links to all relevant proposal sections.
+  - Add an ADR or domain doc link only when that artifact exists.
+  - Remove the `## Offene Fragen` heading after the last question resolves.
 
-  - For a `## Open Questions` entry: remove the resolved line and update
-    the affected gate's scope/scenarios accordingly.
+- Preserve internal Wiki-links when editing the proposal. Before reporting
+  that implementation can start, verify that every link in `## Gate-Übersicht`,
+  `Abhängigkeit`, and `Betrifft` uses `[[#gate-n]]`. Resolve each lowercase
+  anchor to exactly one `## Gate N` section.
+  Verify every internal link uses `[[#heading-slug]]`. Resolve each Wiki-link
+  to exactly one proposal heading. Verify every Markdown file link in
+  `Decision Overview` exists.
   - Update `CONTEXT.md`/add an ADR per domain-modeling if the decision
     warrants it.
 
@@ -49,18 +63,14 @@ user brings up, in whatever order. Your job each turn:
   file on disk differs from what you last saw, re-`view` it before your
   next edit rather than working from a stale copy.
 
-- Before telling the user the proposal is READY, grep the file for `???`
-  and check `## Open Questions` — both must be clear. If either still has
-  entries, keep `## Status: DRAFT` and say plainly which scenarios or
-  questions are still open, don't rely on one check alone.
+- Before you report that implementation can start, check whether
+  `## Offene Fragen` exists. If it exists, name each unresolved question ID.
 
-- Once both are clear, set `## Status: READY` and tell the user: "Bereit —
+- Once the section is absent, tell the user: "Bereit:
   führe `/loop-implement <path>` aus, wenn du starten willst." Don't say
   this while anything remains open.
 
 If the user wants to stop before every point is resolved, that's fine —
-leave the remaining ones in place with `Status: DRAFT`. There is no
+leave the remaining questions in place. There is no
 bail-out mechanic to invoke here; the file always reflects exactly where
 things stand, so simply stopping is safe.
-
-Commit `proposal.md` after any change that resolves an item.

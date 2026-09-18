@@ -4,6 +4,7 @@
 "dprint" = "latest"
 "go:github.com/a-h/templ/cmd/templ" = "latest"
 "go:golang.org/x/tools/gopls" = "latest"
+"go:golang.org/x/vuln/cmd/govulncheck" = "latest"
 "go:mvdan.cc/sh/v3/cmd/shfmt" = "latest"
 "go" = "latest"
 "node" = "latest"
@@ -29,12 +30,11 @@ idiomatic_version_file_enable_tools = [
 legacy_version_file = true
 minimum_release_age = "7d"
 
-# use in projects
-# [hooks]
-# postinstall = 'npx corepack enable && corepack prepare'
+[hooks]
+postinstall = 'herdr integration install opencode'
 
 [env]
 _.path = ['{{config_root}}./node_modules/.bin']
 
 [tasks.install-headroom]
-run = 'uv tool install --python 3.13 "headroom-ai[all]"'
+run = 'uv tool install --python 3.13 "headroom-ai[all]"@latest'

@@ -1,5 +1,6 @@
 ---
 description: Given a path to a gate-structured proposal.md, implement and review each gate in a loop with the worker/reviewer subagents until it passes. Handles reopening a gate when new requirements invalidate a prior PASS.
+model: github-copilot/gpt-5.6-terra
 metadata:
   author: shiftgeist
 ---
@@ -10,22 +11,39 @@ Proposal path: $ARGUMENTS
 
 `view` the file at the path above.
 
-If it has any unresolved `## Open Questions` entries, or any inline `[???`
-marker anywhere in the file (grep for it), stop and tell the user: run
-`/loop-explore <path>` first, or resolve them directly in the file. Do not
-guess an answer to an open question or marker yourself, and do not treat a
-proposal as ready to implement while either is present, even if the other
-is clear.
+If `## Offene Fragen` exists, stop. Tell the user to run
+`/loop-explore <path>` first, or resolve the questions directly in the file.
+Do not guess an answer yourself. The section's presence means that the
+proposal still needs decisions.
+
+Validate the proposal's gate links before starting a worker:
+
+- Every gate link must use the exact lowercase form `[[#gate-n]]`.
+- Each `[[#gate-n]]` link must resolve to exactly one `## Gate N` section.
+- Each `Abhängigkeit` link must resolve to an earlier gate.
+- Every detailed gate must appear exactly once in the overview.
+- Every internal proposal link must use `[[#heading-slug]]`.
+- Every internal Wiki-link in `## Decision Overview` must resolve to an
+  existing proposal section.
+- Every file link in `## Decision Overview` must resolve to an existing path.
+
+Stop and report each broken or missing link. Do not infer the intended gate.
 
 ## Per-gate loop
 
-For each `## Gate N` section in the proposal, in order, maintain a single
-growing gate log at `<same-directory>/gates/NN-<gate-slug>.md`. Never split
+Follow the proposal's gate order exactly. The proposal should progress from
+`Rahmen` through `Konzept` to `Details`. Do not reorder gates by technical
+layer. If the proposal documents a prerequisite exception, respect it.
+
+For each exact `## Gate N` section in the proposal, in order, maintain a
+single growing gate log at `<same-directory>/gates/NN-<gate-slug>.md`. Build
+the slug from the section's `Name:` field. Never split
 it into separate in/out files — each round appends to the same file, so the
 full history of this gate lives in one place.
 
 1. **Seed the gate log.** On the first round for this gate, write:
    - The overall task (for context).
+   - Every `Decision Overview` row whose `Refs` links this gate.
    - This gate's `## Gate N` section from `proposal.md` verbatim (scope +
      scenarios) — these scenarios are the acceptance criteria; the worker
      implements to satisfy each Given/When/Then, the reviewer checks each
@@ -33,6 +51,7 @@ full history of this gate lives in one place.
    - Summary of what prior gates completed (files touched, key decisions,
      interfaces/contracts established) — not full diffs, just what this
      gate's worker needs to build on top of it without re-deriving it.
+   - The gate's level from the overview: `Rahmen`, `Konzept`, or `Details`.
 
 2. Invoke the `worker` subagent with the gate log as-is. The worker starts
    fresh each round and remembers nothing — it only knows what's in the
@@ -61,9 +80,6 @@ full history of this gate lives in one place.
 Never fix the reviewer's issues yourself — that is the worker's job. Your
 role is to route messages between worker and reviewer, maintain the gate
 log files, and decide when to advance or stop.
-
-Commit gate logs as part of the normal commit flow for each gate — they're
-documentation of the process, not disposable state.
 
 ## Final senior review (once all gates have passed)
 
@@ -129,6 +145,10 @@ PASS` — or the final senior review above surfaces an issue against one:
 ## Final report
 
 When done (all gates passed, or a gate hard-stopped), report:
+
+Write the report with German as the base language. Keep English terms where
+they fit naturally. Keep machine-readable labels such as `PASS`, `FAIL`, and
+`STATUS` unchanged.
 
 - The task spec from `proposal.md`, including the full set of Gherkin
   scenarios.

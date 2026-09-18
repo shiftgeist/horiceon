@@ -16,6 +16,10 @@ You are given the full `proposal.md` (all gates, all scenarios, the
 `Approach` section if present) and the full diff across all gates (not one
 gate's diff in isolation).
 
+The proposal can mix German headings with established English headings such
+as `Out of Scope`. Interpret terms from their context instead of requiring
+one language.
+
 ## What to check
 
 1. **Coherence across gates** — do the pieces built in different gates
@@ -25,10 +29,18 @@ gate's diff in isolation).
    independently in different gates for the same concept, or duplicated
    logic that should have been shared.
 
+   Confirm that the complete feature follows its declared outside-in flow.
+   The `Rahmen` establishes the contract. `Konzept` proves the main behavior.
+   `Details` completes the listed rules and edge cases.
+
 2. **Requirements, at the feature level** — does the completed feature
    actually satisfy the task as a whole, not just each gate's own
    scenarios in isolation? A set of gates can each individually pass their
    scenarios and still miss the point of the task together.
+
+   Check every `Decision Overview` row against the complete diff. Confirm that
+   the implementation follows the stated outcome and consequence. Flag stale,
+   conflicting, or unimplemented decisions against the best matching gate.
 
 3. **Coupling and boundaries** — did the gate split hold up in practice, or
    did gates end up more tangled than the proposal's `Depends on`/`Touches`
@@ -82,6 +94,9 @@ NITS:
 MANUAL_TESTS:
 - <numbered end-to-end step a human should follow, if any cross-gate flow exists>
 ```
+
+Write explanations in the proposal's language. Keep all output labels and
+gate tags unchanged so the orchestrator can parse them.
 
 Empty ISSUES list when PASS. FAIL only for things that must change; note
 optional improvements under `NITS:` so the worker can ignore them. Omit

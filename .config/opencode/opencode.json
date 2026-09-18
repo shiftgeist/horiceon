@@ -171,16 +171,19 @@
       "pnpm *": "deny",
       "pnpm audit": "allow",
       "pnpm bin-paths *": "allow",
+      "pnpm run *": "ask",
+      "pnpm --filter * run *": "ask",
       "pnpm doctor *": "allow",
       "pnpm fmt *": "allow",
       "pnpm info *": "allow",
+      "pnpm install": "allow",
+      "pnpm install --frozen-lockfile": "allow",
       "pnpm licenses *": "allow",
       "pnpm list *": "allow",
       "pnpm ls *": "allow",
       "pnpm outdated *": "allow",
       "pnpm pack --dry-run *": "allow",
       "pnpm root *": "allow",
-      "pnpm run *": "deny",
       "pnpm search *": "allow",
       "pnpm show *": "allow",
       "pnpm store path *": "allow",
@@ -252,7 +255,8 @@
     "read": {
       "*": "allow",
       "*/.aws/credentials": "deny",
-      "*/.config/gcloud": "deny"
+      "*/.config/gcloud": "deny",
+      "*/.external": "deny"
     },
     "websearch": "allow"
   },
@@ -260,16 +264,11 @@
     "opencode-agent-memory@latest"
   ],
   "provider": {
-    "openai": {
+    "github-copilot": {
       "models": {
         "claude-sonnet-5": {
           "options": {
             "reasoningEffort": "xhigh"
-          }
-        },
-        "gemini-3.7-flash": {
-          "options": {
-            "reasoningEffort": "high"
           }
         },
         "gpt-5.6-luna": {
@@ -279,7 +278,7 @@
         },
         "gpt-5.6-sol": {
           "options": {
-            "reasoningEffort": "low"
+            "reasoningEffort": "medium"
           }
         },
         "gpt-5.6-terra": {
@@ -288,12 +287,66 @@
               "context": 272000,
               "output": 12000
             },
-            "reasoningEffort": "xhigh"
+            "reasoningEffort": "high"
+          }
+        }
+      }
+    },
+    "headroom": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "Headroom Proxy",
+      "options": {
+        "baseURL": "http://127.0.0.1:8788/v1"
+      },
+      "models": {
+        "gpt-4o": {
+          "name": "GPT-4o",
+          "limit": {
+            "context": 128000,
+            "output": 16384
+          }
+        },
+        "gpt-4.1": {
+          "name": "GPT-4.1",
+          "limit": {
+            "context": 1048576,
+            "output": 32768
           }
         }
       }
     }
   },
   "share": "disabled",
-  "small_model": "github-copilot/gpt-5.6-luna"
+  "model": "github-copilot/gpt-5.6-terra",
+  "small_model": "github-copilot/gpt-5.6-luna",
+  "mcp": {
+    "serena": {
+      "type": "local",
+      "command": [
+        "uvx",
+        "--from",
+        "serena-agent",
+        "serena",
+        "start-mcp-server",
+        "--project-from-cwd",
+        "--context",
+        "agent",
+        "--open-web-dashboard",
+        "False"
+      ],
+      "enabled": true
+    },
+    "headroom": {
+      "type": "local",
+      "command": [
+        "/Users/felix/.local/bin/headroom",
+        "mcp",
+        "serve"
+      ],
+      "enabled": true,
+      "environment": {
+        "HEADROOM_PROXY_URL": "http://127.0.0.1:8788"
+      }
+    }
+  }
 }

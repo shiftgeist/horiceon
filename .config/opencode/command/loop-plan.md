@@ -1,5 +1,5 @@
 ---
-description: Investigate the codebase and domain-modeling context, then draft a gate-structured proposal.md for a task in one pass. Marks anything genuinely unresolved as an Open Question or inline [??? ...] marker with a recommendation instead of interviewing step by step. Stops after writing the draft.
+description: Investigate the codebase and domain context, then write an outside-in, gate-structured proposal.md with German as the base language. Explain unresolved decisions simply. Stop after the draft.
 metadata:
   author: shiftgeist
 ---
@@ -22,39 +22,155 @@ Also explore the relevant parts of the codebase for the task in
 
 ## Step 2: Draft the proposal in one pass
 
-Break the task into gates (units small enough for one worker/reviewer pass;
-a small task is one gate). For each gate, write scope + Gherkin scenarios
-using what you found in Step 1 and reasonable defaults.
+Use German as the proposal's base language. Keep established English terms
+when they are common, clearer, or part of the project's vocabulary. Do not
+translate terms mechanically. Keep code identifiers, paths, commands,
+configuration values, and direct quotes unchanged. Keep the Gherkin keywords
+`Given`, `When`, and `Then`. Write the surrounding text with the same language
+rule.
 
-Do not ask the user questions one at a time. Instead, mark unresolved points
-directly where the ambiguity is:
+Use this section order:
 
-- **Inline marker** — prefer this whenever the ambiguity is tied to a
-  specific Given/When/Then step:
+1. `# Vorschlag: <kurzer Titel>`
+2. `## Ziel`
+3. `## Out of Scope`
+4. `## Offene Fragen`, only when unresolved decisions exist
+5. `## Decision Overview`
+6. `## Ansatz`
+7. `## Gate-Übersicht`
+8. Ausführliche Abschnitte mit exakt `## Gate N`
 
-  ```gherkin
-  Then the ATM should [??? dispense cash immediately or queue for a fraud check first? | rec: dispense immediately, flag for async review]
-  ```
+When unresolved decisions exist, keep `## Offene Fragen` near the top. The
+user must see all decisions before the gate details. Omit this section when
+no unresolved decision exists.
 
-  Format: `[??? <question> | rec: <your recommendation>]`. Use it on any
-  step (Given/When/Then), not just Then.
+### Record decisions
 
-- **Top-level `## Open Questions`** — only for things that don't belong to
-  one scenario step (e.g. "should this whole gate be behind a feature
-  flag?"), in the same format:
+Add `## Decision Overview` after `## Offene Fragen`, or after
+`## Out of Scope` when no questions remain. Use this exact table:
 
-  ```markdown
-  ## Open Questions
+```markdown
+| Short Name          | Outcome         | Description              | Refs                                                   |
+| ------------------- | --------------- | ------------------------ | ------------------------------------------------------ |
+| <stable short name> | <chosen option> | <consequence and reason> | [[#ansatz]], [[#gate-1]], [ADR 0001](path) |
+```
 
-  - [ ] <question> — rec: <recommendation>
-  ```
+Record each material decision that constrains behavior, architecture, scope,
+or a gate boundary. Do not record routine implementation details. Use one row
+per decision.
 
-Only mark something as open if getting it wrong would mean redoing a gate —
-not for stylistic or cosmetic choices, those you just decide. Prefer
-picking your recommended answer and drafting the concrete step/gate on top
-of it over leaving something vague or empty — the point is a reviewable
-draft, not a stalled one. Use a marker only when the answer would actually
-change test or implementation behavior.
+- `Short Name` identifies the decision with two to five stable words.
+- `Outcome` states the selected option in one short phrase.
+- `Description` explains the consequence and main reason.
+- `Refs` links every relevant proposal section. Use Wiki-links such as
+  `[[#ziel]]`, `[[#out-of-scope]]`, `[[#ansatz]]`, and `[[#gate-1]]`.
+  Also link an existing ADR, domain doc, requirement, or
+  code location when it materially supports the decision.
+- Use Wiki-links for every link within the same `proposal.md`.
+- Use repository-relative Markdown links only for other files. Add a line
+  anchor when it is stable and useful.
+- Every decision needs at least one proposal reference. Never invent a
+  reference.
+- Do not add unresolved recommendations to this table. Keep them in
+  `## Offene Fragen` until the user decides.
+- Write `Keine material decisions.` below the heading when the proposal has
+  no material decision. Do not create an empty table.
+
+### Order gates outside-in
+
+Break the task into gates small enough for one worker and reviewer pass. A
+small task can use one gate.
+
+Order gates from the broad frame to the detailed behavior:
+
+1. **Rahmen (Boilerplate):** Establish the visible entry point, contract,
+   and smallest runnable skeleton. Do not add fake behavior.
+2. **Konzept:** Implement the main behavior as a thin end-to-end path through
+   that entry point.
+3. **Details:** Add rules, variants, error paths, edge cases, migration, or
+   cleanup.
+
+Do not force one gate for every level. Combine levels when the task is small.
+Prefer a vertical user-visible slice over gates split only by technical layer.
+If a low-level prerequisite must come first, keep it minimal and explain the
+exception in `## Ansatz`.
+
+Split `## Gate-Übersicht` into these level headings when they contain gates:
+
+- `### Rahmen`
+- `### Konzept`
+- `### Details`
+
+Under each heading, use a short table with `Gate`, `Ergebnis`, and
+`Abhängigkeit`. This overview describes outcomes, not implementation details.
+
+Every `Gate` cell must link to its detailed section. Use this exact form:
+
+```markdown
+| Gate         | Ergebnis             | Abhängigkeit |
+| ------------ | -------------------- | ------------ |
+| [[#gate-1]] | <observable outcome> | keine        |
+| [[#gate-2]] | <observable outcome> | [[#gate-1]]  |
+```
+
+Use the exact detail heading `## Gate N`. Put the descriptive gate name in a
+separate `Name:` field. This keeps the generated Markdown anchor stable. Do
+not add text, punctuation, or a slug to the heading.
+
+Each detailed gate must contain:
+
+- `Name:` a short descriptive name
+- `Ebene: Rahmen | Konzept | Details`
+- `Ziel:` one observable outcome
+- `Abhängigkeit:` linked prior gates such as `[[#gate-1]]`, or `keine`
+- `Betroffene Bereiche:` likely files or components
+- Gherkin scenarios that define acceptance
+
+Do not ask the user questions while drafting. Collect every unresolved
+decision in `## Offene Fragen`.
+
+- Give each question an ID such as `F1`.
+- Explain the situation without assuming technical knowledge.
+- Use one concrete example that shows what the user or system experiences.
+- Offer two or three materially different options.
+- State the practical consequence of every option.
+- Recommend one option and explain why in plain language.
+- Link the affected gates.
+
+Use this format:
+
+```markdown
+### F1: <kurzer Titel>
+
+- Kurz erklärt: <die Situation in einfachen Worten>
+- Beispiel: <ein konkreter Ablauf oder Wert>
+- Entscheidung: <eine einzelne klare Frage>
+- Option A: <Option und praktische Folge>
+- Option B: <Option und praktische Folge>
+- Empfehlung: <Option>
+- Warum: <kurze Begründung>
+- Betrifft: [[#gate-n]]
+```
+
+Mark a point as open only when a wrong answer would require gate rework.
+Decide stylistic and cosmetic choices yourself. Draft with your recommended
+answer in each affected scenario. The question's `Betrifft` field links to
+each affected gate. If the user selects another option, `loop-explore`
+updates those scenarios.
+
+Before writing the file, verify these link rules:
+
+- Every internal proposal link uses `[[#heading-slug]]`.
+- Every internal Wiki-link resolves to exactly one heading in the proposal.
+- Every gate link uses the exact lowercase form `[[#gate-n]]`.
+- Every overview gate link resolves to exactly one `## Gate N` section.
+- Every linked dependency points to an earlier gate.
+- Every `Betrifft` link points to an existing gate.
+- Every detailed gate appears once in the overview.
+- Every internal Wiki-link in `Decision Overview` points to an existing
+  proposal section.
+- Every file link in `Decision Overview` points to an existing repository
+  path.
 
 Apply domain-modeling as you draft: if terminology conflicts with
 `CONTEXT.md`, use the canonical term and note the conflict inline; if a
@@ -68,20 +184,19 @@ Write the file to:
 .review-loop/<change-slug>/proposal.md
 ```
 
-A proposal is `READY` only if there are zero `[???` markers anywhere in the
-file AND `## Open Questions` is empty. If either is non-empty, set
-`## Status: DRAFT`; otherwise `## Status: READY`.
+The proposal itself encodes readiness. A present `## Offene Fragen` section
+means that decisions remain. An absent section means that implementation can
+start. Do not add a status field or an empty questions section.
 
 ## Step 3: Stop and report
 
-Do not implement anything. Present the proposal (or a summary of gates,
-open questions, and inline markers) and tell the user exactly one of:
+Do not implement anything. Report with German as the base language. Keep
+English terms where they fit naturally. Show the open questions before the
+gate summary. Tell the user exactly one of:
 
-- If `DRAFT`: "Offene Punkte stehen in der Datei — entweder direkt editieren,
-  `/loop-explore .review-loop/<change-slug>/proposal.md` zum Durchsprechen,
-  oder wenn alles klar ist, Status auf READY setzen und
-  `/loop-implement .review-loop/<change-slug>/proposal.md` ausführen."
-- If `READY`: "Wenn du starten willst, führe
+- If questions remain: "Offene Punkte stehen in der Datei. Du kannst sie direkt bearbeiten
+  oder mit `/loop-explore .review-loop/<change-slug>/proposal.md` besprechen.
+  Wenn alles klar ist, starte
+  `/loop-implement .review-loop/<change-slug>/proposal.md`."
+- If no questions remain: "Wenn du starten willst, führe
   `/loop-implement .review-loop/<change-slug>/proposal.md` aus."
-
-Commit `proposal.md` as part of the normal commit flow.

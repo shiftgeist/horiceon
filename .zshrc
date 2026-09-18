@@ -490,7 +490,10 @@ if _check-commands nvim; then
 fi
 
 if _check-commands opencode headroom; then
-	alias oc="OPENCODE_ENABLE_EXA=1 OPENCODE_ENABLE_PARALLEL=1 headroom wrap opencode --copilot-subscription --no-serena"
+	alias oc="HEADROOM_SERENA_INDEX_TIMEOUT=180 OPENCODE_ENABLE_EXA=1 OPENCODE_ENABLE_PARALLEL=1 headroom wrap opencode --copilot-subscription"
+	alias serena-index="uvx --from serena-agent serena project index"
+	alias oc-index="serena-index"
+	alias herdr-update="herdr integration install opencode"
 	
 	function tokens() {
 		pnpx ccusage@latest opencode "${@:-monthly}" && headroom savings

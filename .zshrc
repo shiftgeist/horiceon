@@ -407,7 +407,8 @@ alias continues="node $_cli_continues/dist/cli.js"
 alias continues-dump="continues dump ./sessions --preset full --limit 1"
 
 if _check-commands bat; then
-	alias cat="bat -p"
+	alias cat="bat"
+	alias cati="bat --style=plain --color=always --pager=\"less -RF +G\""
 fi
 
 if _check-commands brew; then

@@ -134,6 +134,7 @@ export PATH=$HOME/.local/share/mise/installs/go/latest/bin:$PATH
 export PATH=$HOME/.horiceon/bin:$PATH
 
 # History
+export HISTFILE=$HOME/.zsh_history
 export HISTSIZE=100000 # 7y of 100 commands/day
 export SAVEHIST=$HISTSIZE
 
@@ -243,7 +244,7 @@ macos)
 wsl)
 	alias open-file='explorer.exe'
 	alias install='sudo apt-get install'
-	alias clipboard='clip.exe'
+	alias clipboard='iconv -f UTF-8 -t UTF-16LE | clip.exe'
 	alias pasteboard='powershell.exe -NoProfile -Command Get-Clipboard | tr -d "\r"'
 	;;
 linux)
@@ -420,18 +421,18 @@ if _check-commands brew; then
 
 	alias mise-up="cd $HOME && mise up"
 	alias brew-recover="brew bundle install --global && mise-up"
-	alias brew-up-apps="brew upgrade \
-  affinity \
-  beekeeper-studio \
-  blender \
-  bruno \
-  cyberduck \
-  figma \
-  iterm2 \
-  obsidian \
-  spotify \
-  zen"
-	alias brew-up="brew upgrade && brew-up-apps && mise-up"
+	[[ "$PLATFORM" != "wsl" ]] && alias brew-up-apps="brew upgrade \
+		affinity \
+		beekeeper-studio \
+		blender \
+		bruno \
+		cyberduck \
+		figma \
+		iterm2 \
+		obsidian \
+		spotify \
+		zen"
+	alias brew-up="brew upgrade && mise-up"
 	alias brew-up-all="brew upgrade --greedy && mise-up"
 
 	alias ladybird-setup="brew create https://github.com/LadybirdBrowser/ladybird/archive/refs/heads/master.zip --set-name ladybird --set-version HEAD && echo 'Run \"brew edit ladybird\" and paste your formula code.'"
@@ -648,19 +649,24 @@ fi
 # WSL setups
 ###
 
-if [[ $IS_WSL ]]; then
-	if _check-commands powershell.exe; then
-		value="$(powershell.exe -NoProfile -Command "(Get-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\AppModelUnlock' -Name AllowDevelopmentWithoutDevLicense -ErrorAction SilentlyContinue).AllowDevelopmentWithoutDevLicense" 2>/dev/null | tr -d '\r')"
-		[[ "$value" == "1" ]] && DEV_MODE_ENABLED=true
-		[[ $DEV_MODE_ENABLED ]] || echo "Developer mode is turned off (System > Advanced > Section "For developers" - Developer Mode = on)"
-	fi
+if [[ "$PLATFORM" == "wsl" ]] ; then
+	# Ensure developer mode is on (why?)
+	# if _check-commands powershell.exe; then
+	# 	value="$(powershell.exe -NoProfile -Command "(Get-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\AppModelUnlock' -Name AllowDevelopmentWithoutDevLicense -ErrorAction SilentlyContinue).AllowDevelopmentWithoutDevLicense" 2>/dev/null | tr -d '\r')"
+	# 	[[ "$value" == "1" ]] && DEV_MODE_ENABLED=true
+	# 	[[ $DEV_MODE_ENABLED ]] || echo "Developer mode is turned off (System > Advanced > Section "For developers" - Developer Mode = on)"
+	# fi
 
 	if [[ $(command -v apt-get) ]]; then
-		alias apt-setup="sudo apt-get install trash-cli"
+		alias apt-setup="brew-up && sudo apt-get update && sudo apt-get install trash-cli neovim"
 	fi
 
 	_link-if-missing /mnt/c/Users/user/ "$HOME/c/"
-	_link-if-missing "$HOME/dotfiles/vscode/settings.json" /mnt/c/Users/user/AppData/Roaming/Code/User/settings.json
+	cp ~/Library/Application\ Support/Code/User/settings.json ~/c/AppData/Roaming/Code/User/settings.json && echo "🪟 vscode settings file updated"
+
+	echo "🪟 Additional Windows commands"
+	echo "	apt-setup"
 fi
 
 # zprof # Debug performance (keep @ bottom)
+export HISTFILE=~/.zsh_history

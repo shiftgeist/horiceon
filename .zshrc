@@ -450,8 +450,9 @@ if _check-commands code; then
 	alias horiceon-code='GIT_DIR="$RICE_HOME" GIT_WORK_TREE="$HOME" code "$HOME"'
 fi
 
-if _check-commands glow; then
-	alias glow="glow --width \"$(tput cols)\""
+if _check-commands dprint; then
+	alias horiceon-check='horiceon ls-files | xargs dprint check'
+	alias horiceon-fmt='horiceon ls-files | xargs dprint fmt'
 fi
 
 if _check-commands eza; then
@@ -461,6 +462,10 @@ fi
 
 if _check-commands fd; then
 	alias fda="fd --unrestricted --full-path"
+fi
+
+if _check-commands glow; then
+	alias glow="glow --width \"$(tput cols)\""
 fi
 
 if _check-commands mise; then

@@ -2,48 +2,29 @@
   "indentWidth": 2,
   "useTabs": false,
   "lineWidth": 100,
-  "followSymlinks": true,
-  "useHashbangs": true,
-  "hashbangs": {
-    "#!/usr/bin/env -S deno run": "ts",
-    "#!/usr/bin/env bash": "sh",
-    "#!/usr/bin/env node": "js"
-  },
+  // "followSymlinks": true, // custom dprint
   "typescript": {
-    // https://dprint.dev/plugins/typescript/config/
+    "functionExpression.flatIife": true,
+    "preferHanging": true,
     "quoteProps": "asNeeded",
     "quoteStyle": "preferSingle",
-    "trailingCommas": "never",
-    "preferHanging": true,
-    "functionExpression.flatIife": true
-  },
-  "json": {
-    // https://dprint.dev/plugins/json/config/
+    "semiColons": "asi",
     "trailingCommas": "never"
   },
-  "markdown": {
+  "json": {
+    "trailingCommas": "never"
   },
-  "toml": {
-  },
-  "dockerfile": {
-    // https://dprint.dev/plugins/dockerfile/config/
-  },
-  "jupyter": {
-  },
-  "malva": {
-  },
+  "markdown": {},
+  "toml": {},
+  "dockerfile": {},
+  "malva": {},
   "markup": {
-    // https://dprint.dev/plugins/markup_fmt/config/
     "scriptIndent": true
   },
   "yaml": {
-    // https://dprint.dev/plugins/pretty_yaml/config/
     "quotes": "preferSingle"
   },
-  "graphql": {
-    // https://dprint.dev/plugins/pretty_graphql/config
-  },
-  "shebangs": { // 0.57.0
+  "shebangs": {
     "#!/bin/sh": "sh",
     "#!/usr/bin/env bash": "sh",
     "#!/usr/bin/env node": "js",
@@ -66,9 +47,6 @@
       "**/.zshrc"
     ]
   },
-  "exec": {
-    // https://github.com/dprint/dprint-plugin-exec/
-  },
   "excludes": [
     ".cargo_home",
     ".git",
@@ -86,16 +64,13 @@
   "plugins": [
     "https://github.com/mridang/dprint-go/releases/download/v1.4.0/gofmt.wasm",
     "https://github.com/mridang/dprint-go/releases/download/v1.4.0/shfmt.wasm",
-    "https://plugins.dprint.dev/dockerfile-0.4.1.wasm",
-    "https://plugins.dprint.dev/exec-0.7.2.json@6c30bd00dfb176774ece412d0fbf149478269ecc92c55ab2d6f4116938ed993e",
-    "https://plugins.dprint.dev/g-plane/malva-v0.16.0.wasm",
-    "https://plugins.dprint.dev/g-plane/markup_fmt-v0.27.3.wasm",
-    "https://plugins.dprint.dev/g-plane/pretty_graphql-v0.2.3.wasm",
-    "https://plugins.dprint.dev/g-plane/pretty_yaml-v0.6.0.wasm",
-    "https://plugins.dprint.dev/json-0.22.0.wasm",
-    "https://plugins.dprint.dev/jupyter-0.2.3.wasm",
-    "https://plugins.dprint.dev/markdown-0.22.1.wasm",
-    "https://plugins.dprint.dev/toml-0.7.0.wasm",
-    "https://plugins.dprint.dev/typescript-0.96.1.wasm"
+    "npm:@dprint/dockerfile@0.6.0",
+    "npm:dprint-plugin-malva@0.16.0",
+    "npm:dprint-plugin-markup@0.27.3",
+    "npm:dprint-plugin-yaml@0.6.0",
+    "npm:@dprint/json@0.24.0",
+    "npm:@dprint/markdown@0.24.0",
+    "npm:@dprint/toml@0.8.0",
+    "npm:@dprint/typescript@0.96.1"
   ]
 }

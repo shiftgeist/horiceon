@@ -7,8 +7,7 @@
   }
 }
 
-@-moz-document url(chrome://browser/content/browser.xul)
-{
+@-moz-document url(chrome://browser/content/browser.xul) {
   browser[type="content-primary"] {
     background: #011326 !important;
   }

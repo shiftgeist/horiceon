@@ -120,7 +120,7 @@ if [[ ! -e "$ZSH_CONFIG/fzf-tab" ]]; then
 fi
 
 if [[ ! -e "$ZSH_CONFIG/alias-tips" ]]; then
-	git clone https://github.com/djui/alias-tips.git "$ZSH_CONFIG/alias-tips"
+	git clone git@github.com:djui/alias-tips.git "$ZSH_CONFIG/alias-tips"
 fi
 
 # Compile missing plugins
@@ -227,7 +227,7 @@ function rm() {
 	local args=()
 	for arg in "$@"; do
 		case "$arg" in
-			-r|-f|-rf|-fr) ;;
+		-r | -f | -rf | -fr) ;;
 			*) args+=("$arg") ;;
 		esac
 	done
@@ -451,8 +451,8 @@ if _check-commands code; then
 fi
 
 if _check-commands dprint; then
-	alias horiceon-check='horiceon ls-files | xargs dprint check'
-	alias horiceon-fmt='horiceon ls-files | xargs dprint fmt'
+	alias horiceon-check='horiceon ls-files | xargs dprint check --config ~/dprint.jsonc'
+	alias horiceon-fmt='horiceon ls-files | xargs dprint fmt --config ~/dprint.jsonc'
 fi
 
 if _check-commands eza; then
@@ -478,7 +478,7 @@ if _check-commands mise; then
 
 	if [[ -e "$HOME/code/dprint/target/release/dprint" ]]; then
 		_link-if-missing $HOME/code/dprint/target/release/dprint /usr/local/bin/dprint
-	else;
+	else
 		_link-if-missing $HOME/.local/share/mise/shims/dprint /usr/local/bin/dprint
 	fi
 fi
@@ -521,22 +521,37 @@ if _check-commands yq; then
 		local name="$2"
 
 		case "$tool" in
-		deno) deno ${=name} ;;
-		make) make "$name" ;;
-		pnpm) pnpm "$name" ;;
-		*) "$tool" run "$name" ;;
+		deno) deno $name ;;
+		make) make $name ;;
+		pnpm) pnpm $name ;;
+		*) "$tool" run $name ;;
 		esac
 	}
 
 	function _run_list_all_commands() {
 		_debug_log "_run_list_all_commands: tool=$1"
 		case "$1" in
-		deno) (NO_COLOR=1 deno help 2>&1 | awk '/^    [a-z]/ && !/:$/ { print $1 }'; NO_COLOR=1 deno run 2>&1 | awk '/^- / { print "run " $2 }') ;;
+		deno) (
+			NO_COLOR=1 deno help 2>&1 | awk '/^    [a-z]/ && !/:$/ { print $1 }'
+			NO_COLOR=1 deno run 2>&1 | awk '/^- / { print "run " $2 }'
+		) ;;
 		make) grep '^[[:alnum:]_.-][[:alnum:]_.-]*:' Makefile | cut -d: -f1 | grep -v '^\.PHONY$' ;;
-		mise) (mise help 2>&1 | awk '/^  [a-z]/ { print $1 }'; mise tasks ls --name-only) ;;
-		npm) (npm help 2>&1 | awk '/All commands:/,/^[^ ]/ {print}' | tr ',' '\n' | awk '/^[a-z]/ {print}'; yq -r '.scripts // {} | keys | .[]' package.json) ;;
-		pnpm) (pnpm help -a | sed -nE '/^Options:/q; s/^[[:space:]]*([[:alnum:]-]+, )?([[:alnum:]-]+)[[:space:]]{2,}.*/\2/p'; yq -r '.scripts // {} | keys | .[]' package.json) ;;
-		bun) (bun help 2>&1 | awk '/^  [a-z]/ {print $1}'; yq -r '.scripts // {} | keys | .[]' package.json) ;;
+		mise) (
+			mise help 2>&1 | awk '/^  [a-z]/ { print $1 }'
+			mise tasks ls --name-only
+		) ;;
+		npm) (
+			npm help 2>&1 | awk '/All commands:/,/^[^ ]/ {print}' | tr ',' '\n' | awk '/^[a-z]/ {print}'
+			yq -r '.scripts // {} | keys | .[]' package.json
+		) ;;
+		pnpm) (
+			pnpm help -a | sed -nE '/^Options:/q; s/^[[:space:]]*([[:alnum:]-]+, )?([[:alnum:]-]+)[[:space:]]{2,}.*/\2/p'
+			yq -r '.scripts // {} | keys | .[]' package.json
+		) ;;
+		bun) (
+			bun help 2>&1 | awk '/^  [a-z]/ {print $1}'
+			yq -r '.scripts // {} | keys | .[]' package.json
+		) ;;
 		*) yq -r '.scripts // {} | keys | .[]' package.json ;;
 		esac | sort -u
 	}
@@ -588,7 +603,7 @@ if _check-commands yq; then
 		deno) tool_file="deno.json" ;;
 		make) tool_file="Makefile" ;;
 		mise) tool_file=".mise.toml, mise.toml" ;;
-		bun|npm|pnpm) tool_file="package.json" ;;
+		bun | npm | pnpm) tool_file="package.json" ;;
 		esac
 
 		local task="$1"
@@ -654,7 +669,7 @@ fi
 # WSL setups
 ###
 
-if [[ "$PLATFORM" == "wsl" ]] ; then
+if [[ "$PLATFORM" == "wsl" ]]; then
 	# Ensure developer mode is on (why?)
 	# if _check-commands powershell.exe; then
 	# 	value="$(powershell.exe -NoProfile -Command "(Get-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\AppModelUnlock' -Name AllowDevelopmentWithoutDevLicense -ErrorAction SilentlyContinue).AllowDevelopmentWithoutDevLicense" 2>/dev/null | tr -d '\r')"

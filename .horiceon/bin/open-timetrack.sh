@@ -8,8 +8,8 @@ TT_FILE="$TT_DIR/$DATE_TODAY.csv"
 
 # create file if not exist
 if [ ! -f "$TT_FILE" ]; then
-  echo "Datum;Kunde;Projekt;Bemerkungen;Arbeitsstunden" >>"$TT_FILE"
-  echo "$DATE_TODAY;;Zeiterfassung;;0.25" >>"$TT_FILE"
+	echo "Datum;Kunde;Projekt;Bemerkungen;Arbeitsstunden" >>"$TT_FILE"
+	echo "$DATE_TODAY;;Zeiterfassung;;0.25" >>"$TT_FILE"
 fi
 
 # insert new line

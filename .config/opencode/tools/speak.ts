@@ -1,4 +1,4 @@
-import { tool } from '@opencode-ai/plugin';
+import { tool } from '@opencode-ai/plugin'
 
 export default tool({
   description:
@@ -29,45 +29,45 @@ export default tool({
   },
 
   async execute(args, ctx) {
-    const voice = args.voice ?? 'Alex';
-    const rate = args.rate ?? 180;
+    const voice = args.voice ?? 'Alex'
+    const rate = args.rate ?? 180
 
-    const escapedText = args.text.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
+    const escapedText = args.text.replace(/\\/g, '\\\\').replace(/"/g, '\\"')
 
-    let command = `say -v "${voice}" -r ${rate}`;
+    let command = `say -v "${voice}" -r ${rate}`
 
     if (args.output) {
       const escapedOutput = args.output
         .replace(/\\/g, '\\\\')
-        .replace(/"/g, '\\"');
+        .replace(/"/g, '\\"')
 
-      command += ` -o "${escapedOutput}"`;
+      command += ` -o "${escapedOutput}"`
     }
 
-    command += ` "${escapedText}"`;
+    command += ` "${escapedText}"`
 
     const proc = Bun.spawn(['sh', '-c', command], {
       stdout: 'pipe',
       stderr: 'pipe',
       signal: ctx.abort
-    });
+    })
 
-    const exitCode = await proc.exited;
+    const exitCode = await proc.exited
 
-    if (ctx.abort.aborted) return 'Speech stopped.';
+    if (ctx.abort.aborted) return 'Speech stopped.'
 
     if (exitCode !== 0) {
-      const stderr = await new Response(proc.stderr).text();
-      throw new Error(`macOS say failed: ${stderr}`);
+      const stderr = await new Response(proc.stderr).text()
+      throw new Error(`macOS say failed: ${stderr}`)
     }
 
     if (args.output && args.play) {
-      const playProc = Bun.spawn(['open', args.output]);
-      await playProc.exited;
+      const playProc = Bun.spawn(['open', args.output])
+      await playProc.exited
     }
 
     return args.output
       ? `Audio generated: ${args.output}`
-      : `Finished speaking using ${voice}.`;
+      : `Finished speaking using ${voice}.`
   }
-});
+})

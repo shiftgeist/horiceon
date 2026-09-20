@@ -31,10 +31,10 @@ legacy_version_file = true
 minimum_release_age = "7d"
 
 [hooks]
-postinstall = 'herdr integration install opencode'
+postinstall = "herdr integration install opencode"
 
 [env]
-_.path = ['{{config_root}}./node_modules/.bin']
+_.path = ["{{config_root}}./node_modules/.bin"]
 
 [tasks.install-headroom]
 run = 'uv tool install --python 3.13 "headroom-ai[all]"@latest'

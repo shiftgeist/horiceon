@@ -2,12 +2,12 @@
 set -euo pipefail
 
 if [[ $# -eq 1 && ${1-} == "--restore" ]]; then
-  RESTORE=true
+	RESTORE=true
 elif [[ $# -gt 0 ]]; then
-  echo "Usage: ${0##*/} [--restore]" >&2
-  exit 2
+	echo "Usage: ${0##*/} [--restore]" >&2
+	exit 2
 else
-  RESTORE=false
+	RESTORE=false
 fi
 
 DAEMON_DIR="/Library/LaunchDaemons"
@@ -16,57 +16,55 @@ STAGING="/tmp/forti-plists-staging"
 GUI_UID=$(id -u)
 
 if $RESTORE; then
-  if [[ ! -d $STAGING ]]; then
-    echo "No staged FortiClient plists found." >&2
-    exit 1
-  fi
+	if [[ ! -d $STAGING ]]; then
+		echo "No staged FortiClient plists found." >&2
+		exit 1
+	fi
 
-  echo "→ Restoring and starting services..."
-  sudo mv "$STAGING/daemons/"*.plist "$DAEMON_DIR/" 2>/dev/null || true
-  sudo mv "$STAGING/agents/"*.plist "$AGENT_DIR/" 2>/dev/null || true
-  sudo rmdir "$STAGING/daemons" "$STAGING/agents" "$STAGING"
-  sudo launchctl bootstrap system "$DAEMON_DIR"/com.fortinet.*.plist 2>/dev/null || true
-  launchctl bootstrap gui/$GUI_UID "$AGENT_DIR"/com.fortinet.*.plist 2>/dev/null || true
-  echo "✓ FortiClient services restored."
-  exit
+	echo "→ Restoring and starting services..."
+	sudo mv "$STAGING/daemons/"*.plist "$DAEMON_DIR/" 2>/dev/null || true
+	sudo mv "$STAGING/agents/"*.plist "$AGENT_DIR/" 2>/dev/null || true
+	sudo rmdir "$STAGING/daemons" "$STAGING/agents" "$STAGING"
+	sudo launchctl bootstrap system "$DAEMON_DIR"/com.fortinet.*.plist 2>/dev/null || true
+	launchctl bootstrap gui/$GUI_UID "$AGENT_DIR"/com.fortinet.*.plist 2>/dev/null || true
+	echo "✓ FortiClient services restored."
+	exit
 fi
 
 echo "→ Staging plists..."
 mkdir -p "$STAGING/daemons" "$STAGING/agents"
 sudo mv "$DAEMON_DIR"/com.fortinet.*.plist "$STAGING/daemons/" 2>/dev/null || true
-sudo mv "$AGENT_DIR"/com.fortinet.*.plist  "$STAGING/agents/"  2>/dev/null || true
+sudo mv "$AGENT_DIR"/com.fortinet.*.plist "$STAGING/agents/" 2>/dev/null || true
 
 echo "→ Booting out system services..."
 for svc in \
-  com.fortinet.epctrl \
-  com.fortinet.fctservctl2 \
-  com.fortinet.config \
-  com.fortinet.vpnctl \
-  com.fortinet.fctwf \
-  com.fortinet.fctwf2 \
-  com.fortinet.ztnafw \
-  com.fortinet.forticlient.fctdnsd \
-  com.fortinet.forticlient.macos.PrivilegedHelper \
-  com.fortinet.fctctl
-do
-  sudo launchctl bootout system/$svc 2>/dev/null && echo "  ✓ $svc" || echo "  - $svc (not loaded)"
+	com.fortinet.epctrl \
+	com.fortinet.fctservctl2 \
+	com.fortinet.config \
+	com.fortinet.vpnctl \
+	com.fortinet.fctwf \
+	com.fortinet.fctwf2 \
+	com.fortinet.ztnafw \
+	com.fortinet.forticlient.fctdnsd \
+	com.fortinet.forticlient.macos.PrivilegedHelper \
+	com.fortinet.fctctl; do
+	sudo launchctl bootout system/$svc 2>/dev/null && echo "  ✓ $svc" || echo "  - $svc (not loaded)"
 done
 
 echo "→ Booting out user agents..."
 for svc in \
-  com.fortinet.fortiagent \
-  com.fortinet.forticlient.FortiClientAgent \
-  com.fortinet.forticlient.fortitray \
-  com.fortinet.credential_store \
-  com.fortinet.fct_launcher \
-  com.fortinet.fctappfw2 \
-  com.fortinet.forticlient.ztagent
-do
-  launchctl bootout gui/$GUI_UID/$svc 2>/dev/null && echo "  ✓ $svc" || echo "  - $svc (not loaded)"
+	com.fortinet.fortiagent \
+	com.fortinet.forticlient.FortiClientAgent \
+	com.fortinet.forticlient.fortitray \
+	com.fortinet.credential_store \
+	com.fortinet.fct_launcher \
+	com.fortinet.fctappfw2 \
+	com.fortinet.forticlient.ztagent; do
+	launchctl bootout gui/$GUI_UID/$svc 2>/dev/null && echo "  ✓ $svc" || echo "  - $svc (not loaded)"
 done
 
 echo "→ Killing watchdogs first..."
-sudo pkill -9 -f "epctrl"      2>/dev/null || true
+sudo pkill -9 -f "epctrl" 2>/dev/null || true
 sudo pkill -9 -f "fctservctl2" 2>/dev/null || true
 sleep 0.5
 

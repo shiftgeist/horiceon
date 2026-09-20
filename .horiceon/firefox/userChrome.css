@@ -1,5 +1,4 @@
-@-moz-document url(chrome://browser/content/browser.xhtml)
-{
+@-moz-document url(chrome://browser/content/browser.xhtml) {
   #main-window,
   browser[type="content-primary"],
   browser[type="content"],

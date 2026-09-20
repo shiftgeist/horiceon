@@ -53,6 +53,7 @@
     "**/.DS_Store",
     "**/.svelte-kit",
     "**/*-lock.yaml",
+    "**/*-lock.json",
     "**/build",
     "**/node_modules",
     "**/package",

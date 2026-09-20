@@ -1,10 +1,8 @@
 import config from './config.ts'
 import { isOnline } from './online.ts'
 
-import {
-  parse as csvParse,
-  stringify as csvStringify,
-} from 'https://deno.land/std@0.173.0/encoding/csv.ts'
+import { parse as csvParse,
+  stringify as csvStringify } from 'https://deno.land/std@0.173.0/encoding/csv.ts'
 
 const csvSeparator = ';'
 
@@ -67,7 +65,7 @@ async function getWeatherData(): Promise<WakeDataWeather> {
     sunset: weather.astronomy[0].sunset,
     uvIndex: current_condition.uvIndex,
     visibilityKm: current_condition.visibility,
-    windspeedKmph: current_condition.windspeedKmph,
+    windspeedKmph: current_condition.windspeedKmph
   }
 }
 
@@ -86,7 +84,7 @@ async function saveDataToFile(wakeData: WakeData) {
     wakeData.sunset,
     wakeData.uvIndex,
     wakeData.visibilityKm,
-    wakeData.cloudcover,
+    wakeData.cloudcover
   ]
 
   const outPath = config?.data.forecast_csv
@@ -97,7 +95,7 @@ async function saveDataToFile(wakeData: WakeData) {
 
   const dataOutResponse = await Deno.readTextFile(outPath)
   const dataOutData: CsvArray[] = csvParse(dataOutResponse, {
-    separator: csvSeparator,
+    separator: csvSeparator
   })
 
   dataOutData.push(data)
@@ -106,7 +104,7 @@ async function saveDataToFile(wakeData: WakeData) {
 
   const dataOutPrepare = csvStringify(dataSet, {
     separator: csvSeparator,
-    headers: false,
+    headers: false
   })
 
   await Deno.writeTextFile(outPath, dataOutPrepare)

@@ -18,14 +18,14 @@ proposal still needs decisions.
 
 Validate the proposal's gate links before starting a worker:
 
-- Every gate link must use the exact lowercase form `[[#gate-n]]`.
-- Each `[[#gate-n]]` link must resolve to exactly one `## Gate N` section.
+- Every gate link must use the exact form `[Gate N](#gate-n)`.
+- Each `[Gate N](#gate-n)` link must resolve to exactly one `## Gate N` section.
 - Each `Abhängigkeit` link must resolve to an earlier gate.
 - Every detailed gate must appear exactly once in the overview.
-- Every internal proposal link must use `[[#heading-slug]]`.
-- Every internal Wiki-link in `## Decision Overview` must resolve to an
+- Every internal proposal link must use `[Label](#heading-slug)`.
+- Every internal Markdown anchor in `## Decision Overview` must resolve to an
   existing proposal section.
-- Every file link in `## Decision Overview` must resolve to an existing path.
+- Every file link must resolve relative to `proposal.md`.
 
 Stop and report each broken or missing link. Do not infer the intended gate.
 

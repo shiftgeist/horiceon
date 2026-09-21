@@ -1,0 +1,10 @@
+{
+  "featureFlags": {},
+  "profile": "custom",
+  "delivery": "both",
+  "telemetry": {
+    "noticeSeen": true,
+    "enabled": false
+  },
+  "completionTipSeen": true
+}

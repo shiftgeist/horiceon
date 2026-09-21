@@ -50,9 +50,9 @@ Add `## Decision Overview` after `## Offene Fragen`, or after
 `## Out of Scope` when no questions remain. Use this exact table:
 
 ```markdown
-| Short Name          | Outcome         | Description              | Refs                                                   |
-| ------------------- | --------------- | ------------------------ | ------------------------------------------------------ |
-| <stable short name> | <chosen option> | <consequence and reason> | [[#ansatz]], [[#gate-1]], [ADR 0001](path) |
+| Short Name          | Outcome         | Description              | Refs                                                                             |
+| ------------------- | --------------- | ------------------------ | -------------------------------------------------------------------------------- |
+| <stable short name> | <chosen option> | <consequence and reason> | [Ansatz](#ansatz), [Gate 1](#gate-1), [ADR 0001](../../docs/adr/0001-example.md) |
 ```
 
 Record each material decision that constrains behavior, architecture, scope,
@@ -62,13 +62,15 @@ per decision.
 - `Short Name` identifies the decision with two to five stable words.
 - `Outcome` states the selected option in one short phrase.
 - `Description` explains the consequence and main reason.
-- `Refs` links every relevant proposal section. Use Wiki-links such as
-  `[[#ziel]]`, `[[#out-of-scope]]`, `[[#ansatz]]`, and `[[#gate-1]]`.
-  Also link an existing ADR, domain doc, requirement, or
-  code location when it materially supports the decision.
-- Use Wiki-links for every link within the same `proposal.md`.
-- Use repository-relative Markdown links only for other files. Add a line
-  anchor when it is stable and useful.
+- `Refs` links every relevant proposal section. Use Markdown anchors such as
+  `[Ziel](#ziel)`, `[Out of Scope](#out-of-scope)`, `[Ansatz](#ansatz)`, and
+  `[Gate 1](#gate-1)`.
+- Use Markdown anchors for every heading in the same `proposal.md`.
+- Use `[Label](relative/path)` for every repository file.
+- Resolve file paths relative to `proposal.md`.
+- Add a heading fragment when it is stable and useful.
+- Also link an existing ADR, domain doc, requirement, or code location when it
+  materially supports the decision.
 - Every decision needs at least one proposal reference. Never invent a
   reference.
 - Do not add unresolved recommendations to this table. Keep them in
@@ -107,10 +109,10 @@ Under each heading, use a short table with `Gate`, `Ergebnis`, and
 Every `Gate` cell must link to its detailed section. Use this exact form:
 
 ```markdown
-| Gate         | Ergebnis             | Abhängigkeit |
-| ------------ | -------------------- | ------------ |
-| [[#gate-1]] | <observable outcome> | keine        |
-| [[#gate-2]] | <observable outcome> | [[#gate-1]]  |
+| Gate              | Ergebnis             | Abhängigkeit      |
+| ----------------- | -------------------- | ----------------- |
+| [Gate 1](#gate-1) | <observable outcome> | keine             |
+| [Gate 2](#gate-2) | <observable outcome> | [Gate 1](#gate-1) |
 ```
 
 Use the exact detail heading `## Gate N`. Put the descriptive gate name in a
@@ -122,7 +124,7 @@ Each detailed gate must contain:
 - `Name:` a short descriptive name
 - `Ebene: Rahmen | Konzept | Details`
 - `Ziel:` one observable outcome
-- `Abhängigkeit:` linked prior gates such as `[[#gate-1]]`, or `keine`
+- `Abhängigkeit:` linked prior gates such as `[Gate 1](#gate-1)`, or `keine`
 - `Betroffene Bereiche:` likely files or components
 - Gherkin scenarios that define acceptance
 
@@ -149,7 +151,7 @@ Use this format:
 - Option B: <Option und praktische Folge>
 - Empfehlung: <Option>
 - Warum: <kurze Begründung>
-- Betrifft: [[#gate-n]]
+- Betrifft: [Gate N](#gate-n)
 ```
 
 Mark a point as open only when a wrong answer would require gate rework.
@@ -160,17 +162,16 @@ updates those scenarios.
 
 Before writing the file, verify these link rules:
 
-- Every internal proposal link uses `[[#heading-slug]]`.
-- Every internal Wiki-link resolves to exactly one heading in the proposal.
-- Every gate link uses the exact lowercase form `[[#gate-n]]`.
+- Every internal proposal link uses `[Label](#heading-slug)`.
+- Every internal Markdown anchor resolves to exactly one proposal heading.
+- Every gate link uses the exact form `[Gate N](#gate-n)`.
 - Every overview gate link resolves to exactly one `## Gate N` section.
 - Every linked dependency points to an earlier gate.
 - Every `Betrifft` link points to an existing gate.
 - Every detailed gate appears once in the overview.
-- Every internal Wiki-link in `Decision Overview` points to an existing
+- Every internal Markdown anchor in `Decision Overview` points to an existing
   proposal section.
-- Every file link in `Decision Overview` points to an existing repository
-  path.
+- Every file link points to an existing repository path.
 
 Apply domain-modeling as you draft: if terminology conflicts with
 `CONTEXT.md`, use the canonical term and note the conflict inline; if a

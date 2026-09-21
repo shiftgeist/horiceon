@@ -46,13 +46,12 @@ Your job each turn:
   - Add an ADR or domain doc link only when that artifact exists.
   - Remove the `## Offene Fragen` heading after the last question resolves.
 
-- Preserve internal Wiki-links when editing the proposal. Before reporting
-  that implementation can start, verify that every link in `## Gate-Übersicht`,
-  `Abhängigkeit`, and `Betrifft` uses `[[#gate-n]]`. Resolve each lowercase
-  anchor to exactly one `## Gate N` section.
-  Verify every internal link uses `[[#heading-slug]]`. Resolve each Wiki-link
-  to exactly one proposal heading. Verify every Markdown file link in
-  `Decision Overview` exists.
+- Preserve proposal links when editing the proposal. Before reporting that
+  implementation can start, verify that every link in `## Gate-Übersicht`,
+  `Abhängigkeit`, and `Betrifft` uses `[Gate N](#gate-n)`. Resolve each anchor
+  to exactly one `## Gate N` section.
+  Verify every same-file link uses `[Label](#heading-slug)`. Verify every file
+  link exists relative to `proposal.md`.
   - Update `CONTEXT.md`/add an ADR per domain-modeling if the decision
     warrants it.
 

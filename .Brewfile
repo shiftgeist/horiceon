@@ -29,8 +29,6 @@ brew "herdr"
 brew "hyperfine"
 # Tools and libraries to manipulate images in select formats
 brew "imagemagick"
-# Truly independent web browser
-brew "ladybird", args: ["HEAD"], link: false
 # LLM inference in C/C++
 brew "llama.cpp"
 # Mac App Store command-line interface

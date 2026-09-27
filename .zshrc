@@ -140,19 +140,19 @@ export SAVEHIST=$HISTSIZE
 
 # Options
 # https://zsh.sourceforge.io/Doc/Release/Options.html
-setopt AUTO_CD              	# automatic directory change
-setopt BANG_HIST            	# perform textual history expansion, csh-style, treating the character ‘!’ specially
-setopt EXTENDED_HISTORY     	# write the history file in the ":start:elapsed;command" format.
-setopt GLOBDOTS             	# hidden files globbing
-setopt HIST_EXPIRE_DUPS_FIRST	# trim dupes first if history is full
-setopt HIST_FIND_NO_DUPS			# do not display previously found command
+setopt AUTO_CD                # automatic directory change
+setopt BANG_HIST              # perform textual history expansion, csh-style, treating the character ‘!’ specially
+setopt EXTENDED_HISTORY       # write the history file in the ":start:elapsed;command" format.
+setopt GLOBDOTS               # hidden files globbing
+setopt HIST_EXPIRE_DUPS_FIRST # trim dupes first if history is full
+setopt HIST_FIND_NO_DUPS      # do not display previously found command
 setopt HIST_IGNORE_SPACE      # do not save if line starts with space
 setopt HIST_NO_FUNCTIONS      # do not save function commands
 setopt HIST_REDUCE_BLANKS     # strip superfluous blanks
-setopt INC_APPEND_HISTORY   	# write to the history file immediately, not when the shell exits.
-setopt INTERACTIVE_COMMENTS 	# ignore commands starting with hashtag
-setopt NO_CASE_GLOB         	# case insensitive globbing
-setopt SHARE_HISTORY        	# share history between all sessions.
+setopt INC_APPEND_HISTORY     # write to the history file immediately, not when the shell exits.
+setopt INTERACTIVE_COMMENTS   # ignore commands starting with hashtag
+setopt NO_CASE_GLOB           # case insensitive globbing
+setopt SHARE_HISTORY          # share history between all sessions.
 
 # Set completion PATH
 FPATH="$(brew --prefix)/share/zsh/site-functions:$HOME/.zsh/completions:$FPATH"
@@ -228,7 +228,7 @@ function rm() {
 	for arg in "$@"; do
 		case "$arg" in
 		-r | -f | -rf | -fr) ;;
-			*) args+=("$arg") ;;
+		*) args+=("$arg") ;;
 		esac
 	done
 	trash "${args[@]}"
@@ -415,12 +415,12 @@ fi
 if _check-commands brew; then
 	function brew-bundle-dump() {
 		brew bundle dump --global --force --no-go --no-npm
-		brew bundle remove --global awscli
+		brew bundle remove --global awscli ladybird
 		echo "Brewfile dumped and filtered"
 	}
 
 	alias mise-up="cd $HOME && mise up"
-	alias brew-recover="brew bundle install --global && mise-up"
+	alias brew-recover="brew bundle install --global --upgrade && mise-up"
 	[[ "$PLATFORM" != "wsl" ]] && alias brew-up-apps="brew upgrade \
 		affinity \
 		beekeeper-studio \
@@ -501,7 +501,7 @@ if _check-commands opencode headroom; then
 	alias serena-index="uvx --from serena-agent serena project index"
 	alias oc-index="serena-index"
 	alias herdr-update="herdr integration install opencode"
-	
+
 	function tokens() {
 		pnpx ccusage@latest opencode "${@:-monthly}" && headroom savings
 	}
@@ -670,6 +670,11 @@ fi
 ###
 
 if [[ "$PLATFORM" == "wsl" ]]; then
+	bindkey "\e[1;5C" forward-word
+	bindkey "\e[1;5D" backward-word
+
+	_link-if-missing /mnt/c/Users/user/ "$HOME/c/"
+
 	# Ensure developer mode is on (why?)
 	# if _check-commands powershell.exe; then
 	# 	value="$(powershell.exe -NoProfile -Command "(Get-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\AppModelUnlock' -Name AllowDevelopmentWithoutDevLicense -ErrorAction SilentlyContinue).AllowDevelopmentWithoutDevLicense" 2>/dev/null | tr -d '\r')"
@@ -678,14 +683,28 @@ if [[ "$PLATFORM" == "wsl" ]]; then
 	# fi
 
 	if [[ $(command -v apt-get) ]]; then
-		alias apt-setup="brew-up && sudo apt-get update && sudo apt-get install trash-cli neovim"
+		alias apt-setup="brew-recover && sudo apt-get update && sudo apt-get install trash-cli"
 	fi
 
-	_link-if-missing /mnt/c/Users/user/ "$HOME/c/"
-	cp ~/Library/Application\ Support/Code/User/settings.json ~/c/AppData/Roaming/Code/User/settings.json && echo "🪟 vscode settings file updated"
+	function win-backup() {
+		if [[ -e "~/c/user/AppData/Local/Packages/Microsoft.WindowsTerminal_*/LocalState/settings.json" ]]; then
+			cp ~/c/user/AppData/Local/Packages/Microsoft.WindowsTerminal_*/LocalState/settings.json ~/.horiceon/windows/WindowsTerminal/settings.json
+		fi
+	}
+
+	function win-restore() {
+		cp ~/Library/Application\ Support/Code/User/snippets/typescript.json ~/c/AppData/Roaming/Code/User/snippets/javascript.json
+		cp ~/Library/Application\ Support/Code/User/snippets/typescript.json ~/c/AppData/Roaming/Code/User/snippets/typescript.json
+		cp ~/Library/Application\ Support/Code/User/snippets/typescript.json ~/c/AppData/Roaming/Code/User/snippets/typescriptreact.json
+		echo "🪟 vscode snippet (javascript, typescript, typescriptreact) file updated"
+
+		cp ~/Library/Application\ Support/Code/User/settings.json ~/c/AppData/Roaming/Code/User/settings.json && echo "🪟 vscode settings file updated"
+	}
 
 	echo "🪟 Additional Windows commands"
-	echo "	apt-setup"
+	echo "	apt-setup		# setups up brew dependencies, apt cache and installs"
+	echo "	win-restore		# restore files: rice -> win"
+	echo "	win-backup		# back up files: win -> rice"
 fi
 
 # zprof # Debug performance (keep @ bottom)

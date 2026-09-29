@@ -5,6 +5,44 @@
   "compaction": {
     "auto": true
   },
+  "mcp": {
+    "headroom": {
+      "command": [
+        "/Users/felix/.local/bin/headroom",
+        "mcp",
+        "serve"
+      ],
+      "enabled": true,
+      "environment": {
+        "HEADROOM_PROXY_URL": "http://127.0.0.1:8788"
+      },
+      "type": "local"
+    },
+    "markitdown": {
+      "command": [
+        "markitdown-mcp"
+      ],
+      "enabled": true,
+      "type": "local"
+    },
+    "serena": {
+      "command": [
+        "uvx",
+        "--from",
+        "serena-agent",
+        "serena",
+        "start-mcp-server",
+        "--project-from-cwd",
+        "--context",
+        "agent",
+        "--open-web-dashboard",
+        "False"
+      ],
+      "enabled": true,
+      "type": "local"
+    }
+  },
+  "model": "github-copilot/gpt-5.6-terra",
   "permission": {
     "bash": {
       "*": "ask",
@@ -33,7 +71,6 @@
       "command *": "deny",
       "cp *": "deny",
       "crontab *": "deny",
-      "curl *": "deny",
       "cut *": "allow",
       "date *": "allow",
       "dd *": "deny",
@@ -50,7 +87,7 @@
       "dirname *": "allow",
       "doas *": "deny",
       "docker *": "deny",
-      "dprint check": "allow",
+      "dprint check *": "allow",
       "dprint file-paths": "allow",
       "dprint format-times": "allow",
       "dprint incremental-state": "allow",
@@ -166,13 +203,12 @@
       "perl *": "deny",
       "php *": "deny",
       "pkill *": "deny",
+      "pnpm --filter * run *": "ask",
       "pnpm --version": "allow",
       "pnpm -v": "allow",
       "pnpm *": "deny",
       "pnpm audit": "allow",
       "pnpm bin-paths *": "allow",
-      "pnpm run *": "ask",
-      "pnpm --filter * run *": "ask",
       "pnpm doctor *": "allow",
       "pnpm fmt *": "allow",
       "pnpm info *": "allow",
@@ -184,6 +220,7 @@
       "pnpm outdated *": "allow",
       "pnpm pack --dry-run *": "allow",
       "pnpm root *": "allow",
+      "pnpm run *": "ask",
       "pnpm search *": "allow",
       "pnpm show *": "allow",
       "pnpm store path *": "allow",
@@ -192,6 +229,7 @@
       "podman *": "deny",
       "printenv *": "deny",
       "ps aux": "deny",
+      "psql *": "ask",
       "pwd": "allow",
       "python *": "deny",
       "python3 *": "deny",
@@ -217,6 +255,7 @@
       "shutdown *": "deny",
       "socat *": "deny",
       "sort *": "allow",
+      "sqlite3 *": "ask",
       "ssh *": "deny",
       "stat *": "allow",
       "strings *": "allow",
@@ -258,11 +297,9 @@
       "*/.config/gcloud": "deny",
       "*/.external": "deny"
     },
+    "todowrite": "deny",
     "websearch": "allow"
   },
-  "plugin": [
-    "opencode-agent-memory@latest"
-  ],
   "provider": {
     "github-copilot": {
       "models": {
@@ -286,67 +323,35 @@
             "limit": {
               "context": 272000,
               "output": 12000
-            },
-            "reasoningEffort": "high"
+            }
           }
         }
       }
     },
     "headroom": {
-      "npm": "@ai-sdk/openai-compatible",
-      "name": "Headroom Proxy",
-      "options": {
-        "baseURL": "http://127.0.0.1:8788/v1"
-      },
       "models": {
-        "gpt-4o": {
-          "name": "GPT-4o",
-          "limit": {
-            "context": 128000,
-            "output": 16384
-          }
-        },
         "gpt-4.1": {
-          "name": "GPT-4.1",
           "limit": {
             "context": 1048576,
             "output": 32768
-          }
+          },
+          "name": "GPT-4.1"
+        },
+        "gpt-4o": {
+          "limit": {
+            "context": 128000,
+            "output": 16384
+          },
+          "name": "GPT-4o"
         }
+      },
+      "name": "Headroom Proxy",
+      "npm": "@ai-sdk/openai-compatible",
+      "options": {
+        "baseURL": "http://127.0.0.1:8788/v1"
       }
     }
   },
   "share": "disabled",
-  "model": "github-copilot/gpt-5.6-terra",
-  "small_model": "github-copilot/gpt-5.6-luna",
-  "mcp": {
-    "serena": {
-      "type": "local",
-      "command": [
-        "uvx",
-        "--from",
-        "serena-agent",
-        "serena",
-        "start-mcp-server",
-        "--project-from-cwd",
-        "--context",
-        "agent",
-        "--open-web-dashboard",
-        "False"
-      ],
-      "enabled": true
-    },
-    "headroom": {
-      "type": "local",
-      "command": [
-        "/Users/felix/.local/bin/headroom",
-        "mcp",
-        "serve"
-      ],
-      "enabled": true,
-      "environment": {
-        "HEADROOM_PROXY_URL": "http://127.0.0.1:8788"
-      }
-    }
-  }
+  "small_model": "github-copilot/gpt-5.6-luna"
 }

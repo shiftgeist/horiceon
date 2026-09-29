@@ -1,8 +1,7 @@
 ---
 description: Reviews a diff against the stated requirements and project conventions. Read-only, never edits.
 mode: subagent
-model: github-copilot/gpt-5.6-luna
-variant: max
+model: github-copilot/gpt-5.6-terra
 permission:
   edit: deny
 ---

@@ -113,6 +113,7 @@ export ZSH_CONFIG="$HOME/.config/zsh"
 export XDG_CACHE_HOME="${XDG_CACHE_HOME:-$HOME/.cache}"
 export AUTOSOURCE=1
 export WORDCHARS='*?_-.[]~=&;!#$%^(){}<>' # where not to stop for word navigation
+export DO_NOT_TRACK=1
 
 # Clone missing plugins
 if [[ ! -e "$ZSH_CONFIG/fzf-tab" ]]; then
@@ -156,6 +157,7 @@ setopt SHARE_HISTORY          # share history between all sessions.
 
 # Set completion PATH
 FPATH="$(brew --prefix)/share/zsh/site-functions:$HOME/.zsh/completions:$FPATH"
+fpath=("$(brew --prefix)/share/zsh/site-functions" "/Users/felix/.zsh/completions" $fpath)
 
 # User settings
 export GIT_SEQUENCE_EDITOR="code --wait --diff"
@@ -451,8 +453,8 @@ if _check-commands code; then
 fi
 
 if _check-commands dprint; then
-	alias horiceon-check='horiceon ls-files | xargs dprint check --config ~/dprint.jsonc'
-	alias horiceon-fmt='horiceon ls-files | xargs dprint fmt --config ~/dprint.jsonc'
+	alias horiceon--check='horiceon ls-files | xargs dprint check --config ~/dprint.jsonc'
+	alias horiceon--fmt='horiceon ls-files | xargs dprint fmt --config ~/dprint.jsonc'
 fi
 
 if _check-commands eza; then
@@ -497,14 +499,43 @@ if _check-commands nvim; then
 fi
 
 if _check-commands opencode headroom; then
-	alias oc="HEADROOM_SERENA_INDEX_TIMEOUT=180 OPENCODE_ENABLE_EXA=1 OPENCODE_ENABLE_PARALLEL=1 headroom wrap opencode --copilot-subscription"
+	alias oc="HEADROOM_SERENA_INDEX_TIMEOUT=180 OPENCODE_ENABLE_EXA=1 OPENCODE_ENABLE_PARALLEL=1 HEADROOM_BEACON=off headroom wrap opencode --copilot-subscription"
 	alias serena-index="uvx --from serena-agent serena project index"
 	alias oc-index="serena-index"
 	alias herdr-update="herdr integration install opencode"
 
 	function tokens() {
-		pnpx ccusage@latest opencode "${@:-monthly}" && headroom savings
+		TIME_SPAN=weekly
+
+		case "$1" in
+		help | -h | --help)
+			/bin/cat <<EOF
+Show OpenCode token usage grouped
+
+Usage:
+	${0##*/} [-v] [-o output_file] input_file
+
+Convert input_file to the output format.
+
+Options:
+  TIME_SPAN				daily|weekly|monthly|session (default $TIME_SPAN)
+  -h, --help, help			Show help
+EOF
+			pnpx ccusage@latest opencode $TIME_SPAN --help | grep '^  -'
+			;;
+		*)
+			pnpx ccusage@latest opencode "${@:-$TIME_SPAN}" && headroom savings
+			;;
+		esac
 	}
+fi
+
+if _check-commands tre; then
+	alias tree="tre"
+fi
+
+if _check-commands vnstat; then
+	alias network-history="vnstat -m"
 fi
 
 if _check-commands yq; then
@@ -545,7 +576,7 @@ if _check-commands yq; then
 			yq -r '.scripts // {} | keys | .[]' package.json
 		) ;;
 		pnpm) (
-			pnpm help -a | sed -nE '/^Options:/q; s/^[[:space:]]*([[:alnum:]-]+, )?([[:alnum:]-]+)[[:space:]]{2,}.*/\2/p'
+			pnpm help | sed -nE '/^Options:/q; s/^[[:space:]]*([[:alnum:]-]+, )?([[:alnum:]-]+)[[:space:]]{2,}.*/\2/p'
 			yq -r '.scripts // {} | keys | .[]' package.json
 		) ;;
 		bun) (

@@ -5,6 +5,8 @@ tap "jackchuka/tap"
 brew "bat"
 # Resource monitor. C++ version and continuation of bashtop and bpytop
 brew "btop"
+# Powerful, enterprise-ready, open source web server with automatic HTTPS
+brew "caddy"
 # GNU File, Shell, and Text utilities
 brew "coreutils"
 # Embeddable SQL OLAP Database Management System
@@ -19,6 +21,8 @@ brew "fd"
 brew "ffmpeg"
 # Command-line fuzzy finder written in Go
 brew "fzf"
+# GitHub command-line tool
+brew "gh"
 # Interpreter for PostScript and PDF
 brew "ghostscript"
 # Render markdown on the CLI
@@ -53,10 +57,16 @@ brew "ripgrep-all"
 brew "skaffold"
 # Cross-shell prompt for astronauts
 brew "starship"
+# Program that allows you to count code, quickly
+brew "tokei"
 # Tree command, improved
 brew "tre-command"
 # Vulnerability scanner for container images, file systems, and Git repos
 brew "trivy"
+# Console-based network traffic monitor
+brew "vnstat", restart_service: :changed
+# Executes a program periodically, showing output fullscreen
+brew "watch"
 # Process YAML, JSON, XML, CSV and properties documents from the CLI
 brew "yq"
 # Feature-rich command-line audio/video downloader
@@ -77,10 +87,6 @@ cask "bruno"
 cask "cyberduck"
 # Collaborative team software
 cask "figma"
-# Web browser
-cask "firefox"
-# Chromium-based web browser
-cask "helium-browser"
 # Terminal emulator as alternative to Apple's Terminal app
 cask "iterm2"
 # Tool to prevent the system from going into sleep mode
@@ -138,13 +144,16 @@ vscode "editorconfig.editorconfig"
 vscode "esbenp.prettier-vscode"
 vscode "fill-labs.dependi"
 vscode "golang.go"
+vscode "graphql.vscode-graphql"
+vscode "graphql.vscode-graphql-syntax"
 vscode "gruntfuggly.todo-tree"
+vscode "hashicorp.terraform"
 vscode "heybourn.headwind"
+vscode "iyulab.copy-text-selected-files"
 vscode "kortina.vscode-markdown-notes"
-vscode "letmaik.git-tree-compare"
 vscode "lydanne.i18n-ally-next"
 vscode "maattdd.gitless"
-vscode "mathematic.vscode-pdf"
+vscode "matthewpi.caddyfile-support"
 vscode "mechatroner.rainbow-csv"
 vscode "naumovs.color-highlight"
 vscode "redhat.vscode-yaml"
@@ -157,3 +166,6 @@ vscode "vivaxy.vscode-conventional-commits"
 vscode "vue.volar"
 vscode "yoavbls.pretty-ts-errors"
 vscode "yzhang.markdown-all-in-one"
+uv "headroom-ai[all]"
+uv "markitdown"
+uv "markitdown-mcp"

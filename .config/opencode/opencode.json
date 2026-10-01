@@ -6,6 +6,15 @@
     "auto": true
   },
   "mcp": {
+    "context7": {
+      "command": [
+        "pnpm",
+        "dlx",
+        "@upstash/context7-mcp"
+      ],
+      "enabled": true,
+      "type": "local"
+    },
     "headroom": {
       "command": [
         "/Users/felix/.local/bin/headroom",
@@ -89,6 +98,7 @@
       "docker *": "deny",
       "dprint check *": "allow",
       "dprint file-paths": "allow",
+      "dprint fmt *": "allow",
       "dprint format-times": "allow",
       "dprint incremental-state": "allow",
       "dprint lsp": "allow",
@@ -114,8 +124,15 @@
       "ftp *": "deny",
       "git add *": "deny",
       "git blame *": "allow",
+      "git branch --all --contains *": "allow",
+      "git branch --delete *": "deny",
       "git branch --show-current": "allow",
       "git branch -a --list *": "allow",
+      "git branch -d *": "deny",
+      "git branch -D *": "deny",
+      "git branch * --delete *": "deny",
+      "git branch * -d *": "deny",
+      "git branch * -D *": "deny",
       "git cat-file *": "allow",
       "git check-ignore *": "allow",
       "git checkout *": "deny",
@@ -125,6 +142,7 @@
       "git describe *": "allow",
       "git diff": "allow",
       "git diff *": "allow",
+      "git diff-tree *": "allow",
       "git log *": "allow",
       "git ls-files *": "allow",
       "git ls-tree *": "allow",
@@ -204,6 +222,7 @@
       "php *": "deny",
       "pkill *": "deny",
       "pnpm --filter * run *": "ask",
+      "pnpm --filter * run test": "allow",
       "pnpm --version": "allow",
       "pnpm -v": "allow",
       "pnpm *": "deny",
@@ -232,7 +251,9 @@
       "psql *": "ask",
       "pwd": "allow",
       "python *": "deny",
-      "python3 *": "deny",
+      "python3 -c *": "deny",
+      "python3 * <<": "deny",
+      "python3 *.py *": "ask",
       "readlink *": "allow",
       "reboot *": "deny",
       "rg *": "allow",
@@ -353,5 +374,5 @@
     }
   },
   "share": "disabled",
-  "small_model": "github-copilot/gpt-5.6-luna"
+  "small_model": "github-copilot/gpt-6-luna"
 }

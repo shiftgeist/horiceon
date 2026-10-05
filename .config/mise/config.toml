@@ -15,6 +15,7 @@
 "npm:sort-package-json" = "latest"
 "npm:zx" = "latest"
 "python" = "3"
+"rust" = "latest"
 "uv" = "latest"
 
 [settings]

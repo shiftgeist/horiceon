@@ -29,7 +29,8 @@
     "#!/usr/bin/env bash": "sh",
     "#!/usr/bin/env node": "js",
     "#!/usr/bin/env deno run": "ts",
-    "#!/usr/bin/env -S deno run": "ts"
+    "#!/usr/bin/env -S deno run": "ts",
+    "#!/usr/bin/env -S uv run": "py"
   },
   "go-shfmt": {
     "associations": [

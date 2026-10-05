@@ -63,8 +63,8 @@ function _link-if-missing() {
 
 	_ask "$target is missing. Create symlink (sudo required in next step)?" || return 0
 
+	echo "ln -s \"$source\" \"$target\""
 	sudo ln -s "$source" "$target"
-	echo "Linked $target -> $source"
 }
 
 function _detect_platform() {
@@ -417,7 +417,7 @@ fi
 if _check-commands brew; then
 	function brew-bundle-dump() {
 		brew bundle dump --global --force --no-go --no-npm
-		brew bundle remove --global awscli ladybird
+		brew bundle remove --global awscli azure-cli ladybird
 		echo "Brewfile dumped and filtered"
 	}
 
@@ -457,6 +457,10 @@ if _check-commands dprint; then
 	alias horiceon--fmt='horiceon ls-files | xargs dprint fmt --config ~/dprint.jsonc'
 fi
 
+if _check-commands dua; then
+	alias disk-cleanup="dua i"
+fi
+
 if _check-commands eza; then
 	alias exa="eza"
 	alias ls="eza"
@@ -472,6 +476,8 @@ fi
 
 if _check-commands mise; then
 	eval "$(mise activate zsh)"
+
+	alias mise-g="mise --cd ~ run"
 
 	_link-if-missing $HOME/.local/share/mise/shims/bun /usr/local/bin/bun
 	_link-if-missing $HOME/.local/share/mise/shims/deno /usr/local/bin/deno

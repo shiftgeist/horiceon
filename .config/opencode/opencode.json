@@ -51,11 +51,13 @@
       "type": "local"
     }
   },
-  "model": "github-copilot/gpt-5.6-terra",
+  "model": "github-copilot/gpt-6-sol",
   "permission": {
+    "_bash.info": "order mattes!",
     "bash": {
       "*": "ask",
       "awk *": "allow",
+      "az *": "allow",
       "basename *": "allow",
       "bash *": "deny",
       "builtin *": "deny",
@@ -130,6 +132,7 @@
       "git branch -a --list *": "allow",
       "git branch -d *": "deny",
       "git branch -D *": "deny",
+      "git branch -vv": "allow",
       "git branch * --delete *": "deny",
       "git branch * -d *": "deny",
       "git branch * -D *": "deny",
@@ -221,11 +224,9 @@
       "perl *": "deny",
       "php *": "deny",
       "pkill *": "deny",
-      "pnpm --filter * run *": "ask",
       "pnpm --filter * run test": "allow",
       "pnpm --version": "allow",
       "pnpm -v": "allow",
-      "pnpm *": "deny",
       "pnpm audit": "allow",
       "pnpm bin-paths *": "allow",
       "pnpm doctor *": "allow",
@@ -324,27 +325,29 @@
   "provider": {
     "github-copilot": {
       "models": {
-        "claude-sonnet-5": {
+        "gpt-5.6-luna": {
           "options": {
             "reasoningEffort": "xhigh"
           }
         },
-        "gpt-5.6-luna": {
-          "options": {
-            "reasoningEffort": "high"
-          }
-        },
         "gpt-5.6-sol": {
           "options": {
-            "reasoningEffort": "medium"
+            "reasoningEffort": "low"
           }
         },
-        "gpt-5.6-terra": {
+        "gpt-6-luna": {
           "options": {
-            "limit": {
-              "context": 272000,
-              "output": 12000
-            }
+            "reasoningEffort": "xhigh"
+          }
+        },
+        "gpt-6-sol": {
+          "options": {
+            "reasoningEffort": "low"
+          }
+        },
+        "gpt-6.1-sol": {
+          "options": {
+            "reasoningEffort": "low"
           }
         }
       }

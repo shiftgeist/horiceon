@@ -1,0 +1,59 @@
+#!/usr/bin/env -S uv run --script
+# /// script
+# requires-python = ">=3.10"
+# dependencies = [
+#   "presidio-analyzer",
+#   "presidio-anonymizer",
+#   "prompt-toolkit",
+#   "pyperclip",
+#   "spacy",
+#   "de-core-news-sm @ https://github.com/explosion/spacy-models/releases/download/de_core_news_sm-3.8.0/de_core_news_sm-3.8.0-py3-none-any.whl",
+# ]
+# ///
+import sys
+
+import pyperclip
+from presidio_analyzer import AnalyzerEngine, RecognizerRegistry
+from presidio_analyzer.nlp_engine import NlpEngineProvider
+from presidio_anonymizer import AnonymizerEngine
+from prompt_toolkit import PromptSession
+from prompt_toolkit.key_binding import KeyBindings
+
+keys = KeyBindings()
+
+
+@keys.add("enter")
+def submit(event):
+    event.current_buffer.validate_and_handle()
+
+
+session = PromptSession(multiline=True, key_bindings=keys)
+
+try:
+    text = session.prompt("einfügen + Enter > ")
+except (EOFError, KeyboardInterrupt):
+    sys.exit()
+
+if not text.strip():
+    sys.exit()
+
+nlp_engine = NlpEngineProvider(
+    nlp_configuration={
+        "nlp_engine_name": "spacy",
+        "models": [{"lang_code": "de", "model_name": "de_core_news_sm"}],
+    }
+).create_engine()
+
+registry = RecognizerRegistry(supported_languages=["de"])
+registry.load_predefined_recognizers(nlp_engine=nlp_engine, languages=["de"])
+
+analyzer = AnalyzerEngine(
+    nlp_engine=nlp_engine, registry=registry, supported_languages=["de"]
+)
+anonymizer = AnonymizerEngine()
+
+findings = analyzer.analyze(text=text, language="de")
+anonymized_text = anonymizer.anonymize(text=text, analyzer_results=findings).text
+
+pyperclip.copy(anonymized_text)
+print("✔ kopiert")

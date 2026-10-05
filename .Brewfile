@@ -9,6 +9,8 @@ brew "btop"
 brew "caddy"
 # GNU File, Shell, and Text utilities
 brew "coreutils"
+# View disk space usage and delete unwanted data, fast
+brew "dua-cli"
 # Embeddable SQL OLAP Database Management System
 brew "duckdb"
 # Run arbitrary commands when files change
@@ -35,12 +37,12 @@ brew "hyperfine"
 brew "imagemagick"
 # LLM inference in C/C++
 brew "llama.cpp"
+# Fast, async, resource-friendly link checker
+brew "lychee"
 # Mac App Store command-line interface
 brew "mas"
 # Polyglot runtime manager (asdf rust clone)
 brew "mise"
-# NCurses Disk Usage
-brew "ncdu"
 # Ambitious Vim-fork focused on extensibility and agility
 brew "neovim"
 # AI coding agent, built for the terminal
@@ -89,6 +91,8 @@ cask "cyberduck"
 cask "figma"
 # Terminal emulator as alternative to Apple's Terminal app
 cask "iterm2"
+# Password manager app
+cask "keepassxc"
 # Tool to prevent the system from going into sleep mode
 cask "keepingyouawake"
 # Open-source cross-platform alternative to AirDrop

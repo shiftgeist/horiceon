@@ -511,6 +511,11 @@ if _check-commands opencode headroom; then
  	alias oc-run="opencode run --model=github-copilot/gpt-6-luna --thinking"
 	alias serena-index="uvx --from serena-agent serena project index"
 
+	oc-git-msg() {
+		opencode run --agent commit "Write a conventional commit message for this diff. Output only the message.
+		$(git diff)"
+	}
+
 	function tokens() {
 		TIME_SPAN=weekly
 

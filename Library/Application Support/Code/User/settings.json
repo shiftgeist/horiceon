@@ -254,6 +254,7 @@
   "todo-tree.ripgrep.ripgrep": "/opt/homebrew/bin/rg",
   "todo-tree.tree.scanMode": "workspace",
   "trivy.binaryPath": "/opt/homebrew/bin/trivy",
+  "update.showReleaseNotes": false,
   "vs-kubernetes": {
     "vs-kubernetes.suppress-helm-not-found-alerts": true
   },

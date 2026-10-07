@@ -254,7 +254,7 @@
       "pwd": "allow",
       "python *": "deny",
       "python3 -c *": "deny",
-      "python3 * <<": "deny",
+      "python3*<<*": "deny",
       "python3 *.py *": "ask",
       "readlink *": "allow",
       "reboot *": "deny",
@@ -381,6 +381,13 @@
       "options": {
         "baseURL": "http://127.0.0.1:8787/v1"
       }
+    }
+  },
+  "agent": {
+    "commit": {
+      "model-alternative": "github-copilot/claude-haiku-4.5",
+      "model": "github-copilot/gpt-6-luna",
+      "tools": { "*": false }
     }
   },
   "share": "disabled",

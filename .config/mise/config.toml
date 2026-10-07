@@ -9,6 +9,7 @@
 "go" = "latest"
 "node" = "latest"
 "npm:@fission-ai/openspec" = "latest"
+"npm:agent-browser" = "latest"
 "npm:corepack" = "latest"
 "npm:cpd" = "latest"
 "npm:npq" = "latest"

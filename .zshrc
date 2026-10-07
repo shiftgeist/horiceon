@@ -477,7 +477,7 @@ fi
 if _check-commands mise; then
 	eval "$(mise activate zsh)"
 
-	alias mise-g="mise --cd ~ run"
+	alias mise-g="mise --cd ~"
 
 	_link-if-missing $HOME/.local/share/mise/shims/bun /usr/local/bin/bun
 	_link-if-missing $HOME/.local/share/mise/shims/deno /usr/local/bin/deno
@@ -505,10 +505,11 @@ if _check-commands nvim; then
 fi
 
 if _check-commands opencode headroom; then
-	alias oc="HEADROOM_SERENA_INDEX_TIMEOUT=180 OPENCODE_ENABLE_EXA=1 OPENCODE_ENABLE_PARALLEL=1 HEADROOM_BEACON=off headroom wrap opencode --copilot-subscription"
+	alias oc-integration-herdr="herdr integration install opencode"
+	alias oc-integration-headroom="headroom install apply --preset persistent-service --scope provider --providers manual --target opencode --no-telemetry --env DO_NOT_TRACK=1 --env HEADROOM_BEACON=off"
+	alias oc="opencode"
+ 	alias oc-run="opencode run --model=github-copilot/gpt-6-luna --thinking"
 	alias serena-index="uvx --from serena-agent serena project index"
-	alias oc-index="serena-index"
-	alias herdr-update="herdr integration install opencode"
 
 	function tokens() {
 		TIME_SPAN=weekly

@@ -139,11 +139,14 @@ ignored_memory_patterns: []
 tool_timeout: 240
 
 # list of tools to be globally excluded
-excluded_tools:
-  - execute_shell_command
+excluded_tools: []
 
-  # list of optional tools (which are disabled by default) to be included
-included_optional_tools: []
+# list of optional tools (which are disabled by default) to be included
+included_optional_tools:
+  - get_diagnostics_for_symbol
+  - replace_lines
+  - restart_language_server
+  - serena_info
 
 # fixed set of tools to use as the base tool set (if non-empty), replacing Serena's default set of tools.
 # This cannot be combined with non-empty excluded_tools or included_optional_tools.

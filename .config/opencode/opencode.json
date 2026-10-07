@@ -22,9 +22,6 @@
         "serve"
       ],
       "enabled": true,
-      "environment": {
-        "HEADROOM_PROXY_URL": "http://127.0.0.1:8788"
-      },
       "type": "local"
     },
     "markitdown": {
@@ -56,6 +53,7 @@
     "_bash.info": "order mattes!",
     "bash": {
       "*": "ask",
+      "agent-browser *": "allow",
       "awk *": "allow",
       "az *": "allow",
       "basename *": "allow",
@@ -124,6 +122,7 @@
       "find * -execdir *": "deny",
       "fish *": "deny",
       "ftp *": "deny",
+      "git --git-dir=\"$HOME/.dotfiles\" --work-tree=\"$HOME\" diff *": "allow",
       "git add *": "deny",
       "git blame *": "allow",
       "git branch --all --contains *": "allow",
@@ -156,6 +155,7 @@
       "git reset *": "deny",
       "git restore *": "deny",
       "git rev-parse --abbrev-ref *": "allow",
+      "git rev-parse HEAD": "allow",
       "git show *": "allow",
       "git stash *": "deny",
       "git stash list": "allow",
@@ -217,9 +217,10 @@
       "mv *": "deny",
       "nc *": "deny",
       "netcat *": "deny",
+      "node --check *": "allow",
+      "node --test *": "allow",
       "node --version": "allow",
       "node -v": "allow",
-      "node *": "deny",
       "openspec *": "allow",
       "perl *": "deny",
       "php *": "deny",
@@ -307,19 +308,25 @@
       "yq *": "allow",
       "zsh *": "deny"
     },
+    "context7": "ask",
     "external_directory": {
+      "~/.agent-browser/*": "allow",
       "~/.agents/skills/*": "allow",
       "~/.config/opencode/*": "allow",
       "~/.vscode/extensions/*": "allow",
       "~/openspec/*": "allow"
     },
+    "question": "deny",
     "read": {
       "*": "allow",
       "*/.aws/credentials": "deny",
       "*/.config/gcloud": "deny",
       "*/.external": "deny"
     },
-    "todowrite": "deny",
+    "skill": {
+      "*": "allow",
+      "feature-flow": "ask"
+    },
     "websearch": "allow"
   },
   "provider": {
@@ -372,7 +379,7 @@
       "name": "Headroom Proxy",
       "npm": "@ai-sdk/openai-compatible",
       "options": {
-        "baseURL": "http://127.0.0.1:8788/v1"
+        "baseURL": "http://127.0.0.1:8787/v1"
       }
     }
   },

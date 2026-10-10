@@ -281,6 +281,9 @@ function til() {
 	now=$(date +%s)
 	sleep $((target - now))
 }
+alias git-rollback-main="git checkout main --"
+alias continues="pnpx github:shiftgeist/cli-continues"
+alias continues-dump="continues dump ./sessions --preset full --limit 1"
 
 [[ "$PLATFORM" == "macos" ]] && alias unquarantine="xattr -rd com.apple.quarantine"
 
@@ -511,9 +514,9 @@ if _check-commands opencode headroom; then
  	alias oc-run="opencode run --model=github-copilot/gpt-6-luna --thinking"
 	alias serena-index="uvx --from serena-agent serena project index"
 
-	oc-git-msg() {
+	function oc-commit-msg() {
 		opencode run --agent commit "Write a conventional commit message for this diff. Output only the message.
-		$(git diff)"
+		$(git diff)" | copy
 	}
 
 	function tokens() {

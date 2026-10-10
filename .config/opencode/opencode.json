@@ -1,5 +1,14 @@
 {
   "$schema": "https://opencode.ai/config.json",
+  "agent": {
+    "commit": {
+      "model": "github-copilot/gpt-6-luna",
+      "model-alternative": "github-copilot/claude-haiku-4.5",
+      "tools": {
+        "*": false
+      }
+    }
+  },
   "autoshare": false,
   "autoupdate": false,
   "compaction": {
@@ -23,6 +32,11 @@
       ],
       "enabled": true,
       "type": "local"
+    },
+    "headroom-mcp": {
+      "enabled": false,
+      "type": "remote",
+      "url": "http://127.0.0.1:8788/mcp"
     },
     "markitdown": {
       "command": [
@@ -95,7 +109,8 @@
       "diff *": "allow",
       "dirname *": "allow",
       "doas *": "deny",
-      "docker *": "deny",
+      "docker container list": "allow",
+      "docker info *": "allow",
       "dprint check *": "allow",
       "dprint file-paths": "allow",
       "dprint fmt *": "allow",
@@ -123,10 +138,12 @@
       "fish *": "deny",
       "ftp *": "deny",
       "git --git-dir=\"$HOME/.dotfiles\" --work-tree=\"$HOME\" diff *": "allow",
+      "git -C * status --short --branch": "allow",
       "git add *": "deny",
       "git blame *": "allow",
       "git branch --all --contains *": "allow",
       "git branch --delete *": "deny",
+      "git branch --list *": "allow",
       "git branch --show-current": "allow",
       "git branch -a --list *": "allow",
       "git branch -d *": "deny",
@@ -149,12 +166,14 @@
       "git ls-files *": "allow",
       "git ls-tree *": "allow",
       "git merge *": "deny",
+      "git merge-base *": "allow",
       "git push *": "deny",
       "git rebase *": "deny",
       "git remote -v": "allow",
       "git reset *": "deny",
       "git restore *": "deny",
       "git rev-parse --abbrev-ref *": "allow",
+      "git rev-parse --short HEAD": "allow",
       "git rev-parse HEAD": "allow",
       "git show *": "allow",
       "git stash *": "deny",
@@ -231,6 +250,7 @@
       "pnpm audit": "allow",
       "pnpm bin-paths *": "allow",
       "pnpm doctor *": "allow",
+      "pnpm exec vitest *": "allow",
       "pnpm fmt *": "allow",
       "pnpm info *": "allow",
       "pnpm install": "allow",
@@ -254,8 +274,8 @@
       "pwd": "allow",
       "python *": "deny",
       "python3 -c *": "deny",
-      "python3*<<*": "deny",
       "python3 *.py *": "ask",
+      "python3*<<*": "deny",
       "readlink *": "allow",
       "reboot *": "deny",
       "rg *": "allow",
@@ -276,6 +296,7 @@
       "sha256sum *": "allow",
       "shred *": "deny",
       "shutdown *": "deny",
+      "skaffold *": "allow",
       "socat *": "deny",
       "sort *": "allow",
       "sqlite3 *": "ask",
@@ -381,13 +402,6 @@
       "options": {
         "baseURL": "http://127.0.0.1:8787/v1"
       }
-    }
-  },
-  "agent": {
-    "commit": {
-      "model-alternative": "github-copilot/claude-haiku-4.5",
-      "model": "github-copilot/gpt-6-luna",
-      "tools": { "*": false }
     }
   },
   "share": "disabled",

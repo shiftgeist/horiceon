@@ -28,3 +28,5 @@
 - Before every shell/tool permission request: Explain in plain English what the command does. Explain why it is needed for my request. Identify files/directories it may read or modify. Mention network access, elevated privileges, destructive effects or other security implications if applicable.
 
 - Never execute a command requiring permission before providing this explanation.
+
+- For agent-browser commands, use `agent-browser [cmd] --session=...`. Do not use `AGENTB_BROWSER_SESSION=... agent-browser [cmd]`.

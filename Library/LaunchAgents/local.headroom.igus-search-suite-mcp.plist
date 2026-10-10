@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
+  "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>local.headroom.igus-search-suite-mcp</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/Users/felix/.local/bin/headroom</string>
+    <string>mcp</string>
+    <string>serve</string>
+    <string>--transport</string>
+    <string>http</string>
+    <string>--host</string>
+    <string>127.0.0.1</string>
+    <string>--port</string>
+    <string>8788</string>
+    <string>--path</string>
+    <string>/mcp</string>
+  </array>
+  <key>WorkingDirectory</key>
+  <string>/Users/felix/code/igus-search-suite</string>
+  <key>RunAtLoad</key>
+  <true/>
+  <key>KeepAlive</key>
+  <true/>
+</dict>
+</plist>

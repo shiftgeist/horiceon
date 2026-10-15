@@ -1,5 +1,4 @@
-tap "homebrew/cask"
-tap "homebrew/core"
+tap "crmne/tap"
 tap "jackchuka/tap"
 # Clone of cat(1) with syntax highlighting and Git integration
 brew "bat"
@@ -117,6 +116,8 @@ cask "porting-kit"
 cask "rectangle"
 # File sync and share software
 cask "resilio-sync"
+# Native Spotify client
+cask "crmne/tap/spotifast", trusted: true
 # Music streaming service
 cask "spotify"
 # Menu bar customization tool

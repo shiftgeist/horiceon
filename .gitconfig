@@ -7,6 +7,7 @@ brn = rev-parse --abbrev-ref HEAD
 co = checkout
 lo = "!f() { git log --graph --format='%h %C(auto)%d%C(reset) %s %C(dim)(%an, %ar)%C(reset)' ${1:-$(git brn)}; }; f"
 ls-worktree = status -uall --porcelain
+merge-base-current= !git merge-base --fork-point main | cut -c1-7
 pl = pull
 pls = pull --autostash
 pu = push
@@ -20,6 +21,7 @@ reset-author = "!f() { \
 reset-base-main = !git reset --soft $(git merge-base main HEAD)
 reset-base-main-hard = !git reset --hard $(git merge-base main HEAD)
 reset-hardest = !git reset --hard origin/$(git brn) && git clean -f -q .
+rollback-main= !git checkout main --
 st = status --untracked-files=no
 up = !git push --set-upstream origin $(git brn)
 whoami = !git config --get user.name && git config --get user.email

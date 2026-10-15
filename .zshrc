@@ -224,6 +224,8 @@ alias la="ls -la"
 alias now="date +%s"
 alias timestamp="date +%s"
 alias la="ls -la"
+alias censor="anon"
+alias oc-censor="anon"
 
 function rm() {
 	local args=()
@@ -281,7 +283,6 @@ function til() {
 	now=$(date +%s)
 	sleep $((target - now))
 }
-alias git-rollback-main="git checkout main --"
 alias continues="pnpx github:shiftgeist/cli-continues"
 alias continues-dump="continues dump ./sessions --preset full --limit 1"
 
@@ -437,8 +438,8 @@ if _check-commands brew; then
 		obsidian \
 		spotify \
 		zen"
-	alias brew-up="brew upgrade && mise-up"
-	alias brew-up-all="brew upgrade --greedy && mise-up"
+	alias brew-up="brew upgrade && mise-up && brew-bundle-dump && echo 'brew updated'"
+	alias brew-up-all="brew upgrade --greedy && mise-up && brew-bundle-dump && echo 'brew all updated'"
 
 	alias ladybird-setup="brew create https://github.com/LadybirdBrowser/ladybird/archive/refs/heads/master.zip --set-name ladybird --set-version HEAD && echo 'Run \"brew edit ladybird\" and paste your formula code.'"
 	if [ -d /opt/homebrew/opt/ladybird/.brew/ladybird.rb ]; then
@@ -509,10 +510,42 @@ fi
 
 if _check-commands opencode headroom; then
 	alias oc-integration-herdr="herdr integration install opencode"
-	alias oc-integration-headroom="headroom install apply --preset persistent-service --scope provider --providers manual --target opencode --no-telemetry --env DO_NOT_TRACK=1 --env HEADROOM_BEACON=off"
 	alias oc="opencode"
  	alias oc-run="opencode run --model=github-copilot/gpt-6-luna --thinking"
 	alias serena-index="uvx --from serena-agent serena project index"
+
+	oc-integration-headroom() {
+		# opencode -s ses_ec164f53cffe1qRMZ1EQKydHi1
+		local args=(
+			--preset persistent-service
+			--scope provider
+			--providers manual
+			--target opencode
+
+			# Privacy: no telemetry, no beacon
+			--no-telemetry
+			--env DO_NOT_TRACK=1
+			--env HEADROOM_BEACON=off
+
+			# Beta features (output shaper)
+			--env HEADROOM_ROLLOUT_CHANNEL=beta
+
+			# Trim response verbosity
+			--env HEADROOM_OUTPUT_SHAPER=1
+			# Hold out 10% of conversations unshaped to measure savings
+			--env HEADROOM_OUTPUT_HOLDOUT=0.5
+			# TODO: Change to 0.05 after seeing results
+
+			# Cache-safe dedup of text repeated across turns
+			--env HEADROOM_DEDUPE=1
+			# Learn the provider cache TTL (observation only)
+			--env HEADROOM_CACHE_TTL_LEARN=1
+
+			# Enable once `headroom-cache-ttl --dry-run` shows a TTL for your models
+			# --env HEADROOM_COLD_RECOMPACT=1
+		)
+		headroom install apply "${args[@]}"
+	}
 
 	function oc-commit-msg() {
 		opencode run --agent commit "Write a conventional commit message for this diff. Output only the message.

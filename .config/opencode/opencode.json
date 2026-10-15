@@ -7,6 +7,15 @@
       "tools": {
         "*": false
       }
+    },
+    "yolo": {
+      "description": "Executes fix tasks with full permissions. Delegate implementation work here.",
+      "mode": "all",
+      "permission": "allow",
+      "prompt": "You are the implementation agent. You have full permissions.\n- Make the smallest change that fixes the task you were given.\n- Change only what the task requires. Do not refactor unrelated code.\n- Run the verification command you were given before reporting back.\n- Report: files changed, the command you ran, and its exact result.",
+      "tools": {
+        "*": true
+      }
     }
   },
   "autoshare": false,
@@ -70,6 +79,7 @@
       "agent-browser *": "allow",
       "awk *": "allow",
       "az *": "allow",
+      "az repo pr show *": "allow",
       "basename *": "allow",
       "bash *": "deny",
       "builtin *": "deny",
@@ -172,9 +182,7 @@
       "git remote -v": "allow",
       "git reset *": "deny",
       "git restore *": "deny",
-      "git rev-parse --abbrev-ref *": "allow",
-      "git rev-parse --short HEAD": "allow",
-      "git rev-parse HEAD": "allow",
+      "git rev-parse *": "allow",
       "git show *": "allow",
       "git stash *": "deny",
       "git stash list": "allow",
@@ -208,6 +216,28 @@
       "jq *": "allow",
       "kill *": "deny",
       "killall *": "deny",
+      "kubectl api-resources *": "allow",
+      "kubectl api-versions *": "allow",
+      "kubectl auth can-i *": "allow",
+      "kubectl cluster-info *": "allow",
+      "kubectl config current-context *": "allow",
+      "kubectl config get-contexts *": "allow",
+      "kubectl config view *": "allow",
+      "kubectl config view *--raw*": "deny",
+      "kubectl describe *": "allow",
+      "kubectl describe secret*": "deny",
+      "kubectl diff *": "allow",
+      "kubectl events *": "allow",
+      "kubectl explain *": "allow",
+      "kubectl get *": "allow",
+      "kubectl get secret*": "deny",
+      "kubectl kustomize *": "allow",
+      "kubectl logs *": "allow",
+      "kubectl rollout history *": "allow",
+      "kubectl rollout status *": "allow",
+      "kubectl top *": "allow",
+      "kubectl version *": "allow",
+      "kubectl wait *": "allow",
       "launchctl *": "deny",
       "less *": "allow",
       "ln *": "deny",
@@ -274,6 +304,7 @@
       "pwd": "allow",
       "python *": "deny",
       "python3 -c *": "deny",
+      "python3 * <<": "deny",
       "python3 *.py *": "ask",
       "python3*<<*": "deny",
       "readlink *": "allow",
@@ -287,7 +318,7 @@
       "scp *": "deny",
       "sed --in-place *": "deny",
       "sed -i *": "deny",
-      "sed *": "allow",
+      "sed *": "deny",
       "service *": "deny",
       "setfacl *": "deny",
       "setfattr *": "deny",
@@ -316,6 +347,7 @@
       "tree *": "allow",
       "true": "allow",
       "truncate *": "deny",
+      "type *": "allow",
       "umount *": "deny",
       "uname *": "allow",
       "uniq *": "allow",
@@ -381,24 +413,8 @@
       }
     },
     "headroom": {
-      "models": {
-        "gpt-4.1": {
-          "limit": {
-            "context": 1048576,
-            "output": 32768
-          },
-          "name": "GPT-4.1"
-        },
-        "gpt-4o": {
-          "limit": {
-            "context": 128000,
-            "output": 16384
-          },
-          "name": "GPT-4o"
-        }
-      },
-      "name": "Headroom Proxy",
       "npm": "@ai-sdk/openai-compatible",
+      "name": "Headroom Proxy",
       "options": {
         "baseURL": "http://127.0.0.1:8787/v1"
       }

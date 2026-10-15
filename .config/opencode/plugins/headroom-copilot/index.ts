@@ -13,6 +13,7 @@ export default {
       const routed = new Request(url, request)
       routed.headers.set("x-headroom-base-url", upstream.origin)
       routed.headers.set("x-headroom-original-path", originalPath)
+      routed.headers.set("x-headroom-session-id", event.sessionID)
       routed.headers.delete("host")
       event.request = routed
     }, { providerID: "github-copilot" })

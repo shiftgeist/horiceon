@@ -1,12 +1,15 @@
-#!/usr/bin/env -S deno run --allow-env --allow-read --allow-sys --allow-net --allow-run
+#!/usr/bin/env -S bun --install=force
+
+/// <reference path="/Users/felix/.local/share/mise/installs/npm-types-bun/latest/node_modules/.mise/bun-types@1.4.2/node_modules/bun-types/index.d.ts" />
 
 const start = performance.now();
 
-import { load } from 'jsr:@std/dotenv@0.225.7';
+import { readFileSync } from 'node:fs';
 import { homedir } from 'node:os';
 import process from 'node:process';
-import { parser } from 'npm:zod-opts@1.0.0';
-import { z } from 'npm:zod@4.4.3/v4';
+import { parseEnv } from 'node:util';
+import { parser } from 'zod-opts@1.0.0';
+import { z } from 'zod@4.4.3/v4';
 
 const pastDaysOneOf = [1, 3, 7, 14, 31, 61];
 const pastDaysDefault = pastDaysOneOf[3];
@@ -20,11 +23,10 @@ const envSchema = z.object({
   SWIFTBAR: z.coerce.boolean().optional()
 });
 
-const env = await load({ envPath: `${homedir()}/.horiceon/.env` }).then((rawEnv) => {
-  const parsed = envSchema.safeParse(Object.assign(process.env, rawEnv));
-  if (parsed.error) throw parsed.error;
-  return parsed.data;
-});
+const rawEnv = parseEnv(readFileSync(`${homedir()}/.horiceon/.env`, 'utf8'));
+const parsedEnv = envSchema.safeParse(Object.assign(process.env, rawEnv));
+if (parsedEnv.error) throw parsedEnv.error;
+const env = parsedEnv.data;
 
 const flags = parser()
   .options({

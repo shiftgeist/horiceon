@@ -1,22 +1,32 @@
-#!/usr/bin/env -S deno run --allow-env --allow-read --allow-sys --allow-net --allow-run
+#!/usr/bin/env -S bun --install=force
 
-import { parseArgs } from 'jsr:@std/cli@1.0.32/parse-args';
-import { load } from 'jsr:@std/dotenv@0.225.7';
-import { z } from 'jsr:@zod/zod@4.4.3/v4';
+/// <reference types="bun" />
+/// <reference types="node" />
+
+import { readFileSync } from 'node:fs';
 import { homedir } from 'node:os';
 import process from 'node:process';
+import { parseArgs, parseEnv } from 'node:util';
+import { z } from 'zod@4.4.3/v4';
 
 const envSchema = z.object({ SEMS_ACCOUNT: z.string(), SEMS_PASSWORD: z.string(),
   SEMS_STATION_ID: z.string(), SWIFTBAR: z.coerce.boolean().optional() });
 
-const env = await load({ envPath: `${homedir()}/.horiceon/.env` }).then((rawEnv) => {
-  const parsed = envSchema.safeParse(Object.assign(process.env, rawEnv));
-  if (parsed.error) throw parsed.error;
-  return parsed.data;
-});
+const rawEnv = parseEnv(readFileSync(`${homedir()}/.horiceon/.env`, 'utf8'));
+const parsedEnv = envSchema.safeParse(Object.assign(process.env, rawEnv));
+if (parsedEnv.error) throw parsedEnv.error;
+const env = parsedEnv.data;
 
-const flags = parseArgs(Deno.args, { boolean: ['json', 'debug', 'bar'] });
-flags.bar = flags.bar || env.SWIFTBAR || false;
+const { values: args } = parseArgs({
+  args: process.argv.slice(2),
+  options: {
+    json: { type: 'boolean' },
+    debug: { type: 'boolean' },
+    bar: { type: 'boolean' }
+  },
+  strict: false
+});
+const flags = { ...args, bar: args.bar || env.SWIFTBAR || false };
 
 const controller = new AbortController();
 setTimeout(() => controller.abort(), 5000);

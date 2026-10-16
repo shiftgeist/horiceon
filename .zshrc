@@ -485,7 +485,6 @@ if _check-commands mise; then
 	alias mise-g="mise --cd ~"
 
 	_link-if-missing $HOME/.local/share/mise/shims/bun /usr/local/bin/bun
-	_link-if-missing $HOME/.local/share/mise/shims/deno /usr/local/bin/deno
 	_link-if-missing $HOME/.local/share/mise/shims/go /usr/local/bin/go
 	_link-if-missing $HOME/.local/share/mise/shims/node /usr/local/bin/node
 
@@ -615,7 +614,6 @@ if _check-commands yq; then
 		local name="$2"
 
 		case "$tool" in
-		deno) deno $name ;;
 		make) make $name ;;
 		pnpm) pnpm $name ;;
 		*) "$tool" run $name ;;
@@ -625,10 +623,6 @@ if _check-commands yq; then
 	function _run_list_all_commands() {
 		_debug_log "_run_list_all_commands: tool=$1"
 		case "$1" in
-		deno) (
-			NO_COLOR=1 deno help 2>&1 | awk '/^    [a-z]/ && !/:$/ { print $1 }'
-			NO_COLOR=1 deno run 2>&1 | awk '/^- / { print "run " $2 }'
-		) ;;
 		make) grep '^[[:alnum:]_.-][[:alnum:]_.-]*:' Makefile | cut -d: -f1 | grep -v '^\.PHONY$' ;;
 		mise) (
 			mise help 2>&1 | awk '/^  [a-z]/ { print $1 }'
@@ -653,7 +647,6 @@ if _check-commands yq; then
 	function _run_list_project_tasks() {
 		_debug_log "_run_list_project_tasks: tool=$1"
 		case "$1" in
-		deno) NO_COLOR=1 deno run 2>&1 | awk '/^- / { print "run " $2 }' ;;
 		make) grep '^[[:alnum:]_.-][[:alnum:]_.-]*:' Makefile | cut -d: -f1 | grep -v '^\.PHONY$' ;;
 		mise) mise tasks ls --name-only ;;
 		*) [ -f package.json ] && yq -r '.scripts // {} | keys | .[]' package.json ;;
@@ -663,15 +656,13 @@ if _check-commands yq; then
 	function run() {
 		local tool
 		case "$1" in
-		deno | npm | pnpm | bun | mise | make)
+		npm | pnpm | bun | mise | make)
 			tool="$1"
 			_debug_log "run: explicit tool='$tool' given as \$1"
 			shift
 			;;
 		*)
-			if [ -f "deno.json" ]; then
-				tool="deno"
-			elif [ -f "package.json" ]; then
+			if [ -f "package.json" ]; then
 				if [ -f "pnpm-lock.yaml" ]; then
 					tool="pnpm"
 				elif [ -f "bun.lockb" ] || [ -f "bun.lock" ]; then
@@ -685,7 +676,7 @@ if _check-commands yq; then
 				tool="make"
 			else
 				_debug_log "run: no project file matched"
-				echo "RUN: No recognized project file found (mise.toml / Makefile / deno.json / package.json)"
+				echo "RUN: No recognized project file found (mise.toml / Makefile / package.json)"
 				return 1
 			fi
 			_debug_log "run: auto-detected tool='$tool'"
@@ -694,7 +685,6 @@ if _check-commands yq; then
 
 		local tool_file
 		case "$tool" in
-		deno) tool_file="deno.json" ;;
 		make) tool_file="Makefile" ;;
 		mise) tool_file=".mise.toml, mise.toml" ;;
 		bun | npm | pnpm) tool_file="package.json" ;;

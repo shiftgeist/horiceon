@@ -1,0 +1,148 @@
+#!/usr/bin/env -S bun --install=force
+
+/// <reference types="node" />
+/// <reference types="bun" />
+
+const csvSeparator = ';'
+process.loadEnvFile(`${process.env.HOME}/.horiceon/.env`)
+
+interface WakeData {
+  airtempC: string
+  watertempC: string
+  windspeedKmph: string
+  desc: string
+  sunrise: string
+  sunset: string
+  uvIndex: string
+  visibilityKm: string
+  cloudcover: string
+}
+
+function parseCsv(text: string): string[][] {
+  const rows: string[][] = []
+  let row: string[] = []
+  let field = ''
+  let quoted = false
+
+  for (let i = 0; i < text.length; i++) {
+    const char = text[i]
+    if (quoted) {
+      if (char === '"' && text[i + 1] === '"') {
+        field += '"'
+        i++
+      } else if (char === '"') {
+        quoted = false
+      } else {
+        field += char
+      }
+    } else if (char === '"') {
+      quoted = true
+    } else if (char === csvSeparator) {
+      row.push(field)
+      field = ''
+    } else if (char === '\n' || char === '\r') {
+      row.push(field)
+      rows.push(row)
+      row = []
+      field = ''
+      if (char === '\r' && text[i + 1] === '\n') i++
+    } else {
+      field += char
+    }
+  }
+
+  if (row.length || field) rows.push([...row, field])
+  return rows
+}
+
+function stringifyCsv(rows: string[][]): string {
+  return rows.map(row => row.map(field =>
+    /[;"\r\n]/.test(field) ? `"${field.replaceAll('"', '""')}"` : field
+  ).join(csvSeparator)).join('\n') + '\n'
+}
+
+function removeDuplicatedCsvLines(rows: string[][]): string[][] {
+  const cleanRows = rows.slice(0, 1)
+  for (const row of rows) {
+    const key = row.slice(1).join(csvSeparator)
+    if (!cleanRows.some(existing => existing.slice(1).join(csvSeparator) === key)) {
+      cleanRows.push(row)
+    }
+  }
+  return cleanRows
+}
+
+async function wake(): Promise<WakeData> {
+  const airwaterUrl = process.env.AIRWATER_URL
+  if (!airwaterUrl) {
+    console.log('AIRWATER_URL not found in .horiceon/.env')
+    process.exit(0)
+  }
+
+  let response
+  try {
+    response = await fetch(airwaterUrl)
+  } catch {
+    console.log('Weather Offline')
+    process.exit(0)
+  }
+
+  const airwaterData = await response.text()
+  const regex = /(?<=.*temp>).*(?=<\/)/gm
+  let [airtempC, watertempC] = airwaterData.match(regex) || []
+  airtempC = airtempC || ''
+
+  const city = process.env.WTTR_CITY || ''
+  const wttrData = await (await fetch(`https://wttr.in/${city}?format=j1`)).json()
+  const currentCondition = wttrData.current_condition[0]
+  const weather = wttrData.weather[0]
+  const data: WakeData = {
+    airtempC,
+    watertempC,
+    windspeedKmph: currentCondition.windspeedKmph,
+    desc: currentCondition.weatherDesc[0].value,
+    sunrise: weather.astronomy[0].sunrise,
+    sunset: weather.astronomy[0].sunset,
+    uvIndex: currentCondition.uvIndex,
+    visibilityKm: currentCondition.visibility,
+    cloudcover: currentCondition.cloudcover
+  }
+
+  const outPath = process.env.FORECAST_CSV?.replace(/^~(?=\/)/, process.env.HOME ?? '~')
+  if (!outPath) {
+    console.log('FORECAST_CSV not found in .horiceon/.env')
+    process.exit(0)
+  }
+
+  const now = new Date()
+  const date = now.toISOString().slice(0, 10)
+  const time = now.toTimeString().slice(0, 8)
+  const csvFile = Bun.file(outPath)
+  const rows = await csvFile.exists() ? parseCsv(await csvFile.text()) : []
+  if (rows.length === 0) {
+    rows.push([
+      'timestamp', 'airtempC', 'watertempC', 'windspeedKmph', 'desc',
+      'sunrise', 'sunset', 'uvIndex', 'visibilityKm', 'cloudcover'
+    ])
+  }
+  rows.push([
+    `${date} ${time}`, data.airtempC, data.watertempC, data.windspeedKmph,
+    data.desc, data.sunrise, data.sunset, data.uvIndex, data.visibilityKm, data.cloudcover
+  ])
+  await Bun.write(outPath, stringifyCsv(removeDuplicatedCsvLines(rows)))
+
+  return data
+}
+
+async function main() {
+  const { airtempC, desc, watertempC, windspeedKmph } = await wake()
+
+  console.log(
+    `🌡️ ${airtempC}°C 🌊 ${watertempC}°C 🌬️ ${windspeedKmph} Kmph "${desc}"`
+  )
+}
+
+await main()
+
+export { }
+

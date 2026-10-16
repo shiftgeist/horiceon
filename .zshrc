@@ -522,8 +522,10 @@ if _check-commands opencode headroom; then
 			--providers manual
 			--target opencode
 
-			# Privacy: no telemetry, no beacon
-			--no-telemetry
+			# local telemetry
+			--env HEADROOM_TELEMETRY=on
+
+			# Privacy: no remote telemetry
 			--env DO_NOT_TRACK=1
 			--env HEADROOM_BEACON=off
 
@@ -532,24 +534,34 @@ if _check-commands opencode headroom; then
 
 			# Trim response verbosity
 			--env HEADROOM_OUTPUT_SHAPER=1
-			# Hold out 10% of conversations unshaped to measure savings
-			--env HEADROOM_OUTPUT_HOLDOUT=0.5
-			# TODO: Change to 0.05 after seeing results
+			# 5% of conversations without output saving to compare
+			--env HEADROOM_OUTPUT_HOLDOUT=0.05
 
 			# Cache-safe dedup of text repeated across turns
 			--env HEADROOM_DEDUPE=1
-			# Learn the provider cache TTL (observation only)
-			--env HEADROOM_CACHE_TTL_LEARN=1
-
-			# Enable once `headroom-cache-ttl --dry-run` shows a TTL for your models
-			# --env HEADROOM_COLD_RECOMPACT=1
 		)
 		headroom install apply "${args[@]}"
 	}
 
 	function oc-commit-msg() {
+		local diff
+
+		diff=$(git diff --cached) || return
+		if [[ -z $diff ]]; then
+			diff=$(git diff) || return
+		fi
+
+		if [[ -z $diff ]]; then
+			print -u2 "No staged or unstaged diff found."
+			return 1
+		fi
+
+		local first_line=${diff%%$'\n'*}
+		echo "$first_line ..."
+
 		opencode run --agent commit "Write a conventional commit message for this diff. Output only the message.
-		$(git diff)" | copy
+
+		$diff" | copy
 	}
 
 	function tokens() {

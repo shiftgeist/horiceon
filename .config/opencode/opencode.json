@@ -1,425 +1,1582 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "agent": {
+  "agents": {
     "commit": {
       "model": "github-copilot/gpt-6-luna",
-      "model-alternative": "github-copilot/claude-haiku-4.5",
-      "tools": {
-        "*": false
-      }
+      "permissions": [
+        {
+          "action": "*",
+          "effect": "deny",
+          "resource": "*"
+        }
+      ]
+    },
+    "compaction": {
+      "model": "github-copilot/gpt-6-luna"
+    },
+    "summary": {
+      "model": "github-copilot/gpt-6-luna"
+    },
+    "title": {
+      "model": "github-copilot/gpt-6-luna"
     },
     "yolo": {
       "description": "Executes fix tasks with full permissions. Delegate implementation work here.",
       "mode": "all",
-      "permission": "allow",
-      "prompt": "You are the implementation agent. You have full permissions.\n- Make the smallest change that fixes the task you were given.\n- Change only what the task requires. Do not refactor unrelated code.\n- Run the verification command you were given before reporting back.\n- Report: files changed, the command you ran, and its exact result.",
-      "tools": {
-        "*": true
-      }
+      "permissions": [
+        {
+          "action": "*",
+          "effect": "allow",
+          "resource": "*"
+        }
+      ],
+      "system": "You are the implementation agent. You have full permissions.\n- Make the smallest change that fixes the task you were given.\n- Change only what the task requires. Do not refactor unrelated code.\n- Run the verification command you were given before reporting back.\n- Report: files changed, the command you ran, and its exact result."
     }
   },
-  "autoshare": false,
-  "autoupdate": false,
   "compaction": {
     "auto": true
   },
   "mcp": {
-    "context7": {
-      "command": [
-        "pnpm",
-        "dlx",
-        "@upstash/context7-mcp"
-      ],
-      "enabled": true,
-      "type": "local"
-    },
-    "headroom": {
-      "command": [
-        "/Users/felix/.local/bin/headroom",
-        "mcp",
-        "serve"
-      ],
-      "enabled": true,
-      "type": "local"
-    },
-    "headroom-mcp": {
-      "enabled": false,
-      "type": "remote",
-      "url": "http://127.0.0.1:8788/mcp"
-    },
-    "markitdown": {
-      "command": [
-        "markitdown-mcp"
-      ],
-      "enabled": true,
-      "type": "local"
-    },
-    "serena": {
-      "command": [
-        "uvx",
-        "--from",
-        "serena-agent",
-        "serena",
-        "start-mcp-server",
-        "--project-from-cwd",
-        "--context",
-        "agent",
-        "--open-web-dashboard",
-        "False"
-      ],
-      "enabled": true,
-      "type": "local"
+    "servers": {
+      "context7": {
+        "command": [
+          "pnpm",
+          "dlx",
+          "@upstash/context7-mcp"
+        ],
+        "type": "local"
+      },
+      "headroom": {
+        "command": [
+          "/Users/felix/.local/bin/headroom",
+          "mcp",
+          "serve"
+        ],
+        "type": "local"
+      },
+      "markitdown": {
+        "command": [
+          "markitdown-mcp"
+        ],
+        "type": "local"
+      },
+      "serena": {
+        "command": [
+          "uvx",
+          "--from",
+          "serena-agent",
+          "serena",
+          "start-mcp-server",
+          "--project-from-cwd",
+          "--context",
+          "agent",
+          "--open-web-dashboard",
+          "False"
+        ],
+        "type": "local"
+      }
     }
   },
   "model": "github-copilot/gpt-6-sol",
-  "permission": {
-    "_bash.info": "order mattes!",
-    "bash": {
-      "*": "ask",
-      "agent-browser *": "allow",
-      "awk *": "allow",
-      "az *": "allow",
-      "az repo pr show *": "allow",
-      "basename *": "allow",
-      "bash *": "deny",
-      "builtin *": "deny",
-      "cargo --list": "allow",
-      "cargo info *": "allow",
-      "cargo locate-project *": "allow",
-      "cargo metadata *": "allow",
-      "cargo outdated *": "allow",
-      "cargo pkgid *": "allow",
-      "cargo read-manifest *": "allow",
-      "cargo search *": "allow",
-      "cargo tree *": "allow",
-      "cargo verify-project *": "allow",
-      "cargo version": "allow",
-      "cat *": "deny",
-      "cd *": "allow",
-      "chgrp *": "deny",
-      "chmod *": "deny",
-      "chown *": "deny",
-      "column *": "allow",
-      "comm *": "allow",
-      "command *": "deny",
-      "cp *": "deny",
-      "crontab *": "deny",
-      "cut *": "allow",
-      "date *": "allow",
-      "dd *": "deny",
-      "deno --version": "allow",
-      "deno check *": "allow",
-      "deno doc *": "allow",
-      "deno fmt --check *": "allow",
-      "deno fmt *": "allow",
-      "deno info *": "allow",
-      "deno lint *": "allow",
-      "deno task --list": "allow",
-      "df *": "allow",
-      "diff *": "allow",
-      "dirname *": "allow",
-      "doas *": "deny",
-      "docker container list": "allow",
-      "docker info *": "allow",
-      "dprint check *": "allow",
-      "dprint file-paths": "allow",
-      "dprint fmt *": "allow",
-      "dprint format-times": "allow",
-      "dprint incremental-state": "allow",
-      "dprint lsp": "allow",
-      "dprint resolved-config": "allow",
-      "du *": "allow",
-      "echo *": "allow",
-      "env": "deny",
-      "env *": "deny",
-      "eval *": "deny",
-      "false": "allow",
-      "fd *": "allow",
-      "fd * --delete": "deny",
-      "fd * --exec *": "deny",
-      "fd * --exec-batch *": "deny",
-      "fd * -x *": "deny",
-      "fd * -X *": "deny",
-      "file *": "allow",
-      "find *": "allow",
-      "find * -delete": "deny",
-      "find * -exec *": "deny",
-      "find * -execdir *": "deny",
-      "fish *": "deny",
-      "ftp *": "deny",
-      "git --git-dir=\"$HOME/.dotfiles\" --work-tree=\"$HOME\" diff *": "allow",
-      "git -C * status --short --branch": "allow",
-      "git add *": "deny",
-      "git blame *": "allow",
-      "git branch --all --contains *": "allow",
-      "git branch --delete *": "deny",
-      "git branch --list *": "allow",
-      "git branch --show-current": "allow",
-      "git branch -a --list *": "allow",
-      "git branch -d *": "deny",
-      "git branch -D *": "deny",
-      "git branch -vv": "allow",
-      "git branch * --delete *": "deny",
-      "git branch * -d *": "deny",
-      "git branch * -D *": "deny",
-      "git cat-file *": "allow",
-      "git check-ignore *": "allow",
-      "git checkout *": "deny",
-      "git cherry-pick *": "deny",
-      "git clean *": "deny",
-      "git commit *": "deny",
-      "git describe *": "allow",
-      "git diff": "allow",
-      "git diff *": "allow",
-      "git diff-tree *": "allow",
-      "git log *": "allow",
-      "git ls-files *": "allow",
-      "git ls-tree *": "allow",
-      "git merge *": "deny",
-      "git merge-base *": "allow",
-      "git push *": "deny",
-      "git rebase *": "deny",
-      "git remote -v": "allow",
-      "git reset *": "deny",
-      "git restore *": "deny",
-      "git rev-parse *": "allow",
-      "git show *": "allow",
-      "git stash *": "deny",
-      "git stash list": "allow",
-      "git stash show *": "allow",
-      "git status": "allow",
-      "git status --short": "allow",
-      "git status *": "allow",
-      "git switch *": "deny",
-      "git tag --list *": "allow",
-      "git tag -l *": "allow",
-      "go build -n *": "allow",
-      "go build *": "allow",
-      "go doc *": "allow",
-      "go env *": "allow",
-      "go list *": "allow",
-      "go mod download *": "allow",
-      "go mod edit -print *": "allow",
-      "go mod graph *": "allow",
-      "go mod tidy *": "allow",
-      "go mod verify *": "allow",
-      "go mod why *": "allow",
-      "go test *": "allow",
-      "go version": "allow",
-      "go vet *": "allow",
-      "gofmt *": "allow",
-      "grep *": "allow",
-      "halt *": "deny",
-      "head *": "allow",
-      "hexdump *": "allow",
-      "install *": "deny",
-      "jq *": "allow",
-      "kill *": "deny",
-      "killall *": "deny",
-      "kubectl api-resources *": "allow",
-      "kubectl api-versions *": "allow",
-      "kubectl auth can-i *": "allow",
-      "kubectl cluster-info *": "allow",
-      "kubectl config current-context *": "allow",
-      "kubectl config get-contexts *": "allow",
-      "kubectl config view *": "allow",
-      "kubectl config view *--raw*": "deny",
-      "kubectl describe *": "allow",
-      "kubectl describe secret*": "deny",
-      "kubectl diff *": "allow",
-      "kubectl events *": "allow",
-      "kubectl explain *": "allow",
-      "kubectl get *": "allow",
-      "kubectl get secret*": "deny",
-      "kubectl kustomize *": "allow",
-      "kubectl logs *": "allow",
-      "kubectl rollout history *": "allow",
-      "kubectl rollout status *": "allow",
-      "kubectl top *": "allow",
-      "kubectl version *": "allow",
-      "kubectl wait *": "allow",
-      "launchctl *": "deny",
-      "less *": "allow",
-      "ln *": "deny",
-      "ls *": "allow",
-      "md5sum *": "allow",
-      "mise --version": "allow",
-      "mise -v": "allow",
-      "mise config *": "allow",
-      "mise doctor *": "allow",
-      "mise env *": "allow",
-      "mise exec *": "deny",
-      "mise info *": "allow",
-      "mise latest *": "allow",
-      "mise list *": "allow",
-      "mise ls *": "allow",
-      "mise outdated *": "allow",
-      "mise r *": "allow",
-      "mise registry *": "allow",
-      "mise tasks *": "allow",
-      "mise where *": "allow",
-      "mise which *": "allow",
-      "mkdir *": "allow",
-      "mkfs.*": "deny",
-      "more *": "allow",
-      "mount *": "deny",
-      "mv *": "deny",
-      "nc *": "deny",
-      "netcat *": "deny",
-      "node --check *": "allow",
-      "node --test *": "allow",
-      "node --version": "allow",
-      "node -v": "allow",
-      "openspec *": "allow",
-      "perl *": "deny",
-      "php *": "deny",
-      "pkill *": "deny",
-      "pnpm --filter * run test": "allow",
-      "pnpm --version": "allow",
-      "pnpm -v": "allow",
-      "pnpm audit": "allow",
-      "pnpm bin-paths *": "allow",
-      "pnpm doctor *": "allow",
-      "pnpm exec vitest *": "allow",
-      "pnpm fmt *": "allow",
-      "pnpm info *": "allow",
-      "pnpm install": "allow",
-      "pnpm install --frozen-lockfile": "allow",
-      "pnpm licenses *": "allow",
-      "pnpm list *": "allow",
-      "pnpm ls *": "allow",
-      "pnpm outdated *": "allow",
-      "pnpm pack --dry-run *": "allow",
-      "pnpm root *": "allow",
-      "pnpm run *": "ask",
-      "pnpm search *": "allow",
-      "pnpm show *": "allow",
-      "pnpm store path *": "allow",
-      "pnpm view *": "allow",
-      "pnpm why *": "allow",
-      "podman *": "deny",
-      "printenv *": "deny",
-      "ps aux": "deny",
-      "psql *": "ask",
-      "pwd": "allow",
-      "python *": "deny",
-      "python3 -c *": "deny",
-      "python3 * <<": "deny",
-      "python3 *.py *": "ask",
-      "python3*<<*": "deny",
-      "readlink *": "allow",
-      "reboot *": "deny",
-      "rg *": "allow",
-      "rga *": "allow",
-      "rm *": "deny",
-      "rmdir *": "deny",
-      "rsync *": "deny",
-      "ruby *": "deny",
-      "scp *": "deny",
-      "sed --in-place *": "deny",
-      "sed -i *": "deny",
-      "sed *": "deny",
-      "service *": "deny",
-      "setfacl *": "deny",
-      "setfattr *": "deny",
-      "sftp *": "deny",
-      "sh *": "deny",
-      "sha256sum *": "allow",
-      "shred *": "deny",
-      "shutdown *": "deny",
-      "skaffold *": "allow",
-      "socat *": "deny",
-      "sort *": "allow",
-      "sqlite3 *": "ask",
-      "ssh *": "deny",
-      "stat *": "allow",
-      "strings *": "allow",
-      "su *": "deny",
-      "sudo *": "deny",
-      "systemctl *": "deny",
-      "tail *": "allow",
-      "tee *": "deny",
-      "telnet *": "deny",
-      "test *": "allow",
-      "timeout *": "allow",
-      "tr *": "allow",
-      "tre *": "allow",
-      "tree *": "allow",
-      "true": "allow",
-      "truncate *": "deny",
-      "type *": "allow",
-      "umount *": "deny",
-      "uname *": "allow",
-      "uniq *": "allow",
-      "unlink *": "deny",
-      "wc *": "allow",
-      "wget *": "deny",
-      "which *": "allow",
-      "wipefs *": "deny",
-      "xargs *": "deny",
-      "xxd *": "allow",
-      "yq *": "allow",
-      "zsh *": "deny"
+  "permissions": [
+    {
+      "action": "shell",
+      "effect": "ask",
+      "resource": "*"
     },
-    "context7": "ask",
-    "external_directory": {
-      "~/.agent-browser/*": "allow",
-      "~/.agents/skills/*": "allow",
-      "~/.config/opencode/*": "allow",
-      "~/.vscode/extensions/*": "allow",
-      "~/openspec/*": "allow"
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "agent-browser *"
     },
-    "question": "deny",
-    "read": {
-      "*": "allow",
-      "*/.aws/credentials": "deny",
-      "*/.config/gcloud": "deny",
-      "*/.external": "deny"
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "awk *"
     },
-    "skill": {
-      "*": "allow",
-      "feature-flow": "ask"
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "az *"
     },
-    "websearch": "allow"
-  },
-  "provider": {
-    "github-copilot": {
-      "models": {
-        "gpt-5.6-luna": {
-          "options": {
-            "reasoningEffort": "xhigh"
-          }
-        },
-        "gpt-5.6-sol": {
-          "options": {
-            "reasoningEffort": "low"
-          }
-        },
-        "gpt-6-luna": {
-          "options": {
-            "reasoningEffort": "xhigh"
-          }
-        },
-        "gpt-6-sol": {
-          "options": {
-            "reasoningEffort": "low"
-          }
-        },
-        "gpt-6.1-sol": {
-          "options": {
-            "reasoningEffort": "low"
-          }
-        }
-      }
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "az repo pr show *"
     },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "basename *"
+    },
+    {
+      "action": "shell",
+      "effect": "deny",
+      "resource": "bash *"
+    },
+    {
+      "action": "shell",
+      "effect": "deny",
+      "resource": "builtin *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "cargo --list"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "cargo info *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "cargo locate-project *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "cargo metadata *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "cargo outdated *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "cargo pkgid *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "cargo read-manifest *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "cargo search *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "cargo tree *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "cargo verify-project *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "cargo version"
+    },
+    {
+      "action": "shell",
+      "effect": "deny",
+      "resource": "cat *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "cd *"
+    },
+    {
+      "action": "shell",
+      "effect": "deny",
+      "resource": "chgrp *"
+    },
+    {
+      "action": "shell",
+      "effect": "deny",
+      "resource": "chmod *"
+    },
+    {
+      "action": "shell",
+      "effect": "deny",
+      "resource": "chown *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "column *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "comm *"
+    },
+    {
+      "action": "shell",
+      "effect": "deny",
+      "resource": "command *"
+    },
+    {
+      "action": "shell",
+      "effect": "deny",
+      "resource": "cp *"
+    },
+    {
+      "action": "shell",
+      "effect": "deny",
+      "resource": "crontab *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "cut *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "date *"
+    },
+    {
+      "action": "shell",
+      "effect": "deny",
+      "resource": "dd *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "deno --version"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "deno check *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "deno doc *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "deno fmt --check *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "deno fmt *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "deno info *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "deno lint *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "deno task --list"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "df *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "diff *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "dirname *"
+    },
+    {
+      "action": "shell",
+      "effect": "deny",
+      "resource": "doas *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "docker container list"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "docker info *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "dprint check *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "dprint file-paths"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "dprint fmt *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "dprint format-times"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "dprint incremental-state"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "dprint lsp"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "dprint resolved-config"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "du *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "echo *"
+    },
+    {
+      "action": "shell",
+      "effect": "deny",
+      "resource": "env"
+    },
+    {
+      "action": "shell",
+      "effect": "deny",
+      "resource": "env *"
+    },
+    {
+      "action": "shell",
+      "effect": "deny",
+      "resource": "eval *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "false"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "fd *"
+    },
+    {
+      "action": "shell",
+      "effect": "deny",
+      "resource": "fd * --delete"
+    },
+    {
+      "action": "shell",
+      "effect": "deny",
+      "resource": "fd * --exec *"
+    },
+    {
+      "action": "shell",
+      "effect": "deny",
+      "resource": "fd * --exec-batch *"
+    },
+    {
+      "action": "shell",
+      "effect": "deny",
+      "resource": "fd * -x *"
+    },
+    {
+      "action": "shell",
+      "effect": "deny",
+      "resource": "fd * -X *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "file *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "find *"
+    },
+    {
+      "action": "shell",
+      "effect": "deny",
+      "resource": "find * -delete"
+    },
+    {
+      "action": "shell",
+      "effect": "deny",
+      "resource": "find * -exec *"
+    },
+    {
+      "action": "shell",
+      "effect": "deny",
+      "resource": "find * -execdir *"
+    },
+    {
+      "action": "shell",
+      "effect": "deny",
+      "resource": "fish *"
+    },
+    {
+      "action": "shell",
+      "effect": "deny",
+      "resource": "ftp *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "git --git-dir=\"$HOME/.dotfiles\" --work-tree=\"$HOME\" diff *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "git -C * status --short --branch"
+    },
+    {
+      "action": "shell",
+      "effect": "deny",
+      "resource": "git add *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "git blame *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "git branch --all --contains *"
+    },
+    {
+      "action": "shell",
+      "effect": "deny",
+      "resource": "git branch --delete *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "git branch --list *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "git branch --show-current"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "git branch -a --list *"
+    },
+    {
+      "action": "shell",
+      "effect": "deny",
+      "resource": "git branch -d *"
+    },
+    {
+      "action": "shell",
+      "effect": "deny",
+      "resource": "git branch -D *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "git branch -vv"
+    },
+    {
+      "action": "shell",
+      "effect": "deny",
+      "resource": "git branch * --delete *"
+    },
+    {
+      "action": "shell",
+      "effect": "deny",
+      "resource": "git branch * -d *"
+    },
+    {
+      "action": "shell",
+      "effect": "deny",
+      "resource": "git branch * -D *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "git cat-file *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "git check-ignore *"
+    },
+    {
+      "action": "shell",
+      "effect": "deny",
+      "resource": "git checkout *"
+    },
+    {
+      "action": "shell",
+      "effect": "deny",
+      "resource": "git cherry-pick *"
+    },
+    {
+      "action": "shell",
+      "effect": "deny",
+      "resource": "git clean *"
+    },
+    {
+      "action": "shell",
+      "effect": "deny",
+      "resource": "git commit *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "git describe *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "git diff"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "git diff *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "git diff-tree *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "git log *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "git ls-files *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "git ls-tree *"
+    },
+    {
+      "action": "shell",
+      "effect": "deny",
+      "resource": "git merge *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "git merge-base *"
+    },
+    {
+      "action": "shell",
+      "effect": "deny",
+      "resource": "git push *"
+    },
+    {
+      "action": "shell",
+      "effect": "deny",
+      "resource": "git rebase *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "git remote -v"
+    },
+    {
+      "action": "shell",
+      "effect": "deny",
+      "resource": "git reset *"
+    },
+    {
+      "action": "shell",
+      "effect": "deny",
+      "resource": "git restore *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "git rev-parse *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "git show *"
+    },
+    {
+      "action": "shell",
+      "effect": "deny",
+      "resource": "git stash *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "git stash list"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "git stash show *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "git status"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "git status --short"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "git status *"
+    },
+    {
+      "action": "shell",
+      "effect": "deny",
+      "resource": "git switch *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "git tag --list *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "git tag -l *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "go build -n *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "go build *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "go doc *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "go env *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "go list *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "go mod download *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "go mod edit -print *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "go mod graph *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "go mod tidy *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "go mod verify *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "go mod why *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "go test *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "go version"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "go vet *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "gofmt *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "grep *"
+    },
+    {
+      "action": "shell",
+      "effect": "deny",
+      "resource": "halt *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "head *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "hexdump *"
+    },
+    {
+      "action": "shell",
+      "effect": "deny",
+      "resource": "install *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "jq *"
+    },
+    {
+      "action": "shell",
+      "effect": "deny",
+      "resource": "kill *"
+    },
+    {
+      "action": "shell",
+      "effect": "deny",
+      "resource": "killall *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "kubectl api-resources *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "kubectl api-versions *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "kubectl auth can-i *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "kubectl cluster-info *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "kubectl config current-context *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "kubectl config get-contexts *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "kubectl config view *"
+    },
+    {
+      "action": "shell",
+      "effect": "deny",
+      "resource": "kubectl config view *--raw*"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "kubectl describe *"
+    },
+    {
+      "action": "shell",
+      "effect": "deny",
+      "resource": "kubectl describe secret*"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "kubectl diff *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "kubectl events *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "kubectl explain *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "kubectl get *"
+    },
+    {
+      "action": "shell",
+      "effect": "deny",
+      "resource": "kubectl get secret*"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "kubectl kustomize *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "kubectl logs *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "kubectl rollout history *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "kubectl rollout status *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "kubectl top *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "kubectl version *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "kubectl wait *"
+    },
+    {
+      "action": "shell",
+      "effect": "deny",
+      "resource": "launchctl *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "less *"
+    },
+    {
+      "action": "shell",
+      "effect": "deny",
+      "resource": "ln *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "ls *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "md5sum *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "mise --version"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "mise -v"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "mise config *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "mise doctor *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "mise env *"
+    },
+    {
+      "action": "shell",
+      "effect": "deny",
+      "resource": "mise exec *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "mise info *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "mise latest *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "mise list *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "mise ls *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "mise outdated *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "mise r *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "mise registry *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "mise tasks *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "mise where *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "mise which *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "mkdir *"
+    },
+    {
+      "action": "shell",
+      "effect": "deny",
+      "resource": "mkfs.*"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "more *"
+    },
+    {
+      "action": "shell",
+      "effect": "deny",
+      "resource": "mount *"
+    },
+    {
+      "action": "shell",
+      "effect": "deny",
+      "resource": "mv *"
+    },
+    {
+      "action": "shell",
+      "effect": "deny",
+      "resource": "nc *"
+    },
+    {
+      "action": "shell",
+      "effect": "deny",
+      "resource": "netcat *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "node --check *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "node --test *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "node --version"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "node -v"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "openspec *"
+    },
+    {
+      "action": "shell",
+      "effect": "deny",
+      "resource": "perl *"
+    },
+    {
+      "action": "shell",
+      "effect": "deny",
+      "resource": "php *"
+    },
+    {
+      "action": "shell",
+      "effect": "deny",
+      "resource": "pkill *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "pnpm --filter * run test"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "pnpm --version"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "pnpm -v"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "pnpm audit"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "pnpm bin-paths *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "pnpm doctor *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "pnpm exec vitest *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "pnpm fmt *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "pnpm info *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "pnpm install"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "pnpm install --frozen-lockfile"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "pnpm licenses *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "pnpm list *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "pnpm ls *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "pnpm outdated *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "pnpm pack --dry-run *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "pnpm root *"
+    },
+    {
+      "action": "shell",
+      "effect": "ask",
+      "resource": "pnpm run *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "pnpm search *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "pnpm show *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "pnpm store path *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "pnpm view *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "pnpm why *"
+    },
+    {
+      "action": "shell",
+      "effect": "deny",
+      "resource": "podman *"
+    },
+    {
+      "action": "shell",
+      "effect": "deny",
+      "resource": "printenv *"
+    },
+    {
+      "action": "shell",
+      "effect": "deny",
+      "resource": "ps aux"
+    },
+    {
+      "action": "shell",
+      "effect": "ask",
+      "resource": "psql *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "pwd"
+    },
+    {
+      "action": "shell",
+      "effect": "deny",
+      "resource": "python *"
+    },
+    {
+      "action": "shell",
+      "effect": "deny",
+      "resource": "python3 -c *"
+    },
+    {
+      "action": "shell",
+      "effect": "deny",
+      "resource": "python3 * <<"
+    },
+    {
+      "action": "shell",
+      "effect": "ask",
+      "resource": "python3 *.py *"
+    },
+    {
+      "action": "shell",
+      "effect": "deny",
+      "resource": "python3*<<*"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "readlink *"
+    },
+    {
+      "action": "shell",
+      "effect": "deny",
+      "resource": "reboot *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "rg *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "rga *"
+    },
+    {
+      "action": "shell",
+      "effect": "deny",
+      "resource": "rm *"
+    },
+    {
+      "action": "shell",
+      "effect": "deny",
+      "resource": "rmdir *"
+    },
+    {
+      "action": "shell",
+      "effect": "deny",
+      "resource": "rsync *"
+    },
+    {
+      "action": "shell",
+      "effect": "deny",
+      "resource": "ruby *"
+    },
+    {
+      "action": "shell",
+      "effect": "deny",
+      "resource": "scp *"
+    },
+    {
+      "action": "shell",
+      "effect": "deny",
+      "resource": "sed --in-place *"
+    },
+    {
+      "action": "shell",
+      "effect": "deny",
+      "resource": "sed -i *"
+    },
+    {
+      "action": "shell",
+      "effect": "deny",
+      "resource": "sed *"
+    },
+    {
+      "action": "shell",
+      "effect": "deny",
+      "resource": "service *"
+    },
+    {
+      "action": "shell",
+      "effect": "deny",
+      "resource": "setfacl *"
+    },
+    {
+      "action": "shell",
+      "effect": "deny",
+      "resource": "setfattr *"
+    },
+    {
+      "action": "shell",
+      "effect": "deny",
+      "resource": "sftp *"
+    },
+    {
+      "action": "shell",
+      "effect": "deny",
+      "resource": "sh *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "sha256sum *"
+    },
+    {
+      "action": "shell",
+      "effect": "deny",
+      "resource": "shred *"
+    },
+    {
+      "action": "shell",
+      "effect": "deny",
+      "resource": "shutdown *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "skaffold *"
+    },
+    {
+      "action": "shell",
+      "effect": "deny",
+      "resource": "socat *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "sort *"
+    },
+    {
+      "action": "shell",
+      "effect": "ask",
+      "resource": "sqlite3 *"
+    },
+    {
+      "action": "shell",
+      "effect": "deny",
+      "resource": "ssh *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "stat *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "strings *"
+    },
+    {
+      "action": "shell",
+      "effect": "deny",
+      "resource": "su *"
+    },
+    {
+      "action": "shell",
+      "effect": "deny",
+      "resource": "sudo *"
+    },
+    {
+      "action": "shell",
+      "effect": "deny",
+      "resource": "systemctl *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "tail *"
+    },
+    {
+      "action": "shell",
+      "effect": "deny",
+      "resource": "tee *"
+    },
+    {
+      "action": "shell",
+      "effect": "deny",
+      "resource": "telnet *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "test *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "timeout *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "tr *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "tre *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "tree *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "true"
+    },
+    {
+      "action": "shell",
+      "effect": "deny",
+      "resource": "truncate *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "type *"
+    },
+    {
+      "action": "shell",
+      "effect": "deny",
+      "resource": "umount *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "uname *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "uniq *"
+    },
+    {
+      "action": "shell",
+      "effect": "deny",
+      "resource": "unlink *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "wc *"
+    },
+    {
+      "action": "shell",
+      "effect": "deny",
+      "resource": "wget *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "which *"
+    },
+    {
+      "action": "shell",
+      "effect": "deny",
+      "resource": "wipefs *"
+    },
+    {
+      "action": "shell",
+      "effect": "deny",
+      "resource": "xargs *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "xxd *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "yq *"
+    },
+    {
+      "action": "shell",
+      "effect": "deny",
+      "resource": "zsh *"
+    },
+    {
+      "action": "external_directory",
+      "effect": "allow",
+      "resource": "~/.agent-browser/*"
+    },
+    {
+      "action": "external_directory",
+      "effect": "allow",
+      "resource": "~/.agents/skills/*"
+    },
+    {
+      "action": "external_directory",
+      "effect": "allow",
+      "resource": "~/.config/opencode/*"
+    },
+    {
+      "action": "external_directory",
+      "effect": "allow",
+      "resource": "~/.vscode/extensions/*"
+    },
+    {
+      "action": "external_directory",
+      "effect": "allow",
+      "resource": "~/openspec/*"
+    },
+    {
+      "action": "question",
+      "effect": "deny",
+      "resource": "*"
+    },
+    {
+      "action": "read",
+      "effect": "allow",
+      "resource": "*"
+    },
+    {
+      "action": "read",
+      "effect": "deny",
+      "resource": "*/.aws/credentials"
+    },
+    {
+      "action": "read",
+      "effect": "deny",
+      "resource": "*/.config/gcloud"
+    },
+    {
+      "action": "read",
+      "effect": "deny",
+      "resource": "*/.external"
+    },
+    {
+      "action": "skill",
+      "effect": "allow",
+      "resource": "*"
+    },
+    {
+      "action": "skill",
+      "effect": "ask",
+      "resource": "feature-flow"
+    },
+    {
+      "action": "websearch",
+      "effect": "allow",
+      "resource": "*"
+    }
+  ],
+  "providers": {
     "headroom": {
-      "npm": "@ai-sdk/openai-compatible",
       "name": "Headroom Proxy",
-      "options": {
+      "package": "aisdk:@ai-sdk/openai-compatible",
+      "settings": {
         "baseURL": "http://127.0.0.1:8787/v1"
       }
     }
-  },
-  "share": "disabled",
-  "small_model": "github-copilot/gpt-6-luna"
+  }
 }

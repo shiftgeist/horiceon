@@ -69,7 +69,7 @@
           "start-mcp-server",
           "--project-from-cwd",
           "--context",
-          "agent",
+          "ide",
           "--open-web-dashboard",
           "False"
         ],
@@ -83,6 +83,11 @@
       "action": "shell",
       "effect": "ask",
       "resource": "*"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "sqlite3 -readonly *"
     },
     {
       "action": "shell",
@@ -241,43 +246,8 @@
     },
     {
       "action": "shell",
-      "effect": "allow",
-      "resource": "deno --version"
-    },
-    {
-      "action": "shell",
-      "effect": "allow",
-      "resource": "deno check *"
-    },
-    {
-      "action": "shell",
-      "effect": "allow",
-      "resource": "deno doc *"
-    },
-    {
-      "action": "shell",
-      "effect": "allow",
-      "resource": "deno fmt --check *"
-    },
-    {
-      "action": "shell",
-      "effect": "allow",
-      "resource": "deno fmt *"
-    },
-    {
-      "action": "shell",
-      "effect": "allow",
-      "resource": "deno info *"
-    },
-    {
-      "action": "shell",
-      "effect": "allow",
-      "resource": "deno lint *"
-    },
-    {
-      "action": "shell",
-      "effect": "allow",
-      "resource": "deno task --list"
+      "effect": "deny",
+      "resource": "deno *"
     },
     {
       "action": "shell",
@@ -1570,6 +1540,15 @@
       "resource": "*"
     }
   ],
+  "provider": {
+    "headroom": {
+      "name": "Headroom Proxy",
+      "npm": "@ai-sdk/openai-compatible",
+      "options": {
+        "baseURL": "http://127.0.0.1:8787/v1"
+      }
+    }
+  },
   "providers": {
     "headroom": {
       "name": "Headroom Proxy",

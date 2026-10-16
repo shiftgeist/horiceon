@@ -283,7 +283,8 @@ function til() {
 	now=$(date +%s)
 	sleep $((target - now))
 }
-alias continues="pnpx github:shiftgeist/cli-continues"
+alias continues="pnpx continues"
+alias continues-sg="pnpx github:shiftgeist/cli-continues"
 alias continues-dump="continues dump ./sessions --preset full --limit 1"
 
 [[ "$PLATFORM" == "macos" ]] && alias unquarantine="xattr -rd com.apple.quarantine"
@@ -511,10 +512,12 @@ fi
 if _check-commands opencode headroom; then
 	alias oc-integration-herdr="herdr integration install opencode"
 	alias oc="opencode"
- 	alias oc-run="opencode run --model=github-copilot/gpt-6-luna --thinking"
+	alias oc-run="opencode run --model=github-copilot/gpt-6-luna --thinking"
 	alias serena-index="uvx --from serena-agent serena project index"
+	alias oc-serena="serena-index"
+	alias oc-index="serena-index"
 
-	oc-integration-headroom() {
+	function oc-integration-headroom() {
 		# opencode -s ses_ec164f53cffe1qRMZ1EQKydHi1
 		local args=(
 			--preset persistent-service

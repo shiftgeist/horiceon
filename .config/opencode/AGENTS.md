@@ -1,4 +1,4 @@
-# Global rules
+# AGENTS.md
 
 - Write all documentation (CONTEXT.md, ADRs, READMEs, proposals, gate logs, specs) in ASD-STE100 Simplified Technical English. This is enforced, not aspirational:
   - Max 20 words per sentence, hard cap 25. Split anything longer.
@@ -21,6 +21,8 @@
 
 - Minimum release age is not optional and should be respected. Never ignore minimum release age exclude.
 
+- Do not use Deno for new work. Do not add Deno dependencies, commands, or configuration. Preserve existing Deno code unless the user asks to migrate it.
+
 - After writing or editing a Markdown file, check the end of the file for leaked tool-wrapper artifacts (e.g. a trailing `</content>` tag) and strip them before committing.
 
 - Code is self documenting. Code does not need comments.
@@ -28,5 +30,3 @@
 - Before every shell/tool permission request: Explain in plain English what the command does. Explain why it is needed for my request. Identify files/directories it may read or modify. Mention network access, elevated privileges, destructive effects or other security implications if applicable.
 
 - Never execute a command requiring permission before providing this explanation.
-
-- For agent-browser commands, use `agent-browser [cmd] --session=...`. Do not use `AGENTB_BROWSER_SESSION=... agent-browser [cmd]`.

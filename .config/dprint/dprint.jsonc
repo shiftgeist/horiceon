@@ -26,11 +26,13 @@
   },
   "shebangs": {
     "#!/bin/sh": "sh",
-    "#!/usr/bin/env bash": "sh",
-    "#!/usr/bin/env node": "js",
-    "#!/usr/bin/env deno run": "ts",
+    "#!/usr/bin/env -S bun": "ts",
     "#!/usr/bin/env -S deno run": "ts",
-    "#!/usr/bin/env -S uv run": "py"
+    "#!/usr/bin/env -S uv run": "py",
+    "#!/usr/bin/env bash": "sh",
+    "#!/usr/bin/env bun": "ts",
+    "#!/usr/bin/env deno run": "ts",
+    "#!/usr/bin/env node": "js"
   },
   "go-shfmt": {
     "associations": [

@@ -553,14 +553,21 @@ if _check-commands opencode headroom; then
 		local scopes_hint=""
 		local settings_file=.vscode/settings.json
 
-		diff=$(git diff --cached) || return
-		if [[ -z $diff ]]; then
-			diff=$(git diff) || return
-		fi
-
-		if [[ -z $diff ]]; then
-			print -u2 "No staged or unstaged diff found."
-			return 1
+		if (( $# > 0 )); then
+			diff="$*"
+			if [[ -z $diff ]]; then
+				print -u2 "Provided diff is empty."
+				return 1
+			fi
+		else
+			diff=$(git diff --cached) || return
+			if [[ -z $diff ]]; then
+				diff=$(git diff) || return
+			fi
+			if [[ -z $diff ]]; then
+				print -u2 "No staged or unstaged diff found."
+				return 1
+			fi
 		fi
 
 		if [[ -f $settings_file ]]; then
@@ -572,10 +579,10 @@ if _check-commands opencode headroom; then
 
 		opencode run --agent=commit --model='github-copilot/gpt-6-luna' "Write a conventional commit message for this diff. Output only the message.
 
-		$scopes_hint
+$scopes_hint
 
-		$diff" | copy
-	}
+$diff" | copy
+		}
 
 	function tokens() {
 		TIME_SPAN=weekly

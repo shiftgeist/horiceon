@@ -27,28 +27,16 @@
   "shebangs": {
     "#!/bin/sh": "sh",
     "#!/usr/bin/env -S bun": "ts",
-    "#!/usr/bin/env -S deno run": "ts",
+    "#!/usr/bin/env -S node": "ts",
     "#!/usr/bin/env -S uv run": "py",
-    "#!/usr/bin/env bash": "sh",
+    "#!/usr/bin/env bash": "bash",
     "#!/usr/bin/env bun": "ts",
-    "#!/usr/bin/env deno run": "ts",
-    "#!/usr/bin/env node": "js"
+    "#!/usr/bin/env node": "ts",
+    "#!/usr/bin/env zsh": "zsh"
   },
-  "go-shfmt": {
-    "associations": [
-      "**/*.bash",
-      "**/*.zsh",
-      "**/.bash_login",
-      "**/.bash_logout",
-      "**/.bash_profile",
-      "**/.bashrc",
-      "**/.profile",
-      "**/.zlogin",
-      "**/.zlogout",
-      "**/.zprofile",
-      "**/.zshenv",
-      "**/.zshrc"
-    ]
+  "sh": {
+  },
+  "gofumpt": {
   },
   "excludes": [
     ".cargo_home",
@@ -66,15 +54,15 @@
     "target"
   ],
   "plugins": [
-    "https://github.com/mridang/dprint-go/releases/download/v1.4.0/gofmt.wasm",
-    // "https://github.com/mridang/dprint-go/releases/download/v1.4.0/shfmt.wasm",
     "npm:@dprint/dockerfile@0.7.0",
-    "npm:dprint-plugin-malva@0.16.0",
-    "npm:dprint-plugin-markup@0.27.6",
-    "npm:dprint-plugin-yaml@0.6.0",
     "npm:@dprint/json@0.25.2",
     "npm:@dprint/markdown@0.26.0",
     "npm:@dprint/toml@0.9.0",
-    "npm:@dprint/typescript@0.96.1"
+    "npm:@dprint/typescript@0.96.1",
+    "npm:@jakebailey/dprint-plugin-gofumpt@0.0.19",
+    "npm:@kachick/dprint-plugin-sh@0.1.3",
+    "npm:dprint-plugin-malva@0.16.0",
+    "npm:dprint-plugin-markup@0.27.6",
+    "npm:dprint-plugin-yaml@0.6.0"
   ]
 }

@@ -1,1 +1,1 @@
-../bin/temp-mean
+../scripts/temp-mean.ts

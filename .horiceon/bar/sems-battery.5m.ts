@@ -1,1 +1,1 @@
-../bin/sems-battery
+../scripts/sems-battery.ts

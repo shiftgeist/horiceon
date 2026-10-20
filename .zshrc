@@ -426,6 +426,9 @@ if _check-commands brew; then
 		echo "Brewfile dumped and filtered"
 	}
 
+	function dprint-up() {
+		dprint config update -c ${1:-./dprint.jsonc}
+	}
 	alias mise-up="cd $HOME && mise up"
 	alias brew-recover="brew bundle install --global --upgrade && mise-up"
 	[[ "$PLATFORM" != "wsl" ]] && alias brew-up-apps="brew upgrade \
@@ -440,7 +443,7 @@ if _check-commands brew; then
 		spotify \
 		zen"
 	alias brew-up="brew upgrade && mise-up && brew-bundle-dump && echo 'brew updated'"
-	alias brew-up-all="brew upgrade --greedy && mise-up && brew-bundle-dump && echo 'brew all updated'"
+	alias brew-up-all="brew upgrade --greedy && mise-up && dprint-up && brew-bundle-dump && echo 'brew all updated'"
 
 	alias ladybird-setup="brew create https://github.com/LadybirdBrowser/ladybird/archive/refs/heads/master.zip --set-name ladybird --set-version HEAD && echo 'Run \"brew edit ladybird\" and paste your formula code.'"
 	if [ -d /opt/homebrew/opt/ladybird/.brew/ladybird.rb ]; then
@@ -547,6 +550,8 @@ if _check-commands opencode headroom; then
 
 	function oc-commit-msg() {
 		local diff
+		local scopes_hint=""
+		local settings_file=.vscode/settings.json
 
 		diff=$(git diff --cached) || return
 		if [[ -z $diff ]]; then
@@ -558,10 +563,16 @@ if _check-commands opencode headroom; then
 			return 1
 		fi
 
+		if [[ -f $settings_file ]]; then
+			scopes_hint="available scopes: $(yq-jsonc $settings_file '."conventionalCommits.scopes"')"
+		fi
+
 		local first_line=${diff%%$'\n'*}
 		echo "$first_line ..."
 
-		opencode run --agent commit "Write a conventional commit message for this diff. Output only the message.
+		opencode run --agent=commit --model='github-copilot/gpt-6-luna' "Write a conventional commit message for this diff. Output only the message.
+
+		$scopes_hint
 
 		$diff" | copy
 	}
@@ -604,6 +615,10 @@ if _check-commands yq; then
 	alias jq="yq"
 	alias yq-combine="yq ea '[.]'"
 	alias yqx="yq -p=xml"
+	function yq-jsonc() {
+		sed -E 's#^\s*//.*##' $1 | yq ${2:-'.'}
+	}
+	alias yqc="yq-jsonc"
 
 	function curl-pretty {
 		curl -s $@ | yq -P

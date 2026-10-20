@@ -83,8 +83,8 @@
   "dprint.path": "/usr/local/bin/dprint",
   "editor.codeActionsOnSave": {
     "source.organizeImports": "explicit",
-    "source.removeUnused.ts": "explicit",
-    "source.removeUnusedImports": "explicit"
+    "source.removeUnused.ts": "never",
+    "source.removeUnusedImports": "never"
   },
   "editor.cursorBlinking": "solid",
   "editor.fontFamily": "DankMono Nerd Font",

@@ -74,7 +74,7 @@ brew "yq"
 brew "yt-dlp", args: ["HEAD"]
 # Shell extension to navigate your filesystem faster
 brew "zoxide"
-# 📝 A declarative schema-based Markdown validator that helps maintain consistent documentation structure across projects.
+# A declarative schema-based Markdown validator that helps maintain consistent documentation structure across projects.
 brew "jackchuka/tap/mdschema", trusted: true
 # Image editing and design software
 cask "affinity"

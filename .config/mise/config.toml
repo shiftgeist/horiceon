@@ -13,6 +13,7 @@
 "npm:cpd" = "latest"
 "npm:npq" = "latest"
 "npm:sort-package-json" = "latest"
+"npm:typescript" = "latest"
 "npm:zx" = "latest"
 "python" = "3"
 "rust" = "latest"

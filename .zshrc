@@ -12,7 +12,7 @@ test -d /opt/homebrew/bin/brew && eval "$(/opt/homebrew/bin/brew shellenv zsh)"
 
 preexec() {
 	local after="${1##*|}"
-	[[ "$after" =~ ^[[:space:]]*copy([[:space:]]|$) ]] && _last_cmd="${1%|*}" || _last_cmd="$1"
+	[[ $after =~ ^[[:space:]]*copy([[:space:]]|$) ]] && _last_cmd="${1%|*}" || _last_cmd="$1"
 }
 
 function _zcompile-many() {
@@ -47,16 +47,16 @@ function _ask() {
 
 	echo "$prompt (y/N) "
 	read -r response
-	[[ "$response" == [yY] ]] && return 0 || return 1
+	[[ $response == [yY] ]] && return 0 || return 1
 }
 
 function _link-if-missing() {
 	local source="$1"
 	local target="$2"
 
-	[[ -e "$target" ]] && return 0
+	[[ -e $target ]] && return 0
 
-	if [[ ! -e "$source" ]]; then
+	if [[ ! -e $source ]]; then
 		echo "No source found for $target at $source, skipping." >&2
 		return 1
 	fi
@@ -69,22 +69,22 @@ function _link-if-missing() {
 
 function _detect_platform() {
 	case "$(uname -s)" in
-	Darwin)
-		echo "macos"
-		;;
-	Linux)
-		if grep -qi microsoft /proc/version 2>/dev/null; then
-			echo "wsl"
-		else
-			echo "linux"
-		fi
-		;;
-	MINGW* | MSYS* | CYGWIN*)
-		echo "windows"
-		;;
-	*)
-		echo "unknown"
-		;;
+		Darwin)
+			echo "macos"
+			;;
+		Linux)
+			if grep -qi microsoft /proc/version 2>/dev/null; then
+				echo "wsl"
+			else
+				echo "linux"
+			fi
+			;;
+		MINGW* | MSYS* | CYGWIN*)
+			echo "windows"
+			;;
+		*)
+			echo "unknown"
+			;;
 	esac
 }
 
@@ -95,13 +95,13 @@ function _detect_linux_distro() {
 
 PLATFORM="$(_detect_platform)"
 LINUX_DISTRO=""
-[[ "$PLATFORM" == "linux" ]] && LINUX_DISTRO="$(_detect_linux_distro)"
+[[ $PLATFORM == "linux" ]] && LINUX_DISTRO="$(_detect_linux_distro)"
 
 if _check-commands starship; then
 	eval "$(starship init zsh)"
 fi
 
-[[ "$TERM_PROGRAM" == "vscode" ]] && . "$(code --locate-shell-integration-path zsh)"
+[[ $TERM_PROGRAM == "vscode" ]] && . "$(code --locate-shell-integration-path zsh)"
 
 ###
 # Basics
@@ -231,42 +231,42 @@ function rm() {
 	local args=()
 	for arg in "$@"; do
 		case "$arg" in
-		-r | -f | -rf | -fr) ;;
-		*) args+=("$arg") ;;
+			-r | -f | -rf | -fr) ;;
+			*) args+=("$arg") ;;
 		esac
 	done
 	trash "${args[@]}"
 }
 
 case "$PLATFORM" in
-macos)
-	alias open-file='open'
-	alias install='brew install'
-	alias clipboard='pbcopy'
-	alias pasteboard='pbpaste'
-	;;
-wsl)
-	alias open-file='explorer.exe'
-	alias install='sudo apt-get install'
-	alias clipboard='iconv -f UTF-8 -t UTF-16LE | clip.exe'
-	alias pasteboard='powershell.exe -NoProfile -Command Get-Clipboard | tr -d "\r"'
-	;;
-linux)
-	alias open-file='xdg-open'
+	macos)
+		alias open-file='open'
+		alias install='brew install'
+		alias clipboard='pbcopy'
+		alias pasteboard='pbpaste'
+		;;
+	wsl)
+		alias open-file='explorer.exe'
+		alias install='sudo apt-get install'
+		alias clipboard='iconv -f UTF-8 -t UTF-16LE | clip.exe'
+		alias pasteboard='powershell.exe -NoProfile -Command Get-Clipboard | tr -d "\r"'
+		;;
+	linux)
+		alias open-file='xdg-open'
 
-	case "$LINUX_DISTRO" in
-	alpine) alias install='sudo apk add' ;;
-	debian) alias install='sudo apt-get install' ;;
-	esac
+		case "$LINUX_DISTRO" in
+			alpine) alias install='sudo apk add' ;;
+			debian) alias install='sudo apt-get install' ;;
+		esac
 
-	if command -v xclip &>/dev/null; then
-		alias clipboard='xclip -selection clipboard'
-		alias pasteboard='xclip -selection clipboard -o'
-	elif command -v wl-copy &>/dev/null; then
-		alias clipboard='wl-copy'
-		alias pasteboard='wl-paste'
-	fi
-	;;
+		if command -v xclip &>/dev/null; then
+			alias clipboard='xclip -selection clipboard'
+			alias pasteboard='xclip -selection clipboard -o'
+		elif command -v wl-copy &>/dev/null; then
+			alias clipboard='wl-copy'
+			alias pasteboard='wl-paste'
+		fi
+		;;
 esac
 
 alias wttr="curl 'https://wttr.in/?view=v1&output=txt&no-terminal=true&emoji=plain&superquiet=true&narrow=true&days=1'"
@@ -287,7 +287,7 @@ alias continues="pnpx continues"
 alias continues-sg="pnpx github:shiftgeist/cli-continues"
 alias continues-dump="continues dump ./sessions --preset full --limit 1"
 
-[[ "$PLATFORM" == "macos" ]] && alias unquarantine="xattr -rd com.apple.quarantine"
+[[ $PLATFORM == "macos" ]] && alias unquarantine="xattr -rd com.apple.quarantine"
 
 function check-port() {
 	lsof -i tcp${1:+":$1"}
@@ -314,7 +314,7 @@ function kill_port() {
 
 function copy() {
 	local include_cmd=false
-	[[ "$1" == "-c" ]] && include_cmd=true
+	[[ $1 == "-c" ]] && include_cmd=true
 
 	local content=$(cat)
 	printf '%s\n' "$content"
@@ -334,10 +334,10 @@ function alpine() {
 
 	local package=$1
 
-	if [[ "$1" == --pkg=* ]]; then
+	if [[ $1 == --pkg=* ]]; then
 		package="${1#--pkg=}"
 		shift
-	elif [[ "$1" == --pkg ]]; then
+	elif [[ $1 == --pkg ]]; then
 		echo "Error: --pkg requires a value (use --pkg=VALUE)\n"
 		_help
 		return 1
@@ -431,7 +431,7 @@ if _check-commands brew; then
 	}
 	alias mise-up="cd $HOME && mise up"
 	alias brew-recover="brew bundle install --global --upgrade && mise-up"
-	[[ "$PLATFORM" != "wsl" ]] && alias brew-up-apps="brew upgrade \
+	[[ $PLATFORM != "wsl" ]] && alias brew-up-apps="brew upgrade \
 		affinity \
 		beekeeper-studio \
 		blender \
@@ -482,6 +482,36 @@ if _check-commands glow; then
 	alias glow="glow --width \"$(tput cols)\""
 fi
 
+if _check-commands markitdown; then
+	function md() {
+		local input="$1"
+		local output="$2"
+
+		if [[ -z $input ]]; then
+			echo "usage: md <file> | md <url> <output.md>" >&2
+			return 1
+		fi
+
+		if [[ ! -f $input && -z $output ]]; then
+			echo "not a file, give an output path: md <url> <output.md>" >&2
+			return 1
+		fi
+
+		if [[ -z $output ]]; then
+			local input_name
+			input_name="$(basename "$input")"
+			output="$(dirname "$input")/${input_name%.*}.md"
+		fi
+
+		if [[ $output -ef $input ]]; then
+			echo "refusing to overwrite source: $input" >&2
+			return 1
+		fi
+
+		uvx --from 'markitdown[all]@latest' markitdown "$input" -o "$output" && echo "$output"
+	}
+fi
+
 if _check-commands mise; then
 	eval "$(mise activate zsh)"
 
@@ -512,6 +542,7 @@ if _check-commands nvim; then
 fi
 
 if _check-commands opencode headroom; then
+	alias oc-auth-gh="opencode auth login github-copilot"
 	alias oc-integration-herdr="herdr integration install opencode"
 	alias oc="opencode"
 	alias oc-run="opencode run --model=github-copilot/gpt-6-luna --thinking"
@@ -548,48 +579,70 @@ if _check-commands opencode headroom; then
 		headroom install apply "${args[@]}"
 	}
 
-	function oc-commit-msg() {
-		local diff
-		local scopes_hint=""
-		local settings_file=.vscode/settings.json
+	function oc-commit-msg() (
+		local git_args="" context="" dir="."
 
-		if (( $# > 0 )); then
-			diff="$*"
-			if [[ -z $diff ]]; then
-				print -u2 "Provided diff is empty."
-				return 1
-			fi
+		while (($#)); do
+			case $1 in
+				--git=*)
+					git_args=${1#--git=}
+					shift
+					;;
+				--context=*)
+					context=${1#--context=}
+					shift
+					;;
+				--cd)
+					(($# >= 2)) && [[ -n $2 ]] || {
+						print -u2 "Missing directory for --cd"
+						return 1
+					}
+					dir=$2
+					shift 2
+					;;
+				*)
+					print -u2 "Unknown argument: $1"
+					return 1
+					;;
+			esac
+		done
+
+		cd -- "$dir" || return
+
+		local diff scopes_hint=""
+		if [[ -n $git_args ]]; then
+			diff=$(git ${(Q)${(z)git_args}}) || return
 		else
 			diff=$(git diff --cached) || return
-			if [[ -z $diff ]]; then
-				diff=$(git diff) || return
-			fi
-			if [[ -z $diff ]]; then
-				print -u2 "No staged or unstaged diff found."
-				return 1
-			fi
+			[[ -n $diff ]] || diff=$(git diff) || return
+		fi
+		[[ -n $diff ]] || {
+			print -u2 "Git produced no diff."
+			return 1
+		}
+
+		if [[ -f .vscode/settings.json ]]; then
+			scopes_hint="Available scopes: $(yq-jsonc .vscode/settings.json '."conventionalCommits.scopes"')"
 		fi
 
-		if [[ -f $settings_file ]]; then
-			scopes_hint="available scopes: $(yq-jsonc $settings_file '."conventionalCommits.scopes"')"
-		fi
-
-		local first_line=${diff%%$'\n'*}
-		echo "$first_line ..."
-
-		opencode run --agent=commit --model='github-copilot/gpt-6-luna' "Write a conventional commit message for this diff. Output only the message.
+		opencode run --agent=commit --model='github-copilot/gpt-6-luna' \
+			"Write a Conventional Commit message for this diff. Output only the message.
 
 $scopes_hint
 
+Additional context:
+$context
+
+Diff:
 $diff" | copy
-		}
+	)
 
 	function tokens() {
 		TIME_SPAN=weekly
 
 		case "$1" in
-		help | -h | --help)
-			/bin/cat <<EOF
+			help | -h | --help)
+				/bin/cat <<EOF
 Show OpenCode token usage grouped
 
 Usage:
@@ -601,11 +654,11 @@ Options:
   TIME_SPAN				daily|weekly|monthly|session (default $TIME_SPAN)
   -h, --help, help			Show help
 EOF
-			pnpx ccusage@latest opencode $TIME_SPAN --help | grep '^  -'
-			;;
-		*)
-			pnpx ccusage@latest opencode "${@:-$TIME_SPAN}" && headroom savings
-			;;
+				pnpx ccusage@latest opencode $TIME_SPAN --help | grep '^  -'
+				;;
+			*)
+				pnpx ccusage@latest opencode "${@:-$TIME_SPAN}" && headroom savings
+				;;
 		esac
 	}
 fi
@@ -636,80 +689,88 @@ if _check-commands yq; then
 		local name="$2"
 
 		case "$tool" in
-		make) make $name ;;
-		pnpm) pnpm $name ;;
-		*) "$tool" run $name ;;
+			make) make $name ;;
+			pnpm) pnpm $name ;;
+			*) "$tool" run $name ;;
 		esac
 	}
 
 	function _run_list_all_commands() {
 		_debug_log "_run_list_all_commands: tool=$1"
 		case "$1" in
-		make) grep '^[[:alnum:]_.-][[:alnum:]_.-]*:' Makefile | cut -d: -f1 | grep -v '^\.PHONY$' ;;
-		mise) (
-			mise help 2>&1 | awk '/^  [a-z]/ { print $1 }'
-			mise tasks ls --name-only
-		) ;;
-		npm) (
-			npm help 2>&1 | awk '/All commands:/,/^[^ ]/ {print}' | tr ',' '\n' | awk '/^[a-z]/ {print}'
-			yq -r '.scripts // {} | keys | .[]' package.json
-		) ;;
-		pnpm) (
-			pnpm help | sed -nE '/^Options:/q; s/^[[:space:]]*([[:alnum:]-]+, )?([[:alnum:]-]+)[[:space:]]{2,}.*/\2/p'
-			yq -r '.scripts // {} | keys | .[]' package.json
-		) ;;
-		bun) (
-			bun help 2>&1 | awk '/^  [a-z]/ {print $1}'
-			yq -r '.scripts // {} | keys | .[]' package.json
-		) ;;
-		*) yq -r '.scripts // {} | keys | .[]' package.json ;;
+			make) grep '^[[:alnum:]_.-][[:alnum:]_.-]*:' Makefile | cut -d: -f1 | grep -v '^\.PHONY$' ;;
+			mise)
+				(
+					mise help 2>&1 | awk '/^  [a-z]/ { print $1 }'
+					mise tasks ls --name-only
+				)
+				;;
+			npm)
+				(
+					npm help 2>&1 | awk '/All commands:/,/^[^ ]/ {print}' | tr ',' '\n' | awk '/^[a-z]/ {print}'
+					yq -r '.scripts // {} | keys | .[]' package.json
+				)
+				;;
+			pnpm)
+				(
+					pnpm help | sed -nE '/^Options:/q; s/^[[:space:]]*([[:alnum:]-]+, )?([[:alnum:]-]+)[[:space:]]{2,}.*/\2/p'
+					yq -r '.scripts // {} | keys | .[]' package.json
+				)
+				;;
+			bun)
+				(
+					bun help 2>&1 | awk '/^  [a-z]/ {print $1}'
+					yq -r '.scripts // {} | keys | .[]' package.json
+				)
+				;;
+			*) yq -r '.scripts // {} | keys | .[]' package.json ;;
 		esac | sort -u
 	}
 
 	function _run_list_project_tasks() {
 		_debug_log "_run_list_project_tasks: tool=$1"
 		case "$1" in
-		make) grep '^[[:alnum:]_.-][[:alnum:]_.-]*:' Makefile | cut -d: -f1 | grep -v '^\.PHONY$' ;;
-		mise) mise tasks ls --name-only ;;
-		*) [ -f package.json ] && yq -r '.scripts // {} | keys | .[]' package.json ;;
+			make) grep '^[[:alnum:]_.-][[:alnum:]_.-]*:' Makefile | cut -d: -f1 | grep -v '^\.PHONY$' ;;
+			mise) mise tasks ls --name-only ;;
+			*) [ -f package.json ] && yq -r '.scripts // {} | keys | .[]' package.json ;;
 		esac | sort -u
 	}
 
 	function run() {
 		local tool
 		case "$1" in
-		npm | pnpm | bun | mise | make)
-			tool="$1"
-			_debug_log "run: explicit tool='$tool' given as \$1"
-			shift
-			;;
-		*)
-			if [ -f "package.json" ]; then
-				if [ -f "pnpm-lock.yaml" ]; then
-					tool="pnpm"
-				elif [ -f "bun.lockb" ] || [ -f "bun.lock" ]; then
-					tool="bun"
+			npm | pnpm | bun | mise | make)
+				tool="$1"
+				_debug_log "run: explicit tool='$tool' given as \$1"
+				shift
+				;;
+			*)
+				if [ -f "package.json" ]; then
+					if [ -f "pnpm-lock.yaml" ]; then
+						tool="pnpm"
+					elif [ -f "bun.lockb" ] || [ -f "bun.lock" ]; then
+						tool="bun"
+					else
+						tool="npm"
+					fi
+				elif [ -f ".mise.toml" ] || [ -f "mise.toml" ]; then
+					tool="mise"
+				elif [ -f "Makefile" ]; then
+					tool="make"
 				else
-					tool="npm"
+					_debug_log "run: no project file matched"
+					echo "RUN: No recognized project file found (mise.toml / Makefile / package.json)"
+					return 1
 				fi
-			elif [ -f ".mise.toml" ] || [ -f "mise.toml" ]; then
-				tool="mise"
-			elif [ -f "Makefile" ]; then
-				tool="make"
-			else
-				_debug_log "run: no project file matched"
-				echo "RUN: No recognized project file found (mise.toml / Makefile / package.json)"
-				return 1
-			fi
-			_debug_log "run: auto-detected tool='$tool'"
-			;;
+				_debug_log "run: auto-detected tool='$tool'"
+				;;
 		esac
 
 		local tool_file
 		case "$tool" in
-		make) tool_file="Makefile" ;;
-		mise) tool_file=".mise.toml, mise.toml" ;;
-		bun | npm | pnpm) tool_file="package.json" ;;
+			make) tool_file="Makefile" ;;
+			mise) tool_file=".mise.toml, mise.toml" ;;
+			bun | npm | pnpm) tool_file="package.json" ;;
 		esac
 
 		local task="$1"
@@ -735,7 +796,7 @@ if _check-commands yq; then
 		# exact match: run directly
 		if echo "$names" | grep -qxF -- "$task"; then
 			_debug_log "run: exact match found for '$task'"
-			echo "RUN: Found exact match. Running \"_run_exec_task "$tool" "$task"\""
+			echo 'RUN: Found exact match. Running "_run_exec_task '$tool" "$task"\""
 			_run_exec_task "$tool" "$task"
 			return
 		fi
@@ -775,7 +836,7 @@ fi
 # WSL setups
 ###
 
-if [[ "$PLATFORM" == "wsl" ]]; then
+if [[ $PLATFORM == "wsl" ]]; then
 	bindkey "\e[1;5C" forward-word
 	bindkey "\e[1;5D" backward-word
 

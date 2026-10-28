@@ -290,26 +290,17 @@ alias continues-dump="continues dump ./sessions --preset full --limit 1"
 [[ $PLATFORM == "macos" ]] && alias unquarantine="xattr -rd com.apple.quarantine"
 
 function check-port() {
-	lsof -i tcp${1:+":$1"}
-}
+	local port=$1
+	local wants_kill=false
+	[[ $2 == "-k" || $2 == "--kill" ]] && wants_kill=true
 
-function kill_port() {
-	if [ "$#" -ne 1 ]; then
-		echo "Usage: kill_port <PORT>"
-		return 1
-	fi
+	lsof -i tcp${port:+":$port"} -sTCP:LISTEN || return 1
 
-	PORT=$1
+	[[ $wants_kill == true ]] || return 0
 
-	PID=$(lsof -t -i tcp:$PORT)
-
-	if [ -z "$PID" ]; then
-		echo "No process found running on port $PORT"
-		return 1
-	fi
-
-	echo "Killing process $PID running on port $PORT"
-	kill -9 $PID
+	local pids=$(lsof -t -i tcp:$port -sTCP:LISTEN)
+	echo "Killing processes on port $port:" $pids
+	echo $pids | xargs kill -9
 }
 
 function copy() {
@@ -472,6 +463,7 @@ fi
 if _check-commands eza; then
 	alias exa="eza"
 	alias ls="eza"
+	alias ls-mod="ls -l -s modified -r"
 fi
 
 if _check-commands fd; then

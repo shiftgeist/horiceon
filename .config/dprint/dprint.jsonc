@@ -12,7 +12,8 @@
     "trailingCommas": "never"
   },
   "json": {
-    "trailingCommas": "never"
+    "trailingCommas": "never",
+    "lineWidth": 100
   },
   "markdown": {},
   "toml": {},

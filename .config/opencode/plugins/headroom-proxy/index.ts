@@ -10,10 +10,10 @@ const proxy = new URL("http://127.0.0.1:8787")
 
 // ~/.local/share/opencode/log/headroom-proxy.log
 const logDirectory = join(process.env.XDG_DATA_HOME ?? join(homedir(), ".local", "share"), "opencode", "log")
-const logPath = join(logDirectory, "headroom-copilot.log")
+const logPath = join(logDirectory, "headroom-proxy.log")
 
 export default Plugin.define({
-  id: "headroom-copilot",
+  id: "headroom-proxy",
   async setup(ctx) {
     const logFile = createWriteStream(logPath, { flags: "a" })
     const logger = new Console({ stdout: logFile, stderr: logFile })

@@ -1,0 +1,146 @@
+#!/usr/bin/env zsh
+
+source ~/.zshrc
+
+if ! command -v "opencode" &>/dev/null; then
+	return 0
+fi
+
+function main() {
+	local git_args="" context="" dir="." debug="false" dry="false"
+
+	while (($#)); do
+		case $1 in
+			--cd)
+				(($# >= 2)) && [[ -n $2 ]] || {
+					echo "Missing directory for --cd"
+					return 1
+				}
+				dir=$2
+				shift 2
+				;;
+			--context=*)
+				context=${1#--context=}
+				shift
+				;;
+			--debug)
+				debug=true
+				shift
+				;;
+			--dry-run)
+				dry=true
+				shift
+				;;
+			--git=*)
+				git_args=${1#--git=}
+				shift
+				;;
+			-*)
+				echo "Unknown option: $1"
+				return 1
+				;;
+			*)
+				context="${context:+$context }$1"
+				shift
+				;;
+		esac
+	done
+
+	cd -- "$dir" || return
+
+	local diff existing_scopes=""
+	if [[ -n $git_args ]]; then
+		diff=$(git ${(Q)${(z)git_args}}) || return
+	else
+		diff=$(git diff --cached) || return
+		[[ -n $diff ]] || diff=$(git diff) || return
+	fi
+	[[ -n $diff ]] || {
+		echo "Git produced no diff."
+		return 1
+	}
+
+	if [[ -f .vscode/settings.json ]]; then
+		existing_scopes="$(yq-jsonc .vscode/settings.json '."conventionalCommits.scopes"' | yq -r 'join(", ")')"
+	fi
+
+	local prompt="Generate a commit message and perform the commit following these rules explicitly:
+
+  Analyze the changes and generate a proper commit message.
+
+  Use Conventional Commits v1.0.0 format with this structure:
+  <type>(optional scope)[!]: <short summary>
+
+  <detailed bullet points (one per line)>
+
+  [optional footer(s)]
+
+  Use only these prefix types:
+  - feat: New feature or functionality
+  - fix: Bug fix
+  - docs: Documentation-only changes
+  - style: Code style changes (no logic change)
+  - refactor: Code changes neither fixing bug nor adding feature
+  - perf: Performance improvements
+  - test: Adding or correcting tests
+  - build: Changes to build system, dependencies, CI/CD
+  - chore: Maintenance, tooling, config
+  - ci: CI configuration and scripts
+  - revert: Reverting a previous commit
+
+  Never invent new prefixes; use chore as fallback. Never use any skills.
+
+  Scope: Include a scope when the changed file paths match one of the existing scopes (compare path segments, module and domain names in the diff headers). Use exactly one scope, lowercase, hyphenated (e.g., (auth), (ui/login)). If the changes touch several scopes or none match, omit the scope. Never invent a scope that is not in the list.
+
+  All existing scopes: $existing_scopes
+
+  Short summary: Imperative present tense (add, fix, update), start lowercase, no period.
+
+  IMPORTANT: the total length of the first line (the summary line, including type, scope and !) must not exceed 50 chars and the total length of subsequent lines must not exceed 72 characters.
+
+  Detailed bullets: Start after blank line, one change per bullet, start with capital letter, use dash (-), no period unless multiple sentences, focus on what/why.
+
+  Breaking changes (any type):
+  - Add '!' directly before the colon: feat!: ..., feat(api)!: ...
+  - Also add 'BREAKING CHANGE: <description>' as footer after bullets, one blank line before it.
+  - Footer is optional only if the summary line already describes the breaking change.
+
+  Ticket ID: If a ticket ID is given in the additional context, add footer 'Refs: <ticket-id>' (e.g., Refs: PROJ-123 or Refs: #123), one blank line after bullets. Multiple IDs: comma-separated on one line. No ticket ID given: no Refs footer, never invent one.
+
+  Footer order: BREAKING CHANGE first, then Refs. Footers are separated from bullets by one blank line, no blank lines between footers.
+
+  AI rules: Never hallucinate - only reference actual changes; always >=1 bullet unless trivial; group related changes; for renames use refactor and mention old->new; for large changes summarize patterns; respect .gitignore.
+
+  Edge cases: Skip merge commits; for empty: chore: initial commit; version bump: chore: bump version to vX.Y.Z; deps: build(deps): update <pkg> from A to B; config: chore(config): update <rules>.
+
+  Output only the raw commit message text, no extras.
+
+  Self-check: Valid prefix, lowercase scope set if paths match an existing scope, summary rules, '!' before colon if breaking, blank line, bullets format, footers after blank line (BREAKING CHANGE, Refs if ticket ID given), no trailing whitespace.
+
+  $(
+		b=$(git branch --show-current)
+		[ "$b" = main ] || echo "Branch: $b"
+	)
+
+  Additional context:
+  $context
+
+  Diff:
+  $diff"
+
+	if [[ $debug == true ]]; then
+		echo "$prompt"
+	fi
+
+	if [[ $dry == true ]]; then
+		echo opencode run --agent=commit --model='github-copilot/gpt-6-luna' '[PROMPT]' | copy
+		echo "Hint: get prompt with --debug"
+		return 0
+	fi
+
+	local message
+	message=$(opencode run --agent=commit --model='github-copilot/gpt-6-luna' "$prompt") || return
+	printf '%s' "$message" | copy
+}
+
+main $@

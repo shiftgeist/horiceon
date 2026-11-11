@@ -571,64 +571,6 @@ if _check-commands opencode headroom; then
 		headroom install apply "${args[@]}"
 	}
 
-	function oc-commit-msg() (
-		local git_args="" context="" dir="."
-
-		while (($#)); do
-			case $1 in
-				--git=*)
-					git_args=${1#--git=}
-					shift
-					;;
-				--context=*)
-					context=${1#--context=}
-					shift
-					;;
-				--cd)
-					(($# >= 2)) && [[ -n $2 ]] || {
-						print -u2 "Missing directory for --cd"
-						return 1
-					}
-					dir=$2
-					shift 2
-					;;
-				*)
-					print -u2 "Unknown argument: $1"
-					return 1
-					;;
-			esac
-		done
-
-		cd -- "$dir" || return
-
-		local diff scopes_hint=""
-		if [[ -n $git_args ]]; then
-			diff=$(git ${(Q)${(z)git_args}}) || return
-		else
-			diff=$(git diff --cached) || return
-			[[ -n $diff ]] || diff=$(git diff) || return
-		fi
-		[[ -n $diff ]] || {
-			print -u2 "Git produced no diff."
-			return 1
-		}
-
-		if [[ -f .vscode/settings.json ]]; then
-			scopes_hint="Available scopes: $(yq-jsonc .vscode/settings.json '."conventionalCommits.scopes"')"
-		fi
-
-		opencode run --agent=commit --model='github-copilot/gpt-6-luna' \
-			"Write a Conventional Commit message for this diff. Output only the message.
-
-$scopes_hint
-
-Additional context:
-$context
-
-Diff:
-$diff" | copy
-	)
-
 	function tokens() {
 		TIME_SPAN=weekly
 

@@ -107,7 +107,9 @@ function main() {
 
   Ticket ID: If a ticket ID is given in the additional context, add footer 'Refs: <ticket-id>' (e.g., Refs: PROJ-123 or Refs: #123), one blank line after bullets. Multiple IDs: comma-separated on one line. No ticket ID given: no Refs footer, never invent one.
 
-  Footer order: BREAKING CHANGE first, then Refs. Footers are separated from bullets by one blank line, no blank lines between footers.
+  Skip CI: Optionally add '[skip-ci]' on its own footer line to skip the CI build. Include it only when the additional context requests it.
+
+  Footer order: BREAKING CHANGE first, then Refs, then [skip-ci] if requested. Separate footers from bullets with one blank line. Do not add blank lines between footers.
 
   AI rules: Never hallucinate - only reference actual changes; always >=1 bullet unless trivial; group related changes; for renames use refactor and mention old->new; for large changes summarize patterns; respect .gitignore.
 
@@ -115,7 +117,7 @@ function main() {
 
   Output only the raw commit message text, no extras.
 
-  Self-check: Valid prefix, lowercase scope set if paths match an existing scope, summary rules, '!' before colon if breaking, blank line, bullets format, footers after blank line (BREAKING CHANGE, Refs if ticket ID given), no trailing whitespace.
+  Self-check: Valid prefix, lowercase scope set if paths match an existing scope, summary rules, '!' before colon if breaking, blank line, bullets format, footers after blank line (BREAKING CHANGE, Refs if ticket ID given, [skip-ci] if requested), no trailing whitespace.
 
   $(
 		b=$(git branch --show-current)

@@ -1,3 +1,4 @@
 #!/usr/bin/env bash
 
-node --no-warnings $(realpath "$PWD/../scripts/src/sems-battery.ts") $@
+script_dir="$(dirname "$(realpath "${BASH_SOURCE[0]}")")"
+node --no-warnings "$script_dir/../scripts/src/sems-battery.ts" "$@"

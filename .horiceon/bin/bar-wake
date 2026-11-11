@@ -1,3 +1,4 @@
 #!/usr/bin/env bash
 
-node --no-warnings $(realpath "$PWD/../scripts/src/bar-wake.ts") $@
+script_dir="$(dirname "$(realpath "${BASH_SOURCE[0]}")")"
+node --no-warnings "$script_dir/../scripts/src/bar-wake.ts" "$@"

@@ -522,11 +522,9 @@ fi
 
 if _check-commands pnpx; then
 	alias ts-prune="pnpx knip"
-fi
-
-if _check-commands uv; then
 	alias pip="uv pip"
-	alias bestllm="uvx whichllm@latest --profile coding"
+	alias bestllm="uvx whichllm@latest --profile coding --speed fast"
+	alias bestllm-bench="uvx whichllm@latest bench --engine llama.cpp"
 fi
 
 if _check-commands nvim; then
@@ -538,9 +536,8 @@ if _check-commands opencode headroom; then
 	alias oc-integration-herdr="herdr integration install opencode"
 	alias oc="opencode"
 	alias oc-run="opencode run --model=github-copilot/gpt-6-luna --thinking"
-	alias serena-index="uvx --from serena-agent serena project index"
-	alias oc-serena="serena-index"
-	alias oc-index="serena-index"
+	alias serena="uvx --from serena-agent serena"
+	alias serena-index="serena project index"
 
 	function oc-integration-headroom() {
 		# opencode -s ses_ec164f53cffe1qRMZ1EQKydHi1

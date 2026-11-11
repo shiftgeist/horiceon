@@ -240,6 +240,11 @@
     },
     {
       "action": "shell",
+      "effect": "allow",
+      "resource": "command -v *"
+    },
+    {
+      "action": "shell",
       "effect": "deny",
       "resource": "cp *"
     },
@@ -437,11 +442,6 @@
       "action": "shell",
       "effect": "allow",
       "resource": "git -C * status --short --branch"
-    },
-    {
-      "action": "shell",
-      "effect": "deny",
-      "resource": "git add *"
     },
     {
       "action": "shell",
@@ -1176,6 +1176,11 @@
     {
       "action": "shell",
       "effect": "allow",
+      "resource": "pnpm peers check"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
       "resource": "pnpm root *"
     },
     {
@@ -1232,31 +1237,6 @@
       "action": "shell",
       "effect": "allow",
       "resource": "pwd"
-    },
-    {
-      "action": "shell",
-      "effect": "deny",
-      "resource": "python *"
-    },
-    {
-      "action": "shell",
-      "effect": "deny",
-      "resource": "python3 -c *"
-    },
-    {
-      "action": "shell",
-      "effect": "deny",
-      "resource": "python3 * <<"
-    },
-    {
-      "action": "shell",
-      "effect": "ask",
-      "resource": "python3 *.py *"
-    },
-    {
-      "action": "shell",
-      "effect": "deny",
-      "resource": "python3*<<*"
     },
     {
       "action": "shell",
@@ -1510,7 +1490,7 @@
     },
     {
       "action": "shell",
-      "effect": "deny",
+      "effect": "allow",
       "resource": "xargs *"
     },
     {
@@ -1603,7 +1583,22 @@
     }
   ],
   "plugins": [
-    "opencode-queue"
+    "opencode-queue@2.1.0",
+    {
+      "package": "opencode-retitle@0.3.2",
+      "options": {
+        "turns": 0,
+        "onCompaction": true,
+        "onFork": true,
+        "respectManualRename": true,
+        "lockExistingTitles": true,
+        "builtinGraceMs": 120000,
+        "model": null,
+        "titleMaxLength": 60,
+        "minPromptLength": 10,
+        "debug": false
+      }
+    }
   ],
   "provider": {
     "headroom": {

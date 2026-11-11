@@ -12,5 +12,8 @@
     "thinking": "hide"
   },
   "animations": true,
-  "plugins": ["./herdr-opencode", "opencode-subagent-statusline"]
+  "plugins": [
+    "./herdr-opencode",
+    "opencode-visual-cache@1.7.5"
+  ]
 }

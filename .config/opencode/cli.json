@@ -8,7 +8,7 @@
   },
   "session": {
     "sidebar": "auto",
-    "scrollbar": true,
+    "scrollbar": false,
     "thinking": "hide"
   },
   "animations": true,

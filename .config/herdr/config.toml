@@ -4,21 +4,28 @@ onboarding = false
 name = "tokyo-night"
 auto_switch = false
 
+[terminal]
+new_cwd = "follow"
+
 [ui]
-show_agent_labels_on_pane_borders = false
 agent_panel_sort = "priority"
-sidebar_start_collapsed = true
-sidebar_collapsed_mode = "compact"
 hide_tab_bar_when_single_tab = true
+pane_borders = "auto"
+pane_gaps = false
 prompt_new_tab_name = false
+show_agent_labels_on_pane_borders = false
+sidebar_collapsed_mode = "compact"
+sidebar_start_collapsed = true
 
 [ui.sidebar.spaces]
+row_gap = 0
 rows = [
   ["state_icon", "workspace", "state_text"],
   ["branch", "git_status"],
 ]
 
 [ui.sidebar.agents]
+row_gap = 0
 rows = [
   ["state_icon", "agent", "state_text"],
   ["workspace", "tab"],
@@ -29,9 +36,3 @@ opencode = [
   ["state_icon", "terminal_title_stripped"],
   ["state_text", "tab"],
 ]
-
-# [ui.sound]
-# enabled = false
-
-[terminal]
-new_cwd = "follow"

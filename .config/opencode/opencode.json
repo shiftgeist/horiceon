@@ -1585,9 +1585,12 @@
     },
     {
       "action": "skill",
-      "effect": "ask",
+      "effect": "deny",
       "resource": "feature-flow"
     },
+    { "action": "skill", "resource": "openspec-*", "effect": "deny" },
+    { "action": "skill", "resource": "opsx-*", "effect": "deny" },
+    { "action": "edit", "resource": "*openspec/*", "effect": "deny" },
     {
       "action": "webfetch",
       "effect": "allow",

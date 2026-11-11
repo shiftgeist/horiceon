@@ -414,7 +414,7 @@ if _check-commands brew; then
 	function brew-bundle-dump() {
 		brew bundle dump --global --force --no-go --no-npm
 		brew bundle remove --global awscli azure-cli ladybird
-		echo "Brewfile dumped and filtered"
+		echo "Brewfile dumped and filtered ✅"
 	}
 
 	function dprint-up() {
@@ -433,7 +433,7 @@ if _check-commands brew; then
 		obsidian \
 		spotify \
 		zen"
-	alias brew-up="brew upgrade && mise-up && brew-bundle-dump && echo 'brew updated'"
+	alias brew-up="brew upgrade && mise-up && brew-bundle-dump && echo 'brew ✅'"
 	alias brew-up-all="brew upgrade --greedy && mise-up && dprint-up && brew-bundle-dump && echo 'brew all updated'"
 
 	alias ladybird-setup="brew create https://github.com/LadybirdBrowser/ladybird/archive/refs/heads/master.zip --set-name ladybird --set-version HEAD && echo 'Run \"brew edit ladybird\" and paste your formula code.'"

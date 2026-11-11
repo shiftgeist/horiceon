@@ -123,6 +123,7 @@ fi
 if [[ ! -e "$ZSH_CONFIG/alias-tips" ]]; then
 	git clone git@github.com:djui/alias-tips.git "$ZSH_CONFIG/alias-tips"
 fi
+alias horiceon--update-zsh="cd $ZSH_CONFIG/fzf-tab && git pull && cd $ZSH_CONFIG/alias-tips && git pull && source ~/.zshrc"
 
 # Compile missing plugins
 if [[ ! -e "$XDG_CACHE/completion-for-pnpm.zsh" ]]; then
@@ -219,6 +220,7 @@ alias "..."="cd ../.."
 alias "...."="cd ../../.."
 alias finder="open"
 alias grepf="fzf -f"
+alias grep10="grep -B 10 -A 10"
 alias horiceon="/usr/bin/git --git-dir=$RICE_HOME --work-tree=$HOME"
 alias la="ls -la"
 alias now="date +%s"
@@ -269,6 +271,9 @@ case "$PLATFORM" in
 		;;
 esac
 
+function diff-inline() {
+	git diff --no-index --word-diff=color --word-diff-regex=. <(printf '%s\n' "$1") <(printf '%s\n' "$2")
+}
 alias wttr="curl 'https://wttr.in/?view=v1&output=txt&no-terminal=true&emoji=plain&superquiet=true&narrow=true&days=1'"
 function cheat {
 	curl "cht.sh/$1" | less -R
@@ -286,6 +291,7 @@ function til() {
 alias continues="pnpx continues"
 alias continues-sg="pnpx github:shiftgeist/cli-continues"
 alias continues-dump="continues dump ./sessions --preset full --limit 1"
+alias dir-size="du -sh"
 
 [[ $PLATFORM == "macos" ]] && alias unquarantine="xattr -rd com.apple.quarantine"
 
@@ -366,6 +372,35 @@ if _check-commands docker; then
 		return 127
 	}
 fi
+
+function sleepdrain() {
+	echo "=== Processes preventing sleep (caffeinate, Docker, IDEs, video calls...) ==="
+	pmset -g assertions | grep -E "^\s+pid " || echo "none"
+
+	echo
+	echo "=== Wake-ups scheduled in the future ==="
+	pmset -g sched | grep -vE "^Repeating power events:|^Scheduled power events:" | grep . || echo "none"
+
+	echo
+	echo "=== Settings that allow work during sleep ==="
+	pmset -g | grep -E "powernap|tcpkeepalive|networkoversleep|womp|standby|hibernatemode"
+
+	echo
+	echo "=== Last 15 wake-ups (DarkWake = silent wake, drains battery) ==="
+	pmset -g log | grep -E " (DarkWake|Wake) +" | tail -15
+
+	echo
+	echo "=== Docker containers running ==="
+	docker stats --no-stream --format 'table {{.Name}}\t{{.CPUPerc}}\t{{.MemUsage}}' || echo "Docker not running"
+
+	echo
+	echo "=== Dev servers listening on a port ==="
+	lsof -iTCP -sTCP:LISTEN -nP | awk 'NR==1 {print "PROCESS PID ADDRESS"} NR>1 {print $1, $2, $9}' | column -t
+
+	echo
+	echo "=== Top 8 CPU processes right now ==="
+	ps -Arcwwo pid,%cpu,comm | head -9
+}
 
 function alias-suggest() {
 	local noise='awk|sort|head'
@@ -457,7 +492,7 @@ if _check-commands dprint; then
 fi
 
 if _check-commands dua; then
-	alias disk-cleanup="dua i"
+	alias disk-usage="dua i"
 fi
 
 if _check-commands eza; then
@@ -476,23 +511,23 @@ fi
 
 if _check-commands markitdown; then
 	function md() {
-		local input="$1"
-		local output="$2"
+		local input="${1:--}"
+		local output="${2:--}"
+
+		if [[ $input == "-" ]]; then
+			input="$(pbpaste)"
+		fi
 
 		if [[ -z $input ]]; then
-			echo "usage: md <file> | md <url> <output.md>" >&2
+			echo "clipboard is empty" >&2
 			return 1
 		fi
 
-		if [[ ! -f $input && -z $output ]]; then
-			echo "not a file, give an output path: md <url> <output.md>" >&2
-			return 1
-		fi
-
-		if [[ -z $output ]]; then
-			local input_name
-			input_name="$(basename "$input")"
-			output="$(dirname "$input")/${input_name%.*}.md"
+		if [[ $output == "-" ]]; then
+			local markdown
+			markdown="$(uvx --from 'markitdown[all]@latest' markitdown "$input")" || return 1
+			printf '%s\n' "$markdown" | pbcopy
+			return
 		fi
 
 		if [[ $output -ef $input ]]; then
@@ -504,6 +539,7 @@ if _check-commands markitdown; then
 	}
 fi
 
+# pnpm, pnpx, uv, uvx, go, ...
 if _check-commands mise; then
 	eval "$(mise activate zsh)"
 
@@ -518,9 +554,13 @@ if _check-commands mise; then
 	else
 		_link-if-missing $HOME/.local/share/mise/shims/dprint /usr/local/bin/dprint
 	fi
-fi
 
-if _check-commands pnpx; then
+	if [[ -e "$HOME/code/dprint/target/release/dprint" ]]; then
+		_link-if-missing $HOME/code/dprint/target/release/dprint /usr/local/bin/dprint
+	else
+		_link-if-missing $HOME/.local/share/mise/shims/dprint /usr/local/bin/dprint
+	fi
+
 	alias ts-prune="pnpx knip"
 	alias pip="uv pip"
 	alias bestllm="uvx whichllm@latest --profile coding --speed fast"

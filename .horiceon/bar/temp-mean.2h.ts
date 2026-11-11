@@ -1,1 +1,1 @@
-../scripts/temp-mean.ts
+../scripts/src/temp-mean.ts

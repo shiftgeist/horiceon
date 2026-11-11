@@ -1,1 +1,1 @@
-../scripts/go-kafka-status.ts
+../scripts/src/go-kafka-status.ts

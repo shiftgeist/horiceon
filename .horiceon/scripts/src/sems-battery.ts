@@ -1,14 +1,19 @@
 #!/usr/bin/env -S node --no-warnings
 
+import { defineCommand, runMain } from 'citty';
 import { createHash } from 'node:crypto';
 import { readFileSync } from 'node:fs';
 import { homedir } from 'node:os';
 import process from 'node:process';
 import { parseEnv } from 'node:util';
-import { defineCommand, runMain } from 'citty';
 
 const start = performance.now();
 const semsOrigin = 'https://eu-semsplus.goodwe.com';
+
+export function stationUrl(stationId: string): string {
+  const query = Buffer.from(JSON.stringify({ stationId })).toString('base64');
+  return `${semsOrigin}/#/station_monitor/station_detail?${query}`;
+}
 
 function loadEnv() {
   const fileEnv = parseEnv(readFileSync(`${homedir()}/.horiceon/.env`, 'utf8'));
@@ -247,7 +252,7 @@ async function main(args: Flags) {
       } | refresh=true`
     );
     console.log(
-      `Station ↗️ | href=https://eu-semsplus.goodwe.com/#/station_monitor/station_detail`
+      `Station ↗️ | href=${stationUrl(env.SEMS_STATION_ID)}`
     );
     console.log(`Took ${(performance.now() - start).toFixed(2)}ms`);
     return;

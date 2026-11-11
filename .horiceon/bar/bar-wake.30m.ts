@@ -1,0 +1,1 @@
+../scripts/src/bar-wake.ts

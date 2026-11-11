@@ -1,5 +1,6 @@
 #!/usr/bin/env -S node --no-warnings
 
+import { createHash } from 'node:crypto';
 import { readFileSync } from 'node:fs';
 import { homedir } from 'node:os';
 import process from 'node:process';
@@ -7,6 +8,7 @@ import { parseEnv } from 'node:util';
 import { defineCommand, runMain } from 'citty';
 
 const start = performance.now();
+const semsOrigin = 'https://eu-semsplus.goodwe.com';
 
 function loadEnv() {
   const fileEnv = parseEnv(readFileSync(`${homedir()}/.horiceon/.env`, 'utf8'));
@@ -33,79 +35,82 @@ interface Flags {
 }
 
 interface SemsEnvelope<T> {
-  hasError: boolean;
-  code: number;
-  msg: string;
-  data: T;
+  hasError?: boolean;
+  code: number | string;
+  msg?: string;
+  description?: string;
+  data?: T | null;
   api?: string;
 }
 
 interface LoginToken {
   uid: string;
-  timestamp: number;
+  timestamp: number | string;
   token: string;
   client: string;
   version: string;
   language: string;
+  api?: string;
 }
 
 interface RawPowerFlow {
-  pv: string;
-  pvStatus: number;
-  bettery: string;
-  betteryStatus: number; // -1=discharging, 1=charging, 3=charging ?
-  load: string;
-  loadStatus: number; // -1, 1
-  grid: string;
-  soc: number;
-}
-
-interface PowerFlowGet {
-  powerflow: RawPowerFlow;
+  pSystem?: unknown;
+  pAc?: unknown;
+  pBat?: unknown;
+  pConsum?: unknown;
+  pGrid?: unknown;
+  soc?: unknown;
 }
 
 function round(value: number): number {
   return Math.round(value * 1000) / 1000;
 }
 
-function parseWStrToKW(value: string): number {
-  return round(parseFloat(value) / 1000);
-}
-
 function parseKwText(val: number, showPlus = false) {
   return `${val > 0 && showPlus ? '+' : ''}${val}kW`;
 }
 
-function parsePowerFlow(raw: RawPowerFlow) {
-  const stringFields = ['pv', 'bettery', 'load', 'grid'] as const;
-  const numberFields = ['pvStatus', 'betteryStatus', 'loadStatus', 'soc'] as const;
-
-  for (const field of stringFields) {
-    if (typeof raw[field] !== 'string') throw new Error(`Powerflow field "${field}" is not a string`);
-  }
-  for (const field of numberFields) {
-    if (typeof raw[field] !== 'number') throw new Error(`Powerflow field "${field}" is not a number`);
+function parsePowerFlow(raw: RawPowerFlow | null | undefined) {
+  if (!raw || typeof raw !== 'object') {
+    throw new Error('Missing power-flow data');
   }
 
-  const pv = parseWStrToKW(raw.pv);
-  const bettery = parseWStrToKW(raw.bettery);
-  const load = parseWStrToKW(raw.load);
-  const grid = parseWStrToKW(raw.grid);
+  function numberField(field: keyof RawPowerFlow): number {
+    const value = raw![field];
+    if ((typeof value !== 'number' && typeof value !== 'string') || String(value).trim() === '') {
+      throw new Error(`Powerflow field "${field}" is not a number`);
+    }
+    const number = Number(value);
+    if (!Number.isFinite(number)) {
+      throw new Error(`Powerflow field "${field}" is not a finite number`);
+    }
+    return number;
+  }
 
-  const signedBattery = bettery * raw.betteryStatus;
-  const signedLoad = load * raw.loadStatus;
-  const signedPv = pv * raw.pvStatus;
+  const pv = round(Math.abs(numberField(raw.pSystem == null ? 'pAc' : 'pSystem')));
+  const battery = numberField('pBat');
+  const bettery = round(Math.abs(battery));
+  const load = round(Math.abs(numberField('pConsum')));
+  const grid = round(Math.abs(numberField('pGrid')));
+  const soc = numberField('soc');
+  const pvStatus = pv === 0 ? 0 : -1;
+  const betteryStatus = battery === 0 ? 0 : battery > 0 ? -1 : 1;
+  const loadStatus = 1;
+
+  const signedBattery = bettery * betteryStatus;
+  const signedLoad = load * loadStatus;
+  const signedPv = pv * pvStatus;
   const delta = signedBattery + signedLoad + signedPv;
 
   return {
     pv,
-    pvStatus: raw.pvStatus,
+    pvStatus,
     bettery,
-    betteryStatus: raw.betteryStatus,
+    betteryStatus,
     load,
-    loadStatus: raw.loadStatus,
+    loadStatus,
     grid,
-    soc: raw.soc,
+    soc,
     t: {
       battery: signedBattery,
       load: signedLoad,
@@ -123,47 +128,91 @@ function scaleToBar(value: number, min: number, max: number, chars: string[]) {
   return chars[index];
 }
 
-async function login(env: ReturnType<typeof loadEnv>, debug: boolean, signal: AbortSignal): Promise<{ apiBaseUrl: string; token: LoginToken }> {
-  const response = await fetch('https://www.semsportal.com/api/v2/Common/CrossLogin', {
-    method: 'POST',
-    signal,
-    headers: {
-      'Content-Type': 'application/json',
-      Token: JSON.stringify({ version: 'v2.1.0', client: 'ios', language: 'en' })
-    },
-    body: JSON.stringify({ account: env.SEMS_ACCOUNT, pwd: env.SEMS_PASSWORD })
-  });
-
-  const body = await response.json() as SemsEnvelope<LoginToken>;
-  if (body.hasError || !body.api) {
-    throw new Error(`Login failed: ${body.msg}`);
-  }
-
-  if (debug) {
-    console.log('CrossLogin:', JSON.stringify(body.data, null, 2));
-  }
-
-  return { apiBaseUrl: body.api, token: body.data };
+function signature(token: Pick<LoginToken, 'uid' | 'token'>): string {
+  const timestamp = Date.now();
+  const digest = createHash('sha256').update(`${timestamp}@${token.uid}@${token.token}`).digest('hex');
+  return Buffer.from(`${digest}@${timestamp}`).toString('base64');
 }
 
-async function getPowerflow(apiBaseUrl: string, token: LoginToken, stationId: string, debug: boolean, signal: AbortSignal): Promise<PowerFlow> {
-  const response = await fetch(`${apiBaseUrl}v2/PowerStation/GetPowerflow`, {
+function requestHeaders(token: LoginToken): Record<string, string> {
+  return {
+    'Content-Type': 'application/json',
+    Accept: 'application/json, text/plain, */*',
+    Origin: semsOrigin,
+    Referer: `${semsOrigin}/`,
+    Token: JSON.stringify(token),
+    'X-Signature': signature(token)
+  };
+}
+
+async function readSemsResponse<T>(response: Response, errorPrefix: string): Promise<SemsEnvelope<T>> {
+  if (!response.ok) {
+    throw new Error(`${errorPrefix}: HTTP ${response.status}`);
+  }
+  let body: SemsEnvelope<T>;
+  try {
+    body = await response.json() as SemsEnvelope<T>;
+  } catch {
+    throw new Error(`${errorPrefix}: Invalid JSON response`);
+  }
+  if (!body || body.hasError || ![0, '0', '00000'].includes(body.code)) {
+    throw new Error(`${errorPrefix} (${body?.code ?? 'unknown'}): ${body?.description || body?.msg || 'Unknown API error'}`);
+  }
+  return body;
+}
+
+export async function login(env: ReturnType<typeof loadEnv>, debug: boolean, signal: AbortSignal): Promise<{ apiBaseUrl: string; token: LoginToken }> {
+  const loginToken: LoginToken = {
+    uid: '', timestamp: 0, token: '', client: 'semsPlusWeb', version: '', language: 'en'
+  };
+  const passwordHash = createHash('md5').update(env.SEMS_PASSWORD).digest('hex');
+  const response = await fetch(`${semsOrigin}/web/sems/sems-user/api/v1/auth/cross-login`, {
     method: 'POST',
     signal,
-    headers: { 'Content-Type': 'application/json', Token: JSON.stringify(token) },
-    body: JSON.stringify({ PowerStationId: stationId })
+    headers: requestHeaders(loginToken),
+    body: JSON.stringify({
+      account: env.SEMS_ACCOUNT,
+      pwd: Buffer.from(passwordHash).toString('base64'),
+      agreement: 1,
+      isLocal: false,
+      isChinese: false
+    })
   });
 
-  const body = await response.json() as SemsEnvelope<PowerFlowGet>;
-  if (body.hasError) {
-    throw new Error(`Fetching inverter data failed: ${body.msg}`);
+  const body = await readSemsResponse<LoginToken>(response, 'Login failed');
+  const token = body.data;
+  if (!token || typeof token.token !== 'string' || !token.token || typeof token.uid !== 'string' || !token.uid) {
+    throw new Error('Login failed: Missing or invalid token');
+  }
+  const apiBaseUrl = token.api || body.api;
+  if (typeof apiBaseUrl !== 'string' || !apiBaseUrl) {
+    throw new Error('Login failed: Missing regional API URL');
   }
 
   if (debug) {
-    console.log('GetPowerflow:', JSON.stringify(body.data.powerflow, null, 2));
+    console.error('CrossLogin:', JSON.stringify({ code: body.code, apiBaseUrl }));
   }
 
-  return parsePowerFlow(body.data.powerflow);
+  return { apiBaseUrl, token };
+}
+
+export async function getPowerflow(apiBaseUrl: string, token: LoginToken, stationId: string, debug: boolean, signal: AbortSignal): Promise<PowerFlow> {
+  const url = new URL(`${apiBaseUrl.replace(/\/+$/, '')}/sems-plant/api/stations/flow`);
+  url.searchParams.set('stationId', stationId);
+  const response = await fetch(url, {
+    method: 'GET',
+    signal,
+    headers: requestHeaders(token)
+  });
+
+  const body = await readSemsResponse<RawPowerFlow>(response, 'Fetching inverter data failed');
+  const powerflow = parsePowerFlow(body.data);
+
+  if (debug) {
+    console.error('StationFlow:', JSON.stringify(powerflow, null, 2));
+  }
+
+  return powerflow;
 }
 
 async function main(args: Flags) {
@@ -171,7 +220,7 @@ async function main(args: Flags) {
   const flags = { ...args, bar: args.bar || env.SWIFTBAR };
   const signal = AbortSignal.timeout(5000);
   if (flags.debug) {
-    console.log('Debug mode enabled');
+    console.error('Debug mode enabled');
   }
 
   const { apiBaseUrl, token } = await login(env, flags.debug, signal);
@@ -233,4 +282,6 @@ const command = defineCommand({
   }
 });
 
-runMain(command);
+if (import.meta.main) {
+  runMain(command);
+}

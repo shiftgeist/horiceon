@@ -5,6 +5,7 @@ br-nuke = "!f() { git branch -d \"$@\" && git push origin --delete \"$@\"; }; f"
 br-nuke-all = !git branch | grep -E -v '(^\\*|master|dev|main)' | xargs git branch -D && git pull --prune
 brn = rev-parse --abbrev-ref HEAD
 co = checkout
+find-mod = "!f() { { git diff --name-only HEAD -- \"$@\"; git ls-files --others --exclude-standard -- \"$@\"; } | sort -u; }; f"
 lo = "!f() { git log --graph --format='%h %C(auto)%d%C(reset) %s %C(dim)(%an, %ar)%C(reset)' ${1:-$(git brn)}; }; f"
 ls-worktree = status -uall --porcelain
 merge-base-current= !git merge-base --fork-point main | cut -c1-7

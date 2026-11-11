@@ -29,12 +29,10 @@
   "[yaml]": {
     "diffEditor.ignoreTrimWhitespace": false
   },
-  "chat.commandCenter.enabled": false,
   "chat.detectParticipant.enabled": false,
   "chat.disableAIFeatures": true,
   "chat.editing.confirmEditRequestRemoval": false,
   "chat.editing.explainChanges.enabled": true,
-  "chat.planAgent.defaultModel": "Claude Sonnet 5 (copilot)",
   "chat.requestQueuing.defaultAction": "steer",
   "chat.restoreLastPanelSession": true,
   "chat.tools.urls.autoApprove": {
@@ -274,6 +272,7 @@
   "workbench.preferredLightColorTheme": "Light 2026",
   "workbench.secondarySideBar.defaultVisibility": "hidden",
   "workbench.startupEditor": "none",
+  "workbench.tips.enabled": false,
   "workbench.tree.stickyScrollMaxItemCount": 3,
   "zenMode.fullScreen": false,
   "zenMode.showTabs": "single"

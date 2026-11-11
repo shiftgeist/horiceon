@@ -1061,6 +1061,11 @@
     {
       "action": "shell",
       "effect": "allow",
+      "resource": "node --no-warnings --test *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
       "resource": "node --version"
     },
     {

@@ -1,52 +1,6 @@
 {
-  "indentWidth": 2,
-  "useTabs": false,
-  "lineWidth": 100,
-  // "followSymlinks": true, // custom dprint
-  "typescript": {
-    "functionExpression.flatIife": true,
-    "preferHanging": true,
-    "quoteProps": "asNeeded",
-    "quoteStyle": "preferSingle",
-    "semiColons": "asi",
-    "trailingCommas": "never"
-  },
-  "json": {
-    "trailingCommas": "never",
-    "lineWidth": 100
-  },
-  "markdown": {},
-  "toml": {},
+  "$schema": "https://dprint.dev/schemas/v0.json",
   "dockerfile": {},
-  "malva": {},
-  "markup": {
-    "scriptIndent": true
-  },
-  "yaml": {
-    "quotes": "preferSingle"
-  },
-  "shebangs": {
-    "#!/bin/sh": "sh",
-    "#!/usr/bin/env -S bun": "ts",
-    "#!/usr/bin/env -S node": "ts",
-    "#!/usr/bin/env -S uv run": "py",
-    "#!/usr/bin/env bash": "bash",
-    "#!/usr/bin/env bun": "ts",
-    "#!/usr/bin/env node": "ts",
-    "#!/usr/bin/env zsh": "zsh"
-  },
-  "shfmt": {
-    "useTabs": true,
-    "indentWidth": 2,
-    "binaryNextLine": false,
-    "switchCaseIndent": true,
-    "spaceRedirects": false,
-    "functionNextLine": false,
-    "simplify": true,
-    "minify": false
-  },
-  "gofumpt": {
-  },
   "excludes": [
     ".cargo_home",
     ".git",
@@ -62,6 +16,18 @@
     "gh-pages",
     "target"
   ],
+  "gofumpt": {},
+  "indentWidth": 2,
+  "json": {
+    "lineWidth": 100,
+    "trailingCommas": "never"
+  },
+  "lineWidth": 100,
+  "malva": {},
+  "markdown": {},
+  "markup": {
+    "scriptIndent": true
+  },
   "plugins": [
     "npm:@dprint/dockerfile@0.7.0",
     "npm:@dprint/json@0.25.2",
@@ -73,5 +39,44 @@
     "npm:dprint-plugin-malva@0.16.0",
     "npm:dprint-plugin-markup@0.27.6",
     "npm:dprint-plugin-yaml@0.6.0"
-  ]
+  ],
+  "ruff": {
+    "indentStyle": "space",
+    "indentWidth": 4,
+    "lineLength": 120
+  },
+  "shebangs": {
+    "#!/bin/sh": "sh",
+    "#!/usr/bin/env -S bun": "ts",
+    "#!/usr/bin/env -S node": "ts",
+    "#!/usr/bin/env -S uv run": "py",
+    "#!/usr/bin/env bash": "bash",
+    "#!/usr/bin/env bun": "ts",
+    "#!/usr/bin/env node": "ts",
+    "#!/usr/bin/env zsh": "bash"
+  },
+  "shfmt": {
+    "binaryNextLine": false,
+    "functionNextLine": false,
+    "indentWidth": 2,
+    "minify": false,
+    "simplify": true,
+    "spaceRedirects": false,
+    "switchCaseIndent": true,
+    "useTabs": true
+  },
+  "toml": {},
+  // "followSymlinks": true, // custom dprint
+  "typescript": {
+    "functionExpression.flatIife": true,
+    "preferHanging": true,
+    "quoteProps": "asNeeded",
+    "quoteStyle": "preferSingle",
+    "semiColons": "asi",
+    "trailingCommas": "never"
+  },
+  "useTabs": false,
+  "yaml": {
+    "quotes": "preferSingle"
+  }
 }

@@ -5,5 +5,8 @@
   "type": "module",
   "devDependencies": {
     "@types/node": "^26.6.5"
+  },
+  "dependencies": {
+    "citty": "^0.2.2"
   }
 }

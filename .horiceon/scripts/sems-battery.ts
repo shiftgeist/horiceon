@@ -3,39 +3,34 @@
 import { readFileSync } from 'node:fs';
 import { homedir } from 'node:os';
 import process from 'node:process';
-import { parseArgs, parseEnv } from 'node:util';
+import { parseEnv } from 'node:util';
+import { defineCommand, runMain } from 'citty';
 
 const start = performance.now();
 
-const fileEnv = parseEnv(readFileSync(`${homedir()}/.horiceon/.env`, 'utf8'));
-const mergedEnv = { ...process.env, ...fileEnv };
+function loadEnv() {
+  const fileEnv = parseEnv(readFileSync(`${homedir()}/.horiceon/.env`, 'utf8'));
+  const mergedEnv = { ...process.env, ...fileEnv };
 
-const requiredEnvKeys = ['SEMS_ACCOUNT', 'SEMS_PASSWORD', 'SEMS_STATION_ID'] as const;
-const missingEnvKeys = requiredEnvKeys.filter((key) => !mergedEnv[key]);
-if (missingEnvKeys.length > 0) {
-  throw new Error(`Missing env variables: ${missingEnvKeys.join(', ')}`);
+  const requiredEnvKeys = ['SEMS_ACCOUNT', 'SEMS_PASSWORD', 'SEMS_STATION_ID'] as const;
+  const missingEnvKeys = requiredEnvKeys.filter((key) => !mergedEnv[key]);
+  if (missingEnvKeys.length > 0) {
+    throw new Error(`Missing env variables: ${missingEnvKeys.join(', ')}`);
+  }
+
+  return {
+    SEMS_ACCOUNT: mergedEnv.SEMS_ACCOUNT!,
+    SEMS_PASSWORD: mergedEnv.SEMS_PASSWORD!,
+    SEMS_STATION_ID: mergedEnv.SEMS_STATION_ID!,
+    SWIFTBAR: Boolean(mergedEnv.SWIFTBAR)
+  };
 }
 
-const env = {
-  SEMS_ACCOUNT: mergedEnv.SEMS_ACCOUNT!,
-  SEMS_PASSWORD: mergedEnv.SEMS_PASSWORD!,
-  SEMS_STATION_ID: mergedEnv.SEMS_STATION_ID!,
-  SWIFTBAR: Boolean(mergedEnv.SWIFTBAR)
-};
-
-const { values: args } = parseArgs({
-  args: process.argv.slice(2),
-  options: {
-    json: { type: 'boolean' },
-    debug: { type: 'boolean' },
-    bar: { type: 'boolean' }
-  },
-  strict: false
-});
-const flags = { ...args, bar: args.bar || env.SWIFTBAR };
-
-const controller = new AbortController();
-setTimeout(() => controller.abort(), 5000);
+interface Flags {
+  json: boolean;
+  debug: boolean;
+  bar: boolean;
+}
 
 interface SemsEnvelope<T> {
   hasError: boolean;
@@ -128,10 +123,10 @@ function scaleToBar(value: number, min: number, max: number, chars: string[]) {
   return chars[index];
 }
 
-async function login(): Promise<{ apiBaseUrl: string; token: LoginToken }> {
+async function login(env: ReturnType<typeof loadEnv>, debug: boolean, signal: AbortSignal): Promise<{ apiBaseUrl: string; token: LoginToken }> {
   const response = await fetch('https://www.semsportal.com/api/v2/Common/CrossLogin', {
     method: 'POST',
-    signal: controller.signal,
+    signal,
     headers: {
       'Content-Type': 'application/json',
       Token: JSON.stringify({ version: 'v2.1.0', client: 'ios', language: 'en' })
@@ -139,41 +134,48 @@ async function login(): Promise<{ apiBaseUrl: string; token: LoginToken }> {
     body: JSON.stringify({ account: env.SEMS_ACCOUNT, pwd: env.SEMS_PASSWORD })
   });
 
-  const body: SemsEnvelope<LoginToken> = await response.json();
+  const body = await response.json() as SemsEnvelope<LoginToken>;
   if (body.hasError || !body.api) {
     throw new Error(`Login failed: ${body.msg}`);
   }
 
-  if (flags.debug) {
+  if (debug) {
     console.log('CrossLogin:', JSON.stringify(body.data, null, 2));
   }
 
   return { apiBaseUrl: body.api, token: body.data };
 }
 
-async function getPowerflow(apiBaseUrl: string, token: LoginToken): Promise<PowerFlow> {
+async function getPowerflow(apiBaseUrl: string, token: LoginToken, stationId: string, debug: boolean, signal: AbortSignal): Promise<PowerFlow> {
   const response = await fetch(`${apiBaseUrl}v2/PowerStation/GetPowerflow`, {
     method: 'POST',
-    signal: controller.signal,
+    signal,
     headers: { 'Content-Type': 'application/json', Token: JSON.stringify(token) },
-    body: JSON.stringify({ PowerStationId: env.SEMS_STATION_ID })
+    body: JSON.stringify({ PowerStationId: stationId })
   });
 
-  const body: SemsEnvelope<PowerFlowGet> = await response.json();
+  const body = await response.json() as SemsEnvelope<PowerFlowGet>;
   if (body.hasError) {
     throw new Error(`Fetching inverter data failed: ${body.msg}`);
   }
 
-  if (flags.debug) {
+  if (debug) {
     console.log('GetPowerflow:', JSON.stringify(body.data.powerflow, null, 2));
   }
 
   return parsePowerFlow(body.data.powerflow);
 }
 
-async function main() {
-  const { apiBaseUrl, token } = await login();
-  const pf = await getPowerflow(apiBaseUrl, token);
+async function main(args: Flags) {
+  const env = loadEnv();
+  const flags = { ...args, bar: args.bar || env.SWIFTBAR };
+  const signal = AbortSignal.timeout(5000);
+  if (flags.debug) {
+    console.log('Debug mode enabled');
+  }
+
+  const { apiBaseUrl, token } = await login(env, flags.debug, signal);
+  const pf = await getPowerflow(apiBaseUrl, token, env.SEMS_STATION_ID, flags.debug, signal);
 
   const iconsBattery = scaleToBar(pf.soc, 10, 99, ['🟥', '🟧', '🟨', '⬜', '🟦', '🟩', '⛽❇️']);
   const iconsBatteryChange = scaleToBar(pf.betteryStatus, -1, 1, ['▼', '', '▲']);
@@ -209,9 +211,26 @@ async function main() {
   );
 }
 
-main().catch((error) => {
-  console.log(`⛔`);
-  const msg = error instanceof Error ? error.message : String(error);
-  console.error(msg);
-  process.exit(1);
+const command = defineCommand({
+  meta: {
+    name: 'sems-battery',
+    description: 'Show SEMS battery and power flow data'
+  },
+  args: {
+    json: { type: 'boolean', description: 'Print power flow as JSON', default: false },
+    debug: { type: 'boolean', description: 'Print debug details', default: false },
+    bar: { type: 'boolean', description: 'Print SwiftBar output', default: false }
+  },
+  async run({ args }) {
+    try {
+      await main(args);
+    } catch (error) {
+      console.log('⛔');
+      const msg = error instanceof Error ? error.message : String(error);
+      console.error(msg);
+      process.exit(1);
+    }
+  }
 });
+
+runMain(command);

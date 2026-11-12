@@ -64,14 +64,14 @@ function main() {
 		existing_scopes="$(yq-jsonc .vscode/settings.json '."conventionalCommits.scopes"' | yq -r 'join(", ")')"
 	fi
 
-	local prompt="Generate a commit message and perform the commit following these rules explicitly:
+	local prompt="Generate a commit message for the diff below following these rules explicitly:
 
   Analyze the changes and generate a proper commit message.
 
   Use Conventional Commits v1.0.0 format with this structure:
   <type>(optional scope)[!]: <short summary>
 
-  <detailed bullet points (one per line)>
+  [optional bullets]
 
   [optional footer(s)]
 
@@ -98,7 +98,7 @@ function main() {
 
   IMPORTANT: the total length of the first line (the summary line, including type, scope and !) must not exceed 50 chars and the total length of subsequent lines must not exceed 72 characters.
 
-  Detailed bullets: Start after blank line, one change per bullet, start with capital letter, use dash (-), no period unless multiple sentences, focus on what/why.
+  Optional Bullets: Default none. Add bullets only for a breaking change, workaround, trade-off, none-obvious caveats or unrelated bundled changes. Never restate or extend the summary. Max 2. Start after blank line, dash (-), capital letter, no period.
 
   Breaking changes (any type):
   - Add '!' directly before the colon: feat!: ..., feat(api)!: ...

@@ -35,7 +35,7 @@
       "model": "github-copilot/gpt-6.1-sol"
     },
     "summary": {
-      "model": "github-copilot/gpt-6-luna"
+      "model": "github-copilot/gemini-3.8-flash"
     },
     "title": {
       "model": "github-copilot/gpt-6-luna"
@@ -54,7 +54,14 @@
     }
   },
   "compaction": {
-    "auto": true
+    "auto": true,
+    "buffer": "15%",
+    "keep": {
+      "tokens": 15000
+    }
+  },
+  "experimental": {
+    "background_compaction": true
   },
   "mcp": {
     "servers": {
@@ -1564,6 +1571,11 @@
       "resource": "*/.external"
     },
     {
+      "action": "read",
+      "effect": "deny",
+      "resource": "*/.env"
+    },
+    {
       "action": "skill",
       "effect": "allow",
       "resource": "*"
@@ -1573,9 +1585,26 @@
       "effect": "deny",
       "resource": "feature-flow"
     },
-    { "action": "skill", "resource": "openspec-*", "effect": "deny" },
-    { "action": "skill", "resource": "opsx-*", "effect": "deny" },
-    { "action": "edit", "resource": "*openspec/*", "effect": "deny" },
+    {
+      "action": "skill",
+      "effect": "deny",
+      "resource": "openspec-*"
+    },
+    {
+      "action": "skill",
+      "effect": "deny",
+      "resource": "opsx-*"
+    },
+    {
+      "action": "edit",
+      "effect": "deny",
+      "resource": "*openspec/*"
+    },
+    {
+      "action": "read",
+      "effect": "deny",
+      "resource": "*openspec/*"
+    },
     {
       "action": "webfetch",
       "effect": "allow",
@@ -1585,24 +1614,44 @@
       "action": "websearch",
       "effect": "allow",
       "resource": "*"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "osascript -e 'display notification *'"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "osascript -e 'display alert *'"
+    },
+    {
+      "action": "edit",
+      "effect": "deny",
+      "resource": "*/pnpm-lock.yaml"
+    },
+    {
+      "action": "edit",
+      "effect": "deny",
+      "resource": "*/package-lock.json"
     }
   ],
   "plugins": [
     "opencode-queue@2.1.0",
     {
-      "package": "opencode-retitle@0.3.2",
       "options": {
-        "turns": 0,
-        "onCompaction": true,
+        "builtinGraceMs": 120000,
+        "debug": false,
+        "lockExistingTitles": true,
+        "minPromptLength": 10,
+        "model": null,
+        "onCompaction": false,
         "onFork": true,
         "respectManualRename": true,
-        "lockExistingTitles": true,
-        "builtinGraceMs": 120000,
-        "model": null,
         "titleMaxLength": 60,
-        "minPromptLength": 10,
-        "debug": false
-      }
+        "turns": 0
+      },
+      "package": "opencode-retitle@0.3.2"
     }
   ],
   "provider": {

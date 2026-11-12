@@ -6,7 +6,7 @@
     "vscode",
     "zsh"
   ],
-  "deno.enable": true,
+  "dprint.useGlobalConfig": true,
   "files.exclude": {
     "**/.aws": true,
     "**/.cache": true,
@@ -42,5 +42,5 @@
   },
   "git.ignoreLimitWarning": true,
   "git.untrackedChanges": "hidden",
-  "search.maxResults": 200
+  "search.maxResults": 100
 }

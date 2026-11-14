@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+
+result_file=$(mktemp)
+networkQuality -c "$@" > "$result_file" &
+networkquality_pid=$!
+
+seconds_elapsed=0
+while kill -0 "$networkquality_pid" 2>/dev/null; do
+  printf "\rRunning networkQuality... %ss" "$seconds_elapsed" >&2
+  sleep 1
+  seconds_elapsed=$((seconds_elapsed + 1))
+done
+printf "\r\033[K" >&2
+
+uplink_bits_per_second=$(yq -p=json '.ul_throughput' "$result_file")
+downlink_bits_per_second=$(yq -p=json '.dl_throughput' "$result_file")
+responsiveness_rpm=$(yq -p=json '.responsiveness' "$result_file")
+idle_latency_ms=$(yq -p=json '.base_rtt' "$result_file")
+idle_samples_ms=$(yq -p=json '.il_h2_req_resp[]' "$result_file")
+loaded_samples_ms=$(yq -p=json '.lud_self_h2_req_resp[]' "$result_file")
+rm "$result_file"
+
+loaded_latency_ms=$(echo "$loaded_samples_ms" | awk '{sum += $1} END {print sum/NR}')
+jitter_ms=$(echo "$idle_samples_ms" | awk 'NR>1 {sum += ($1>previous ? $1-previous : previous-$1)} {previous=$1} END {print sum/(NR-1)}')
+responsiveness_rating=$(awk -v rpm="$responsiveness_rpm" 'BEGIN {print (rpm >= 1000 ? "High" : rpm >= 200 ? "Medium" : "Low")}')
+
+awk \
+  -v uplink="$uplink_bits_per_second" \
+  -v downlink="$downlink_bits_per_second" \
+  -v rating="$responsiveness_rating" \
+  -v responsiveness_rpm="$responsiveness_rpm" \
+  -v idle_latency_ms="$idle_latency_ms" \
+  -v loaded_latency_ms="$loaded_latency_ms" \
+  -v jitter_ms="$jitter_ms" \
+  'BEGIN {
+    printf "Uplink capacity: %.3f Mbps\n", uplink / 1e6
+    printf "Downlink capacity: %.3f Mbps\n", downlink / 1e6
+    printf "Responsiveness: %s (%.3f seconds | %.0f RPM)\n", rating, 60 / responsiveness_rpm, responsiveness_rpm
+    printf "Idle Latency: %.3f milliseconds | %.0f RPM\n", idle_latency_ms, 60000 / idle_latency_ms
+    printf "Latency: %.0f milliseconds | %.0f RPM\n", loaded_latency_ms, 60000 / loaded_latency_ms
+    printf "Jitter: %.0f milliseconds\n", jitter_ms
+  }'

@@ -1,0 +1,85 @@
+#!/usr/bin/env bash
+# netavg - live rolling average latency, jitter and packet loss, via plain ping.
+# Usage:   netavg [host]            default host: 1.1.1.1, quit with Ctrl-C
+# Windows: WINDOWS="10 60 600" netavg   (seconds, default below)
+set -euo pipefail
+
+host="${1:-1.1.1.1}"
+window_seconds="${WINDOWS:-1 10 30 60 120 300 900}"
+
+ping -i 1 "$host" | awk -v host="$host" -v windows="$window_seconds" '
+BEGIN {
+    window_count = split(windows, window_list, " ")
+    for (i = 1; i <= window_count; i++) {
+        if (window_list[i] > longest_window) longest_window = window_list[i]
+    }
+    first_seq_seen = -1
+    newest_seq = -1
+}
+
+function absolute(number) { return number < 0 ? -number : number }
+
+function window_label(seconds) {
+    if (seconds >= 120 && seconds % 60 == 0) return seconds / 60 "m"
+    return seconds "s"
+}
+
+function print_window_row(window_size,    first_seq, seq, received, lost, latency_sum, jitter_sum, jitter_pairs, previous_latency, has_previous) {
+    first_seq = newest_seq - window_size + 1
+    if (first_seq < first_seq_seen) {
+        printf "%-8s %10s %10s %8s\n", window_label(window_size), "-", "-", "-"
+        return
+    }
+
+    for (seq = first_seq; seq <= newest_seq; seq++) {
+        if (!(seq in latency_ms)) { lost++; continue }
+        received++
+        latency_sum += latency_ms[seq]
+        if (has_previous) {
+            jitter_sum += absolute(latency_ms[seq] - previous_latency)
+            jitter_pairs++
+        }
+        previous_latency = latency_ms[seq]
+        has_previous = 1
+    }
+
+    if (received == 0) {
+        printf "%-8s %10s %10s %7.0f%%\n", window_label(window_size), "-", "-", 100
+        return
+    }
+
+    average_ms = latency_sum / received
+    jitter_text = jitter_pairs ? sprintf("%7.1f ms", jitter_sum / jitter_pairs) : sprintf("%10s", "-")
+    loss_percent = 100 * lost / window_size
+    printf "%-8s %7.1f ms %s %7.1f%%\n", window_label(window_size), average_ms, jitter_text, loss_percent
+}
+
+function redraw(    i) {
+    printf "\033[H\033[J"
+    printf "%s\n\n", host
+    printf "%-8s %10s %10s %8s\n", "window", "avg", "jitter", "loss"
+    for (i = 1; i <= window_count; i++) print_window_row(window_list[i])
+    fflush()
+}
+
+/icmp_seq/ {
+    seq = ""
+    latency = ""
+    for (i = 1; i <= NF; i++) {
+        if ($i ~ /^icmp_seq=/) { split($i, pair, "="); seq = pair[2] }
+        if ($i == "icmp_seq")  { seq = $(i + 1) }
+        if ($i ~ /^time=/)     { split($i, pair, "="); latency = pair[2] }
+    }
+    if (seq == "") next
+
+    seq += 0
+    if (first_seq_seen < 0) first_seq_seen = seq
+    if (seq > newest_seq) newest_seq = seq
+    if (latency != "") latency_ms[seq] = latency + 0
+
+    oldest_seq_to_keep = newest_seq - longest_window
+    delete latency_ms[oldest_seq_to_keep - 1]
+
+    redraw()
+}
+'

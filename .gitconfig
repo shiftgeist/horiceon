@@ -1,10 +1,13 @@
 [alias]
-br = branch --sort=-committerdate
+br = for-each-ref --color=auto --sort=-committerdate refs/heads/ --format='%(HEAD) %(align:12)%(committerdate:relative)%(end)  %(align:10)%(committerdate:short)%(end)  %(if:equals=*)%(HEAD)%(then)%(color:bold)%(end)%(refname:short)%(color:reset)'
 br-cleanup-merged = !git branch --merged | grep -E -v '(^\\*|master|dev|main)' | xargs git branch -d && git pull --prune
 br-nuke = "!f() { git branch -d \"$@\" && git push origin --delete \"$@\"; }; f"
 br-nuke-all = !git branch | grep -E -v '(^\\*|master|dev|main)' | xargs git branch -D && git pull --prune
+bra = branch --sort=-committerdate
+bri = coi
 brn = rev-parse --abbrev-ref HEAD
 co = checkout
+coi = !git br | fzf --preview 'git log --oneline --color=always -20 {-1} --' --preview-window=right:40% | awk '{print $NF}' | xargs git switch
 find-mod = "!f() { { git diff --name-only HEAD -- \"$@\"; git ls-files --others --exclude-standard -- \"$@\"; } | sort -u; }; f"
 lo = "!f() { git log --graph --format='%h %C(auto)%d%C(reset) %s %C(dim)(%an, %ar)%C(reset)' ${1:-$(git brn)}; }; f"
 ls-worktree = status -uall --porcelain
@@ -14,11 +17,7 @@ pls = pull --autostash
 pu = push
 puf = push --force-with-lease
 rem = remote --verbose
-reset-author = "!f() { \
-  original_author=\"$(git log -1 --format='%an <%ae>')\"; \
-  original_message=\"$(git log -1 --format=%B)\"; \
-  git commit --amend --reset-author --only -m \"$original_message\" -m \"Co-authored-by: $original_author\"; \
-}; f"
+reset-author = "!f() { og_a=\"$(git log -1 --format='%an <%ae>')\"; og_m=\"$(git log -1 --format=%B)\"; git commit --amend --reset-author --only -m \"$original_message\" -m \"Co-authored-by: $original_author\"; }; f"
 reset-base-main = !git reset --soft $(git merge-base main HEAD)
 reset-base-main-hard = !git reset --hard $(git merge-base main HEAD)
 reset-hardest = !git reset --hard origin/$(git brn) && git clean -f -q .
@@ -56,8 +55,8 @@ program = gpg2
 defaultBranch = main
 
 [user]
-name = "PUT_NAME_HERE"
-email = "PUT_EMAIL_HERE"
+name = "Felix Hungenberg"
+email = "30648730+shiftgeist@users.noreply.github.com"
 
 [includeIf "hasconfig:remote.*.url:https://*dev.azure.com/**"]
 path = ~/.gitconfig-Azure-DevOps

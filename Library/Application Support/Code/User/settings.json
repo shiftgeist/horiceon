@@ -76,6 +76,7 @@
   "diffEditor.hideUnchangedRegions.enabled": true,
   "diffEditor.ignoreTrimWhitespace": false,
   "diffEditor.renderSideBySide": true,
+  "diffEditor.useInlineViewWhenSpaceIsLimited": true,
   "dprint.experimentalLsp": true,
   "dprint.path": "/usr/local/bin/dprint",
   "editor.codeActionsOnSave": {

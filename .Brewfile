@@ -1,4 +1,6 @@
 tap "crmne/tap"
+tap "homebrew/cask"
+tap "homebrew/core"
 tap "jackchuka/tap"
 # Clone of cat(1) with syntax highlighting and Git integration
 brew "bat"
@@ -34,6 +36,7 @@ brew "herdr"
 brew "hyperfine"
 # Tools and libraries to manipulate images in select formats
 brew "imagemagick"
+# Truly independent web browser
 # LLM inference in C/C++
 brew "llama.cpp"
 # Fast, async, resource-friendly link checker
@@ -90,6 +93,7 @@ cask "bruno"
 cask "cyberduck"
 # Collaborative team software
 cask "figma"
+cask "font-latin-modern"
 # Terminal emulator as alternative to Apple's Terminal app
 cask "iterm2"
 # Password manager app
@@ -122,6 +126,10 @@ cask "resilio-sync"
 cask "crmne/tap/spotifast", trusted: true
 # Music streaming service
 cask "spotify"
+# System monitor for the menu bar
+cask "stats"
+# Video game digital distribution service
+cask "steam"
 # Menu bar customization tool
 cask "swiftbar"
 # Easy to use text extraction tool

@@ -123,6 +123,12 @@ fi
 if [[ ! -e "$ZSH_CONFIG/alias-tips" ]]; then
 	git clone git@github.com:djui/alias-tips.git "$ZSH_CONFIG/alias-tips"
 fi
+
+# if [[ ! -e "$ZSH_CONFIG/pnpm-shell-completion" ]]; then
+# 	git clone git@github.com:g-plane/pnpm-shell-completion.git "$ZSH_CONFIG/pnpm-shell-completion"
+# fi
+
+# alias horiceon-update-zsh="cd $ZSH_CONFIG/fzf-tab && git pull && cd $ZSH_CONFIG/alias-tips && git pull && cd $ZSH_CONFIG/pnpm-shell-completion && git pull && source ~/.zshrc"
 alias horiceon--update-zsh="cd $ZSH_CONFIG/fzf-tab && git pull && cd $ZSH_CONFIG/alias-tips && git pull && source ~/.zshrc"
 
 # Compile missing plugins
@@ -203,6 +209,7 @@ source "$(brew --prefix)/opt/fzf/shell/key-bindings.zsh"
 source "$(brew --prefix)/share/zsh/site-functions"
 source "$ZSH_CONFIG/fzf-tab/fzf-tab.plugin.zsh"
 source "$ZSH_CONFIG/alias-tips/alias-tips.plugin.zsh"
+# source "$ZSH_CONFIG/pnpm-shell-completion/pnpm-shell-completion.plugin.zsh"
 source "$XDG_CACHE/completion-for-pnpm.zsh"
 source "$HOME/.cargo/env"
 
@@ -225,7 +232,6 @@ alias horiceon="/usr/bin/git --git-dir=$RICE_HOME --work-tree=$HOME"
 alias la="ls -la"
 alias now="date +%s"
 alias timestamp="date +%s"
-alias la="ls -la"
 alias censor="anon"
 alias oc-censor="anon"
 
@@ -405,40 +411,50 @@ function sleepdrain() {
 function alias-suggest() {
 	local noise='awk|sort|head'
 
-	fc -l 1 |
-		# Drop the leading history event number.
-		sed -E 's/^[[:space:]]*[0-9]+[[:space:]]*//' |
-		# Split pipelines into separate command segments and unescape.
-		sed -E 's/\\n/ /g; s/ \| /\n/g; s/\\//g' |
-		# Trim surrounding whitespace, drop blank lines.
-		awk 'NF { $1=$1; print }' |
-		# Keep lines that look like a command invocation...
-		grep -E '^[a-zA-Z/~.]' |
-		# ...excluding noise commands and any leftover pipelines...
-		grep -Ev "^($noise) " |
-		grep -v '|' |
-		# ...and excluding assignments or quoted strings.
-		awk '$1 !~ /["=]/ && $1 ~ /[a-z]/' |
-		# Normalize: expand the leading command word so `g status` and
-		# `git status` (where g=git) contribute to the same count.
-		while read -r line; do
-			local cmd="${line%% *}"
-			local rest="${line#"$cmd"}"
-			print -r -- "${aliases[$cmd]:-$cmd}$rest"
-		done |
-		# Count identical commands, keep repeats, most frequent first.
-		sort | uniq -c | awk '$1 > 1' | sort -rn
+	local raw
+	raw=$(fc -l 1)
+	_debug_log "alias-suggest: raw history lines=$(echo "$raw" | wc -l)"
+
+	local stripped
+	stripped=$(echo "$raw" | sed -E 's/^[[:space:]]*[0-9]+[[:space:]]*//')
+
+	local trimmed
+	trimmed=$(echo "$stripped" | awk 'NF { $1=$1; print }')
+
+	local with_space
+	with_space=$(echo "$trimmed" | grep -E ' ')
+	_debug_log "alias-suggest: lines with a space=$(echo "$with_space" | wc -l)"
+
+	local no_noise
+	no_noise=$(echo "$with_space" | grep -Ev "^($noise) ")
+	_debug_log "alias-suggest: after dropping noise commands ($noise)=$(echo "$no_noise" | wc -l)"
+
+	local no_pipes
+	no_pipes=$(echo "$no_noise" | grep -v '|')
+	_debug_log "alias-suggest: after dropping pipelines=$(echo "$no_pipes" | wc -l)"
+
+	local clean
+	clean=$(echo "$no_pipes" | awk '$1 !~ /["=]/ && $1 ~ /[a-z]/')
+	_debug_log "alias-suggest: after dropping assignments/quoted=$(echo "$clean" | wc -l)"
+
+	local normalized
+	normalized=$(echo "$clean" | while read -r line; do
+		local cmd="${line%% *}"
+		local rest="${line#"$cmd"}"
+		print -r -- "${aliases[$cmd]:-$cmd}$rest"
+	done)
+	_debug_log "alias-suggest: normalized sample=$(echo "$normalized" | head -3 | tr '\n' ';')"
+
+	local result
+	result=$(echo "$normalized" | sort | uniq -c | awk '$1 > 1' | sort -rn)
+	_debug_log "alias-suggest: final suggestion count=$(echo "$result" | grep -c .)"
+
+	echo "$result"
 }
 
-_cli_continues="$HOME/code/cli-continues"
-
-if [[ ! -e "$_cli_continues/dist/cli.js" ]]; then
-	[[ ! -d "$_cli_continues" ]] && git clone git@github.com:shiftgeist/cli-continues.git "$_cli_continues"
-	(cd "$_cli_continues" && pnpm install && pnpm run build)
-fi
-
-alias continues="node $_cli_continues/dist/cli.js"
-alias continues-dump="continues dump ./sessions --preset full --limit 1"
+#
+# Helper
+#
 
 if _check-commands bat; then
 	alias cat="bat"
@@ -456,6 +472,7 @@ if _check-commands brew; then
 		dprint config update -c ${1:-./dprint.jsonc}
 	}
 	alias mise-up="cd $HOME && mise up"
+	alias dprint-up="dprint config update -g"
 	alias brew-recover="brew bundle install --global --upgrade && mise-up"
 	[[ $PLATFORM != "wsl" ]] && alias brew-up-apps="brew upgrade \
 		affinity \
@@ -468,7 +485,7 @@ if _check-commands brew; then
 		obsidian \
 		spotify \
 		zen"
-	alias brew-up="brew upgrade && mise-up && brew-bundle-dump && echo 'brew ✅'"
+	alias brew-up="brew upgrade && mise-up && dprint-up && brew-bundle-dump && echo 'brew ✅'"
 	alias brew-up-all="brew upgrade --greedy && mise-up && dprint-up && brew-bundle-dump && echo 'brew all updated'"
 
 	alias ladybird-setup="brew create https://github.com/LadybirdBrowser/ladybird/archive/refs/heads/master.zip --set-name ladybird --set-version HEAD && echo 'Run \"brew edit ladybird\" and paste your formula code.'"
@@ -498,6 +515,7 @@ fi
 if _check-commands eza; then
 	alias exa="eza"
 	alias ls="eza"
+	alias la="ls -lab"
 	alias ls-mod="ls -l -s modified -r"
 fi
 
@@ -565,6 +583,11 @@ if _check-commands mise; then
 	alias pip="uv pip"
 	alias bestllm="uvx whichllm@latest --profile coding --speed fast"
 	alias bestllm-bench="uvx whichllm@latest bench --engine llama.cpp"
+fi
+
+if _check-commands networkQuality; then
+	alias networkQuality="networkQuality -M 300"
+	alias nq="networkQuality -M 300"
 fi
 
 if _check-commands nvim; then

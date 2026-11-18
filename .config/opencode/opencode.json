@@ -128,12 +128,12 @@
     {
       "action": "shell",
       "effect": "allow",
-      "resource": "az *"
+      "resource": "az repo pr show *"
     },
     {
       "action": "shell",
       "effect": "allow",
-      "resource": "az repo pr show *"
+      "resource": "az devops project list --detect --output none"
     },
     {
       "action": "shell",
@@ -1634,6 +1634,21 @@
       "action": "edit",
       "effect": "deny",
       "resource": "*/package-lock.json"
+    },
+    {
+      "action": "worktree_remove",
+      "resource": "*",
+      "effect": "ask"
+    },
+    {
+      "action": "worktree_create",
+      "resource": "*",
+      "effect": "ask"
+    },
+    {
+      "action": "session_move",
+      "resource": "*",
+      "effect": "ask"
     }
   ],
   "plugins": [

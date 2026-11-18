@@ -1,5 +1,11 @@
 # AGENTS.md
 
+- Do not reinvent the wheel. Check existing tools and libraries before you propose custom code. Prefer suitable existing solutions.
+
+- Treat code and configuration as the source of truth for implementation behavior across all projects.
+- Do not duplicate pipeline rules, configuration values, types, or implementation details in documentation. Link to their authoritative sources instead.
+- Keep documentation focused on rationale, consumer examples, and operator steps that code does not explain.
+
 - Write all documentation (CONTEXT.md, ADRs, READMEs, proposals, gate logs, specs) in ASD-STE100 Simplified Technical English. This is enforced, not aspirational:
   - Max 20 words per sentence, hard cap 25. Split anything longer.
   - Active voice only. No passive constructions ("is added", "must not change", "are not sortable" → rewrite with an explicit agent: "The API rejects...", "The system adds...").

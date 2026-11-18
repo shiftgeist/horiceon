@@ -14,6 +14,8 @@
   "animations": true,
   "plugins": [
     "./herdr-opencode",
-    "opencode-visual-cache@1.7.5"
+    "opencode-visual-cache@1.7.5",
+    "./plugins/new-session",
+    "./plugins/queue-sidebar"
   ]
 }

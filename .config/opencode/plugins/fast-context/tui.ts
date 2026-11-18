@@ -21,7 +21,7 @@ export function thresholdFrom(options: Record<string, unknown>): number {
   if ('threshold' in options) {
     throw new Error('fast-context: replace threshold with thresholdPercent')
   }
-  const threshold = options.thresholdPercent === undefined ? 75 : options.thresholdPercent
+  const threshold = options.thresholdPercent === undefined ? 15 : options.thresholdPercent
   if (typeof threshold !== 'number' || !Number.isFinite(threshold) || threshold <= 0
     || threshold > 100)
   {

@@ -1,0 +1,12 @@
+{
+  "name": "opencode-queue-sidebar",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./tui": "./tui.tsx"
+  },
+  "dependencies": {
+    "opencode-queue": "2.1.0",
+    "solid-js": "^2.0.0"
+  }
+}

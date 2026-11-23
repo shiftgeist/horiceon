@@ -14,8 +14,20 @@
   "animations": true,
   "plugins": [
     "./herdr-opencode",
-    "opencode-visual-cache@1.7.5",
     "./plugins/new-session",
-    "./plugins/queue-sidebar"
+    "./plugins/queue-sidebar",
+    {
+      "package": "opencode-visual-cache@1.7.5",
+      "options": {
+        "enabled": true
+      }
+    },
+    {
+      "package": "@streetturtle/opencode-recap@2.0.2",
+      "options": {
+        "providerID": "github-copilot",
+        "modelID": "gpt-6-luna"
+      }
+    }
   ]
 }

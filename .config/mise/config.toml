@@ -38,4 +38,10 @@ postinstall = "uv tool update --all"
 _.path = ["{{config_root}}./node_modules/.bin"]
 
 [tasks.install-headroom]
+run = "uv tool install --python 3.13 \"headroom-ai[all]\"@latest"
+
+[tasks.install-markitdown]
+run = "uv tool install --python 3.13 markitdown@latest"
+
+[tasks.install-herdr-oc]
 run = "herdr integration install opencode"

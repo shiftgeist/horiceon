@@ -701,10 +701,14 @@
 				<key>Red Component</key>
 				<real>1</real>
 			</dict>
+			<key>Blend</key>
+			<real>0.0</real>
 			<key>Blinking Cursor</key>
 			<false/>
 			<key>Blur</key>
-			<false/>
+			<true/>
+			<key>Blur Radius</key>
+			<real>10</real>
 			<key>Bold Color</key>
 			<dict>
 				<key>Alpha Component</key>
@@ -908,6 +912,8 @@
 			</dict>
 			<key>Guid</key>
 			<string>7E0D0BAE-ABB1-40B7-90FB-91B5C545ABD1</string>
+			<key>Height Percentage</key>
+			<integer>-1</integer>
 			<key>Hide After Opening</key>
 			<false/>
 			<key>Horizontal Spacing</key>
@@ -916,6 +922,8 @@
 			<integer>1</integer>
 			<key>Idle Code</key>
 			<integer>0</integer>
+			<key>Initial Use Transparency</key>
+			<false/>
 			<key>Jobs to Ignore</key>
 			<array>
 				<string>rlogin</string>
@@ -1059,6 +1067,8 @@
 			<true/>
 			<key>Normal Font</key>
 			<string>DankMonoNF-Regular 12</string>
+			<key>Only The Default BG Color Uses Transparency</key>
+			<true/>
 			<key>Open Toolbelt</key>
 			<false/>
 			<key>Option Key Sends</key>
@@ -1190,8 +1200,10 @@
 			<real>1</real>
 			<key>Visual Bell</key>
 			<true/>
+			<key>Width Percentage</key>
+			<integer>-1</integer>
 			<key>Window Type</key>
-			<integer>0</integer>
+			<integer>12</integer>
 			<key>Working Directory</key>
 			<string>/Users/felix</string>
 		</dict>

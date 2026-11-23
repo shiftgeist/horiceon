@@ -2,7 +2,7 @@
   "$schema": "https://opencode.ai/config.json",
   "agents": {
     "btw": {
-      "model": "github-copilot/gpt-6.1-sol"
+      "model": "github-copilot/gpt-6.2-sol"
     },
     "commit": {
       "model": "github-copilot/gpt-6-luna",
@@ -15,7 +15,7 @@
       ]
     },
     "compaction": {
-      "model": "github-copilot/gemini-3.8-flash"
+      "model": "github-copilot/gemini-4-hydrogen"
     },
     "explore": {
       "mode": "all"
@@ -32,10 +32,10 @@
       ]
     },
     "side": {
-      "model": "github-copilot/gpt-6.1-sol"
+      "model": "github-copilot/gpt-6.2-sol"
     },
     "summary": {
-      "model": "github-copilot/gemini-3.8-flash"
+      "model": "github-copilot/gemini-4-hydrogen"
     },
     "title": {
       "model": "github-copilot/gpt-6-luna"
@@ -55,13 +55,11 @@
   },
   "compaction": {
     "auto": true,
-    "buffer": "15%",
+    "buffer": "14%",
     "keep": {
       "tokens": 15000
-    }
-  },
-  "experimental": {
-    "background_compaction": true
+    },
+    "background": true
   },
   "mcp": {
     "servers": {
@@ -482,6 +480,11 @@
     },
     {
       "action": "shell",
+      "effect": "allow",
+      "resource": "git branch -avv --no-abbrev"
+    },
+    {
+      "action": "shell",
       "effect": "deny",
       "resource": "git branch -d *"
     },
@@ -663,7 +666,7 @@
     {
       "action": "shell",
       "effect": "allow",
-      "resource": "git status"
+      "resource": "git status *"
     },
     {
       "action": "shell",
@@ -964,11 +967,6 @@
       "action": "shell",
       "effect": "allow",
       "resource": "mise env *"
-    },
-    {
-      "action": "shell",
-      "effect": "deny",
-      "resource": "mise exec *"
     },
     {
       "action": "shell",
@@ -1669,20 +1667,20 @@
       "package": "opencode-retitle@0.3.2"
     }
   ],
-  "provider": {
-    "headroom": {
-      "name": "Headroom Proxy",
-      "npm": "@ai-sdk/openai-compatible",
-      "options": {
-        "baseURL": "http://127.0.0.1:8787/v1"
-      }
-    }
-  },
   "providers": {
     "headroom": {
       "name": "Headroom Proxy",
       "package": "aisdk:@ai-sdk/openai-compatible",
       "settings": {
+        "baseURL": "http://127.0.0.1:8787/v1"
+      }
+    }
+  },
+  "provider": {
+    "headroom": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "Headroom Proxy",
+      "options": {
         "baseURL": "http://127.0.0.1:8787/v1"
       }
     }

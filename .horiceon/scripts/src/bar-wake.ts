@@ -1,10 +1,10 @@
 #!/usr/bin/env -S node --no-warnings
 
-import { existsSync } from 'node:fs';
-import { mkdir, readFile, writeFile } from 'node:fs/promises';
-import { dirname } from 'node:path';
+import { existsSync } from 'node:fs'
+import { mkdir, readFile, writeFile } from 'node:fs/promises'
+import { dirname } from 'node:path'
 
-const start = performance.now();
+const start = performance.now()
 const isBar = Boolean(process.env.SWIFTBAR)
 
 const csvSeparator = ';'
@@ -60,9 +60,11 @@ function parseCsv(text: string): string[][] {
 }
 
 function stringifyCsv(rows: string[][]): string {
-  return rows.map(row => row.map(field =>
-    /[;"\r\n]/.test(field) ? `"${field.replaceAll('"', '""')}"` : field
-  ).join(csvSeparator)).join('\n') + '\n'
+  return rows.map(row =>
+    row.map(field => /[;"\r\n]/.test(field) ? `"${field.replaceAll('"', '""')}"` : field).join(
+      csvSeparator
+    )
+  ).join('\n') + '\n'
 }
 
 function removeDuplicatedCsvLines(rows: string[][]): string[][] {
@@ -124,13 +126,29 @@ async function wake(): Promise<WakeData> {
   const rows = existsSync(outPath) ? parseCsv(await readFile(outPath, 'utf8')) : []
   if (rows.length === 0) {
     rows.push([
-      'timestamp', 'airtempC', 'watertempC', 'windspeedKmph', 'desc',
-      'sunrise', 'sunset', 'uvIndex', 'visibilityKm', 'cloudcover'
+      'timestamp',
+      'airtempC',
+      'watertempC',
+      'windspeedKmph',
+      'desc',
+      'sunrise',
+      'sunset',
+      'uvIndex',
+      'visibilityKm',
+      'cloudcover'
     ])
   }
   rows.push([
-    `${date} ${time}`, data.airtempC, data.watertempC, data.windspeedKmph,
-    data.desc, data.sunrise, data.sunset, data.uvIndex, data.visibilityKm, data.cloudcover
+    `${date} ${time}`,
+    data.airtempC,
+    data.watertempC,
+    data.windspeedKmph,
+    data.desc,
+    data.sunrise,
+    data.sunset,
+    data.uvIndex,
+    data.visibilityKm,
+    data.cloudcover
   ])
   await mkdir(dirname(outPath), { recursive: true })
   await writeFile(outPath, stringifyCsv(removeDuplicatedCsvLines(rows)))
@@ -141,17 +159,16 @@ async function wake(): Promise<WakeData> {
 async function main() {
   const { airtempC, desc, watertempC, windspeedKmph } = await wake()
 
-
   if (isBar) {
     console.log(`🌊 ${watertempC}°C`)
-    console.log(`---`);
+    console.log(`---`)
     console.log(`🌡️ ${airtempC}°C`)
     console.log(`🌬️ ${windspeedKmph} Kmph "${desc}"`)
-    console.log(`Took ${(performance.now() - start).toFixed(2)}ms`);
+    console.log(`Took ${(performance.now() - start).toFixed(2)}ms`)
   } else {
     console.log(
-    `🌡️ ${airtempC}°C 🌊 ${watertempC}°C 🌬️ ${windspeedKmph} Kmph "${desc}"`
-  )
+      `🌡️ ${airtempC}°C 🌊 ${watertempC}°C 🌬️ ${windspeedKmph} Kmph "${desc}"`
+    )
   }
 }
 

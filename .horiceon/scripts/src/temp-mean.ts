@@ -61,7 +61,18 @@ const flags = {
   locale: args.locale
 };
 
-function scaleToBar(value: number, min: number, max: number, chars: string[]) {
+function scaleToBar(value: number, min: number, max: number, chars: string[], gradient = false) {
+  if (gradient) {
+    const width = (max - min) / chars.length;
+
+    return chars.map((icon, i) => {
+      const from = Math.ceil(min + i * width);
+      const to = i === chars.length - 1 ? max : Math.ceil(min + (i + 1) * width) - 1;
+
+      return from <= to ? `${icon} ${from}..${to}°` : '';
+    }).filter(Boolean).join('\n');
+  }
+
   const ratio = (value - min) / (max - min);
   const index = Math.max(0, Math.min(chars.length - 1, Math.floor(ratio * chars.length)));
   return chars[index];
@@ -162,25 +173,18 @@ const nextChangesIcon = scaleToBar(nextWeekAvg - today, -1, 1, ['▼', '⬩', '�
 
 const now = Temporal.Now.plainDateISO();
 const df = new Intl.DurationFormat(flags.locale, { style: 'long' });
+const weatherIcon = (tempVal) => scaleToBar(tempVal, -4, 28, ['🧊', '❄️', '🥶', '🌧️', '☁️', '⛅️', '🌤️', '☀️', '🔥'], tempVal === null);
 
-console.log(`${today.toFixed(1)} ${unit} ${nextChangesIcon}`);
+// Output
+console.log(`${weatherIcon(today)}${today.toFixed(1)} ${unit} ${nextChangesIcon}`);
 seperator();
 futureWithToday.forEach((temp, i) => {
   const date = now.add({ days: i });
   const name = date.toLocaleString('en-US', { weekday: 'short', day: '2-digit', month: '2-digit' });
   const dateColor = name.match(/Sat|Sun/g) ? 'green' : '';
-  const toWeekColor = scaleToBar(temp, 16, 26, ['blue', 'lightblue', 'initial', 'orange', 'red']);
+  const toWeekColor = scaleToBar(temp, 10, 30, ['lightblue', 'initial', 'orange', 'red']);
   if (flags.bar) {
-    const icon = scaleToBar(temp, 16, 26, [
-      'cloud.rain.fill',
-      'cloud.fill',
-      'cloud.sun.fill',
-      'sun.max.fill',
-      'flame.fill'
-    ]);
-    console.log(
-      `${name} ${temp.toFixed(1)} ${unit} :${icon}: | sfcolor=${toWeekColor}`
-    );
+    console.log(`${name} ${temp.toFixed(1)} ${unit} ${weatherIcon(temp)}`);
   } else {
     console.log(
       `%c${name} %c${temp.toFixed(1)} %c${unit}`,
@@ -192,11 +196,16 @@ futureWithToday.forEach((temp, i) => {
 });
 seperator();
 
+
 const pastEnd = now.until(now.add({ days: flags.pastDays }), { largestUnit: 'month' });
 console.log(`Last ${df.format(pastEnd)}: ${lastWeekAvg} ${unit}`);
 
 const futureEnd = now.until(now.add({ days: flags.futureDays }), { largestUnit: 'month' });
 console.log(`Next ${df.format(futureEnd)}: ${nextWeekAvg} ${unit}`);
+
+if (flags.debug) {
+  console.log(`${weatherIcon(null)}`)
+}
 
 seperator();
 console.log(

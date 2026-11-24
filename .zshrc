@@ -107,6 +107,7 @@ fi
 # Basics
 ###
 
+export HOME=${HOME:-~}
 RICE_HOME="$HOME/.dotfiles"
 export XDG_CACHE="$HOME/.cache/"
 export ZSH_CONFIG="$HOME/.config/zsh"
@@ -277,6 +278,9 @@ case "$PLATFORM" in
 		;;
 esac
 
+function difff() {
+	git diff --no-index <(printf '%s\n' "$1") <(printf '%s\n' "$2")
+}
 function diff-inline() {
 	git diff --no-index --word-diff=color --word-diff-regex=. <(printf '%s\n' "$1") <(printf '%s\n' "$2")
 }
@@ -546,6 +550,47 @@ if _check-commands markitdown; then
 		fi
 
 		uvx --from 'markitdown[all]@latest' markitdown "$input" -o "$output" && echo "$output"
+	}
+
+	function mddocling() {
+		local input="${1:--}"
+		local output="${2:--}"
+
+		if [[ $input == "-" ]]; then
+			input="$(pbpaste)"
+		fi
+
+		if [[ -z $input ]]; then
+			echo "clipboard is empty" >&2
+			return 1
+		fi
+
+		if [[ $output != "-" && $output -ef $input ]]; then
+			echo "refusing to overwrite source: $input" >&2
+			return 1
+		fi
+
+		local work_dir markdown conversion_status
+		work_dir="$(mktemp -d)" || return 1
+
+		if [[ $input == "<"* ]]; then
+			printf '<html><body>%s</body></html>' "$input" | sed -E 's#</span><span#</span> <span#g' >"$work_dir/clipboard.html"
+			uvx docling@latest convert --to md --image-export-mode placeholder --output "$work_dir/out" "$work_dir/clipboard.html" >&2 &&
+				markdown="$(<"$work_dir/out/clipboard.md")"
+		else
+			markdown="$(uvx --from 'markitdown[all]@latest' markitdown "$input")"
+		fi
+		conversion_status=$?
+
+		rm -rf "$work_dir"
+		[[ $conversion_status -eq 0 ]] || return 1
+
+		if [[ $output == "-" ]]; then
+			printf '%s\n' "$markdown" | pbcopy
+			return
+		fi
+
+		printf '%s\n' "$markdown" >"$output" && echo "$output"
 	}
 fi
 

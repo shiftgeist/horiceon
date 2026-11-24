@@ -5,7 +5,7 @@
       "model": "github-copilot/gpt-6.2-sol"
     },
     "commit": {
-      "model": "github-copilot/gpt-6-luna",
+      "model": "github-copilot/claude-haiku-5.5",
       "permissions": [
         {
           "action": "*",
@@ -15,14 +15,14 @@
       ]
     },
     "compaction": {
-      "model": "github-copilot/gemini-4-hydrogen"
+      "model": "github-copilot/gemini-4-hydrogen#low"
     },
     "explore": {
       "mode": "all"
     },
     "plan": {
       "mode": "all",
-      "model": "github-copilot/claude-opus-5.5#medium",
+      "model": "github-copilot/claude-opus-5.5#low",
       "permissions": [
         {
           "action": "subagent",
@@ -32,22 +32,152 @@
       ]
     },
     "side": {
-      "model": "github-copilot/gpt-6.2-sol"
+      "model": "github-copilot/gpt-6.2-sol#low"
     },
     "summary": {
-      "model": "github-copilot/gemini-4-hydrogen"
+      "model": "github-copilot/gemini-4-hydrogen#low"
     },
     "title": {
-      "model": "github-copilot/gpt-6-luna"
+      "model": "github-copilot/claude-haiku-5.5"
     },
     "yolo": {
       "description": "Executes fix tasks with full permissions. Delegate implementation work here.",
       "mode": "primary",
       "permissions": [
         {
-          "action": "*",
+          "action": "shell",
           "effect": "allow",
           "resource": "*"
+        },
+        {
+          "action": "external_directory",
+          "effect": "allow",
+          "resource": "*"
+        },
+        {
+          "action": "shell",
+          "effect": "deny",
+          "resource": "git push *"
+        },
+        {
+          "action": "shell",
+          "effect": "deny",
+          "resource": "git send-pack *"
+        },
+        {
+          "action": "shell",
+          "effect": "deny",
+          "resource": "git receive-pack *"
+        },
+        {
+          "action": "shell",
+          "effect": "deny",
+          "resource": "kubectl apply *"
+        },
+        {
+          "action": "shell",
+          "effect": "deny",
+          "resource": "kubectl create *"
+        },
+        {
+          "action": "shell",
+          "effect": "deny",
+          "resource": "kubectl delete *"
+        },
+        {
+          "action": "shell",
+          "effect": "deny",
+          "resource": "kubectl patch *"
+        },
+        {
+          "action": "shell",
+          "effect": "deny",
+          "resource": "kubectl replace *"
+        },
+        {
+          "action": "shell",
+          "effect": "deny",
+          "resource": "kubectl edit *"
+        },
+        {
+          "action": "shell",
+          "effect": "deny",
+          "resource": "kubectl scale *"
+        },
+        {
+          "action": "shell",
+          "effect": "deny",
+          "resource": "kubectl rollout restart *"
+        },
+        {
+          "action": "shell",
+          "effect": "deny",
+          "resource": "helm install *"
+        },
+        {
+          "action": "shell",
+          "effect": "deny",
+          "resource": "helm upgrade *"
+        },
+        {
+          "action": "shell",
+          "effect": "deny",
+          "resource": "helm uninstall *"
+        },
+        {
+          "action": "shell",
+          "effect": "deny",
+          "resource": "helm rollback *"
+        },
+        {
+          "action": "shell",
+          "effect": "deny",
+          "resource": "terraform apply *"
+        },
+        {
+          "action": "shell",
+          "effect": "deny",
+          "resource": "terraform destroy *"
+        },
+        {
+          "action": "shell",
+          "effect": "deny",
+          "resource": "terraform import *"
+        },
+        {
+          "action": "shell",
+          "effect": "deny",
+          "resource": "docker push *"
+        },
+        {
+          "action": "shell",
+          "effect": "deny",
+          "resource": "podman push *"
+        },
+        {
+          "action": "shell",
+          "effect": "deny",
+          "resource": "az repos pr create *"
+        },
+        {
+          "action": "shell",
+          "effect": "deny",
+          "resource": "az repos pr update *"
+        },
+        {
+          "action": "shell",
+          "effect": "deny",
+          "resource": "gh pr create *"
+        },
+        {
+          "action": "shell",
+          "effect": "deny",
+          "resource": "gh pr merge *"
+        },
+        {
+          "action": "shell",
+          "effect": "deny",
+          "resource": "gh release create *"
         }
       ],
       "system": "You are the implementation agent. You have full permissions.\n- Make the smallest change that fixes the task you were given.\n- Change only what the task requires. Do not refactor unrelated code.\n- Run the verification command you were given before reporting back.\n- Report: files changed, the command you ran, and its exact result."
@@ -109,6 +239,16 @@
       "resource": "*"
     },
     {
+      "action": "serena_initial_instructions",
+      "effect": "allow",
+      "resource": "*"
+    },
+    {
+      "action": "serena.initial_instructions",
+      "effect": "allow",
+      "resource": "*"
+    },
+    {
       "action": "shell",
       "effect": "allow",
       "resource": "sqlite3 -readonly *"
@@ -147,6 +287,11 @@
       "action": "shell",
       "effect": "deny",
       "resource": "builtin *"
+    },
+    {
+      "action": "shell",
+      "effect": "allow",
+      "resource": "brew info *"
     },
     {
       "action": "shell",
@@ -446,11 +591,6 @@
     {
       "action": "shell",
       "effect": "allow",
-      "resource": "git -C * status --short --branch"
-    },
-    {
-      "action": "shell",
-      "effect": "allow",
       "resource": "git blame *"
     },
     {
@@ -662,16 +802,6 @@
       "action": "shell",
       "effect": "allow",
       "resource": "git stash show *"
-    },
-    {
-      "action": "shell",
-      "effect": "allow",
-      "resource": "git status *"
-    },
-    {
-      "action": "shell",
-      "effect": "allow",
-      "resource": "git status --short"
     },
     {
       "action": "shell",
@@ -996,7 +1126,7 @@
     {
       "action": "shell",
       "effect": "allow",
-      "resource": "mise r *"
+      "resource": "mise run --dry-run *"
     },
     {
       "action": "shell",
@@ -1595,6 +1725,11 @@
     },
     {
       "action": "edit",
+      "effect": "allow",
+      "resource": "./*"
+    },
+    {
+      "action": "edit",
       "effect": "deny",
       "resource": "*openspec/*"
     },
@@ -1634,19 +1769,54 @@
       "resource": "*/package-lock.json"
     },
     {
+      "action": "opencode_worktree_*",
+      "resource": "*",
+      "effect": "deny"
+    },
+    {
+      "action": "worktree_*",
+      "resource": "*",
+      "effect": "deny"
+    },
+    {
       "action": "worktree_remove",
       "resource": "*",
-      "effect": "ask"
+      "effect": "deny"
     },
     {
       "action": "worktree_create",
       "resource": "*",
-      "effect": "ask"
+      "effect": "deny"
     },
     {
       "action": "session_move",
       "resource": "*",
-      "effect": "ask"
+      "effect": "deny"
+    },
+    {
+      "action": "glob",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "grep",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "read",
+      "effect": "deny",
+      "resource": "*.env"
+    },
+    {
+      "action": "read",
+      "effect": "deny",
+      "resource": "*.env.*"
+    },
+    {
+      "action": "read",
+      "effect": "allow",
+      "resource": "*.env.example"
     }
   ],
   "plugins": [

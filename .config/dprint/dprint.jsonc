@@ -34,12 +34,12 @@
     "npm:@dprint/markdown@0.29.0",
     "npm:@dprint/shfmt@0.2.0",
     "npm:@dprint/toml@0.10.0",
-    "npm:@dprint/typescript@0.99.1",
+    "npm:@dprint/typescript@0.101.0",
     "npm:@jakebailey/dprint-plugin-gofumpt@0.0.20",
-    "npm:dprint-plugin-malva@0.16.0",
-    "npm:dprint-plugin-markup@0.27.6",
+    "npm:dprint-plugin-malva@0.16.1",
+    "npm:dprint-plugin-markup@0.28.0",
     "npm:dprint-plugin-yaml@0.6.0",
-    "npm:@dprint/ruff@0.12.1"
+    "npm:@dprint/ruff@0.12.2"
   ],
   "ruff": {
     "indentStyle": "space",

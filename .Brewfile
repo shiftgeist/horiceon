@@ -2,6 +2,7 @@ tap "crmne/tap"
 tap "homebrew/cask"
 tap "homebrew/core"
 tap "jackchuka/tap"
+tap "ylluminate/ladybird"
 # Clone of cat(1) with syntax highlighting and Git integration
 brew "bat"
 # Resource monitor. C++ version and continuation of bashtop and bpytop
@@ -100,6 +101,8 @@ cask "iterm2"
 cask "keepassxc"
 # Tool to prevent the system from going into sleep mode
 cask "keepingyouawake"
+# Unofficial rolling build of the Ladybird web browser
+cask "ylluminate/ladybird/ladybird-nightly", trusted: true
 # Open-source cross-platform alternative to AirDrop
 cask "localsend"
 # Clipboard manager

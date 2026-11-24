@@ -464,15 +464,15 @@ fi
 if _check-commands brew; then
 	function brew-bundle-dump() {
 		brew bundle dump --global --force --no-go --no-npm
-		brew bundle remove --global awscli azure-cli ladybird
+		brew bundle remove --global awscli azure-cli
 		echo "Brewfile dumped and filtered ✅"
 	}
 
 	function dprint-up() {
 		dprint config update -c ${1:-./dprint.jsonc}
 	}
+	alias dprint-g="dprint --config ~/dprint.jsonc"
 	alias mise-up="cd $HOME && mise up"
-	alias dprint-up="dprint config update -g"
 	alias brew-recover="brew bundle install --global --upgrade && mise-up"
 	[[ $PLATFORM != "wsl" ]] && alias brew-up-apps="brew upgrade \
 		affinity \
@@ -487,14 +487,6 @@ if _check-commands brew; then
 		zen"
 	alias brew-up="brew upgrade && mise-up && dprint-up && brew-bundle-dump && echo 'brew ✅'"
 	alias brew-up-all="brew upgrade --greedy && mise-up && dprint-up && brew-bundle-dump && echo 'brew all updated'"
-
-	alias ladybird-setup="brew create https://github.com/LadybirdBrowser/ladybird/archive/refs/heads/master.zip --set-name ladybird --set-version HEAD && echo 'Run \"brew edit ladybird\" and paste your formula code.'"
-	if [ -d /opt/homebrew/opt/ladybird/.brew/ladybird.rb ]; then
-		alias ladybird-install="HOMEBREW_NO_INSTALL_FROM_API=1 brew install --build-from-source ladybird"
-		alias ladybird-update="HOMEBREW_NO_INSTALL_FROM_API=1 brew upgrade --fetch-HEAD ladybird"
-		alias ladybird-make-app="sudo rm -rf /Applications/Ladybird.app && sudo cp -R /opt/homebrew/opt/ladybird/bundle/Ladybird.app /Applications/Ladybird.app"
-		alias ladybird-reinstall="HOMEBREW_NO_INSTALL_FROM_API=1 brew reinstall --build-from-source ladybird"
-	fi
 fi
 
 if _check-commands code; then

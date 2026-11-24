@@ -21,13 +21,6 @@
       "options": {
         "enabled": true
       }
-    },
-    {
-      "package": "@streetturtle/opencode-recap@2.0.2",
-      "options": {
-        "providerID": "github-copilot",
-        "modelID": "gpt-6-luna"
-      }
     }
   ]
 }

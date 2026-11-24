@@ -1,40 +1,50 @@
 # AGENTS.md
 
-- Do not reinvent the wheel. Check existing tools and libraries before you propose custom code. Prefer suitable existing solutions.
-
-- Treat code and configuration as the source of truth for implementation behavior across all projects.
-- Do not duplicate pipeline rules, configuration values, types, or implementation details in documentation. Link to their authoritative sources instead.
+- Do not reinvent the wheel. Check existing tools and libraries before you propose custom code.
+- Code and configuration are the source of truth for implementation behavior.
+- Do not duplicate pipeline rules, configuration values, types, or implementation details in documentation. Link to their authoritative sources.
 - Keep documentation focused on rationale, consumer examples, and operator steps that code does not explain.
+- Before each bash command, explain what it reads and what it may change.
+- Code is self-documenting. Do not write comments.
+- Write tests before the application code.
 
-- Write all documentation (CONTEXT.md, ADRs, READMEs, proposals, gate logs, specs) in ASD-STE100 Simplified Technical English. This is enforced, not aspirational:
-  - Max 20 words per sentence, hard cap 25. Split anything longer.
-  - Active voice only. No passive constructions ("is added", "must not change", "are not sortable" → rewrite with an explicit agent: "The API rejects...", "The system adds...").
-  - One instruction or one fact per sentence. No stacked clauses joined by "and"/"which"/comma-splices carrying a second action.
-  - Noun clusters capped at 3 words. Break up longer ones ("server-side browse table sorting" → "a query that sorts the Table on the server").
-  - No gerunds used as abstract nouns ("sorting", "pagination", "loading" as standalone subjects/objects). Use verbs or concrete nouns instead ("when the user sorts", "the sort field", "the page").
-  - Maintain one term per concept for the life of the document; do not vary vocabulary for style (pick one of "sort field"/"sortBy"/"sort key" and use it everywhere in a given doc).
-  - Gherkin Given/When/Then blocks are exempt from prose-sentence-length limits but still follow active voice and one-action-per-line.
-  - Before merging, self-check every non-Gherkin sentence against this list; if a sentence fails two or more of the above, rewrite it.
+<!-- headroom:memory-instructions -->
 
-- Use agent memory only for things that don't belong in the repo: your personal workflow preferences (formatting, tool choices, response style) that aren't project-wide conventions. Anything else — project decisions, terminology, architectural trade-offs — invoke the domain-modeling skill immediately and unprompted; don't wait to be asked and don't just mentally note it for later. The trigger is the moment you notice it, not a user request: if you catch yourself about to memorize or silently accept something that sounds like "we decided to..." or "the term X means...", stop and run the domain-modeling skill right then, routing the result into CONTEXT.md or an ADR. That's the durable, shareable record — agent memory is not a substitute for it, and neither is deferring the write.
+## Memory
 
-- Before requesting permission for any tool call, always explain exactly what you intend to do and why you need to do it.
+Use the `headroom_memory` MCP server for persistent cross-session knowledge.
 
-- Explain what information the command will read and what changes it may make.
-- If a safer or more narrowly scoped alternative exists, mention it before requesting permission.
-- Only request permission after providing the explanation.
-- For bash commands, always provide this explanation immediately before the tool call.
+**Before** answering questions about prior decisions, conventions, project context,
+architecture, user preferences, org info, codenames, debugging history, or anything
+from past sessions — call `memory_search` first.
 
-- Minimum release age is not optional and should be respected. Never ignore minimum release age exclude.
+**After** making durable decisions, discovering conventions, or learning important
+facts — call `memory_save` to persist them for future sessions.
 
-- Do not use Deno for new work. Do not add Deno dependencies, commands, or configuration. Preserve existing Deno code unless the user asks to migrate it.
+Memory is your first source of truth for anything not visible in the current conversation.
 
-- After writing or editing a Markdown file, check the end of the file for leaked tool-wrapper artifacts (e.g. a trailing `</content>` tag) and strip them before committing.
+<!-- /headroom:memory-instructions -->
 
-- Code is self documenting. Code does not need comments.
+<!-- headroom:serena-instructions -->
 
-- If you add tests, write the tests before you write the application code.
+## Serena — Symbol-First Code Navigation
 
-- Before every shell/tool permission request: Explain in plain English what the command does. Explain why it is needed for my request. Identify files/directories it may read or modify. Mention network access, elevated privileges, destructive effects or other security implications if applicable.
+Serena's MCP tools expose this project's code as a symbol graph backed by a
+language server. **Prefer these tools over reading whole files** — they return
+only the code you need, cutting context usage sharply. Read a file end-to-end
+only when a symbol view is insufficient (non-code files, or when you need the
+surrounding glue).
 
-- Never execute a command requiring permission before providing this explanation.
+### Preferred workflow
+
+- `get_symbols_overview(<file>)` — list a file's top-level symbols before opening it.
+- `find_symbol(<name>)` — fetch a symbol's definition/body instead of reading the file.
+- `find_referencing_symbols(<name>)` — find call sites / usages instead of grepping.
+- `find_declaration(<name>)` — jump to where a symbol is defined.
+
+## Rule
+
+Reach for a symbol tool first; fall back to reading a whole file only when the
+symbol view does not answer the question.
+
+<!-- /headroom:serena-instructions -->

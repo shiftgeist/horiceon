@@ -21,6 +21,7 @@
 [settings]
 disable_backends = ["asdf", "pipx"]
 experimental = true
+minimum_release_age = "7d"
 idiomatic_version_file_enable_tools = [
   "node",
   "python",
@@ -28,8 +29,6 @@ idiomatic_version_file_enable_tools = [
   "terraform",
   "yarn",
 ]
-legacy_version_file = true
-minimum_release_age = "7d"
 
 [hooks]
 postinstall = "uv tool update --all"

@@ -581,8 +581,10 @@ if _check-commands mise; then
 
 	alias ts-prune="pnpx knip"
 	alias pip="uv pip"
-	alias bestllm="uvx whichllm@latest --profile coding --speed fast"
-	alias bestllm-bench="uvx whichllm@latest bench --engine llama.cpp"
+	alias whichllm="uvx whichllm@latest"
+	alias fastllm="whichllm --speed fast"
+	alias codellm="whichllm --profile coding --speed fast"
+	alias benchllm="whichllm bench --engine llama.cpp"
 fi
 
 if _check-commands networkQuality; then
@@ -596,13 +598,13 @@ fi
 
 if _check-commands opencode headroom; then
 	alias oc-auth-gh="opencode auth login github-copilot"
-	alias oc-integration-herdr="herdr integration install opencode"
 	alias oc="opencode"
 	alias oc-run="opencode run --model=github-copilot/gpt-6-luna --thinking"
 	alias serena="uvx --from serena-agent serena"
 	alias serena-index="serena project index"
+	alias models-gh="opencode models | grep github-copilot"
 
-	function oc-integration-headroom() {
+	function headroom-install-apply() {
 		# opencode -s ses_ec164f53cffe1qRMZ1EQKydHi1
 		local args=(
 			--preset persistent-service
@@ -612,6 +614,8 @@ if _check-commands opencode headroom; then
 
 			# local telemetry
 			--env HEADROOM_TELEMETRY=on
+			# debug message content tokens
+			# --env HEADROOM_LOG_MESSAGES=1
 
 			# Privacy: no remote telemetry
 			--env DO_NOT_TRACK=1
@@ -622,8 +626,12 @@ if _check-commands opencode headroom; then
 
 			# Trim response verbosity
 			--env HEADROOM_OUTPUT_SHAPER=1
-			# 5% of conversations without output saving to compare
-			--env HEADROOM_OUTPUT_HOLDOUT=0.05
+			# 10% of conversations without output saving to compare
+			--env HEADROOM_OUTPUT_HOLDOUT=0.1
+
+			# budget
+			--env HEADROOM_BUDGET=2
+			--env HEADROOM_BUDGET_PERIOD=hourly
 
 			# Cache-safe dedup of text repeated across turns
 			--env HEADROOM_DEDUPE=1
@@ -869,4 +877,3 @@ if [[ $PLATFORM == "wsl" ]]; then
 fi
 
 # zprof # Debug performance (keep @ bottom)
-export HISTFILE=~/.zsh_history
